@@ -1,0 +1,95 @@
+{
+  "categories": [
+    {
+      "id": "cat_plumbing",
+      "name_ar": "خدمات السباكة",
+      "name_en": "Plumbing Services",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "cat_electrical",
+      "name_ar": "خدمات الكهرباء",
+      "name_en": "Electrical Services",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "cat_carpentry",
+      "name_ar": "خدمات النجارة",
+      "name_en": "Carpentry Services",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "cat_painting",
+      "name_ar": "خدمات النقاشة",
+      "name_en": "Painting Services",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "cat_mechanic",
+      "name_ar": "خدمات الميكانيكا",
+      "name_en": "Mechanic Services",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "cat_air_conditioning",
+      "name_ar": "خدمات التكييف",
+      "name_en": "Air Conditioning Services",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1631545806609-4b6a87f9e2f7?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "cat_education",
+      "name_ar": "الخدمات التعليمية",
+      "name_en": "Educational Services",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "cat_cleaning",
+      "name_ar": "خدمات التنظيف",
+      "name_en": "Cleaning Services",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "cat_appliance_repair",
+      "name_ar": "صيانة الأجهزة المنزلية",
+      "name_en": "Home Appliance Repair",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "cat_moving",
+      "name_ar": "خدمات نقل الأثاث",
+      "name_en": "Moving Services",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1600510349221-1d6866fdb9f2?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "cat_pest_control",
+      "name_ar": "مكافحة الحشرات",
+      "name_en": "Pest Control",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1585832770485-e68a5dbfad52?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "cat_gardening",
+      "name_ar": "خدمات الحدائق",
+      "name_en": "Gardening Services",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "cat_tech_support",
+      "name_ar": "الدعم التقني",
+      "name_en": "Technical Support Services",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80"
+    }
+  ]
+}

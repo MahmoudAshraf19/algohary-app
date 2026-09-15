@@ -1,0 +1,354 @@
+{
+  "services": [
+    {
+      "id": "srv_plumbing_leak_repair",
+      "category_id": "cat_plumbing",
+      "name_ar": "إصلاح تسربات المياه",
+      "name_en": "Water Leak Repair",
+      "description_ar": "اكتشاف وإصلاح تسربات المياه في المواسير والحنفيات والخزانات.",
+      "description_en": "Detecting and repairing water leaks in pipes, faucets, and water tanks.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_plumbing_drain_cleaning",
+      "category_id": "cat_plumbing",
+      "name_ar": "تسليك الصرف",
+      "name_en": "Drain Cleaning",
+      "description_ar": "تسليك وتنظيف الأحواض والمصارف والمواسير المسدودة.",
+      "description_en": "Unclogging and cleaning blocked sinks, drains, and pipes.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_plumbing_faucet_installation",
+      "category_id": "cat_plumbing",
+      "name_ar": "تركيب وإصلاح الحنفيات",
+      "name_en": "Faucet Installation & Repair",
+      "description_ar": "تركيب وإصلاح واستبدال الحنفيات المنزلية.",
+      "description_en": "Installation, repair, and replacement of household faucets.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_electrical_wiring",
+      "category_id": "cat_electrical",
+      "name_ar": "تمديد وتركيب الأسلاك",
+      "name_en": "Electrical Wiring",
+      "description_ar": "تمديد وتركيب وفحص الأسلاك والدوائر الكهربائية داخل المنزل.",
+      "description_en": "Installation, extension, and inspection of household electrical wiring and circuits.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_electrical_lighting",
+      "category_id": "cat_electrical",
+      "name_ar": "تركيب وحدات الإضاءة",
+      "name_en": "Lighting Installation",
+      "description_ar": "تركيب وإصلاح النجف والمصابيح ووحدات الإضاءة المختلفة.",
+      "description_en": "Installation and repair of chandeliers, lamps, and lighting fixtures.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_electrical_panel_repair",
+      "category_id": "cat_electrical",
+      "name_ar": "إصلاح لوحة الكهرباء",
+      "name_en": "Electrical Panel Repair",
+      "description_ar": "فحص وإصلاح وصيانة لوحات الكهرباء والقواطع.",
+      "description_en": "Inspection, repair, and maintenance of electrical panels and circuit breakers.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1555963966-b7ae5404b6ed?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_carpentry_furniture_repair",
+      "category_id": "cat_carpentry",
+      "name_ar": "إصلاح الأثاث",
+      "name_en": "Furniture Repair",
+      "description_ar": "إصلاح وصيانة وتجديد قطع الأثاث الخشبية.",
+      "description_en": "Repair, maintenance, and restoration of wooden furniture.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_carpentry_door_repair",
+      "category_id": "cat_carpentry",
+      "name_ar": "إصلاح وتركيب الأبواب",
+      "name_en": "Door Installation & Repair",
+      "description_ar": "تركيب وإصلاح وضبط الأبواب الخشبية.",
+      "description_en": "Installation, repair, and adjustment of wooden doors.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_carpentry_custom_furniture",
+      "category_id": "cat_carpentry",
+      "name_ar": "تصنيع أثاث حسب الطلب",
+      "name_en": "Custom Furniture",
+      "description_ar": "تصميم وتنفيذ قطع أثاث وأعمال خشبية حسب الطلب.",
+      "description_en": "Design and creation of custom furniture and wooden pieces.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_painting_walls",
+      "category_id": "cat_painting",
+      "name_ar": "دهان الحوائط",
+      "name_en": "Wall Painting",
+      "description_ar": "دهان وتجديد الحوائط والأسقف بألوان وتشطيبات مختلفة.",
+      "description_en": "Painting and refreshing walls and ceilings with different finishes.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_painting_decorative",
+      "category_id": "cat_painting",
+      "name_ar": "دهانات وديكورات",
+      "name_en": "Decorative Painting",
+      "description_ar": "تنفيذ الدهانات الديكورية والتأثيرات الجمالية للجدران.",
+      "description_en": "Creating decorative painting finishes and decorative wall effects.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1561214115-f2f134cc4912?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_painting_wall_preparation",
+      "category_id": "cat_painting",
+      "name_ar": "تجهيز الحوائط قبل الدهان",
+      "name_en": "Wall Preparation",
+      "description_ar": "معالجة الشروخ وتجهيز وتسوية الحوائط قبل الدهان.",
+      "description_en": "Treating cracks and preparing and leveling walls before painting.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_mechanic_engine_repair",
+      "category_id": "cat_mechanic",
+      "name_ar": "صيانة وإصلاح المحرك",
+      "name_en": "Engine Repair",
+      "description_ar": "تشخيص وإصلاح الأعطال الميكانيكية المتعلقة بمحرك السيارة.",
+      "description_en": "Diagnosing and repairing mechanical engine problems.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_mechanic_oil_change",
+      "category_id": "cat_mechanic",
+      "name_ar": "تغيير الزيت والفلاتر",
+      "name_en": "Oil & Filter Change",
+      "description_ar": "تغيير زيت المحرك والفلاتر وإجراء الصيانة الدورية.",
+      "description_en": "Changing engine oil and filters and performing routine maintenance.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1632823471565-1ecdf5c92369?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_mechanic_battery",
+      "category_id": "cat_mechanic",
+      "name_ar": "خدمة بطارية السيارة",
+      "name_en": "Car Battery Service",
+      "description_ar": "فحص واستبدال بطارية السيارة ومعالجة مشاكل التشغيل.",
+      "description_en": "Checking and replacing car batteries and addressing starting issues.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_ac_installation",
+      "category_id": "cat_air_conditioning",
+      "name_ar": "تركيب التكييف",
+      "name_en": "AC Installation",
+      "description_ar": "تركيب أجهزة التكييف وتجهيزها وضبطها للعمل.",
+      "description_en": "Installation, setup, and configuration of air conditioning units.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1631545806609-4b6a87f9e2f7?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_ac_cleaning",
+      "category_id": "cat_air_conditioning",
+      "name_ar": "تنظيف وصيانة التكييف",
+      "name_en": "AC Cleaning & Maintenance",
+      "description_ar": "تنظيف الفلاتر والوحدات الداخلية والخارجية وإجراء الصيانة الدورية.",
+      "description_en": "Cleaning filters and indoor and outdoor units with routine maintenance.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_ac_refrigerant",
+      "category_id": "cat_air_conditioning",
+      "name_ar": "شحن فريون التكييف",
+      "name_en": "AC Refrigerant Refill",
+      "description_ar": "فحص مستوى الفريون وإعادة الشحن عند الحاجة.",
+      "description_en": "Checking refrigerant levels and refilling when necessary.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_education_private_tutor",
+      "category_id": "cat_education",
+      "name_ar": "مدرس خصوصي",
+      "name_en": "Private Tutor",
+      "description_ar": "دروس خصوصية فردية في مختلف المواد والمراحل الدراسية.",
+      "description_en": "One-on-one private lessons for different subjects and academic levels.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_education_languages",
+      "category_id": "cat_education",
+      "name_ar": "تعليم اللغات",
+      "name_en": "Language Learning",
+      "description_ar": "تعلم اللغات من خلال مدرسين متخصصين ودروس مخصصة.",
+      "description_en": "Learn languages through specialized tutors and personalized lessons.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_education_online",
+      "category_id": "cat_education",
+      "name_ar": "دروس أونلاين",
+      "name_en": "Online Tutoring",
+      "description_ar": "دروس ومراجعات تعليمية عن بعد عبر الإنترنت.",
+      "description_en": "Remote lessons and academic support delivered online.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_cleaning_home",
+      "category_id": "cat_cleaning",
+      "name_ar": "تنظيف المنازل",
+      "name_en": "Home Cleaning",
+      "description_ar": "تنظيف شامل للغرف والمطابخ والحمامات والمساحات المنزلية.",
+      "description_en": "Complete cleaning for rooms, kitchens, bathrooms, and home spaces.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_cleaning_deep",
+      "category_id": "cat_cleaning",
+      "name_ar": "تنظيف عميق",
+      "name_en": "Deep Cleaning",
+      "description_ar": "تنظيف عميق وشامل للمساحات التي تحتاج إلى عناية إضافية.",
+      "description_en": "Detailed deep cleaning for spaces that require extra attention.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_cleaning_office",
+      "category_id": "cat_cleaning",
+      "name_ar": "تنظيف المكاتب",
+      "name_en": "Office Cleaning",
+      "description_ar": "تنظيف احترافي للمكاتب ومساحات العمل.",
+      "description_en": "Professional cleaning for offices and workspaces.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_appliance_washing_machine",
+      "category_id": "cat_appliance_repair",
+      "name_ar": "صيانة الغسالات",
+      "name_en": "Washing Machine Repair",
+      "description_ar": "فحص وإصلاح أعطال الغسالات الأوتوماتيك والعادية.",
+      "description_en": "Inspection and repair of automatic and conventional washing machines.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_appliance_refrigerator",
+      "category_id": "cat_appliance_repair",
+      "name_ar": "صيانة الثلاجات",
+      "name_en": "Refrigerator Repair",
+      "description_ar": "إصلاح وصيانة أعطال الثلاجات والفريزر.",
+      "description_en": "Repair and maintenance of refrigerators and freezers.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_appliance_oven",
+      "category_id": "cat_appliance_repair",
+      "name_ar": "صيانة البوتاجاز والأفران",
+      "name_en": "Oven & Cooker Repair",
+      "description_ar": "فحص وإصلاح أعطال البوتاجازات والأفران المنزلية.",
+      "description_en": "Inspection and repair of household cookers and ovens.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_moving_furniture",
+      "category_id": "cat_moving",
+      "name_ar": "نقل الأثاث",
+      "name_en": "Furniture Moving",
+      "description_ar": "فك وتحميل ونقل وتركيب الأثاث بأمان.",
+      "description_en": "Safe disassembly, loading, transportation, and reassembly of furniture.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1600510349221-1d6866fdb9f2?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_moving_appliances",
+      "category_id": "cat_moving",
+      "name_ar": "نقل الأجهزة المنزلية",
+      "name_en": "Appliance Moving",
+      "description_ar": "نقل الأجهزة المنزلية الكبيرة مع الحماية أثناء النقل.",
+      "description_en": "Transportation of large household appliances with protection during moving.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_pest_insects",
+      "category_id": "cat_pest_control",
+      "name_ar": "مكافحة الحشرات",
+      "name_en": "Insect Control",
+      "description_ar": "مكافحة الصراصير والنمل والحشرات المنزلية الشائعة.",
+      "description_en": "Control of cockroaches, ants, and common household insects.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1585832770485-e68a5dbfad52?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_pest_rodents",
+      "category_id": "cat_pest_control",
+      "name_ar": "مكافحة القوارض",
+      "name_en": "Rodent Control",
+      "description_ar": "خدمات مكافحة الفئران والقوارض وحماية المنزل منها.",
+      "description_en": "Rodent control services to protect homes from mice and rats.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1535930749574-1399327ce78f?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_gardening_maintenance",
+      "category_id": "cat_gardening",
+      "name_ar": "صيانة الحدائق",
+      "name_en": "Garden Maintenance",
+      "description_ar": "قص النباتات وتنظيف الحدائق والعناية بالمساحات الخضراء.",
+      "description_en": "Plant trimming, garden cleaning, and green space maintenance.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_gardening_landscaping",
+      "category_id": "cat_gardening",
+      "name_ar": "تنسيق الحدائق",
+      "name_en": "Garden Landscaping",
+      "description_ar": "تصميم وتنسيق الحدائق والمساحات الخضراء.",
+      "description_en": "Design and landscaping of gardens and green spaces.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_tech_computer_repair",
+      "category_id": "cat_tech_support",
+      "name_ar": "صيانة الكمبيوتر واللابتوب",
+      "name_en": "Computer & Laptop Repair",
+      "description_ar": "تشخيص وإصلاح أعطال أجهزة الكمبيوتر واللابتوب.",
+      "description_en": "Diagnosis and repair of computer and laptop hardware and software issues.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1517336714739-489689fd1ca8?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "srv_tech_network_setup",
+      "category_id": "cat_tech_support",
+      "name_ar": "تركيب شبكات الإنترنت",
+      "name_en": "Internet Network Setup",
+      "description_ar": "إعداد الراوتر والشبكات المنزلية وتحسين الاتصال.",
+      "description_en": "Setup of routers and home networks with connection optimization.",
+      "available": true,
+      "image_url": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=80"
+    }
+  ]
+}

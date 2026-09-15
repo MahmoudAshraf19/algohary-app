@@ -1,0 +1,207 @@
+{
+  "project_info": {
+    "project_number": "574849261990",
+    "firebase_url": "https://naslookapp-ecf15-default-rtdb.firebaseio.com",
+    "project_id": "naslookapp-ecf15",
+    "storage_bucket": "naslookapp-ecf15.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574849261990:android:c0344be9fd0e0ffdc4af67",
+        "android_client_info": {
+          "package_name": "com.example.algohary_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574849261990-15d8ucia5pjn1eere7s9tpc88f9udih3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2slKpjtRNhbCHDWEO9G5s-z7J9ZG-I4M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574849261990-15d8ucia5pjn1eere7s9tpc88f9udih3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "574849261990-gqebfdc5al7fbqvnvlpc5hp6i7o0ttac.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.naslook"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574849261990:android:dcc7ea2405df9338c4af67",
+        "android_client_info": {
+          "package_name": "com.example.almangaf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574849261990-15d8ucia5pjn1eere7s9tpc88f9udih3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2slKpjtRNhbCHDWEO9G5s-z7J9ZG-I4M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574849261990-15d8ucia5pjn1eere7s9tpc88f9udih3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "574849261990-gqebfdc5al7fbqvnvlpc5hp6i7o0ttac.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.naslook"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574849261990:android:c979e5335381f7a6c4af67",
+        "android_client_info": {
+          "package_name": "com.example.naslook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574849261990-4iaefgh0imasom85d79dl2i4s1obmkk9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.naslook",
+            "certificate_hash": "5af63d021365df64d999f0ad3f96c8ac94716d71"
+          }
+        },
+        {
+          "client_id": "574849261990-15d8ucia5pjn1eere7s9tpc88f9udih3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2slKpjtRNhbCHDWEO9G5s-z7J9ZG-I4M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574849261990-15d8ucia5pjn1eere7s9tpc88f9udih3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "574849261990-gqebfdc5al7fbqvnvlpc5hp6i7o0ttac.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.naslook"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574849261990:android:4a19d5338872cdc0c4af67",
+        "android_client_info": {
+          "package_name": "com.example.wedo_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574849261990-15d8ucia5pjn1eere7s9tpc88f9udih3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2slKpjtRNhbCHDWEO9G5s-z7J9ZG-I4M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574849261990-15d8ucia5pjn1eere7s9tpc88f9udih3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "574849261990-gqebfdc5al7fbqvnvlpc5hp6i7o0ttac.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.naslook"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574849261990:android:2c9590fbbccfbdd8c4af67",
+        "android_client_info": {
+          "package_name": "com.work.work"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574849261990-ejlfjtbmupl1l6ecm9arf2burk44sqo8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.work.work",
+            "certificate_hash": "5af63d021365df64d999f0ad3f96c8ac94716d71"
+          }
+        },
+        {
+          "client_id": "574849261990-15d8ucia5pjn1eere7s9tpc88f9udih3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2slKpjtRNhbCHDWEO9G5s-z7J9ZG-I4M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574849261990-15d8ucia5pjn1eere7s9tpc88f9udih3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "574849261990-gqebfdc5al7fbqvnvlpc5hp6i7o0ttac.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.naslook"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
