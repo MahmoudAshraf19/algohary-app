@@ -1,0 +1,585 @@
+[
+    {
+        "id": "P1000",
+        "first_name": "Ahmed",
+        "last_name": "Mohamed",
+        "email": "provider1@example.com",
+        "phone": "+20107211216",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor1.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_0",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.733109+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.733109+00:00",
+        "updated_at": "2026-09-16T10:46:55.733109+00:00",
+        "last_login_at": "2026-09-16T10:46:55.733109+00:00",
+        "category_id": "cat_appliance_repair",
+        "services": [
+            "srv_plumbing_leak_repair",
+            "srv_plumbing_drain_cleaning",
+            "srv_plumbing_faucet_installation",
+            "srv_electrical_wiring",
+            "srv_electrical_lighting",
+            "srv_electrical_panel_repair",
+            "srv_carpentry_furniture_repair",
+            "srv_carpentry_door_repair",
+            "srv_carpentry_custom_furniture",
+            "srv_painting_walls",
+            "srv_painting_decorative",
+            "srv_painting_wall_preparation",
+            "srv_mechanic_engine_repair",
+            "srv_mechanic_oil_change",
+            "srv_mechanic_battery",
+            "srv_ac_installation",
+            "srv_ac_cleaning",
+            "srv_ac_refrigerant",
+            "srv_education_private_tutor",
+            "srv_education_languages",
+            "srv_education_online",
+            "srv_cleaning_home",
+            "srv_cleaning_deep",
+            "srv_cleaning_office",
+            "srv_appliance_washing_machine",
+            "srv_appliance_refrigerator",
+            "srv_appliance_oven",
+            "srv_moving_furniture",
+            "srv_moving_appliances",
+            "srv_pest_insects",
+            "srv_pest_rodents",
+            "srv_gardening_maintenance",
+            "srv_gardening_landscaping",
+            "srv_tech_computer_repair",
+            "srv_tech_network_setup"
+        ],
+        "governorate_id": "26",
+        "cities": [
+            "381",
+            "382",
+            "379",
+            "378",
+            "377"
+        ]
+    },
+    {
+        "id": "P1001",
+        "first_name": "Mahmoud",
+        "last_name": "Ali",
+        "email": "provider2@example.com",
+        "phone": "+20108876855",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor2.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_1",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.733386+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.733386+00:00",
+        "updated_at": "2026-09-16T10:46:55.733386+00:00",
+        "last_login_at": "2026-09-16T10:46:55.733386+00:00",
+        "category_id": "cat_cleaning",
+        "services": [
+            "srv_cleaning_home",
+            "srv_electrical_wiring"
+        ],
+        "governorate_id": "19",
+        "cities": [
+            "296"
+        ]
+    },
+    {
+        "id": "P1002",
+        "first_name": "Youssef",
+        "last_name": "Hassan",
+        "email": "provider3@example.com",
+        "phone": "+20108148518",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor3.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_2",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.733554+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.733554+00:00",
+        "updated_at": "2026-09-16T10:46:55.733554+00:00",
+        "last_login_at": "2026-09-16T10:46:55.733554+00:00",
+        "category_id": "cat_mechanic",
+        "services": [
+            "srv_mechanic_engine_repair",
+            "srv_mechanic_oil_change"
+        ],
+        "governorate_id": "7",
+        "cities": [
+            "189"
+        ]
+    },
+    {
+        "id": "P1003",
+        "first_name": "Omar",
+        "last_name": "Ibrahim",
+        "email": "provider4@example.com",
+        "phone": "+20105390807",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor4.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_3",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.733767+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.733767+00:00",
+        "updated_at": "2026-09-16T10:46:55.733767+00:00",
+        "last_login_at": "2026-09-16T10:46:55.733767+00:00",
+        "category_id": "cat_tech_support",
+        "services": [
+            "srv_tech_network_setup"
+        ],
+        "governorate_id": "3",
+        "cities": [
+            "122",
+            "108"
+        ]
+    },
+    {
+        "id": "P1004",
+        "first_name": "Khaled",
+        "last_name": "Abdullah",
+        "email": "provider5@example.com",
+        "phone": "+20108804801",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor5.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_4",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.733925+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.733925+00:00",
+        "updated_at": "2026-09-16T10:46:55.733925+00:00",
+        "last_login_at": "2026-09-16T10:46:55.733925+00:00",
+        "category_id": "cat_carpentry",
+        "services": [
+            "srv_carpentry_furniture_repair",
+            "srv_carpentry_door_repair"
+        ],
+        "governorate_id": "19",
+        "cities": [
+            "296",
+            "302",
+            "303",
+            "300",
+            "305"
+        ]
+    },
+    {
+        "id": "P1005",
+        "first_name": "Tarek",
+        "last_name": "Saeed",
+        "email": "provider6@example.com",
+        "phone": "+20101587874",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor6.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_5",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.734079+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.734079+00:00",
+        "updated_at": "2026-09-16T10:46:55.734079+00:00",
+        "last_login_at": "2026-09-16T10:46:55.734079+00:00",
+        "category_id": "cat_cleaning",
+        "services": [
+            "srv_cleaning_home",
+            "srv_cleaning_office"
+        ],
+        "governorate_id": "12",
+        "cities": [
+            "242"
+        ]
+    },
+    {
+        "id": "P1006",
+        "first_name": "Mostafa",
+        "last_name": "Gamal",
+        "email": "provider7@example.com",
+        "phone": "+20103352542",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor7.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_6",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.734289+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.734289+00:00",
+        "updated_at": "2026-09-16T10:46:55.734289+00:00",
+        "last_login_at": "2026-09-16T10:46:55.734289+00:00",
+        "category_id": "cat_air_conditioning",
+        "services": [
+            "srv_ac_refrigerant",
+            "srv_ac_cleaning"
+        ],
+        "governorate_id": "26",
+        "cities": [
+            "377",
+            "379",
+            "378",
+            "381"
+        ]
+    },
+    {
+        "id": "P1007",
+        "first_name": "Ramy",
+        "last_name": "Fouad",
+        "email": "provider8@example.com",
+        "phone": "+20103976410",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor8.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_7",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.734438+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.734438+00:00",
+        "updated_at": "2026-09-16T10:46:55.734438+00:00",
+        "last_login_at": "2026-09-16T10:46:55.734438+00:00",
+        "category_id": "cat_plumbing",
+        "services": [
+            "srv_plumbing_faucet_installation",
+            "srv_plumbing_drain_cleaning",
+            "srv_plumbing_leak_repair"
+        ],
+        "governorate_id": "12",
+        "cities": [
+            "242"
+        ]
+    },
+    {
+        "id": "P1008",
+        "first_name": "Samer",
+        "last_name": "Nabil",
+        "email": "provider9@example.com",
+        "phone": "+20105031312",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor9.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_8",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.734582+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.734582+00:00",
+        "updated_at": "2026-09-16T10:46:55.734582+00:00",
+        "last_login_at": "2026-09-16T10:46:55.734582+00:00",
+        "category_id": "cat_tech_support",
+        "services": [
+            "srv_tech_computer_repair"
+        ],
+        "governorate_id": "1",
+        "cities": [
+            "22",
+            "19",
+            "53"
+        ]
+    },
+    {
+        "id": "P1009",
+        "first_name": "Wael",
+        "last_name": "Tawfik",
+        "email": "provider10@example.com",
+        "phone": "+20103322675",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor10.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_9",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.734734+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.734734+00:00",
+        "updated_at": "2026-09-16T10:46:55.734734+00:00",
+        "last_login_at": "2026-09-16T10:46:55.734734+00:00",
+        "category_id": "cat_moving",
+        "services": [
+            "srv_moving_appliances",
+            "srv_moving_furniture"
+        ],
+        "governorate_id": "27",
+        "cities": [
+            "384"
+        ]
+    },
+    {
+        "id": "P1010",
+        "first_name": "Karim",
+        "last_name": "Magdy",
+        "email": "provider11@example.com",
+        "phone": "+20106850035",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor11.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_10",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.734875+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.734875+00:00",
+        "updated_at": "2026-09-16T10:46:55.734875+00:00",
+        "last_login_at": "2026-09-16T10:46:55.734875+00:00",
+        "category_id": "cat_gardening",
+        "services": [
+            "srv_gardening_landscaping"
+        ],
+        "governorate_id": "9",
+        "cities": [
+            "203",
+            "207"
+        ]
+    },
+    {
+        "id": "P1011",
+        "first_name": "Hussein",
+        "last_name": "Kamal",
+        "email": "provider12@example.com",
+        "phone": "+20107611254",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor12.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_11",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.735020+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.735020+00:00",
+        "updated_at": "2026-09-16T10:46:55.735020+00:00",
+        "last_login_at": "2026-09-16T10:46:55.735020+00:00",
+        "category_id": "cat_appliance_repair",
+        "services": [
+            "srv_appliance_oven",
+            "srv_appliance_washing_machine",
+            "srv_appliance_refrigerator"
+        ],
+        "governorate_id": "4",
+        "cities": [
+            "154",
+            "143",
+            "141"
+        ]
+    },
+    {
+        "id": "P1012",
+        "first_name": "Samir",
+        "last_name": "Adel",
+        "email": "provider13@example.com",
+        "phone": "+20109351501",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor13.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_12",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.735156+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.735156+00:00",
+        "updated_at": "2026-09-16T10:46:55.735156+00:00",
+        "last_login_at": "2026-09-16T10:46:55.735156+00:00",
+        "category_id": "cat_tech_support",
+        "services": [
+            "srv_tech_computer_repair",
+            "srv_tech_network_setup"
+        ],
+        "governorate_id": "17",
+        "cities": [
+            "286",
+            "279",
+            "281",
+            "280"
+        ]
+    },
+    {
+        "id": "P1013",
+        "first_name": "Hesham",
+        "last_name": "Salah",
+        "email": "provider14@example.com",
+        "phone": "+20105748050",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor14.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_13",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.735284+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.735284+00:00",
+        "updated_at": "2026-09-16T10:46:55.735284+00:00",
+        "last_login_at": "2026-09-16T10:46:55.735284+00:00",
+        "category_id": "cat_tech_support",
+        "services": [
+            "srv_tech_network_setup"
+        ],
+        "governorate_id": "24",
+        "cities": [
+            "358",
+            "364"
+        ]
+    },
+    {
+        "id": "P1014",
+        "first_name": "Amr",
+        "last_name": "Farouk",
+        "email": "provider15@example.com",
+        "phone": "+20107979443",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor15.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_14",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.735424+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.735424+00:00",
+        "updated_at": "2026-09-16T10:46:55.735424+00:00",
+        "last_login_at": "2026-09-16T10:46:55.735424+00:00",
+        "category_id": "cat_gardening",
+        "services": [
+            "srv_gardening_landscaping",
+            "srv_gardening_maintenance"
+        ],
+        "governorate_id": "16",
+        "cities": [
+            "267",
+            "270"
+        ]
+    },
+    {
+        "id": "P1015",
+        "first_name": "Maged",
+        "last_name": "Mansour",
+        "email": "provider16@example.com",
+        "phone": "+20104423845",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor16.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_15",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.735555+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.735555+00:00",
+        "updated_at": "2026-09-16T10:46:55.735555+00:00",
+        "last_login_at": "2026-09-16T10:46:55.735555+00:00",
+        "category_id": "cat_plumbing",
+        "services": [
+            "srv_plumbing_leak_repair"
+        ],
+        "governorate_id": "5",
+        "cities": [
+            "163",
+            "162",
+            "156",
+            "159"
+        ]
+    },
+    {
+        "id": "P1016",
+        "first_name": "Walid",
+        "last_name": "Galal",
+        "email": "provider17@example.com",
+        "phone": "+20109330670",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/provider%2Fdoctor17.png?alt=media",
+        "user_type": "provider",
+        "is_active": true,
+        "is_blocked": false,
+        "fcm_token": "token_16",
+        "subscription": {
+            "is_subscribed": true,
+            "plan": "premium",
+            "start_date": "2026-09-16T10:46:55.735686+00:00",
+            "end_date": null,
+            "is_active": true
+        },
+        "created_at": "2026-09-16T10:46:55.735686+00:00",
+        "updated_at": "2026-09-16T10:46:55.735686+00:00",
+        "last_login_at": "2026-09-16T10:46:55.735686+00:00",
+        "category_id": "cat_carpentry",
+        "services": [
+            "srv_carpentry_custom_furniture"
+        ],
+        "governorate_id": "4",
+        "cities": [
+            "155",
+            "142",
+            "150"
+        ]
+    }
+]

@@ -4,6 +4,7 @@ import 'package:algohary_project/l10n/app_localizations.dart';
 import '../../data/models/category_model.dart';
 import '../../data/repositories/category_repository.dart';
 import '../pages/all_categories_screen.dart';
+import '../pages/category_services_screen.dart';
 
 class CategoriesRow extends StatefulWidget {
   const CategoriesRow({super.key});
@@ -45,10 +46,18 @@ class _CategoriesRowState extends State<CategoriesRow> {
               onPressed: () async {
                 final categories = await _categoriesFuture;
                 if (!context.mounted) return;
+                final allCategory = CategoryModel(
+                  id: 'all',
+                  nameAr: l10n.categoryAll,
+                  nameEn: l10n.categoryAll,
+                  available: true,
+                  imageUrl: '',
+                  isAll: true,
+                );
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => AllCategoriesScreen(categories: categories),
+                    builder: (_) => AllCategoriesScreen(categories: [allCategory, ...categories]),
                   ),
                 );
               },
@@ -69,7 +78,7 @@ class _CategoriesRowState extends State<CategoriesRow> {
             ),
           ],
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 4),
         // Horizontal List
         SizedBox(
           height: 110,
@@ -108,19 +117,12 @@ class _CategoriesRowState extends State<CategoriesRow> {
                     category: displayCategories[index],
                     index: index,
                     onTap: (cat) {
-                      if (cat.isAll) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => AllCategoriesScreen(categories: categories),
-                          ),
-                        );
-                      } else {
-                        // Show snackbar for now
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Clicked: ${cat.nameEn}')),
-                        );
-                      }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => CategoryServicesScreen(category: cat),
+                        ),
+                      );
                     },
                   );
                 },
@@ -171,13 +173,6 @@ class CategoryItem extends StatelessWidget {
               decoration: BoxDecoration(
                 color: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: theme.colorScheme.shadow.withValues(alpha: 0.05),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
                 border: Border.all(
                   color: theme.colorScheme.outlineVariant,
                   width: 1,
@@ -231,8 +226,8 @@ class _CategoryIcon extends StatelessWidget {
     if (category.isAll) {
       return SvgPicture.asset(
         'assets/icons/category.svg',
-        width: 24,
-        height: 24,
+        width: 32,
+        height: 32,
         colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
       );
     }
@@ -240,27 +235,28 @@ class _CategoryIcon extends StatelessWidget {
     final iconUrl = category.imageUrl;
 
     if (iconUrl.isEmpty) {
-      return Icon(Icons.category, color: iconColor, size: 24);
+      return Icon(Icons.category, color: iconColor, size: 32);
     }
 
     // Use contains instead of endsWith because Firebase Storage URLs have tokens at the end
     if (iconUrl.contains('.svg')) {
       return SvgPicture.network(
         iconUrl,
-        width: 24,
-        height: 24,
+        width: 32,
+        height: 32,
         colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
         placeholderBuilder: (_) => const SizedBox(
-          width: 24, height: 24, child: CircularProgressIndicator(strokeWidth: 2),
+          width: 32, height: 32, child: CircularProgressIndicator(strokeWidth: 2),
         ),
       );
     } else {
       return Image.network(
         iconUrl,
-        width: 28,
-        height: 28,
+        width: 32,
+        height: 32,
+        color: iconColor,
         fit: BoxFit.contain,
-        errorBuilder: (_, __, ___) => Icon(Icons.category, color: iconColor, size: 24),
+        errorBuilder: (_, __, ___) => Icon(Icons.category, color: iconColor, size: 32),
       );
     }
   }

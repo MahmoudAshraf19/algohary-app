@@ -212,10 +212,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeBannerButton => 'Explore Services';
 
   @override
-  String get homePopularServices => 'Popular Services';
+  String get homePopularServices => 'Categories';
+
+  @override
+  String get homePopularServicesTitle => 'Popular Services';
 
   @override
   String get homeViewAll => 'View all';
+
+  @override
+  String get providersForThisService => 'Providers';
+
+  @override
+  String get errorLoadingData => 'Error loading data';
+
+  @override
+  String get noProvidersFound => 'No providers found for this service';
+
+  @override
+  String get verifiedProvider => 'Verified Professional';
+
+  @override
+  String get providerProfile => 'Provider Profile';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get phone => 'Phone Number';
+
+  @override
+  String get chatNotImplemented => 'Chat feature coming soon!';
+
+  @override
+  String get chatWithProvider => 'Chat';
 
   @override
   String get allCategoriesTitle => 'All Categories';

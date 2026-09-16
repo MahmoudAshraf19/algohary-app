@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
 import '../../data/models/category_model.dart';
 import '../widgets/categories_row.dart'; // To reuse CategoryItem if possible, but Grid is slightly different
+import 'category_services_screen.dart';
 
 class AllCategoriesScreen extends StatelessWidget {
   final List<CategoryModel> categories;
@@ -19,10 +20,16 @@ class AllCategoriesScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
-        title: Text(l10n.allCategoriesTitle),
+        title: Text(
+          l10n.allCategoriesTitle,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+          ),
+        ),
         centerTitle: true,
         elevation: 0,
-        backgroundColor: theme.colorScheme.surface,
+        backgroundColor: Colors.transparent,
         foregroundColor: theme.colorScheme.onSurface,
       ),
       body: categories.isEmpty
@@ -47,8 +54,11 @@ class AllCategoriesScreen extends StatelessWidget {
                   category: category,
                   index: index,
                   onTap: (cat) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Selected: ${cat.nameEn}')),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => CategoryServicesScreen(category: cat),
+                      ),
                     );
                   },
                 );

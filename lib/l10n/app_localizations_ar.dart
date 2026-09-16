@@ -212,10 +212,40 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeBannerButton => 'استكشف الخدمات';
 
   @override
-  String get homePopularServices => 'الخدمات الشائعة';
+  String get homePopularServices => 'التصنيفات';
+
+  @override
+  String get homePopularServicesTitle => 'أشهر الخدمات';
 
   @override
   String get homeViewAll => 'عرض الكل';
+
+  @override
+  String get providersForThisService => 'مقدمي الخدمة';
+
+  @override
+  String get errorLoadingData => 'حدث خطأ في تحميل البيانات';
+
+  @override
+  String get noProvidersFound => 'لا يوجد مقدمي خدمة متاحين لهذه الخدمة';
+
+  @override
+  String get verifiedProvider => 'مقدم خدمة معتمد';
+
+  @override
+  String get providerProfile => 'الصفحة الشخصية';
+
+  @override
+  String get email => 'البريد الإلكتروني';
+
+  @override
+  String get phone => 'رقم الهاتف';
+
+  @override
+  String get chatNotImplemented => 'خاصية المحادثة ستتوفر قريباً!';
+
+  @override
+  String get chatWithProvider => 'بدء المحادثة';
 
   @override
   String get allCategoriesTitle => 'جميع التصنيفات';

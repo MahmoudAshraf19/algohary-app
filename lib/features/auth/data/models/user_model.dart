@@ -15,6 +15,12 @@ class UserModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final DateTime? lastLoginAt;
+  
+  // Provider specific fields
+  final String? categoryId;
+  final List<String>? services;
+  final String? governorateId;
+  final List<String>? cities;
 
   UserModel({
     required this.id,
@@ -31,6 +37,10 @@ class UserModel {
     this.createdAt,
     this.updatedAt,
     this.lastLoginAt,
+    this.categoryId,
+    this.services,
+    this.governorateId,
+    this.cities,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -49,6 +59,10 @@ class UserModel {
       createdAt: (json['created_at'] as Timestamp?)?.toDate(),
       updatedAt: (json['updated_at'] as Timestamp?)?.toDate(),
       lastLoginAt: (json['last_login_at'] as Timestamp?)?.toDate(),
+      categoryId: json['category_id'],
+      services: (json['services'] as List<dynamic>?)?.map((e) => e.toString()).toList(),
+      governorateId: json['governorate_id'],
+      cities: (json['cities'] as List<dynamic>?)?.map((e) => e.toString()).toList(),
     );
   }
 
@@ -68,6 +82,10 @@ class UserModel {
       'created_at': createdAt != null ? Timestamp.fromDate(createdAt!) : FieldValue.serverTimestamp(),
       'updated_at': FieldValue.serverTimestamp(), // Always update timestamp on save
       'last_login_at': lastLoginAt != null ? Timestamp.fromDate(lastLoginAt!) : FieldValue.serverTimestamp(),
+      if (categoryId != null) 'category_id': categoryId,
+      if (services != null) 'services': services,
+      if (governorateId != null) 'governorate_id': governorateId,
+      if (cities != null) 'cities': cities,
     };
   }
 }

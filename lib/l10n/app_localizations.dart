@@ -497,14 +497,74 @@ abstract class AppLocalizations {
   /// No description provided for @homePopularServices.
   ///
   /// In en, this message translates to:
-  /// **'Popular Services'**
+  /// **'Categories'**
   String get homePopularServices;
+
+  /// No description provided for @homePopularServicesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular Services'**
+  String get homePopularServicesTitle;
 
   /// No description provided for @homeViewAll.
   ///
   /// In en, this message translates to:
   /// **'View all'**
   String get homeViewAll;
+
+  /// No description provided for @providersForThisService.
+  ///
+  /// In en, this message translates to:
+  /// **'Providers'**
+  String get providersForThisService;
+
+  /// No description provided for @errorLoadingData.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading data'**
+  String get errorLoadingData;
+
+  /// No description provided for @noProvidersFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No providers found for this service'**
+  String get noProvidersFound;
+
+  /// No description provided for @verifiedProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified Professional'**
+  String get verifiedProvider;
+
+  /// No description provided for @providerProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider Profile'**
+  String get providerProfile;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get phone;
+
+  /// No description provided for @chatNotImplemented.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat feature coming soon!'**
+  String get chatNotImplemented;
+
+  /// No description provided for @chatWithProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat'**
+  String get chatWithProvider;
 
   /// No description provided for @allCategoriesTitle.
   ///

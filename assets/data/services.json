@@ -8,7 +8,8 @@
       "description_ar": "اكتشاف وإصلاح تسربات المياه في المواسير والحنفيات والخزانات.",
       "description_en": "Detecting and repairing water leaks in pipes, faucets, and water tanks.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FWater%20Leak%20Repair.png?alt=media",
+      "show_in_home": true
     },
     {
       "id": "srv_plumbing_drain_cleaning",
@@ -18,7 +19,8 @@
       "description_ar": "تسليك وتنظيف الأحواض والمصارف والمواسير المسدودة.",
       "description_en": "Unclogging and cleaning blocked sinks, drains, and pipes.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FDrain%20Cleaning.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_plumbing_faucet_installation",
@@ -28,7 +30,8 @@
       "description_ar": "تركيب وإصلاح واستبدال الحنفيات المنزلية.",
       "description_en": "Installation, repair, and replacement of household faucets.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FFaucet%20Installation%20%26%20Repair.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_electrical_wiring",
@@ -38,7 +41,8 @@
       "description_ar": "تمديد وتركيب وفحص الأسلاك والدوائر الكهربائية داخل المنزل.",
       "description_en": "Installation, extension, and inspection of household electrical wiring and circuits.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FElectrical%20Wiring.png?alt=media",
+      "show_in_home": true
     },
     {
       "id": "srv_electrical_lighting",
@@ -48,7 +52,8 @@
       "description_ar": "تركيب وإصلاح النجف والمصابيح ووحدات الإضاءة المختلفة.",
       "description_en": "Installation and repair of chandeliers, lamps, and lighting fixtures.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FLighting%20Installation.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_electrical_panel_repair",
@@ -58,7 +63,8 @@
       "description_ar": "فحص وإصلاح وصيانة لوحات الكهرباء والقواطع.",
       "description_en": "Inspection, repair, and maintenance of electrical panels and circuit breakers.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1555963966-b7ae5404b6ed?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FElectrical%20Panel%20Repair.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_carpentry_furniture_repair",
@@ -68,7 +74,8 @@
       "description_ar": "إصلاح وصيانة وتجديد قطع الأثاث الخشبية.",
       "description_en": "Repair, maintenance, and restoration of wooden furniture.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FFurniture%20Repair.png?alt=media",
+      "show_in_home": true
     },
     {
       "id": "srv_carpentry_door_repair",
@@ -78,7 +85,8 @@
       "description_ar": "تركيب وإصلاح وضبط الأبواب الخشبية.",
       "description_en": "Installation, repair, and adjustment of wooden doors.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FDoor%20Installation%20%26%20Repair.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_carpentry_custom_furniture",
@@ -88,7 +96,8 @@
       "description_ar": "تصميم وتنفيذ قطع أثاث وأعمال خشبية حسب الطلب.",
       "description_en": "Design and creation of custom furniture and wooden pieces.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FCustom%20Furniture.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_painting_walls",
@@ -98,7 +107,8 @@
       "description_ar": "دهان وتجديد الحوائط والأسقف بألوان وتشطيبات مختلفة.",
       "description_en": "Painting and refreshing walls and ceilings with different finishes.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FWall%20Painting.png?alt=media",
+      "show_in_home": true
     },
     {
       "id": "srv_painting_decorative",
@@ -108,7 +118,8 @@
       "description_ar": "تنفيذ الدهانات الديكورية والتأثيرات الجمالية للجدران.",
       "description_en": "Creating decorative painting finishes and decorative wall effects.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1561214115-f2f134cc4912?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FDecorative%20Painting.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_painting_wall_preparation",
@@ -118,7 +129,8 @@
       "description_ar": "معالجة الشروخ وتجهيز وتسوية الحوائط قبل الدهان.",
       "description_en": "Treating cracks and preparing and leveling walls before painting.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FDecorative%20Painting.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_mechanic_engine_repair",
@@ -128,7 +140,8 @@
       "description_ar": "تشخيص وإصلاح الأعطال الميكانيكية المتعلقة بمحرك السيارة.",
       "description_en": "Diagnosing and repairing mechanical engine problems.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FEngine%20Repair.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_mechanic_oil_change",
@@ -138,7 +151,8 @@
       "description_ar": "تغيير زيت المحرك والفلاتر وإجراء الصيانة الدورية.",
       "description_en": "Changing engine oil and filters and performing routine maintenance.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1632823471565-1ecdf5c92369?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FOil%20%26%20Filter%20Change.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_mechanic_battery",
@@ -148,7 +162,8 @@
       "description_ar": "فحص واستبدال بطارية السيارة ومعالجة مشاكل التشغيل.",
       "description_en": "Checking and replacing car batteries and addressing starting issues.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FCar%20Battery%20Service.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_ac_installation",
@@ -158,7 +173,8 @@
       "description_ar": "تركيب أجهزة التكييف وتجهيزها وضبطها للعمل.",
       "description_en": "Installation, setup, and configuration of air conditioning units.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1631545806609-4b6a87f9e2f7?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FAC%20Installation.png?alt=media",
+      "show_in_home": true
     },
     {
       "id": "srv_ac_cleaning",
@@ -168,7 +184,8 @@
       "description_ar": "تنظيف الفلاتر والوحدات الداخلية والخارجية وإجراء الصيانة الدورية.",
       "description_en": "Cleaning filters and indoor and outdoor units with routine maintenance.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FAC%20Cleaning%20%26%20Maintenance.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_ac_refrigerant",
@@ -178,7 +195,8 @@
       "description_ar": "فحص مستوى الفريون وإعادة الشحن عند الحاجة.",
       "description_en": "Checking refrigerant levels and refilling when necessary.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FAC%20Refrigerant%20Refill.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_education_private_tutor",
@@ -188,7 +206,8 @@
       "description_ar": "دروس خصوصية فردية في مختلف المواد والمراحل الدراسية.",
       "description_en": "One-on-one private lessons for different subjects and academic levels.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FPrivate%20Tutor.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_education_languages",
@@ -198,7 +217,8 @@
       "description_ar": "تعلم اللغات من خلال مدرسين متخصصين ودروس مخصصة.",
       "description_en": "Learn languages through specialized tutors and personalized lessons.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FPrivate%20Tutor.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_education_online",
@@ -208,7 +228,8 @@
       "description_ar": "دروس ومراجعات تعليمية عن بعد عبر الإنترنت.",
       "description_en": "Remote lessons and academic support delivered online.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FOnline%20Tutoring.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_cleaning_home",
@@ -218,7 +239,8 @@
       "description_ar": "تنظيف شامل للغرف والمطابخ والحمامات والمساحات المنزلية.",
       "description_en": "Complete cleaning for rooms, kitchens, bathrooms, and home spaces.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FHome%20Cleaning.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_cleaning_deep",
@@ -228,7 +250,8 @@
       "description_ar": "تنظيف عميق وشامل للمساحات التي تحتاج إلى عناية إضافية.",
       "description_en": "Detailed deep cleaning for spaces that require extra attention.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FHome%20Deep%20Cleaning.png?alt=media&token=5a920df2-f077-4baf-8687-cdc6f21c8a2b",
+      "show_in_home": false
     },
     {
       "id": "srv_cleaning_office",
@@ -238,7 +261,8 @@
       "description_ar": "تنظيف احترافي للمكاتب ومساحات العمل.",
       "description_en": "Professional cleaning for offices and workspaces.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FOffice%20Cleaning.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_appliance_washing_machine",
@@ -248,7 +272,8 @@
       "description_ar": "فحص وإصلاح أعطال الغسالات الأوتوماتيك والعادية.",
       "description_en": "Inspection and repair of automatic and conventional washing machines.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FWashing%20Machine%20Repair.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_appliance_refrigerator",
@@ -258,7 +283,8 @@
       "description_ar": "إصلاح وصيانة أعطال الثلاجات والفريزر.",
       "description_en": "Repair and maintenance of refrigerators and freezers.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FRefrigerator%20Repair.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_appliance_oven",
@@ -268,7 +294,8 @@
       "description_ar": "فحص وإصلاح أعطال البوتاجازات والأفران المنزلية.",
       "description_en": "Inspection and repair of household cookers and ovens.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FOven%20%26%20Cooker%20Repair.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_moving_furniture",
@@ -278,7 +305,8 @@
       "description_ar": "فك وتحميل ونقل وتركيب الأثاث بأمان.",
       "description_en": "Safe disassembly, loading, transportation, and reassembly of furniture.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1600510349221-1d6866fdb9f2?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FFurniture%20Moving.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_moving_appliances",
@@ -288,7 +316,8 @@
       "description_ar": "نقل الأجهزة المنزلية الكبيرة مع الحماية أثناء النقل.",
       "description_en": "Transportation of large household appliances with protection during moving.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FAppliance%20Moving.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_pest_insects",
@@ -298,7 +327,8 @@
       "description_ar": "مكافحة الصراصير والنمل والحشرات المنزلية الشائعة.",
       "description_en": "Control of cockroaches, ants, and common household insects.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1585832770485-e68a5dbfad52?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FInsect%20Control.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_pest_rodents",
@@ -308,7 +338,8 @@
       "description_ar": "خدمات مكافحة الفئران والقوارض وحماية المنزل منها.",
       "description_en": "Rodent control services to protect homes from mice and rats.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1535930749574-1399327ce78f?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FRodent%20Control.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_gardening_maintenance",
@@ -318,7 +349,8 @@
       "description_ar": "قص النباتات وتنظيف الحدائق والعناية بالمساحات الخضراء.",
       "description_en": "Plant trimming, garden cleaning, and green space maintenance.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FGarden%20Maintenance.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_gardening_landscaping",
@@ -328,7 +360,8 @@
       "description_ar": "تصميم وتنسيق الحدائق والمساحات الخضراء.",
       "description_en": "Design and landscaping of gardens and green spaces.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FGarden%20Landscaping.png?alt=media",
+      "show_in_home": false
     },
     {
       "id": "srv_tech_computer_repair",
@@ -338,7 +371,8 @@
       "description_ar": "تشخيص وإصلاح أعطال أجهزة الكمبيوتر واللابتوب.",
       "description_en": "Diagnosis and repair of computer and laptop hardware and software issues.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1517336714739-489689fd1ca8?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FComputer%20%26%20Laptop%20Repair.png?alt=media&token=1dee6cfe-4f68-4ea3-a8d9-5f9cd6f99841",
+      "show_in_home": false
     },
     {
       "id": "srv_tech_network_setup",
@@ -348,7 +382,8 @@
       "description_ar": "إعداد الراوتر والشبكات المنزلية وتحسين الاتصال.",
       "description_en": "Setup of routers and home networks with connection optimization.",
       "available": true,
-      "image_url": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=80"
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/naslookapp-ecf15.firebasestorage.app/o/services%2FInternet%20Network%20Setup.png?alt=media",
+      "show_in_home": false
     }
   ]
 }
