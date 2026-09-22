@@ -211,4 +211,79 @@ class AuthRepository {
   Future<void> logout() async {
     await _firebaseAuth.signOut();
   }
+
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null || user.email == null) {
+        throw Exception('User not logged in or email not found');
+      }
+
+      // Re-authenticate user
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: currentPassword,
+      );
+
+      await user.reauthenticateWithCredential(credential);
+
+      // Update password
+      await user.updatePassword(newPassword);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'wrong-password') {
+        throw Exception('wrong-password');
+      } else if (e.code == 'weak-password') {
+        throw Exception('weak-password');
+      } else if (e.code == 'requires-recent-login') {
+        throw Exception('requires-recent-login');
+      }
+      throw Exception(e.message ?? 'An unknown error occurred');
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<UserModel> updateProfile({
+    required String firstName,
+    required String lastName,
+    required String phone,
+    dynamic profileImage,
+  }) async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) {
+        throw Exception('User not logged in');
+      }
+
+      String? imageUrl;
+      if (profileImage != null) {
+        final ref = _firebaseStorage.ref().child('avatars/${user.uid}.jpg');
+        // readAsBytes works across all platforms including Web
+        final bytes = await (profileImage as XFile).readAsBytes();
+        final uploadTask = await ref.putData(bytes);
+        imageUrl = await uploadTask.ref.getDownloadURL();
+      }
+
+      final updateData = {
+        'first_name': firstName,
+        'last_name': lastName,
+        'phone': phone,
+        'updated_at': FieldValue.serverTimestamp(),
+      };
+
+      if (imageUrl != null) {
+        updateData['image_url'] = imageUrl;
+      }
+
+      await _firestore.collection('users').doc(user.uid).update(updateData);
+
+      final docSnapshot = await _firestore.collection('users').doc(user.uid).get();
+      return UserModel.fromJson(docSnapshot.data()!);
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }

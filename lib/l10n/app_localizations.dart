@@ -583,6 +583,462 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No categories found'**
   String get noCategoriesFound;
+
+  /// No description provided for @wizardRequestService.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Service'**
+  String get wizardRequestService;
+
+  /// No description provided for @wizardPrevious.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get wizardPrevious;
+
+  /// No description provided for @wizardNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get wizardNext;
+
+  /// No description provided for @wizardConfirmAndSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm & Submit'**
+  String get wizardConfirmAndSubmit;
+
+  /// No description provided for @wizardSelectAtLeastOneService.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select at least one service'**
+  String get wizardSelectAtLeastOneService;
+
+  /// No description provided for @wizardSelectDateAndTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select date and time'**
+  String get wizardSelectDateAndTime;
+
+  /// No description provided for @wizardProvideLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Please provide location details'**
+  String get wizardProvideLocation;
+
+  /// No description provided for @wizardConfirmContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Please confirm contacting the provider'**
+  String get wizardConfirmContact;
+
+  /// No description provided for @wizardEnterAgreedPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter agreed price'**
+  String get wizardEnterAgreedPrice;
+
+  /// No description provided for @wizardSubmitSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Request submitted successfully!'**
+  String get wizardSubmitSuccess;
+
+  /// No description provided for @wizardStep1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'What services do you need?'**
+  String get wizardStep1Title;
+
+  /// No description provided for @wizardStep1Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the services you want to request from '**
+  String get wizardStep1Subtitle;
+
+  /// No description provided for @wizardNoServices.
+  ///
+  /// In en, this message translates to:
+  /// **'This provider currently offers no services.'**
+  String get wizardNoServices;
+
+  /// No description provided for @wizardStep2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'When do you need the service?'**
+  String get wizardStep2Title;
+
+  /// No description provided for @wizardStep2Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the suitable date and time'**
+  String get wizardStep2Subtitle;
+
+  /// No description provided for @wizardDateHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Date (e.g., 2026-09-30)'**
+  String get wizardDateHint;
+
+  /// No description provided for @wizardTimeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Time (e.g., 17:30)'**
+  String get wizardTimeHint;
+
+  /// No description provided for @wizardSaveSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Schedule'**
+  String get wizardSaveSchedule;
+
+  /// No description provided for @wizardScheduleSavedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule saved'**
+  String get wizardScheduleSavedToast;
+
+  /// No description provided for @wizardSavedScheduleText.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Schedule: '**
+  String get wizardSavedScheduleText;
+
+  /// No description provided for @wizardStep3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Where do you need the service?'**
+  String get wizardStep3Title;
+
+  /// No description provided for @wizardStep3Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your detailed address'**
+  String get wizardStep3Subtitle;
+
+  /// No description provided for @wizardAddressHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed Address (Street, Building, etc.)'**
+  String get wizardAddressHint;
+
+  /// No description provided for @wizardSaveLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Location'**
+  String get wizardSaveLocation;
+
+  /// No description provided for @wizardLocationSavedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Location saved'**
+  String get wizardLocationSavedToast;
+
+  /// No description provided for @wizardSavedLocationText.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Location: '**
+  String get wizardSavedLocationText;
+
+  /// No description provided for @wizardStep4Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Price & Agreement'**
+  String get wizardStep4Title;
+
+  /// No description provided for @wizardStep4Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please make sure you have contacted the provider to agree on the final price'**
+  String get wizardStep4Subtitle;
+
+  /// No description provided for @wizardContactNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Note: Please contact the provider via chat before submitting the request to determine and confirm the price.'**
+  String get wizardContactNotice;
+
+  /// No description provided for @wizardContactCheckbox.
+  ///
+  /// In en, this message translates to:
+  /// **'I confirm that I have contacted the provider and agreed on the price.'**
+  String get wizardContactCheckbox;
+
+  /// No description provided for @wizardAgreedPriceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Agreed Price'**
+  String get wizardAgreedPriceLabel;
+
+  /// No description provided for @wizardStep5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Request'**
+  String get wizardStep5Title;
+
+  /// No description provided for @wizardStep5Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please review your request details before submitting'**
+  String get wizardStep5Subtitle;
+
+  /// No description provided for @wizardSummaryServices.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Services'**
+  String get wizardSummaryServices;
+
+  /// No description provided for @wizardSummarySchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get wizardSummarySchedule;
+
+  /// No description provided for @wizardNotSpecified.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified'**
+  String get wizardNotSpecified;
+
+  /// No description provided for @wizardSummaryLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get wizardSummaryLocation;
+
+  /// No description provided for @wizardSummaryPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Agreed Price'**
+  String get wizardSummaryPrice;
+
+  /// No description provided for @aboutProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get aboutProvider;
+
+  /// No description provided for @category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category;
+
+  /// No description provided for @services.
+  ///
+  /// In en, this message translates to:
+  /// **'Services'**
+  String get services;
+
+  /// No description provided for @location.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get location;
+
+  /// No description provided for @messageProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get messageProvider;
+
+  /// No description provided for @reportProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Report'**
+  String get reportProvider;
+
+  /// No description provided for @requestService.
+  ///
+  /// In en, this message translates to:
+  /// **'Request'**
+  String get requestService;
+
+  /// No description provided for @chatsNoChats.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages yet.'**
+  String get chatsNoChats;
+
+  /// No description provided for @notificationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notificationsTitle;
+
+  /// No description provided for @markAllAsRead.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark all as read'**
+  String get markAllAsRead;
+
+  /// No description provided for @noNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications yet'**
+  String get noNotifications;
+
+  /// No description provided for @seeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See All'**
+  String get seeAll;
+
+  /// No description provided for @personalInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Information'**
+  String get personalInformation;
+
+  /// No description provided for @account.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get account;
+
+  /// No description provided for @editProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get editProfile;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @logOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Log Out'**
+  String get logOut;
+
+  /// No description provided for @saveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get saveChanges;
+
+  /// No description provided for @settingsChangePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get settingsChangePassword;
+
+  /// No description provided for @settingsEmailPreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Preferences'**
+  String get settingsEmailPreferences;
+
+  /// No description provided for @settingsPushNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Push Notifications'**
+  String get settingsPushNotifications;
+
+  /// No description provided for @settingsMessageNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Message Notifications'**
+  String get settingsMessageNotifications;
+
+  /// No description provided for @settingsAppSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'App Settings'**
+  String get settingsAppSettings;
+
+  /// No description provided for @settingsDarkMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get settingsDarkMode;
+
+  /// No description provided for @settingsLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingsLanguage;
+
+  /// No description provided for @settingsSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Support'**
+  String get settingsSupport;
+
+  /// No description provided for @settingsHelpAndSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Help and Support'**
+  String get settingsHelpAndSupport;
+
+  /// No description provided for @settingsAboutApp.
+  ///
+  /// In en, this message translates to:
+  /// **'About App'**
+  String get settingsAboutApp;
+
+  /// No description provided for @settingsSelectLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Language'**
+  String get settingsSelectLanguage;
+
+  /// No description provided for @settingsEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get settingsEnglish;
+
+  /// No description provided for @settingsArabic.
+  ///
+  /// In en, this message translates to:
+  /// **'العربية'**
+  String get settingsArabic;
+
+  /// No description provided for @currentPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Password'**
+  String get currentPassword;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPassword;
+
+  /// No description provided for @confirmNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm New Password'**
+  String get confirmNewPassword;
+
+  /// No description provided for @passwordChangedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Password changed successfully'**
+  String get passwordChangedSuccessfully;
+
+  /// No description provided for @errorWrongPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect current password'**
+  String get errorWrongPassword;
+
+  /// No description provided for @errorWeakPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'The new password is too weak'**
+  String get errorWeakPassword;
+
+  /// No description provided for @errorRequiresRecentLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Please log out and log in again to perform this action'**
+  String get errorRequiresRecentLogin;
 }
 
 class _AppLocalizationsDelegate

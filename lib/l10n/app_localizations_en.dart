@@ -255,4 +255,239 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noCategoriesFound => 'No categories found';
+
+  @override
+  String get wizardRequestService => 'Request Service';
+
+  @override
+  String get wizardPrevious => 'Previous';
+
+  @override
+  String get wizardNext => 'Next';
+
+  @override
+  String get wizardConfirmAndSubmit => 'Confirm & Submit';
+
+  @override
+  String get wizardSelectAtLeastOneService =>
+      'Please select at least one service';
+
+  @override
+  String get wizardSelectDateAndTime => 'Please select date and time';
+
+  @override
+  String get wizardProvideLocation => 'Please provide location details';
+
+  @override
+  String get wizardConfirmContact => 'Please confirm contacting the provider';
+
+  @override
+  String get wizardEnterAgreedPrice => 'Please enter agreed price';
+
+  @override
+  String get wizardSubmitSuccess => 'Request submitted successfully!';
+
+  @override
+  String get wizardStep1Title => 'What services do you need?';
+
+  @override
+  String get wizardStep1Subtitle =>
+      'Choose the services you want to request from ';
+
+  @override
+  String get wizardNoServices => 'This provider currently offers no services.';
+
+  @override
+  String get wizardStep2Title => 'When do you need the service?';
+
+  @override
+  String get wizardStep2Subtitle => 'Enter the suitable date and time';
+
+  @override
+  String get wizardDateHint => 'Date (e.g., 2026-09-30)';
+
+  @override
+  String get wizardTimeHint => 'Time (e.g., 17:30)';
+
+  @override
+  String get wizardSaveSchedule => 'Save Schedule';
+
+  @override
+  String get wizardScheduleSavedToast => 'Schedule saved';
+
+  @override
+  String get wizardSavedScheduleText => 'Saved Schedule: ';
+
+  @override
+  String get wizardStep3Title => 'Where do you need the service?';
+
+  @override
+  String get wizardStep3Subtitle => 'Enter your detailed address';
+
+  @override
+  String get wizardAddressHint => 'Detailed Address (Street, Building, etc.)';
+
+  @override
+  String get wizardSaveLocation => 'Save Location';
+
+  @override
+  String get wizardLocationSavedToast => 'Location saved';
+
+  @override
+  String get wizardSavedLocationText => 'Saved Location: ';
+
+  @override
+  String get wizardStep4Title => 'Price & Agreement';
+
+  @override
+  String get wizardStep4Subtitle =>
+      'Please make sure you have contacted the provider to agree on the final price';
+
+  @override
+  String get wizardContactNotice =>
+      'Note: Please contact the provider via chat before submitting the request to determine and confirm the price.';
+
+  @override
+  String get wizardContactCheckbox =>
+      'I confirm that I have contacted the provider and agreed on the price.';
+
+  @override
+  String get wizardAgreedPriceLabel => 'Agreed Price';
+
+  @override
+  String get wizardStep5Title => 'Review Request';
+
+  @override
+  String get wizardStep5Subtitle =>
+      'Please review your request details before submitting';
+
+  @override
+  String get wizardSummaryServices => 'Selected Services';
+
+  @override
+  String get wizardSummarySchedule => 'Schedule';
+
+  @override
+  String get wizardNotSpecified => 'Not specified';
+
+  @override
+  String get wizardSummaryLocation => 'Location';
+
+  @override
+  String get wizardSummaryPrice => 'Agreed Price';
+
+  @override
+  String get aboutProvider => 'About';
+
+  @override
+  String get category => 'Category';
+
+  @override
+  String get services => 'Services';
+
+  @override
+  String get location => 'Location';
+
+  @override
+  String get messageProvider => 'Message';
+
+  @override
+  String get reportProvider => 'Report';
+
+  @override
+  String get requestService => 'Request';
+
+  @override
+  String get chatsNoChats => 'No messages yet.';
+
+  @override
+  String get notificationsTitle => 'Notifications';
+
+  @override
+  String get markAllAsRead => 'Mark all as read';
+
+  @override
+  String get noNotifications => 'No notifications yet';
+
+  @override
+  String get seeAll => 'See All';
+
+  @override
+  String get personalInformation => 'Personal Information';
+
+  @override
+  String get account => 'Account';
+
+  @override
+  String get editProfile => 'Edit Profile';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get logOut => 'Log Out';
+
+  @override
+  String get saveChanges => 'Save Changes';
+
+  @override
+  String get settingsChangePassword => 'Change Password';
+
+  @override
+  String get settingsEmailPreferences => 'Email Preferences';
+
+  @override
+  String get settingsPushNotifications => 'Push Notifications';
+
+  @override
+  String get settingsMessageNotifications => 'Message Notifications';
+
+  @override
+  String get settingsAppSettings => 'App Settings';
+
+  @override
+  String get settingsDarkMode => 'Dark Mode';
+
+  @override
+  String get settingsLanguage => 'Language';
+
+  @override
+  String get settingsSupport => 'Support';
+
+  @override
+  String get settingsHelpAndSupport => 'Help and Support';
+
+  @override
+  String get settingsAboutApp => 'About App';
+
+  @override
+  String get settingsSelectLanguage => 'Select Language';
+
+  @override
+  String get settingsEnglish => 'English';
+
+  @override
+  String get settingsArabic => 'العربية';
+
+  @override
+  String get currentPassword => 'Current Password';
+
+  @override
+  String get newPassword => 'New Password';
+
+  @override
+  String get confirmNewPassword => 'Confirm New Password';
+
+  @override
+  String get passwordChangedSuccessfully => 'Password changed successfully';
+
+  @override
+  String get errorWrongPassword => 'Incorrect current password';
+
+  @override
+  String get errorWeakPassword => 'The new password is too weak';
+
+  @override
+  String get errorRequiresRecentLogin =>
+      'Please log out and log in again to perform this action';
 }

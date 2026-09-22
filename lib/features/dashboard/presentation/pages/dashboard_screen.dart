@@ -3,7 +3,6 @@ import '../widgets/algohary_bottom_nav_bar.dart';
 
 // Placeholder imports for the 5 tabs
 import 'tabs/home_tab.dart';
-import 'tabs/explore_tab.dart';
 import 'tabs/bookings_tab.dart';
 import 'tabs/messages_tab.dart';
 import 'tabs/profile_tab.dart';
@@ -53,7 +52,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   final List<Widget> _screens = [
     const HomeTab(),
-    const ExploreTab(),
     const BookingsTab(),
     const MessagesTab(),
     const ProfileTab(),

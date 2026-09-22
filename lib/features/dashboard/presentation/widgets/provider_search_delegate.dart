@@ -9,6 +9,9 @@ class ProviderSearchDelegate extends SearchDelegate<UserModel?> {
 
   @override
   List<Widget> buildActions(BuildContext context) {
+    if (query.isEmpty) {
+      return [];
+    }
     return [
       IconButton(
         icon: const Icon(Icons.clear),
@@ -90,13 +93,6 @@ class ProviderSearchDelegate extends SearchDelegate<UserModel?> {
                     color: theme.colorScheme.outline.withOpacity(0.15),
                     width: 1.5,
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: theme.shadowColor.withOpacity(0.04),
-                      blurRadius: 15,
-                      offset: const Offset(0, 8),
-                    ),
-                  ],
                 ),
                 child: Row(
                   children: [

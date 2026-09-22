@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
 import '../../data/models/category_model.dart';
 import '../../data/repositories/category_repository.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import '../pages/all_categories_screen.dart';
 import '../pages/category_services_screen.dart';
 
@@ -86,7 +87,29 @@ class _CategoriesRowState extends State<CategoriesRow> {
             future: _categoriesFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                final mockCategory = CategoryModel(
+                  id: 'mock',
+                  nameAr: 'جاري التحميل',
+                  nameEn: 'Loading...',
+                  available: true,
+                  imageUrl: '', // Skeletonizer handles empty images
+                );
+                return Skeletonizer(
+                  enabled: true,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: 6,
+                    separatorBuilder: (_, __) => const SizedBox(width: 16),
+                    itemBuilder: (context, index) {
+                      return CategoryItem(
+                        category: mockCategory,
+                        index: index,
+                        onTap: (_) {},
+                      );
+                    },
+                  ),
+                );
               }
               if (snapshot.hasError || !snapshot.hasData) {
                 return const SizedBox();

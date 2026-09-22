@@ -3,6 +3,7 @@ import '../../data/models/service_model.dart';
 import '../../data/repositories/service_repository.dart';
 import 'service_card.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import '../pages/service_details_screen.dart';
 
 class PopularServicesSection extends StatefulWidget {
@@ -31,9 +32,43 @@ class _PopularServicesSectionState extends State<PopularServicesSection> {
       future: _servicesFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Padding(
-            padding: EdgeInsets.symmetric(vertical: 32),
-            child: Center(child: CircularProgressIndicator()),
+          final mockService = ServiceModel(
+            id: 'mock',
+            categoryId: 'mock',
+            nameAr: 'جاري التحميل جاري التحميل',
+            nameEn: 'Loading Loading',
+            descriptionAr: 'وصف الخدمة يكتب هنا',
+            descriptionEn: 'Service description goes here',
+            available: true,
+            imageUrl: '',
+            showInHome: true,
+          );
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                l10n.homePopularServicesTitle,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.onSurface,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Skeletonizer(
+                enabled: true,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+                    return ServiceCard(
+                      service: mockService,
+                      onTap: () {},
+                    );
+                  },
+                ),
+              ),
+            ],
           );
         }
         if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {

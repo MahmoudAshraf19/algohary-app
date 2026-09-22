@@ -53,6 +53,18 @@ dependencies:
   http: ^1.6.0
   flutter_svg: ^2.3.0
   cached_network_image: ^3.4.1
+  flutter_image_compress: 2.3.0
+  video_compress: ^3.1.4
+  record: ^7.1.1
+  audioplayers: ^6.8.1
+  path_provider: ^2.1.6
+  permission_handler: ^13.0.2
+  photo_manager: ^3.3.0
+  carousel_slider: ^5.0.0
+  flutter_local_notifications: ^22.3.1
+  image_gallery_saver: ^2.0.3
+  dio: ^5.11.1
+  skeletonizer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

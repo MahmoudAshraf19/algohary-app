@@ -14,6 +14,8 @@ import 'features/auth/presentation/bloc/auth_event.dart';
 import 'features/auth/presentation/pages/login_screen.dart';
 import 'features/dashboard/presentation/pages/dashboard_screen.dart';
 import 'core/bloc/location_bloc/location_bloc.dart';
+import 'core/bloc/settings_cubit/settings_cubit.dart';
+import 'core/bloc/settings_cubit/settings_state.dart';
 
 import 'firebase_options.dart';
 
@@ -50,37 +52,32 @@ class MyApp extends StatelessWidget {
           )..add(CheckAuthStatus()),
         ),
         BlocProvider(create: (_) => LocationBloc()),
+        BlocProvider(create: (_) => SettingsCubit()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Al Gohary',
-        locale: DevicePreview.locale(context),
-        builder: DevicePreview.appBuilder,
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-      supportedLocales: const [
-        Locale('en'),
-        Locale('ar'),
-      ],
-      localeResolutionCallback: (locale, supportedLocales) {
-        if (kIsWeb) {
-          return const Locale('en');
-        } else {
-          if (locale != null && locale.languageCode == 'ar') {
-            return const Locale('ar');
-          }
-          return const Locale('en');
-        }
-      },
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
-      home: const SplashScreen(),
-    ),
+      child: BlocBuilder<SettingsCubit, SettingsState>(
+        builder: (context, settingsState) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Al Gohary',
+            locale: settingsState.locale,
+            builder: DevicePreview.appBuilder,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en'),
+              Locale('ar'),
+            ],
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: settingsState.themeMode,
+            home: const SplashScreen(),
+          );
+        },
+      ),
     );
   }
 }

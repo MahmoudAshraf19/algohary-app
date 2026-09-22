@@ -9,9 +9,74 @@ import 'package:algohary_project/features/location/presentation/widgets/location
 import 'package:algohary_project/features/dashboard/presentation/widgets/categories_row.dart';
 import 'package:algohary_project/features/dashboard/presentation/widgets/popular_services_section.dart';
 import 'package:algohary_project/features/dashboard/presentation/widgets/provider_search_delegate.dart';
+import 'package:algohary_project/features/notifications/data/services/notification_service.dart';
+import 'package:algohary_project/features/notifications/presentation/widgets/notification_dropdown_widget.dart';
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
+
+  @override
+  State<HomeTab> createState() => _HomeTabState();
+}
+
+class _HomeTabState extends State<HomeTab> {
+  final NotificationService _notificationService = NotificationService();
+  final LayerLink _layerLink = LayerLink();
+  OverlayEntry? _overlayEntry;
+
+  @override
+  void initState() {
+    super.initState();
+    _notificationService.initialize();
+  }
+
+  void _toggleDropdown() {
+    if (_overlayEntry != null) {
+      _closeDropdown();
+    } else {
+      _showDropdown();
+    }
+  }
+
+  void _closeDropdown() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
+
+  void _showDropdown() {
+    _overlayEntry = OverlayEntry(
+      builder: (context) {
+        return Stack(
+          children: [
+            GestureDetector(
+              onTap: _closeDropdown,
+              behavior: HitTestBehavior.opaque,
+              child: Container(
+                color: Colors.transparent,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
+            ),
+            Positioned(
+              width: 320,
+              child: CompositedTransformFollower(
+                link: _layerLink,
+                offset: const Offset(-270, 50),
+                child: NotificationDropdownWidget(onClose: _closeDropdown),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+    Overlay.of(context).insert(_overlayEntry!);
+  }
+
+  @override
+  void dispose() {
+    _closeDropdown();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,41 +175,53 @@ class HomeTab extends StatelessWidget {
                             ],
                           ),
                         ),
-                        
                         // Notification Icon with Badge
-                        Stack(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: theme.colorScheme.surfaceContainerHighest,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Icon(
-                                Icons.notifications_outlined,
-                                color: theme.colorScheme.onSurfaceVariant,
-                              ),
-                            ),
-                            Positioned(
-                              right: 4,
-                              top: 4,
-                              child: Container(
-                                padding: const EdgeInsets.all(4),
-                                decoration: const BoxDecoration(
-                                  color: Colors.blue,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Text(
-                                  '2',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
+                        CompositedTransformTarget(
+                          link: _layerLink,
+                          child: GestureDetector(
+                            onTap: _toggleDropdown,
+                            child: Stack(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: theme.colorScheme.surfaceContainerHighest,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Icon(
+                                    Icons.notifications_outlined,
+                                    color: theme.colorScheme.onSurfaceVariant,
                                   ),
                                 ),
-                              ),
+                                Positioned(
+                                  right: 4,
+                                  top: 4,
+                                  child: StreamBuilder<int>(
+                                    stream: _notificationService.streamUnreadCount(),
+                                    builder: (context, snapshot) {
+                                      final count = snapshot.data ?? 0;
+                                      if (count == 0) return const SizedBox();
+                                      return Container(
+                                        padding: const EdgeInsets.all(4),
+                                        decoration: const BoxDecoration(
+                                          color: Colors.redAccent,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Text(
+                                          count > 99 ? '99+' : count.toString(),
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                       ],
                     ),

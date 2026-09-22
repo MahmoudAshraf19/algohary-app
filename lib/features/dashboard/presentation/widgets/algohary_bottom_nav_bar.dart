@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
+import 'package:algohary_project/core/theme/app_colors.dart';
 
 class AlgoharyBottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -18,20 +19,15 @@ class AlgoharyBottomNavBar extends StatelessWidget {
     final bottomInset = MediaQuery.paddingOf(context).bottom;
 
     final bgColor = theme.colorScheme.surface;
-    final activeColor = theme.colorScheme.primary;
+    final activeColor = theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary;
     final inactiveColor = theme.colorScheme.onSurface.withOpacity(0.5);
-    final activeBg = theme.colorScheme.primary.withOpacity(0.1);
+    final activeBg = (theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary).withOpacity(0.1);
 
     final items = <_NavItem>[
       _NavItem(
         label: l10n.navHome,
         activeIcon: Icons.home_rounded,
         inactiveIcon: Icons.home_outlined,
-      ),
-      _NavItem(
-        label: l10n.navExplore,
-        activeIcon: Icons.explore_rounded,
-        inactiveIcon: Icons.explore_outlined,
       ),
       _NavItem(
         label: l10n.navBookings,

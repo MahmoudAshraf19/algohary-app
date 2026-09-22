@@ -7,6 +7,7 @@ import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
 import 'signup_screen.dart';
+import '../../../../core/theme/app_colors.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -45,19 +46,6 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Back Button
-              Align(
-                alignment: Alignment.centerLeft,
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  color: theme.colorScheme.onSurface,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-              const SizedBox(height: 24),
-              
               // App Logo
               Center(
                 child: Image.asset(
@@ -74,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.center,
                 style: theme.textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.w800,
-                  color: theme.colorScheme.primary, // Dark Blue
+                  color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary,
                 ),
               ),
               const SizedBox(height: 8),
@@ -82,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 l10n.loginSubtitle,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyLarge?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.6),
+                  color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : theme.colorScheme.onSurface.withOpacity(0.6),
                 ),
               ),
               const SizedBox(height: 40),
@@ -112,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: TextButton(
                   onPressed: () {},
                   style: TextButton.styleFrom(
-                    foregroundColor: theme.colorScheme.primary,
+                    foregroundColor: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary,
                     padding: EdgeInsets.zero,
                     minimumSize: Size.zero,
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -172,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colorScheme.primary,
-                        foregroundColor: theme.colorScheme.onPrimary,
+                        foregroundColor: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onPrimary,
                         elevation: 0, // No shadows
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
@@ -204,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       l10n.loginOr,
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.colorScheme.onSurface.withOpacity(0.5),
+                        color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.7) : theme.colorScheme.onSurface.withOpacity(0.5),
                       ),
                     ),
                   ),
@@ -234,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text(
                     l10n.loginNoAccount,
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurface.withOpacity(0.7),
+                      color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : theme.colorScheme.onSurface.withOpacity(0.7),
                     ),
                   ),
                   TextButton(
@@ -245,7 +233,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     },
                     style: TextButton.styleFrom(
-                      foregroundColor: theme.colorScheme.primary,
+                      foregroundColor: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary,
                       padding: EdgeInsets.zero,
                       minimumSize: Size.zero,
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -275,16 +263,16 @@ class _LoginScreenState extends State<LoginScreen> {
     return TextField(
       controller: controller,
       obscureText: isPassword && _obscurePassword,
-      style: TextStyle(color: theme.colorScheme.onSurface),
+      style: TextStyle(color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.4)),
-        prefixIcon: Icon(icon, color: theme.colorScheme.onSurface.withOpacity(0.5)),
+        hintStyle: TextStyle(color: theme.brightness == Brightness.dark ? AppColors.lightYellow.withOpacity(0.5) : theme.colorScheme.onSurface.withOpacity(0.4)),
+        prefixIcon: Icon(icon, color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface.withOpacity(0.5)),
         suffixIcon: isPassword
             ? IconButton(
                 icon: Icon(
                   _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                  color: theme.colorScheme.onSurface.withOpacity(0.5),
+                  color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface.withOpacity(0.5),
                 ),
                 onPressed: () {
                   setState(() {

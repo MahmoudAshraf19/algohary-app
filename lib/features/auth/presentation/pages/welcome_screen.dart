@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
 import 'login_screen.dart';
-
+import '../../../../core/theme/app_colors.dart';
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
 
@@ -96,7 +96,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                       textAlign: TextAlign.center,
                       style: theme.textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.w800,
-                        color: theme.colorScheme.primary, // Dark Blue
+                        color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary,
                         height: 1.2,
                       ),
                     ),
@@ -105,7 +105,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                       l10n.welcomeSubtitle,
                       textAlign: TextAlign.center,
                       style: theme.textTheme.bodyLarge?.copyWith(
-                        color: theme.colorScheme.onSurface.withOpacity(0.6),
+                        color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : theme.colorScheme.onSurface.withOpacity(0.6),
                         height: 1.5,
                       ),
                     ),
@@ -122,7 +122,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: theme.colorScheme.primary,
-                          foregroundColor: theme.colorScheme.onPrimary,
+                          foregroundColor: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onPrimary,
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),

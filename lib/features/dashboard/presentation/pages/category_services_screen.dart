@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../data/models/category_model.dart';
 import '../../data/models/service_model.dart';
 import '../../data/repositories/service_repository.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import '../widgets/service_card.dart';
 import 'service_details_screen.dart';
 
@@ -52,7 +53,30 @@ class _CategoryServicesScreenState extends State<CategoryServicesScreen> {
         future: _servicesFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            final mockService = ServiceModel(
+              id: 'mock',
+              categoryId: 'mock',
+              nameAr: 'جاري التحميل جاري التحميل',
+              nameEn: 'Loading Loading',
+              descriptionAr: 'وصف الخدمة يكتب هنا',
+              descriptionEn: 'Service description goes here',
+              available: true,
+              imageUrl: '',
+              showInHome: true,
+            );
+            return Skeletonizer(
+              enabled: true,
+              child: ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return ServiceCard(
+                    service: mockService,
+                    onTap: () {},
+                  );
+                },
+              ),
+            );
           }
           if (snapshot.hasError) {
             return const Center(child: Text('Error loading services'));

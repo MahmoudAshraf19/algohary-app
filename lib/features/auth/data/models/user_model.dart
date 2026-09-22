@@ -21,6 +21,7 @@ class UserModel {
   final List<String>? services;
   final String? governorateId;
   final List<String>? cities;
+  final String? about;
 
   UserModel({
     required this.id,
@@ -41,6 +42,7 @@ class UserModel {
     this.services,
     this.governorateId,
     this.cities,
+    this.about,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -63,6 +65,7 @@ class UserModel {
       services: (json['services'] as List<dynamic>?)?.map((e) => e.toString()).toList(),
       governorateId: json['governorate_id'],
       cities: (json['cities'] as List<dynamic>?)?.map((e) => e.toString()).toList(),
+      about: json['about'],
     );
   }
 
@@ -86,6 +89,7 @@ class UserModel {
       if (services != null) 'services': services,
       if (governorateId != null) 'governorate_id': governorateId,
       if (cities != null) 'cities': cities,
+      if (about != null) 'about': about,
     };
   }
 }

@@ -126,14 +126,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           text: TextSpan(
                             style: theme.textTheme.headlineMedium?.copyWith(
                               fontWeight: FontWeight.w800,
-                              color: theme.colorScheme.primary, // Using primary theme color (Dark Blue)
+                              color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary, // Using primary theme color (Dark Blue) or Yellow
                               height: 1.2,
                             ),
                             children: [
                               TextSpan(text: data.titleTop),
                               TextSpan(
                                 text: data.titleAccent,
-                                style: TextStyle(color: theme.colorScheme.primary), // Keep it same or use accentColor if desired
+                                style: TextStyle(color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary),
                               ),
                             ],
                           ),
@@ -149,7 +149,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           data.subtitle,
                           textAlign: TextAlign.center,
                           style: theme.textTheme.bodyLarge?.copyWith(
-                            color: theme.colorScheme.onSurface.withOpacity(0.6),
+                            color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : theme.colorScheme.onSurface.withOpacity(0.6),
                             height: 1.5,
                           ),
                         ),
@@ -197,7 +197,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           child: TextButton(
                             onPressed: _skip,
                             style: TextButton.styleFrom(
-                              foregroundColor: theme.colorScheme.primary.withOpacity(0.7),
+                              foregroundColor: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary.withOpacity(0.7),
                               textStyle: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -215,7 +215,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             onPressed: () => _goNext(pages.length),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: theme.colorScheme.primary,
-                              foregroundColor: theme.colorScheme.onPrimary,
+                              foregroundColor: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onPrimary,
                               elevation: 0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),

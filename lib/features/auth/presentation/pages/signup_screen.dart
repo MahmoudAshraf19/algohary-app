@@ -7,6 +7,7 @@ import 'package:algohary_project/l10n/app_localizations.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
+import '../../../../core/theme/app_colors.dart';
 import 'package:algohary_project/features/dashboard/presentation/pages/dashboard_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -389,16 +390,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
       controller: controller,
       obscureText: isPassword && (obscureText ?? false),
       validator: validator,
-      style: TextStyle(color: theme.colorScheme.onSurface),
+      style: TextStyle(color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.4)),
-        prefixIcon: Icon(icon, color: theme.colorScheme.onSurface.withOpacity(0.5)),
+        hintStyle: TextStyle(color: theme.brightness == Brightness.dark ? AppColors.lightYellow.withOpacity(0.5) : theme.colorScheme.onSurface.withOpacity(0.4)),
+        prefixIcon: Icon(icon, color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface.withOpacity(0.5)),
         suffixIcon: isPassword
             ? IconButton(
                 icon: Icon(
                   (obscureText ?? false) ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                  color: theme.colorScheme.onSurface.withOpacity(0.5),
+                  color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface.withOpacity(0.5),
                 ),
                 onPressed: onToggleObscure,
               )

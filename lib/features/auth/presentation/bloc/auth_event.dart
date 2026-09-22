@@ -39,3 +39,20 @@ class SignUpSubmitted extends AuthEvent {
 }
 
 class LogoutRequested extends AuthEvent {}
+
+class UpdateProfileRequested extends AuthEvent {
+  final String firstName;
+  final String lastName;
+  final String phone;
+  final dynamic profileImage;
+
+  const UpdateProfileRequested({
+    required this.firstName,
+    required this.lastName,
+    required this.phone,
+    this.profileImage,
+  });
+
+  @override
+  List<Object?> get props => [firstName, lastName, phone, profileImage];
+}

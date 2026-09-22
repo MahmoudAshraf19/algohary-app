@@ -5,6 +5,8 @@ import 'package:algohary_project/features/auth/data/models/user_model.dart';
 import '../../data/repositories/provider_repository.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
 import 'provider_profile_screen.dart';
+import '../widgets/provider_search_delegate.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class ServiceDetailsScreen extends StatefulWidget {
   final ServiceModel service;
@@ -21,6 +23,7 @@ class ServiceDetailsScreen extends StatefulWidget {
 class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
   final ProviderRepository _providerRepository = ProviderRepository();
   late Future<List<UserModel>> _providersFuture;
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -46,50 +49,71 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
               expandedHeight: 250,
               floating: false,
               pinned: true,
-              backgroundColor: theme.colorScheme.primary,
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => Navigator.pop(context),
+              backgroundColor: theme.colorScheme.surface,
+              surfaceTintColor: Colors.transparent,
+              elevation: 0,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(bottom: Radius.circular(24)),
               ),
-              flexibleSpace: FlexibleSpaceBar(
-                background: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    CachedNetworkImage(
-                      imageUrl: widget.service.imageUrl,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                      errorWidget: (context, url, error) => const Icon(Icons.error),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.black.withOpacity(0.4),
-                            Colors.black.withOpacity(0.1),
-                            Colors.black.withOpacity(0.7),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 16,
-                      left: 16,
-                      right: 16,
-                      child: Text(
-                        title,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
+              leading: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                  backgroundColor: theme.colorScheme.surface.withOpacity(0.7),
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back, color: theme.colorScheme.onSurface),
+                    onPressed: () => Navigator.pop(context),
+                  ),
                 ),
               ),
+              centerTitle: false,
+              flexibleSpace: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  // kToolbarHeight is 56, we add safe area and a small buffer
+                  final isCollapsed = constraints.biggest.height <= 
+                      kToolbarHeight + MediaQuery.of(context).padding.top + 40;
+                  
+                  return ClipRRect(
+                    borderRadius: const BorderRadius.vertical(bottom: Radius.circular(24)),
+                    child: FlexibleSpaceBar(
+                      centerTitle: false,
+                      titlePadding: const EdgeInsets.only(left: 72, bottom: 16, right: 72),
+                      title: Text(
+                        title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: isCollapsed 
+                              ? (theme.brightness == Brightness.light ? theme.colorScheme.primary : Colors.white)
+                              : Colors.white,
+                        ),
+                      ),
+                  background: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      CachedNetworkImage(
+                        imageUrl: widget.service.imageUrl,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.black.withOpacity(0.4),
+                              Colors.black.withOpacity(0.1),
+                              Colors.black.withOpacity(0.7),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
             ),
           ];
         },
@@ -112,18 +136,80 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
+              TextField(
+                onChanged: (value) {
+                  setState(() {
+                    _searchQuery = value;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: l10n.homeSearchHint,
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: const Icon(Icons.tune),
+                  filled: true,
+                  fillColor: theme.colorScheme.surface,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(
+                      color: theme.colorScheme.primary.withOpacity(0.3),
+                      width: 1,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(
+                      color: theme.colorScheme.primary,
+                      width: 2,
+                    ),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+              ),
+              const SizedBox(height: 8),
               FutureBuilder<List<UserModel>>(
                 future: _providersFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
+                    final mockProvider = UserModel(
+                      id: 'mock',
+                      firstName: 'اسم مقدم',
+                      lastName: 'الخدمة',
+                      email: 'mock@example.com',
+                      phone: '010000000',
+                      imageUrl: '',
+                      subscription: Subscription(isSubscribed: false),
+                      about: 'وصف لمقدم الخدمة يكتب هنا',
+                    );
+                    return Skeletonizer(
+                      enabled: true,
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 4,
+                        separatorBuilder: (context, index) => const SizedBox(height: 12),
+                        itemBuilder: (context, index) {
+                          return _buildProviderCard(context, mockProvider, index);
+                        },
+                      ),
+                    );
                   }
                   if (snapshot.hasError) {
                     return Center(child: Text(l10n.errorLoadingData ?? 'Error loading data'));
                   }
                   final providers = snapshot.data ?? [];
-                  if (providers.isEmpty) {
+                  
+                  final filteredProviders = _searchQuery.isEmpty 
+                      ? providers 
+                      : providers.where((provider) {
+                          final searchLower = _searchQuery.toLowerCase();
+                          final fullName = '${provider.firstName} ${provider.lastName}'.toLowerCase();
+                          return fullName.contains(searchLower) ||
+                                 provider.firstName.toLowerCase().contains(searchLower) ||
+                                 provider.lastName.toLowerCase().contains(searchLower);
+                        }).toList();
+
+                  if (filteredProviders.isEmpty) {
                     return Center(
                       child: Padding(
                         padding: const EdgeInsets.all(32.0),
@@ -140,11 +226,11 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                   return ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: providers.length,
+                    itemCount: filteredProviders.length,
                     separatorBuilder: (context, index) => const SizedBox(height: 12),
                     itemBuilder: (context, index) {
-                      final provider = providers[index];
-                      return _buildProviderCard(context, provider);
+                      final provider = filteredProviders[index];
+                      return _buildProviderCard(context, provider, index);
                     },
                   );
                 },
@@ -156,17 +242,21 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
     );
   }
 
-  Widget _buildProviderCard(BuildContext context, UserModel provider) {
+  Widget _buildProviderCard(BuildContext context, UserModel provider, int index) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
     final isAr = Localizations.localeOf(context).languageCode == 'ar';
+    final uniqueHeroTag = 'service_${widget.service.id}_provider_${provider.id}_$index';
     
     return InkWell(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProviderProfileScreen(provider: provider),
+            builder: (context) => ProviderProfileScreen(
+              provider: provider,
+              heroTag: uniqueHeroTag,
+            ),
           ),
         );
       },
@@ -180,18 +270,11 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
             color: theme.colorScheme.outline.withOpacity(0.15),
             width: 1.5,
           ),
-          boxShadow: [
-            BoxShadow(
-              color: theme.shadowColor.withOpacity(0.04),
-              blurRadius: 15,
-              offset: const Offset(0, 8),
-            ),
-          ],
         ),
         child: Row(
           children: [
             Hero(
-              tag: 'provider_${provider.id}',
+              tag: uniqueHeroTag,
               child: Container(
                 width: 76,
                 height: 76,

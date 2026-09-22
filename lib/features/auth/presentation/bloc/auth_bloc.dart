@@ -13,6 +13,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<CheckAuthStatus>(_onCheckAuthStatus);
     on<LoginSubmitted>(_onLoginSubmitted);
     on<SignUpSubmitted>(_onSignUpSubmitted);
+    on<UpdateProfileRequested>(_onUpdateProfileRequested);
     on<LogoutRequested>(_onLogoutRequested);
   }
 
@@ -74,5 +75,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     await _authRepository.logout();
     emit(AuthInitial());
+  }
+
+  Future<void> _onUpdateProfileRequested(
+    UpdateProfileRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    try {
+      final user = await _authRepository.updateProfile(
+        firstName: event.firstName,
+        lastName: event.lastName,
+        phone: event.phone,
+        profileImage: event.profileImage,
+      );
+      emit(AuthSuccess(user: user));
+    } catch (e) {
+      emit(AuthFailure(message: e.toString().replaceAll('Exception: ', '')));
+    }
   }
 }
