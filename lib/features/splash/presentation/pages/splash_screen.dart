@@ -54,9 +54,11 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
-        child: Column(
-          children: [
-            const Spacer(),
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            children: [
+              const Spacer(),
             // Logo and Title Section
             Column(
               mainAxisSize: MainAxisSize.min,
@@ -106,6 +108,7 @@ class _SplashScreenState extends State<SplashScreen> {
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }

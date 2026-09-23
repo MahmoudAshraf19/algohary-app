@@ -335,11 +335,15 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                             children: [
                               Icon(Icons.location_on, size: 16, color: theme.colorScheme.primary.withOpacity(0.8)),
                               const SizedBox(width: 4),
-                              Text(
-                                govName,
-                                style: theme.textTheme.labelLarge?.copyWith(
-                                  color: theme.colorScheme.onSurface.withOpacity(0.7),
-                                  fontWeight: FontWeight.w500,
+                              Flexible(
+                                child: Text(
+                                  govName,
+                                  style: theme.textTheme.labelLarge?.copyWith(
+                                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
@@ -362,11 +366,15 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                           color: theme.colorScheme.primary,
                         ),
                         const SizedBox(width: 6),
-                        Text(
-                          l10n.verifiedProvider ?? "Verified Professional",
-                          style: theme.textTheme.labelMedium?.copyWith(
-                            color: theme.colorScheme.primary,
-                            fontWeight: FontWeight.bold,
+                        Flexible(
+                          child: Text(
+                            l10n.verifiedProvider ?? "Verified Professional",
+                            style: theme.textTheme.labelMedium?.copyWith(
+                              color: theme.colorScheme.primary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ],

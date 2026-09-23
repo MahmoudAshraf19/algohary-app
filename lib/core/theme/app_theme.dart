@@ -34,10 +34,16 @@ class AppTheme {
         tertiary: AppColors.lightYellow,
         error: AppColors.red,
         surface: AppColors.darkBackground,
+        onSurface: AppColors.offWhite,
+      ),
+      textTheme: ThemeData.dark().textTheme.apply(
+        bodyColor: AppColors.offWhite,
+        displayColor: AppColors.offWhite,
+        fontFamily: 'Inter',
       ),
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.darkBackground,
-        foregroundColor: AppColors.lightYellow,
+        foregroundColor: AppColors.offWhite,
       ),
     );
   }

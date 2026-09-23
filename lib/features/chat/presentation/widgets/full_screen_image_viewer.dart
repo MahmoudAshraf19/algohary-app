@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:algohary_project/core/utils/web_download_helper.dart' if (dart.library.html) 'package:algohary_project/core/utils/web_download_helper_web.dart';
@@ -54,7 +54,7 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
           currentUrl,
           options: Options(responseType: ResponseType.bytes),
         );
-        final result = await ImageGallerySaver.saveImage(
+        final result = await ImageGallerySaverPlus.saveImage(
           Uint8List.fromList(response.data),
           quality: 100,
           name: "image_${DateTime.now().millisecondsSinceEpoch}",

@@ -47,6 +47,7 @@ class _HomeTabState extends State<HomeTab> {
   void _showDropdown() {
     _overlayEntry = OverlayEntry(
       builder: (context) {
+        final isRTL = Directionality.of(context) == TextDirection.rtl;
         return Stack(
           children: [
             GestureDetector(
@@ -62,7 +63,7 @@ class _HomeTabState extends State<HomeTab> {
               width: 320,
               child: CompositedTransformFollower(
                 link: _layerLink,
-                offset: const Offset(-270, 50),
+                offset: isRTL ? const Offset(-10, 50) : const Offset(-270, 50),
                 child: NotificationDropdownWidget(onClose: _closeDropdown),
               ),
             ),

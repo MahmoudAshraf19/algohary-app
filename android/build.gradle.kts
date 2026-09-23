@@ -22,3 +22,11 @@ subprojects {
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
+
+allprojects {
+    configurations.all {
+        resolutionStrategy {
+            force("com.google.android.libraries.places:places:4.0.0")
+        }
+    }
+}
