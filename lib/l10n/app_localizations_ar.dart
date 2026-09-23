@@ -245,7 +245,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get chatNotImplemented => 'ميزة المحادثات قادمة قريباً!';
 
   @override
-  String get chatWithProvider => 'اكتب رسالة...';
+  String get chatWithProvider => 'مراسلة';
 
   @override
   String get allCategoriesTitle => 'جميع التصنيفات';
@@ -490,4 +490,285 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get errorRequiresRecentLogin =>
       'يرجى تسجيل الخروج والدخول مجدداً لإتمام العملية';
+
+  @override
+  String get searchBookings => 'ابحث في الحجوزات...';
+
+  @override
+  String get filterAll => 'الكل';
+
+  @override
+  String get filterUpcoming => 'القادمة';
+
+  @override
+  String get filterPast => 'السابقة';
+
+  @override
+  String get provider => 'مقدم الخدمة';
+
+  @override
+  String get statusPendingProviderApproval => 'بانتظار الموافقة';
+
+  @override
+  String get statusChangeProposed => 'تم اقتراح تعديل';
+
+  @override
+  String get statusPendingProviderConfirmation => 'بانتظار التأكيد';
+
+  @override
+  String get statusApproved => 'تمت الموافقة';
+
+  @override
+  String get statusRejected => 'مرفوض';
+
+  @override
+  String get statusCancelledByUser => 'ملغي (من قبلك)';
+
+  @override
+  String get statusCancelledByProvider => 'ملغي (مقدم الخدمة)';
+
+  @override
+  String get statusInProgress => 'قيد التنفيذ';
+
+  @override
+  String get statusCompleted => 'مكتمل';
+
+  @override
+  String get statusExpired => 'منتهي';
+
+  @override
+  String get errorLoadingBookings => 'حدث خطأ أثناء تحميل الحجوزات';
+
+  @override
+  String get noBookingsFound => 'لا توجد حجوزات.';
+
+  @override
+  String get bookingId => 'رقم الحجز';
+
+  @override
+  String get emptyBookingsTitle => 'لا توجد حجوزات بعد';
+
+  @override
+  String get emptyBookingsDesc => 'ستظهر حجوزاتك هنا بمجرد طلبك لخدمة.';
+
+  @override
+  String get btnFindService => 'ابحث عن خدمة';
+
+  @override
+  String get filterBookingsTitle => 'تصفية الحجوزات';
+
+  @override
+  String get filterDate => 'التاريخ';
+
+  @override
+  String get filterDateAll => 'كل التواريخ';
+
+  @override
+  String get filterDateToday => 'اليوم';
+
+  @override
+  String get filterDateTomorrow => 'غداً';
+
+  @override
+  String get filterDateThisWeek => 'هذا الأسبوع';
+
+  @override
+  String get filterDateThisMonth => 'هذا الشهر';
+
+  @override
+  String get btnReset => 'إعادة ضبط';
+
+  @override
+  String get btnApplyFilters => 'تطبيق الفلاتر';
+
+  @override
+  String get viewDetails => 'عرض التفاصيل';
+
+  @override
+  String get cancelBooking => 'إلغاء الحجز';
+
+  @override
+  String get cancelBookingConfirmTitle => 'إلغاء الحجز؟';
+
+  @override
+  String get cancelBookingConfirmDesc =>
+      'هل أنت متأكد أنك تريد إلغاء هذا الحجز؟';
+
+  @override
+  String get keepBooking => 'الاحتفاظ بالحجز';
+
+  @override
+  String get reportProblem => 'الإبلاغ عن مشكلة';
+
+  @override
+  String get contactSupport => 'التواصل مع الدعم';
+
+  @override
+  String get serviceProvider => 'مقدم الخدمة';
+
+  @override
+  String get serviceDetails => 'تفاصيل الخدمة';
+
+  @override
+  String get selectedServices => 'الخدمات المحددة';
+
+  @override
+  String get requestDetails => 'تفاصيل الطلب';
+
+  @override
+  String get attachmentsTitle => 'المرفقات';
+
+  @override
+  String get scheduleTitle => 'الموعد';
+
+  @override
+  String get serviceLocation => 'موقع الخدمة';
+
+  @override
+  String get openInMaps => 'فتح في الخرائط';
+
+  @override
+  String get paymentSummary => 'ملخص الدفع';
+
+  @override
+  String get serviceFee => 'رسوم الخدمة';
+
+  @override
+  String get additionalFee => 'خدمة إضافية';
+
+  @override
+  String get discount => 'خصم';
+
+  @override
+  String get total => 'الإجمالي';
+
+  @override
+  String get finalPrice => 'السعر النهائي';
+
+  @override
+  String get toBeConfirmed => 'سيتم تأكيده من قبل مقدم الخدمة';
+
+  @override
+  String get paymentMethod => 'طريقة الدفع';
+
+  @override
+  String get paymentCash => 'الدفع نقدًا بعد الخدمة';
+
+  @override
+  String get paymentStatusPaid => 'حالة الدفع: مدفوع';
+
+  @override
+  String get paymentStatusUnpaid => 'حالة الدفع: غير مدفوع';
+
+  @override
+  String get notesTitle => 'ملاحظات';
+
+  @override
+  String get messageProviderBtn => 'مراسلة مقدم الخدمة';
+
+  @override
+  String get callProviderBtn => 'الاتصال بمقدم الخدمة';
+
+  @override
+  String get rateServiceTitle => 'تقييم تجربتك';
+
+  @override
+  String get submitReview => 'إرسال التقييم';
+
+  @override
+  String get yourReview => 'تقييمك';
+
+  @override
+  String get cancellationReasonTitle => 'السبب: ';
+
+  @override
+  String get timelineRequestSubmitted => 'تم إرسال الطلب';
+
+  @override
+  String get timelineProviderConfirmed => 'أكد مقدم الخدمة';
+
+  @override
+  String get timelineServiceInProgress => 'الخدمة قيد التنفيذ';
+
+  @override
+  String get timelineServiceCompleted => 'اكتملت الخدمة';
+
+  @override
+  String get statusConfirmed => 'مؤكد';
+
+  @override
+  String get pickLocationFromMap => 'تحديد الموقع من الخريطة';
+
+  @override
+  String get governorate => 'المحافظة';
+
+  @override
+  String get selectGovernorate => 'اختر المحافظة';
+
+  @override
+  String get city => 'المدينة';
+
+  @override
+  String get selectCity => 'اختر المدينة';
+
+  @override
+  String get otherCity => 'مدينة أخرى';
+
+  @override
+  String get enterCityName => 'أدخل اسم المدينة';
+
+  @override
+  String get street => 'الشارع';
+
+  @override
+  String get enterStreet => 'أدخل اسم الشارع';
+
+  @override
+  String get buildingNumber => 'رقم المبنى';
+
+  @override
+  String get enterBuildingNumber => 'أدخل رقم المبنى';
+
+  @override
+  String get apartmentNumber => 'رقم الشقة';
+
+  @override
+  String get enterApartmentNumber => 'أدخل رقم الشقة';
+
+  @override
+  String get confirmLocation => 'تأكيد الموقع';
+
+  @override
+  String get myLocation => 'موقعي الحالي';
+
+  @override
+  String get pleaseSelectLocation => 'يرجى تحديد الموقع من الخريطة';
+
+  @override
+  String get pleaseSelectGovernorate => 'يرجى اختيار المحافظة';
+
+  @override
+  String get pleaseSelectCity => 'يرجى اختيار المدينة';
+
+  @override
+  String get pleaseEnterCityName => 'يرجى إدخال اسم المدينة';
+
+  @override
+  String get pleaseEnterStreet => 'يرجى إدخال اسم الشارع';
+
+  @override
+  String get pleaseEnterBuilding => 'يرجى إدخال رقم المبنى';
+
+  @override
+  String get pleaseEnterApartment => 'يرجى إدخال رقم الشقة';
+
+  @override
+  String get searchPlace => 'البحث عن مكان...';
+
+  @override
+  String get placeNotFound => 'لم يتم العثور على المكان';
+
+  @override
+  String get errorInvalidCredential =>
+      'البريد الإلكتروني أو كلمة المرور غير صحيحة!';
 }

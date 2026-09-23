@@ -99,7 +99,7 @@ class AuthRepository {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw Exception('user-not-found');
-      } else if (e.code == 'wrong-password') {
+      } else if (e.code == 'wrong-password' || e.code == 'invalid-credential') {
         throw Exception('wrong-password');
       }
       throw Exception(e.message ?? 'An unknown error occurred');
@@ -284,6 +284,21 @@ class AuthRepository {
       return UserModel.fromJson(docSnapshot.data()!);
     } catch (e) {
       throw Exception(e.toString());
+    }
+  }
+
+  Future<UserModel?> getUserById(String uid) async {
+    try {
+      final doc = await _firestore.collection('users').doc(uid).get();
+      if (doc.exists && doc.data() != null) {
+        final data = doc.data()!;
+        data['id'] = doc.id;
+        return UserModel.fromJson(data);
+      }
+      return null;
+    } catch (e) {
+      print('Error fetching user by id: $e');
+      return null;
     }
   }
 }

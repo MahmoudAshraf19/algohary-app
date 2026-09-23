@@ -8,6 +8,10 @@ import '../../../../core/theme/app_colors.dart';
 import 'package:algohary_project/features/auth/data/models/user_model.dart';
 import 'package:algohary_project/features/dashboard/data/repositories/provider_repository.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
+import '../../../../core/network/firebase_config.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'location_picker_screen.dart';
+import '../../../../core/widgets/selection_bottom_sheet.dart';
 
 class CreateRequestWizardScreen extends StatefulWidget {
   final UserModel provider;
@@ -32,7 +36,20 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
   final _amountController = TextEditingController();
   final _dateController = TextEditingController();
   final _timeController = TextEditingController();
-  final _addressController = TextEditingController();
+  final _addressController = TextEditingController(); // used for additional notes now
+
+  // New Location Fields
+  String? _selectedGovernorateId;
+  String? _selectedGovernorateName;
+  String? _selectedCityId;
+  String? _selectedCityName;
+  bool _isOtherCity = false;
+  
+  final _streetController = TextEditingController();
+  final _buildingNumberController = TextEditingController();
+  final _apartmentNumberController = TextEditingController();
+  final _otherCityController = TextEditingController();
+  LocationPickerResult? _pickedLocation;
 
   final ProviderRepository _providerRepo = ProviderRepository();
   List<Map<String, String>> _availableServices = [];
@@ -66,6 +83,28 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
     }
   }
 
+  InputDecoration _buildInputDecoration(ThemeData theme, String label) {
+    return InputDecoration(
+      labelText: label,
+      labelStyle: TextStyle(color: theme.brightness == Brightness.dark ? AppColors.lightYellow.withOpacity(0.5) : theme.colorScheme.onSurface.withOpacity(0.6)),
+      filled: true,
+      fillColor: theme.colorScheme.surface,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: theme.colorScheme.onSurface.withOpacity(0.2)),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: theme.colorScheme.onSurface.withOpacity(0.2)),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: theme.colorScheme.primary, width: 1.5),
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+    );
+  }
+
   @override
   void dispose() {
     _pageController.dispose();
@@ -73,6 +112,10 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
     _dateController.dispose();
     _timeController.dispose();
     _addressController.dispose();
+    _streetController.dispose();
+    _buildingNumberController.dispose();
+    _apartmentNumberController.dispose();
+    _otherCityController.dispose();
     super.dispose();
   }
 
@@ -95,25 +138,40 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
         ));
       }
     } else if (_currentStep == 2) {
-      if (_addressController.text.isEmpty) {
-        _showError(l10n.wizardProvideLocation);
+      if (_selectedGovernorateId == null) {
+        _showError(l10n.pleaseSelectGovernorate ?? 'Please select a governorate');
+        canProceed = false;
+      } else if (_selectedCityId == null) {
+        _showError(l10n.pleaseSelectCity ?? 'Please select a city');
+        canProceed = false;
+      } else if (_isOtherCity && _otherCityController.text.isEmpty) {
+        _showError(l10n.pleaseEnterCityName ?? 'Please enter city name');
+        canProceed = false;
+      } else if (_streetController.text.isEmpty) {
+        _showError(l10n.pleaseEnterStreet ?? 'Please enter street name');
+        canProceed = false;
+      } else if (_buildingNumberController.text.isEmpty) {
+        _showError(l10n.pleaseEnterBuilding ?? 'Please enter building number');
+        canProceed = false;
+      } else if (_apartmentNumberController.text.isEmpty) {
+        _showError(l10n.pleaseEnterApartment ?? 'Please enter apartment number');
         canProceed = false;
       } else {
         context.read<CreateRequestBloc>().add(SelectLocationEvent(
           LocationModel(
-            latitude: 30.0,
-            longitude: 31.0,
-            geohash: 'g',
-            formattedAddress: _addressController.text,
+            latitude: _pickedLocation?.latitude ?? 0.0,
+            longitude: _pickedLocation?.longitude ?? 0.0,
+            geohash: '',
+            formattedAddress: _pickedLocation?.formattedAddress ?? '',
             details: AddressDetailsModel(
-              buildingNumber: '1',
-              floor: '1',
-              apartmentNumber: '1',
-              street: 'Test',
-              district: 'Test',
-              city: 'Test',
-              landmark: 'Test',
-              additionalInstructions: '',
+              buildingNumber: _buildingNumberController.text,
+              floor: '',
+              apartmentNumber: _apartmentNumberController.text,
+              street: _streetController.text,
+              district: _selectedGovernorateName ?? '',
+              city: _isOtherCity ? _otherCityController.text : (_selectedCityName ?? ''),
+              landmark: '',
+              additionalInstructions: _addressController.text,
             ),
           ),
         ));
@@ -434,6 +492,9 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
 
   // --- Step 3: Location ---
   Widget _buildLocationStep(CreateRequestState state, ThemeData theme, AppLocalizations l10n) {
+    final locale = Localizations.localeOf(context).languageCode;
+    final isAr = locale == 'ar';
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -448,14 +509,177 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
             l10n.wizardStep3Subtitle,
             style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey),
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 24),
+          
+          // Map Picker Button
+          SizedBox(
+            width: double.infinity,
+            height: 50,
+            child: OutlinedButton.icon(
+              onPressed: () async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LocationPickerScreen()),
+                );
+                if (result != null && result is LocationPickerResult) {
+                  setState(() {
+                    _pickedLocation = result;
+                  });
+                }
+              },
+              icon: Icon(Icons.map, color: theme.colorScheme.primary),
+              label: Text(l10n.pickLocationFromMap ?? 'Pick Location from Map'),
+              style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+            ),
+          ),
+          if (_pickedLocation != null) ...[
+            const SizedBox(height: 8),
+            Text(
+              _pickedLocation!.formattedAddress,
+              style: TextStyle(color: theme.colorScheme.primary, fontWeight: FontWeight.w500),
+            ),
+          ],
+          
+          const SizedBox(height: 24),
+
+          // Governorate Dropdown
+          StreamBuilder<QuerySnapshot>(
+            stream: FirebaseConfig.firestore.collection('governorates').snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
+              final govDocs = snapshot.data!.docs;
+              return GestureDetector(
+                onTap: () async {
+                  final items = govDocs.map((doc) {
+                    final data = doc.data() as Map<String, dynamic>;
+                    final name = isAr ? data['governorate_name_ar'] : data['governorate_name_en'];
+                    return SelectionItem(id: doc.id, name: name ?? '');
+                  }).toList();
+
+                  final selected = await SelectionBottomSheet.show(
+                    context,
+                    title: l10n.governorate ?? 'Governorate',
+                    items: items,
+                  );
+
+                  if (selected != null) {
+                    setState(() {
+                      _selectedGovernorateId = selected.id;
+                      _selectedGovernorateName = selected.name;
+                      _selectedCityId = null; // reset city when gov changes
+                      _isOtherCity = false;
+                      _selectedCityName = '';
+                    });
+                  }
+                },
+                child: AbsorbPointer(
+                  child: TextFormField(
+                    key: ValueKey(_selectedGovernorateName), // Force rebuild on change
+                    initialValue: (_selectedGovernorateName?.isNotEmpty ?? false) ? _selectedGovernorateName : null,
+                    decoration: _buildInputDecoration(theme, l10n.governorate ?? 'Governorate').copyWith(
+                      suffixIcon: const Icon(Icons.arrow_drop_down),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+          
+          const SizedBox(height: 16),
+
+          // City Dropdown
+          if (_selectedGovernorateId != null)
+            StreamBuilder<QuerySnapshot>(
+              stream: FirebaseConfig.firestore
+                  .collection('cities')
+                  .where('governorate_id', isEqualTo: _selectedGovernorateId)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
+                final cityDocs = snapshot.data!.docs;
+                return GestureDetector(
+                  onTap: () async {
+                    final itemsList = cityDocs.map((doc) {
+                      final data = doc.data() as Map<String, dynamic>;
+                      final name = isAr ? data['city_name_ar'] : data['city_name_en'];
+                      return SelectionItem(id: doc.id, name: name ?? '');
+                    }).toList();
+
+                    // Add "Other" option
+                    itemsList.add(SelectionItem(id: 'other', name: l10n.otherCity ?? 'Other City'));
+
+                    final selected = await SelectionBottomSheet.show(
+                      context,
+                      title: l10n.city ?? 'City',
+                      items: itemsList,
+                    );
+
+                    if (selected != null) {
+                      setState(() {
+                        _selectedCityId = selected.id;
+                        _isOtherCity = selected.id == 'other';
+                        if (!_isOtherCity) {
+                          _selectedCityName = selected.name;
+                        } else {
+                          _selectedCityName = '';
+                        }
+                      });
+                    }
+                  },
+                  child: AbsorbPointer(
+                    child: TextFormField(
+                      key: ValueKey('$_selectedCityId-$_selectedCityName'), // Force rebuild
+                      initialValue: _isOtherCity ? (l10n.otherCity ?? 'Other City') : ((_selectedCityName?.isNotEmpty ?? false) ? _selectedCityName : null),
+                      decoration: _buildInputDecoration(theme, l10n.city ?? 'City').copyWith(
+                        suffixIcon: const Icon(Icons.arrow_drop_down),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+
+          if (_isOtherCity) ...[
+            const SizedBox(height: 16),
+            TextField(
+              controller: _otherCityController,
+              decoration: _buildInputDecoration(theme, l10n.enterCityName ?? 'Enter City Name'),
+            ),
+          ],
+
+          const SizedBox(height: 16),
+          TextField(
+            controller: _streetController,
+            decoration: _buildInputDecoration(theme, l10n.street ?? 'Street'),
+          ),
+          
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _buildingNumberController,
+                  decoration: _buildInputDecoration(theme, l10n.buildingNumber ?? 'Building Number'),
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: TextField(
+                  controller: _apartmentNumberController,
+                  decoration: _buildInputDecoration(theme, l10n.apartmentNumber ?? 'Apartment Number'),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 16),
           TextField(
             controller: _addressController,
-            maxLines: 3,
-            decoration: InputDecoration(
-              labelText: l10n.wizardAddressHint,
+            maxLines: 2,
+            decoration: _buildInputDecoration(theme, l10n.wizardAddressHint).copyWith(
               alignLabelWithHint: true,
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
             ),
           ),
         ],

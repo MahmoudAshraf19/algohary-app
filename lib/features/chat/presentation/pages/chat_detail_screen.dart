@@ -267,10 +267,14 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                   child: CircleAvatar(
                     radius: 20,
                     backgroundColor: colorScheme.surfaceContainerHighest,
-                    backgroundImage: widget.recipientAvatar != null && widget.recipientAvatar!.startsWith('http')
-                        ? CachedNetworkImageProvider(widget.recipientAvatar!)
+                    backgroundImage: widget.recipientAvatar != null
+                        ? (widget.recipientAvatar!.startsWith('http')
+                            ? CachedNetworkImageProvider(widget.recipientAvatar!) as ImageProvider
+                            : (widget.recipientAvatar!.startsWith('assets/')
+                                ? AssetImage(widget.recipientAvatar!) as ImageProvider
+                                : null))
                         : null,
-                    child: widget.recipientAvatar == null || !widget.recipientAvatar!.startsWith('http')
+                    child: widget.recipientAvatar == null || (!widget.recipientAvatar!.startsWith('http') && !widget.recipientAvatar!.startsWith('assets/'))
                         ? Icon(Icons.person, color: colorScheme.onSurfaceVariant, size: 22)
                         : null,
                   ),

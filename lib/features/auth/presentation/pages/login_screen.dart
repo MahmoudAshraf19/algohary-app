@@ -129,8 +129,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            state.message == 'user-not-found' || state.message == 'wrong-password'
-                                ? 'البريد الإلكتروني أو كلمة المرور غير صحيحة'
+                            state.message == 'user-not-found' || state.message == 'wrong-password' || state.message == 'invalid-credential'
+                                ? (l10n.errorInvalidCredential ?? 'Email or Password incorrect')
                                 : state.message == 'user-blocked'
                                     ? 'هذا الحساب محظور، يرجى التواصل مع الإدارة'
                                     : l10n.errorGeneric,

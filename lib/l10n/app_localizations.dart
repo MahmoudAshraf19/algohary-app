@@ -1039,6 +1039,564 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please log out and log in again to perform this action'**
   String get errorRequiresRecentLogin;
+
+  /// No description provided for @searchBookings.
+  ///
+  /// In en, this message translates to:
+  /// **'Search bookings...'**
+  String get searchBookings;
+
+  /// No description provided for @filterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get filterAll;
+
+  /// No description provided for @filterUpcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming'**
+  String get filterUpcoming;
+
+  /// No description provided for @filterPast.
+  ///
+  /// In en, this message translates to:
+  /// **'Past'**
+  String get filterPast;
+
+  /// No description provided for @provider.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider'**
+  String get provider;
+
+  /// No description provided for @statusPendingProviderApproval.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Approval'**
+  String get statusPendingProviderApproval;
+
+  /// No description provided for @statusChangeProposed.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Proposed'**
+  String get statusChangeProposed;
+
+  /// No description provided for @statusPendingProviderConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Confirmation'**
+  String get statusPendingProviderConfirmation;
+
+  /// No description provided for @statusApproved.
+  ///
+  /// In en, this message translates to:
+  /// **'Approved'**
+  String get statusApproved;
+
+  /// No description provided for @statusRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'Rejected'**
+  String get statusRejected;
+
+  /// No description provided for @statusCancelledByUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled (User)'**
+  String get statusCancelledByUser;
+
+  /// No description provided for @statusCancelledByProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled (Provider)'**
+  String get statusCancelledByProvider;
+
+  /// No description provided for @statusInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get statusInProgress;
+
+  /// No description provided for @statusCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get statusCompleted;
+
+  /// No description provided for @statusExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get statusExpired;
+
+  /// No description provided for @errorLoadingBookings.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while loading bookings'**
+  String get errorLoadingBookings;
+
+  /// No description provided for @noBookingsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No bookings found.'**
+  String get noBookingsFound;
+
+  /// No description provided for @bookingId.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking ID'**
+  String get bookingId;
+
+  /// No description provided for @emptyBookingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No Bookings Yet'**
+  String get emptyBookingsTitle;
+
+  /// No description provided for @emptyBookingsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Your service bookings will appear here once you request a service.'**
+  String get emptyBookingsDesc;
+
+  /// No description provided for @btnFindService.
+  ///
+  /// In en, this message translates to:
+  /// **'Find a Service'**
+  String get btnFindService;
+
+  /// No description provided for @filterBookingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Bookings'**
+  String get filterBookingsTitle;
+
+  /// No description provided for @filterDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get filterDate;
+
+  /// No description provided for @filterDateAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All Dates'**
+  String get filterDateAll;
+
+  /// No description provided for @filterDateToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get filterDateToday;
+
+  /// No description provided for @filterDateTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get filterDateTomorrow;
+
+  /// No description provided for @filterDateThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This Week'**
+  String get filterDateThisWeek;
+
+  /// No description provided for @filterDateThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'This Month'**
+  String get filterDateThisMonth;
+
+  /// No description provided for @btnReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get btnReset;
+
+  /// No description provided for @btnApplyFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply Filters'**
+  String get btnApplyFilters;
+
+  /// No description provided for @viewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String get viewDetails;
+
+  /// No description provided for @cancelBooking.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Booking'**
+  String get cancelBooking;
+
+  /// No description provided for @cancelBookingConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Booking?'**
+  String get cancelBookingConfirmTitle;
+
+  /// No description provided for @cancelBookingConfirmDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to cancel this booking?'**
+  String get cancelBookingConfirmDesc;
+
+  /// No description provided for @keepBooking.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep Booking'**
+  String get keepBooking;
+
+  /// No description provided for @reportProblem.
+  ///
+  /// In en, this message translates to:
+  /// **'Report a Problem'**
+  String get reportProblem;
+
+  /// No description provided for @contactSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Support'**
+  String get contactSupport;
+
+  /// No description provided for @serviceProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Provider'**
+  String get serviceProvider;
+
+  /// No description provided for @serviceDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Details'**
+  String get serviceDetails;
+
+  /// No description provided for @selectedServices.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Services'**
+  String get selectedServices;
+
+  /// No description provided for @requestDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Details'**
+  String get requestDetails;
+
+  /// No description provided for @attachmentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Attachments'**
+  String get attachmentsTitle;
+
+  /// No description provided for @scheduleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get scheduleTitle;
+
+  /// No description provided for @serviceLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Location'**
+  String get serviceLocation;
+
+  /// No description provided for @openInMaps.
+  ///
+  /// In en, this message translates to:
+  /// **'Open in Maps'**
+  String get openInMaps;
+
+  /// No description provided for @paymentSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Summary'**
+  String get paymentSummary;
+
+  /// No description provided for @serviceFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Fee'**
+  String get serviceFee;
+
+  /// No description provided for @additionalFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional Service'**
+  String get additionalFee;
+
+  /// No description provided for @discount.
+  ///
+  /// In en, this message translates to:
+  /// **'Discount'**
+  String get discount;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// No description provided for @finalPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Final Price'**
+  String get finalPrice;
+
+  /// No description provided for @toBeConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'To be confirmed by the provider'**
+  String get toBeConfirmed;
+
+  /// No description provided for @paymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get paymentMethod;
+
+  /// No description provided for @paymentCash.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash on Service'**
+  String get paymentCash;
+
+  /// No description provided for @paymentStatusPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Status: Paid'**
+  String get paymentStatusPaid;
+
+  /// No description provided for @paymentStatusUnpaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Status: Unpaid'**
+  String get paymentStatusUnpaid;
+
+  /// No description provided for @notesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get notesTitle;
+
+  /// No description provided for @messageProviderBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Message Provider'**
+  String get messageProviderBtn;
+
+  /// No description provided for @callProviderBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Call Provider'**
+  String get callProviderBtn;
+
+  /// No description provided for @rateServiceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate Your Experience'**
+  String get rateServiceTitle;
+
+  /// No description provided for @submitReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Review'**
+  String get submitReview;
+
+  /// No description provided for @yourReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Review'**
+  String get yourReview;
+
+  /// No description provided for @cancellationReasonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason: '**
+  String get cancellationReasonTitle;
+
+  /// No description provided for @timelineRequestSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Submitted'**
+  String get timelineRequestSubmitted;
+
+  /// No description provided for @timelineProviderConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider Confirmed'**
+  String get timelineProviderConfirmed;
+
+  /// No description provided for @timelineServiceInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Service In Progress'**
+  String get timelineServiceInProgress;
+
+  /// No description provided for @timelineServiceCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Completed'**
+  String get timelineServiceCompleted;
+
+  /// No description provided for @statusConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed'**
+  String get statusConfirmed;
+
+  /// No description provided for @pickLocationFromMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick Location from Map'**
+  String get pickLocationFromMap;
+
+  /// No description provided for @governorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Governorate'**
+  String get governorate;
+
+  /// No description provided for @selectGovernorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Governorate'**
+  String get selectGovernorate;
+
+  /// No description provided for @city.
+  ///
+  /// In en, this message translates to:
+  /// **'City'**
+  String get city;
+
+  /// No description provided for @selectCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Select City'**
+  String get selectCity;
+
+  /// No description provided for @otherCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Other City'**
+  String get otherCity;
+
+  /// No description provided for @enterCityName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter City Name'**
+  String get enterCityName;
+
+  /// No description provided for @street.
+  ///
+  /// In en, this message translates to:
+  /// **'Street'**
+  String get street;
+
+  /// No description provided for @enterStreet.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Street Name'**
+  String get enterStreet;
+
+  /// No description provided for @buildingNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Building Number'**
+  String get buildingNumber;
+
+  /// No description provided for @enterBuildingNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Building Number'**
+  String get enterBuildingNumber;
+
+  /// No description provided for @apartmentNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Apartment Number'**
+  String get apartmentNumber;
+
+  /// No description provided for @enterApartmentNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Apartment Number'**
+  String get enterApartmentNumber;
+
+  /// No description provided for @confirmLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Location'**
+  String get confirmLocation;
+
+  /// No description provided for @myLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'My Location'**
+  String get myLocation;
+
+  /// No description provided for @pleaseSelectLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a location from the map'**
+  String get pleaseSelectLocation;
+
+  /// No description provided for @pleaseSelectGovernorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a governorate'**
+  String get pleaseSelectGovernorate;
+
+  /// No description provided for @pleaseSelectCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a city'**
+  String get pleaseSelectCity;
+
+  /// No description provided for @pleaseEnterCityName.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter city name'**
+  String get pleaseEnterCityName;
+
+  /// No description provided for @pleaseEnterStreet.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter street name'**
+  String get pleaseEnterStreet;
+
+  /// No description provided for @pleaseEnterBuilding.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter building number'**
+  String get pleaseEnterBuilding;
+
+  /// No description provided for @pleaseEnterApartment.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter apartment number'**
+  String get pleaseEnterApartment;
+
+  /// No description provided for @searchPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for a place...'**
+  String get searchPlace;
+
+  /// No description provided for @placeNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Place not found'**
+  String get placeNotFound;
+
+  /// No description provided for @errorInvalidCredential.
+  ///
+  /// In en, this message translates to:
+  /// **'Email or Password incorrect'**
+  String get errorInvalidCredential;
 }
 
 class _AppLocalizationsDelegate

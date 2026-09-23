@@ -490,4 +490,285 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get errorRequiresRecentLogin =>
       'Please log out and log in again to perform this action';
+
+  @override
+  String get searchBookings => 'Search bookings...';
+
+  @override
+  String get filterAll => 'All';
+
+  @override
+  String get filterUpcoming => 'Upcoming';
+
+  @override
+  String get filterPast => 'Past';
+
+  @override
+  String get provider => 'Provider';
+
+  @override
+  String get statusPendingProviderApproval => 'Pending Approval';
+
+  @override
+  String get statusChangeProposed => 'Change Proposed';
+
+  @override
+  String get statusPendingProviderConfirmation => 'Pending Confirmation';
+
+  @override
+  String get statusApproved => 'Approved';
+
+  @override
+  String get statusRejected => 'Rejected';
+
+  @override
+  String get statusCancelledByUser => 'Cancelled (User)';
+
+  @override
+  String get statusCancelledByProvider => 'Cancelled (Provider)';
+
+  @override
+  String get statusInProgress => 'In Progress';
+
+  @override
+  String get statusCompleted => 'Completed';
+
+  @override
+  String get statusExpired => 'Expired';
+
+  @override
+  String get errorLoadingBookings => 'An error occurred while loading bookings';
+
+  @override
+  String get noBookingsFound => 'No bookings found.';
+
+  @override
+  String get bookingId => 'Booking ID';
+
+  @override
+  String get emptyBookingsTitle => 'No Bookings Yet';
+
+  @override
+  String get emptyBookingsDesc =>
+      'Your service bookings will appear here once you request a service.';
+
+  @override
+  String get btnFindService => 'Find a Service';
+
+  @override
+  String get filterBookingsTitle => 'Filter Bookings';
+
+  @override
+  String get filterDate => 'Date';
+
+  @override
+  String get filterDateAll => 'All Dates';
+
+  @override
+  String get filterDateToday => 'Today';
+
+  @override
+  String get filterDateTomorrow => 'Tomorrow';
+
+  @override
+  String get filterDateThisWeek => 'This Week';
+
+  @override
+  String get filterDateThisMonth => 'This Month';
+
+  @override
+  String get btnReset => 'Reset';
+
+  @override
+  String get btnApplyFilters => 'Apply Filters';
+
+  @override
+  String get viewDetails => 'View Details';
+
+  @override
+  String get cancelBooking => 'Cancel Booking';
+
+  @override
+  String get cancelBookingConfirmTitle => 'Cancel Booking?';
+
+  @override
+  String get cancelBookingConfirmDesc =>
+      'Are you sure you want to cancel this booking?';
+
+  @override
+  String get keepBooking => 'Keep Booking';
+
+  @override
+  String get reportProblem => 'Report a Problem';
+
+  @override
+  String get contactSupport => 'Contact Support';
+
+  @override
+  String get serviceProvider => 'Service Provider';
+
+  @override
+  String get serviceDetails => 'Service Details';
+
+  @override
+  String get selectedServices => 'Selected Services';
+
+  @override
+  String get requestDetails => 'Request Details';
+
+  @override
+  String get attachmentsTitle => 'Attachments';
+
+  @override
+  String get scheduleTitle => 'Schedule';
+
+  @override
+  String get serviceLocation => 'Service Location';
+
+  @override
+  String get openInMaps => 'Open in Maps';
+
+  @override
+  String get paymentSummary => 'Payment Summary';
+
+  @override
+  String get serviceFee => 'Service Fee';
+
+  @override
+  String get additionalFee => 'Additional Service';
+
+  @override
+  String get discount => 'Discount';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get finalPrice => 'Final Price';
+
+  @override
+  String get toBeConfirmed => 'To be confirmed by the provider';
+
+  @override
+  String get paymentMethod => 'Payment Method';
+
+  @override
+  String get paymentCash => 'Cash on Service';
+
+  @override
+  String get paymentStatusPaid => 'Payment Status: Paid';
+
+  @override
+  String get paymentStatusUnpaid => 'Payment Status: Unpaid';
+
+  @override
+  String get notesTitle => 'Notes';
+
+  @override
+  String get messageProviderBtn => 'Message Provider';
+
+  @override
+  String get callProviderBtn => 'Call Provider';
+
+  @override
+  String get rateServiceTitle => 'Rate Your Experience';
+
+  @override
+  String get submitReview => 'Submit Review';
+
+  @override
+  String get yourReview => 'Your Review';
+
+  @override
+  String get cancellationReasonTitle => 'Reason: ';
+
+  @override
+  String get timelineRequestSubmitted => 'Request Submitted';
+
+  @override
+  String get timelineProviderConfirmed => 'Provider Confirmed';
+
+  @override
+  String get timelineServiceInProgress => 'Service In Progress';
+
+  @override
+  String get timelineServiceCompleted => 'Service Completed';
+
+  @override
+  String get statusConfirmed => 'Confirmed';
+
+  @override
+  String get pickLocationFromMap => 'Pick Location from Map';
+
+  @override
+  String get governorate => 'Governorate';
+
+  @override
+  String get selectGovernorate => 'Select Governorate';
+
+  @override
+  String get city => 'City';
+
+  @override
+  String get selectCity => 'Select City';
+
+  @override
+  String get otherCity => 'Other City';
+
+  @override
+  String get enterCityName => 'Enter City Name';
+
+  @override
+  String get street => 'Street';
+
+  @override
+  String get enterStreet => 'Enter Street Name';
+
+  @override
+  String get buildingNumber => 'Building Number';
+
+  @override
+  String get enterBuildingNumber => 'Enter Building Number';
+
+  @override
+  String get apartmentNumber => 'Apartment Number';
+
+  @override
+  String get enterApartmentNumber => 'Enter Apartment Number';
+
+  @override
+  String get confirmLocation => 'Confirm Location';
+
+  @override
+  String get myLocation => 'My Location';
+
+  @override
+  String get pleaseSelectLocation => 'Please select a location from the map';
+
+  @override
+  String get pleaseSelectGovernorate => 'Please select a governorate';
+
+  @override
+  String get pleaseSelectCity => 'Please select a city';
+
+  @override
+  String get pleaseEnterCityName => 'Please enter city name';
+
+  @override
+  String get pleaseEnterStreet => 'Please enter street name';
+
+  @override
+  String get pleaseEnterBuilding => 'Please enter building number';
+
+  @override
+  String get pleaseEnterApartment => 'Please enter apartment number';
+
+  @override
+  String get searchPlace => 'Search for a place...';
+
+  @override
+  String get placeNotFound => 'Place not found';
+
+  @override
+  String get errorInvalidCredential => 'Email or Password incorrect';
 }

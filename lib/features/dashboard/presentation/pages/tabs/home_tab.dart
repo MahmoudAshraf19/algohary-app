@@ -9,6 +9,7 @@ import 'package:algohary_project/features/location/presentation/widgets/location
 import 'package:algohary_project/features/dashboard/presentation/widgets/categories_row.dart';
 import 'package:algohary_project/features/dashboard/presentation/widgets/popular_services_section.dart';
 import 'package:algohary_project/features/dashboard/presentation/widgets/provider_search_delegate.dart';
+import 'package:algohary_project/core/widgets/custom_search_bar.dart';
 import 'package:algohary_project/features/notifications/data/services/notification_service.dart';
 import 'package:algohary_project/features/notifications/presentation/widgets/notification_dropdown_widget.dart';
 
@@ -237,29 +238,10 @@ class _HomeTabState extends State<HomeTab> {
                         );
                       },
                       child: AbsorbPointer(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: l10n.homeSearchHint,
-                            prefixIcon: const Icon(Icons.search),
-                            suffixIcon: const Icon(Icons.tune),
-                            filled: true,
-                            fillColor: theme.colorScheme.surface,
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(
-                                color: theme.colorScheme.primary.withOpacity(0.3),
-                                width: 1,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(
-                                color: theme.colorScheme.primary,
-                                width: 2,
-                              ),
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(vertical: 16),
-                          ),
+                        child: CustomSearchBar(
+                          hintText: l10n.homeSearchHint,
+                          suffixIcon: const Icon(Icons.tune),
+                          readOnly: true,
                         ),
                       ),
                     ),
