@@ -77,3 +77,31 @@ class ConfirmUpdatedRequestEvent extends RequestDetailsEvent {
   @override
   List<Object?> get props => [providerId];
 }
+
+class CancelRequestEvent extends RequestDetailsEvent {
+  final String userId;
+  final bool isProvider;
+  final String reason;
+  
+  const CancelRequestEvent({
+    required this.userId,
+    required this.isProvider,
+    required this.reason,
+  });
+
+  @override
+  List<Object?> get props => [userId, isProvider, reason];
+}
+
+class MarkRequestAsCompletedEvent extends RequestDetailsEvent {
+  final String userId;
+  final bool isProvider;
+  
+  const MarkRequestAsCompletedEvent({
+    required this.userId,
+    required this.isProvider,
+  });
+
+  @override
+  List<Object?> get props => [userId, isProvider];
+}

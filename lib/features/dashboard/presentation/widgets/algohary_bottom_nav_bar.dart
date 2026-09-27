@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
 import 'package:algohary_project/core/theme/app_colors.dart';
+import 'package:algohary_project/features/chat/data/services/chat_service.dart';
+import 'package:algohary_project/features/chat/data/models/chat_models.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:algohary_project/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:algohary_project/features/auth/presentation/bloc/auth_state.dart';
 
 class AlgoharyBottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -14,6 +19,26 @@ class AlgoharyBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authState = context.read<AuthBloc>().state;
+    final userId = (authState is AuthSuccess) ? authState.user.id : null;
+
+    return StreamBuilder<List<ConversationModel>>(
+      stream: ChatService(injectedUserId: userId).streamConversations(),
+      builder: (context, snapshot) {
+        int unreadChats = 0;
+        if (snapshot.hasData) {
+          for (var conv in snapshot.data!) {
+            if (conv.unreadCount > 0) {
+              unreadChats += 1;
+            }
+          }
+        }
+        return _buildNavBar(context, unreadChats);
+      },
+    );
+  }
+
+  Widget _buildNavBar(BuildContext context, int totalUnread) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
     final bottomInset = MediaQuery.paddingOf(context).bottom;
@@ -38,6 +63,8 @@ class AlgoharyBottomNavBar extends StatelessWidget {
         label: l10n.navMessages,
         activeIcon: Icons.chat_bubble_rounded,
         inactiveIcon: Icons.chat_bubble_outline_rounded,
+        hasBadge: totalUnread > 0,
+        badgeCount: totalUnread,
       ),
       _NavItem(
         label: l10n.navProfile,
@@ -105,11 +132,45 @@ class AlgoharyBottomNavBar extends StatelessWidget {
                                   ),
                                 );
                               },
-                              child: Icon(
-                                selected ? item.activeIcon : item.inactiveIcon,
-                                key: ValueKey<bool>(selected),
-                                size: 23,
-                                color: selected ? activeColor : inactiveColor,
+                              child: Stack(
+                                key: ValueKey<String>('${selected}_${item.hasBadge}_${item.badgeCount}'),
+                                clipBehavior: Clip.none,
+                                children: [
+                                  Icon(
+                                    selected ? item.activeIcon : item.inactiveIcon,
+                                    size: 23,
+                                    color: selected ? activeColor : inactiveColor,
+                                  ),
+                                  if (item.hasBadge)
+                                    Positioned(
+                                      right: -4,
+                                      top: -4,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                          color: Colors.red,
+                                          shape: BoxShape.circle,
+                                          border: Border.all(color: bgColor, width: 1.5),
+                                        ),
+                                        constraints: const BoxConstraints(
+                                          minWidth: 16,
+                                          minHeight: 16,
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            item.badgeCount > 9 ? '+9' : item.badgeCount.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 9,
+                                              fontWeight: FontWeight.bold,
+                                              height: 1,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                ],
                               ),
                             ),
                             const SizedBox(height: 3),
@@ -149,10 +210,14 @@ class _NavItem {
   final String label;
   final IconData activeIcon;
   final IconData inactiveIcon;
+  final bool hasBadge;
+  final int badgeCount;
 
   _NavItem({
     required this.label,
     required this.activeIcon,
     required this.inactiveIcon,
+    this.hasBadge = false,
+    this.badgeCount = 0,
   });
 }

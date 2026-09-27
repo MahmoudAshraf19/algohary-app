@@ -1813,6 +1813,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Orders'**
   String get navOrders;
+
+  /// No description provided for @proposeNewPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Propose New Price'**
+  String get proposeNewPrice;
+
+  /// No description provided for @newPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'New Price'**
+  String get newPrice;
+
+  /// No description provided for @btnCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get btnCancel;
+
+  /// No description provided for @newTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'New Total'**
+  String get newTotal;
+
+  /// No description provided for @newPriceProposedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New Price Proposed'**
+  String get newPriceProposedTitle;
+
+  /// No description provided for @newPriceProposedDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'The provider has proposed a new price. Please review the payment summary below.'**
+  String get newPriceProposedDesc;
 }
 
 class _AppLocalizationsDelegate

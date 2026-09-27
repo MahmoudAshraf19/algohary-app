@@ -19,6 +19,8 @@ class RequestDetailsBloc extends Bloc<RequestDetailsEvent, RequestDetailsState> 
     on<ProposeChangesEvent>(_onProposeChanges);
     on<AcceptChangesEvent>(_onAcceptChanges);
     on<ConfirmUpdatedRequestEvent>(_onConfirmUpdatedRequest);
+    on<CancelRequestEvent>(_onCancelRequest);
+    on<MarkRequestAsCompletedEvent>(_onMarkAsCompleted);
   }
 
   void _onLoadRequestDetails(LoadRequestDetailsEvent event, Emitter<RequestDetailsState> emit) {
@@ -39,8 +41,8 @@ class RequestDetailsBloc extends Bloc<RequestDetailsEvent, RequestDetailsState> 
       emit(const RequestDetailsError('Service request not found.'));
     } else {
       if (state is RequestDetailsLoaded) {
-        // Keep processing state if it was there
-        emit((state as RequestDetailsLoaded).copyWith(request: event.request));
+        // Action completed successfully, new data arrived, clear processing state
+        emit((state as RequestDetailsLoaded).copyWith(request: event.request, isProcessingAction: false));
       } else {
         emit(RequestDetailsLoaded(request: event.request!));
       }
@@ -131,6 +133,41 @@ class RequestDetailsBloc extends Bloc<RequestDetailsEvent, RequestDetailsState> 
       );
     } catch (e) {
       emit(currentState.copyWith(isProcessingAction: false, actionError: 'Failed to confirm request.'));
+    }
+  }
+
+  Future<void> _onCancelRequest(CancelRequestEvent event, Emitter<RequestDetailsState> emit) async {
+    if (state is! RequestDetailsLoaded) return;
+    final currentState = state as RequestDetailsLoaded;
+    
+    emit(currentState.copyWith(isProcessingAction: true));
+    try {
+      final status = event.isProvider ? ServiceRequestStatus.cancelledByProvider : ServiceRequestStatus.cancelledByUser;
+      await _bookingsRepository.updateRequestStatus(
+        requestId: currentState.request.id,
+        newStatus: status,
+        performedBy: event.isProvider ? 'PROVIDER' : 'USER',
+        performedById: event.userId,
+        message: event.reason,
+      );
+    } catch (e) {
+      emit(currentState.copyWith(isProcessingAction: false, actionError: 'Failed to cancel request.'));
+    }
+  }
+
+  Future<void> _onMarkAsCompleted(MarkRequestAsCompletedEvent event, Emitter<RequestDetailsState> emit) async {
+    if (state is! RequestDetailsLoaded) return;
+    final currentState = state as RequestDetailsLoaded;
+    
+    emit(currentState.copyWith(isProcessingAction: true));
+    try {
+      await _bookingsRepository.markAsCompleted(
+        requestId: currentState.request.id,
+        userId: event.userId,
+        isProvider: event.isProvider,
+      );
+    } catch (e) {
+      emit(currentState.copyWith(isProcessingAction: false, actionError: 'Failed to mark as completed.'));
     }
   }
 

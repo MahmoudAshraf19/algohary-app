@@ -81,7 +81,7 @@ class ChatService {
           }
         }
         
-        conversations.add(ConversationModel.fromFirestore(doc, uid, otherUserDetails));
+        conversations.add(ConversationModel.fromFirestore(doc, uid, otherUserDetails, otherUserId));
       }
       
       return conversations;

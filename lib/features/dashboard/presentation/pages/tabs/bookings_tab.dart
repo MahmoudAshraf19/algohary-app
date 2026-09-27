@@ -28,6 +28,9 @@ class _BookingsTabState extends State<BookingsTab> {
   String _selectedStatus = 'all'; // 'all', 'pending', 'confirmed', 'in_progress', 'completed', 'cancelled'
   
   final Map<String, Future<UserModel?>> _providerCache = {};
+  
+  Stream<List<ServiceRequestModel>>? _ordersStream;
+  String? _currentUserId;
 
   Future<UserModel?> _getProviderDetails(String providerId) {
     if (!_providerCache.containsKey(providerId)) {
@@ -230,6 +233,11 @@ class _BookingsTabState extends State<BookingsTab> {
           }
           
           final user = state.user;
+          if (_currentUserId != user.id || _ordersStream == null) {
+            _currentUserId = user.id;
+            _ordersStream = _repository.streamUserRequests(user.id, isProvider: false);
+          }
+
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -239,7 +247,7 @@ class _BookingsTabState extends State<BookingsTab> {
               const SizedBox(height: 8),
               Expanded(
                 child: StreamBuilder<List<ServiceRequestModel>>(
-                  stream: _repository.streamUserRequests(user.id, isProvider: false),
+                  stream: _ordersStream,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());

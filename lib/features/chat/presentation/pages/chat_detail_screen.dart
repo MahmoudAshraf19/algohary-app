@@ -6,6 +6,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:algohary_project/features/chat/presentation/widgets/full_screen_image_viewer.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
+import 'package:algohary_project/core/network/firebase_config.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -31,7 +32,7 @@ class ChatDetailScreen extends StatefulWidget {
     required this.recipientName,
     this.recipientAvatar,
     this.recipientId,
-    this.isOnline = true,
+    this.isOnline = false,
   });
 
   @override
@@ -260,7 +261,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
         titleSpacing: 0,
         title: widget.recipientId != null
             ? StreamBuilder<DocumentSnapshot>(
-                stream: FirebaseFirestore.instance.collection('users').doc(widget.recipientId).snapshots(),
+                stream: FirebaseConfig.firestore.collection('users').doc(widget.recipientId).snapshots(),
                 builder: (context, snapshot) {
                   bool isOnline = widget.isOnline;
                   if (snapshot.hasData && snapshot.data!.exists) {
@@ -268,6 +269,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                     if (data != null && data.containsKey('is_online')) {
                       isOnline = data['is_online'] == true;
                     }
+                    print('ChatDetailScreen DBG: user ${widget.recipientId} is_online in DB = ${data?['is_online']}, final isOnline = $isOnline');
+                  } else if (snapshot.hasError) {
+                    print('ChatDetailScreen DBG: Error fetching online status for ${widget.recipientId}: ${snapshot.error}');
+                  } else {
+                    print('ChatDetailScreen DBG: Loading or not exists for ${widget.recipientId}, hasData=${snapshot.hasData}, exists=${snapshot.data?.exists}');
                   }
                   return _buildAppBarTitle(colorScheme, isOnline, l10n);
                 },

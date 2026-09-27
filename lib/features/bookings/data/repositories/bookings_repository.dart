@@ -169,21 +169,25 @@ class BookingsRepository {
       performedAt: DateTime.now(),
     );
 
-    // We overwrite the pricing and appointment with the accepted proposal
-    // Note: The specific fields (pricing, appointment, etc.) should ideally be parsed carefully here.
-    // Assuming acceptedProposal has 'pricing' and 'appointment' maps.
-    batch.update(docRef, {
-      'status': ServiceRequestStatus.pendingProviderConfirmation.value,
-      'pricing': acceptedProposal['pricing'] ?? FieldValue.delete(),
-      'appointment': acceptedProposal['appointment'] ?? FieldValue.delete(),
-      'currentProposal': null, // Clear proposal since it's accepted
+    final updateData = <String, dynamic>{
+      'status': ServiceRequestStatus.approved.value,
+      'currentProposal': FieldValue.delete(),
       'lastAction': action.toJson(),
       'updatedAt': FieldValue.serverTimestamp(),
-    });
+    };
+
+    if (acceptedProposal['pricing'] != null) {
+      updateData['pricing'] = acceptedProposal['pricing'];
+    }
+    if (acceptedProposal['appointment'] != null) {
+      updateData['appointment'] = acceptedProposal['appointment'];
+    }
+
+    batch.update(docRef, updateData);
 
     final historyRef = docRef.collection('statusHistory').doc();
     final history = StatusHistoryModel(
-      status: ServiceRequestStatus.pendingProviderConfirmation.value,
+      status: ServiceRequestStatus.approved.value,
       performedBy: 'USER',
       performedById: userId,
       message: 'User accepted proposed changes',
@@ -192,6 +196,54 @@ class BookingsRepository {
     batch.set(historyRef, history.toJson());
 
     await batch.commit();
+  }
+
+  /// Mark request as completed (by User or Provider)
+  Future<void> markAsCompleted({
+    required String requestId,
+    required String userId,
+    required bool isProvider,
+  }) async {
+    final docRef = _requestsCol.doc(requestId);
+
+    await _firestore.runTransaction((transaction) async {
+      final docSnap = await transaction.get(docRef);
+      if (!docSnap.exists) throw Exception('Request not found');
+
+      final request = ServiceRequestModel.fromJson(docSnap.data() as Map<String, dynamic>, docSnap.id);
+      
+      bool willBeCompleted = false;
+      if (isProvider) {
+        if (request.isCompletedByUser) willBeCompleted = true;
+      } else {
+        if (request.isCompletedByProvider) willBeCompleted = true;
+      }
+
+      final action = RequestActionModel(
+        type: willBeCompleted ? 'COMPLETED' : 'MARKED_COMPLETED',
+        performedBy: isProvider ? 'PROVIDER' : 'USER',
+        performedById: userId,
+        performedAt: DateTime.now(),
+      );
+
+      transaction.update(docRef, {
+        if (isProvider) 'isCompletedByProvider': true,
+        if (!isProvider) 'isCompletedByUser': true,
+        if (willBeCompleted) 'status': ServiceRequestStatus.completed.value,
+        'lastAction': action.toJson(),
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+
+      final historyRef = docRef.collection('statusHistory').doc();
+      final history = StatusHistoryModel(
+        status: willBeCompleted ? ServiceRequestStatus.completed.value : request.status.value,
+        performedBy: isProvider ? 'PROVIDER' : 'USER',
+        performedById: userId,
+        message: willBeCompleted ? 'Order completed' : 'Marked order as completed, waiting for confirmation',
+        createdAt: DateTime.now(),
+      );
+      transaction.set(historyRef, history.toJson());
+    });
   }
 
   /// Submit a complaint

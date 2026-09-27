@@ -270,6 +270,8 @@ class ServiceRequestModel {
   final int revisionNumber;
   final RequestActionModel lastAction;
   final bool userConfirmedProviderContact;
+  final bool isCompletedByUser;
+  final bool isCompletedByProvider;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -287,6 +289,8 @@ class ServiceRequestModel {
     required this.revisionNumber,
     required this.lastAction,
     required this.userConfirmedProviderContact,
+    this.isCompletedByUser = false,
+    this.isCompletedByProvider = false,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -307,6 +311,8 @@ class ServiceRequestModel {
       revisionNumber: json['revisionNumber'] ?? 0,
       lastAction: RequestActionModel.fromJson(json['lastAction'] ?? {}),
       userConfirmedProviderContact: json['userConfirmedProviderContact'] ?? false,
+      isCompletedByUser: json['isCompletedByUser'] ?? false,
+      isCompletedByProvider: json['isCompletedByProvider'] ?? false,
       createdAt: json['createdAt'] != null ? (json['createdAt'] as Timestamp).toDate() : DateTime.now(),
       updatedAt: json['updatedAt'] != null ? (json['updatedAt'] as Timestamp).toDate() : DateTime.now(),
     );
@@ -327,6 +333,8 @@ class ServiceRequestModel {
       'revisionNumber': revisionNumber,
       'lastAction': lastAction.toJson(),
       'userConfirmedProviderContact': userConfirmedProviderContact,
+      'isCompletedByUser': isCompletedByUser,
+      'isCompletedByProvider': isCompletedByProvider,
       'createdAt': Timestamp.fromDate(createdAt),
       'updatedAt': Timestamp.fromDate(updatedAt),
     };

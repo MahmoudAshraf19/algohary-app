@@ -880,4 +880,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get navOrders => 'Orders';
+
+  @override
+  String get proposeNewPrice => 'Propose New Price';
+
+  @override
+  String get newPrice => 'New Price';
+
+  @override
+  String get btnCancel => 'Cancel';
+
+  @override
+  String get newTotal => 'New Total';
+
+  @override
+  String get newPriceProposedTitle => 'New Price Proposed';
+
+  @override
+  String get newPriceProposedDesc =>
+      'The provider has proposed a new price. Please review the payment summary below.';
 }

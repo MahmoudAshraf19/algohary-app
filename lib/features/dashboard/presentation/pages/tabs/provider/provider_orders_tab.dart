@@ -227,9 +227,20 @@ class _ProviderOrdersViewState extends State<ProviderOrdersView> with SingleTick
     switch (order.status) {
       case ServiceRequestStatus.pendingProviderApproval:
         statusColor = Colors.orange;
-        statusText = l10n.orderStatusPending ?? 'Pending';
+        statusText = l10n.orderStatusPending ?? 'Pending Approval';
+        break;
+      case ServiceRequestStatus.changeProposed:
+        statusColor = Colors.orange;
+        statusText = l10n.orderStatusChangeProposed ?? 'Change Proposed';
+        break;
+      case ServiceRequestStatus.pendingProviderConfirmation:
+        statusColor = Colors.orange;
+        statusText = l10n.orderStatusPendingConfirmation ?? 'Pending Confirmation';
         break;
       case ServiceRequestStatus.approved:
+        statusColor = Colors.blue;
+        statusText = l10n.orderStatusApproved ?? 'Approved';
+        break;
       case ServiceRequestStatus.inProgress:
         statusColor = Colors.blue;
         statusText = l10n.orderStatusInProgress ?? 'In Progress';
@@ -237,6 +248,22 @@ class _ProviderOrdersViewState extends State<ProviderOrdersView> with SingleTick
       case ServiceRequestStatus.completed:
         statusColor = Colors.green;
         statusText = l10n.orderStatusCompleted ?? 'Completed';
+        break;
+      case ServiceRequestStatus.cancelledByUser:
+        statusColor = Colors.red;
+        statusText = l10n.orderStatusCancelledUser ?? 'Cancelled by User';
+        break;
+      case ServiceRequestStatus.cancelledByProvider:
+        statusColor = Colors.red;
+        statusText = l10n.orderStatusCancelledProvider ?? 'Cancelled by Provider';
+        break;
+      case ServiceRequestStatus.rejected:
+        statusColor = Colors.red;
+        statusText = l10n.orderStatusRejected ?? 'Rejected';
+        break;
+      case ServiceRequestStatus.expired:
+        statusColor = Colors.grey;
+        statusText = l10n.orderStatusExpired ?? 'Expired';
         break;
       default:
         statusColor = Colors.grey;

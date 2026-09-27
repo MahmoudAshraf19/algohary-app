@@ -6,7 +6,9 @@ import 'package:algohary_project/l10n/app_localizations.dart';
 import 'core/theme/app_theme.dart';
 import 'features/splash/presentation/pages/splash_screen.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:algohary_project/core/network/firebase_config.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/auth/data/repositories/auth_repository.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
@@ -25,8 +27,30 @@ void main() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    
+    // Configure Firestore Named Database 'algohary' settings
+    // E.g., enable offline persistence explicitly if needed
+    final firestore = FirebaseConfig.firestore;
+    
+    if (!kIsWeb) {
+      firestore.settings = const Settings(
+        persistenceEnabled: true,
+        cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+      );
+      debugPrint('✅ Firebase Firestore [algohary] persistence enabled.');
+    } else {
+      // On Web, persistence is experimental and must be enabled asynchronously
+      try {
+        await firestore.enablePersistence(
+          const PersistenceSettings(synchronizeTabs: true),
+        );
+        debugPrint('✅ Firebase Firestore [algohary] web persistence enabled.');
+      } catch (e) {
+        debugPrint('⚠️ Web persistence failed to enable: $e');
+      }
+    }
   } catch (e) {
-    debugPrint('Firebase init error (or missing firebase_options.dart on Web): $e');
+    debugPrint('❌ Firebase init error (or missing firebase_options.dart on Web): $e');
   }
 
   runApp(

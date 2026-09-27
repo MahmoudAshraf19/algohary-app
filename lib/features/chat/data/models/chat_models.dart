@@ -66,6 +66,7 @@ class ConversationModel {
   final ChatMessageModel? lastMessage;
   final DateTime? lastMessageAt;
   final int unreadCount;
+  final String? otherUserId;
 
   ConversationModel({
     required this.id,
@@ -74,12 +75,14 @@ class ConversationModel {
     this.lastMessage,
     this.lastMessageAt,
     this.unreadCount = 0,
+    this.otherUserId,
   });
 
   factory ConversationModel.fromFirestore(
       DocumentSnapshot doc, 
       String currentUserId, 
-      Map<String, dynamic>? otherUserDetails) {
+      Map<String, dynamic>? otherUserDetails,
+      [String? otherUserId]) {
     final data = doc.data() as Map<String, dynamic>;
     
     // Extract last message info
@@ -120,6 +123,7 @@ class ConversationModel {
       lastMessage: lastMsg,
       lastMessageAt: (data['lastMessageAt'] as Timestamp?)?.toDate(),
       unreadCount: unreadCount,
+      otherUserId: otherUserId,
     );
   }
 }

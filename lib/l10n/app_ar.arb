@@ -289,5 +289,11 @@
   "complaintReason": "السبب",
   "complaintDescription": "التفاصيل",
   "submit": "إرسال",
-  "navOrders": "الطلبات"
+  "navOrders": "الطلبات",
+  "proposeNewPrice": "اقتراح سعر جديد",
+  "newPrice": "السعر الجديد",
+  "btnCancel": "إلغاء",
+  "newTotal": "الإجمالي الجديد",
+  "newPriceProposedTitle": "تم اقتراح سعر جديد",
+  "newPriceProposedDesc": "لقد اقترح مقدم الخدمة سعراً جديداً للطلب. يرجى مراجعته والموافقة عليه."
 }

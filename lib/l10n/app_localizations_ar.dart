@@ -879,4 +879,23 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get navOrders => 'الطلبات';
+
+  @override
+  String get proposeNewPrice => 'اقتراح سعر جديد';
+
+  @override
+  String get newPrice => 'السعر الجديد';
+
+  @override
+  String get btnCancel => 'إلغاء';
+
+  @override
+  String get newTotal => 'الإجمالي الجديد';
+
+  @override
+  String get newPriceProposedTitle => 'تم اقتراح سعر جديد';
+
+  @override
+  String get newPriceProposedDesc =>
+      'لقد اقترح مقدم الخدمة سعراً جديداً للطلب. يرجى مراجعته والموافقة عليه.';
 }

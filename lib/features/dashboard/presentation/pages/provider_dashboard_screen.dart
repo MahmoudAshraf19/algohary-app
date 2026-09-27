@@ -12,10 +12,14 @@ import '../widgets/provider_bottom_nav_bar.dart';
 import 'tabs/provider/provider_home_tab.dart';
 import 'tabs/provider/provider_orders_tab.dart';
 import 'tabs/provider/provider_messages_tab.dart';
-import 'tabs/provider/provider_settings_tab.dart';
+import 'tabs/profile_tab.dart';
 
 class ProviderDashboardScreen extends StatefulWidget {
   const ProviderDashboardScreen({super.key});
+
+  static void switchTab(BuildContext context, int index) {
+    context.findAncestorStateOfType<_ProviderDashboardScreenState>()?.switchTab(index);
+  }
 
   @override
   State<ProviderDashboardScreen> createState() => _ProviderDashboardScreenState();
@@ -24,11 +28,17 @@ class ProviderDashboardScreen extends StatefulWidget {
 class _ProviderDashboardScreenState extends State<ProviderDashboardScreen> {
   int _currentIndex = 0;
 
+  void switchTab(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   final List<Widget> _screens = [
     const ProviderHomeTab(),
     const ProviderOrdersTab(),
     const ProviderMessagesTab(),
-    const ProviderSettingsTab(),
+    const ProfileTab(),
   ];
 
   @override

@@ -112,14 +112,17 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
             onPressed: () {
               Navigator.pop(ctx);
               if (widget.isProvider) {
-                context.read<RequestDetailsBloc>().add(RejectRequestEvent(
-                  providerId: widget.currentUserId,
+                context.read<RequestDetailsBloc>().add(CancelRequestEvent(
+                  userId: widget.currentUserId,
+                  isProvider: true,
                   reason: 'Cancelled by provider',
                 ));
               } else {
-                // Assuming we have CancelRequestEvent or we trigger it another way. For now, we mock.
-                // context.read<RequestDetailsBloc>().add(CancelRequestEvent(userId: widget.currentUserId));
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Cancel logic to be implemented')));
+                context.read<RequestDetailsBloc>().add(CancelRequestEvent(
+                  userId: widget.currentUserId,
+                  isProvider: false,
+                  reason: 'Cancelled by customer',
+                ));
               }
             },
             style: ElevatedButton.styleFrom(
@@ -242,6 +245,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                   children: [
                     _buildStatusHeader(request, l10n, theme),
                     if (isCancelled) _buildCancellationBanner(request, l10n, theme),
+                    if (request.status == ServiceRequestStatus.changeProposed && !widget.isProvider) _buildProposalBanner(request, l10n, theme),
                     _buildTimeline(request, l10n, theme),
                     const Divider(height: 32),
                     _buildUserCard(l10n, theme, isDark),
@@ -321,6 +325,40 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
           Text(
             '${l10n.cancellationReasonTitle ?? "Reason:"} ${request.originalRequest?["cancellation_reason"] ?? "Customer request"}',
             style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.8)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProposalBanner(ServiceRequestModel request, AppLocalizations l10n, ThemeData theme) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.orange.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.orange.withOpacity(0.3)),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.info_outline, color: AppColors.orange),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.newPriceProposedTitle ?? 'New Price Proposed',
+                  style: const TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  l10n.newPriceProposedDesc ?? 'The provider has proposed a new price. Please review the payment summary below.',
+                  style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.8), fontSize: 14),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -646,13 +684,23 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
           Text(l10n.paymentSummary ?? 'Payment Summary', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 16),
           _buildPriceRow(l10n.serviceFee ?? 'Service Fee', '${request.pricing.amount} ${request.pricing.currency}'),
+          if (request.status == ServiceRequestStatus.changeProposed && request.currentProposal != null) ...[
+            const SizedBox(height: 8),
+            _buildPriceRow(l10n.newPrice ?? 'Proposed Price', '${request.currentProposal!["pricing"]["amount"]} ${request.currentProposal!["pricing"]["currency"]}', color: AppColors.orange),
+          ],
           const SizedBox(height: 8),
           _buildPriceRow(l10n.discount ?? 'Discount', '-0 ${request.pricing.currency}'),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 12),
             child: Divider(),
           ),
-          _buildPriceRow(l10n.total ?? 'Total', '${request.pricing.amount} ${request.pricing.currency}', isTotal: true),
+          if (request.status == ServiceRequestStatus.changeProposed && request.currentProposal != null) ...[
+            _buildPriceRow(l10n.total ?? 'Total', '${request.pricing.amount} ${request.pricing.currency}', isTotal: true, strikeThrough: true),
+            const SizedBox(height: 4),
+            _buildPriceRow(l10n.newTotal ?? 'New Total', '${request.currentProposal!["pricing"]["amount"]} ${request.currentProposal!["pricing"]["currency"]}', isTotal: true, color: AppColors.orange),
+          ] else ...[
+            _buildPriceRow(l10n.total ?? 'Total', '${request.pricing.amount} ${request.pricing.currency}', isTotal: true),
+          ],
           
           const SizedBox(height: 24),
           Text(l10n.paymentMethod ?? 'Payment Method', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
@@ -675,7 +723,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
     );
   }
 
-  Widget _buildPriceRow(String label, String amount, {bool isTotal = false}) {
+  Widget _buildPriceRow(String label, String amount, {bool isTotal = false, Color? color, bool strikeThrough = false}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -684,6 +732,8 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
           style: TextStyle(
             fontSize: isTotal ? 18 : 15,
             fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
+            color: color ?? (strikeThrough ? Colors.grey : null),
+            decoration: strikeThrough ? TextDecoration.lineThrough : null,
           ),
         ),
         Text(
@@ -691,6 +741,8 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
           style: TextStyle(
             fontSize: isTotal ? 18 : 15,
             fontWeight: isTotal ? FontWeight.w900 : FontWeight.bold,
+            color: color ?? (strikeThrough ? Colors.grey : null),
+            decoration: strikeThrough ? TextDecoration.lineThrough : null,
           ),
         ),
       ],
@@ -738,6 +790,25 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
             ),
           ),
         ];
+      } else {
+        bool providerCanCancel = request.status == ServiceRequestStatus.approved || request.status == ServiceRequestStatus.changeProposed;
+        if (providerCanCancel) {
+          buttons = [
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () => _showCancelDialog(context, l10n),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.red.withOpacity(0.1),
+                  foregroundColor: AppColors.red,
+                  elevation: 0,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+                child: Text(l10n.cancelBooking ?? 'Cancel Booking', style: const TextStyle(fontWeight: FontWeight.bold)),
+              ),
+            ),
+          ];
+        }
       }
     } else {
       // Customer
@@ -766,11 +837,10 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
         ];
       }
       
-      // Can cancel if it's pending or approved
+      // Can cancel if it's pending or approved (before inProgress)
       bool canCancel = request.status == ServiceRequestStatus.pendingProviderApproval || 
-                       request.status == ServiceRequestStatus.pendingProviderConfirmation || 
-                       request.status == ServiceRequestStatus.approved ||
-                       request.status == ServiceRequestStatus.changeProposed;
+                       request.status == ServiceRequestStatus.changeProposed ||
+                       request.status == ServiceRequestStatus.approved;
                        
       if (canCancel) {
         if (buttons.isNotEmpty) {
@@ -788,6 +858,63 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
               child: Text(l10n.cancelBooking ?? 'Cancel Booking', style: const TextStyle(fontWeight: FontWeight.bold)),
+            ),
+          ),
+        );
+      }
+      
+      if (request.status == ServiceRequestStatus.inProgress) {
+         buttons = [
+           Expanded(
+            child: ElevatedButton(
+              onPressed: () {
+                if (request.isCompletedByUser) return;
+                context.read<RequestDetailsBloc>().add(MarkRequestAsCompletedEvent(
+                  userId: widget.currentUserId,
+                  isProvider: false,
+                ));
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: request.isCompletedByUser ? Colors.grey : Colors.green,
+                foregroundColor: Colors.white,
+                elevation: 0,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+              child: Text(
+                request.isCompletedByUser ? 'Awaiting Provider Confirmation' : 'Mark as Completed', 
+                style: const TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+         ];
+      }
+
+      // Complaint Button
+      if (request.status == ServiceRequestStatus.inProgress || request.status == ServiceRequestStatus.completed) {
+        if (buttons.isNotEmpty) {
+          buttons.add(const SizedBox(width: 16));
+        }
+        buttons.add(
+          Expanded(
+            child: OutlinedButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (_) => ReportProblemDialog(
+                    bookingId: request.id,
+                    currentUserId: widget.currentUserId,
+                  ),
+                );
+              },
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.red,
+                side: const BorderSide(color: Colors.red),
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+              child: const Text('Submit Complaint', style: TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
             ),
           ),
         );

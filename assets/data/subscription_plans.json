@@ -1,0 +1,91 @@
+[
+  {
+    "id": "DCxWIxlcBnYW6jEsm4Sa",
+    "createdAt": "2025-01-10T11:34:27+02:00",
+    "description": "Gold Plan",
+    "expiryDay": "90",
+    "features": {
+      "chat": true,
+      "dineIn": true,
+      "qrCodeGenerate": true,
+      "restaurantMobileApp": true
+    },
+    "image": "https://firebasestorage.googleapis.com/v0/b/foodies-3c1d9.appspot.com/o/images%2Fpro_1736494455975.png?alt=media&token=f303c2d0-bae8-40e7-8d6f-6b20b3129ec5",
+    "isEnable": true,
+    "itemLimit": "-1",
+    "name": "Gold Plan",
+    "orderLimit": "-1",
+    "place": "3",
+    "plan_points": [],
+    "price": "249",
+    "type": "paid"
+  },
+  {
+    "id": "HGhon6Lcrfp8FYzTP1JW",
+    "createdAt": "2025-01-10T11:15:30+02:00",
+    "description": "Bronze Plan",
+    "expiryDay": "30",
+    "features": {
+      "chat": true,
+      "dineIn": true,
+      "qrCodeGenerate": false,
+      "restaurantMobileApp": true
+    },
+    "image": "https://firebasestorage.googleapis.com/v0/b/foodies-3c1d9.appspot.com/o/images%2Fbasic_1736493305812.png?alt=media&token=e3acc1c0-4277-410f-aca9-c39beff9b0c4",
+    "isEnable": true,
+    "itemLimit": "10",
+    "name": "Bronze Plan",
+    "orderLimit": "10",
+    "place": "1",
+    "plan_points": [],
+    "price": "0.5",
+    "type": "paid"
+  },
+  {
+    "id": "Ic4npFeXMmLscG9uRbnO",
+    "createdAt": "2025-01-10T11:18:51+02:00",
+    "description": "Silver Plan",
+    "expiryDay": "60",
+    "features": {
+      "chat": true,
+      "dineIn": true,
+      "qrCodeGenerate": true,
+      "restaurantMobileApp": true
+    },
+    "image": "https://firebasestorage.googleapis.com/v0/b/foodies-3c1d9.appspot.com/o/images%2Fstandard_1736493521301.png?alt=media&token=2a7c86cb-9578-4dfd-84b8-276b23e3bfaf",
+    "isEnable": true,
+    "itemLimit": "100",
+    "name": "Silver Plan",
+    "orderLimit": "100",
+    "place": "2",
+    "plan_points": [],
+    "price": "199",
+    "type": "paid"
+  },
+  {
+    "id": "J0RwvxCWhZzQQD7Kc2Ll",
+    "createdAt": "2024-12-23T13:38:20+02:00",
+    "description": "Commission apply per order",
+    "expiryDay": "-1",
+    "features": {
+      "chat": true,
+      "dineIn": true,
+      "qrCodeGenerate": true,
+      "restaurantMobileApp": true
+    },
+    "image": "https://firebasestorage.googleapis.com/v0/b/foodies-3c1d9.appspot.com/o/subscription%2Fic_sub_1.png?alt=media&token=a93a344b-6e58-4443-9e15-b2417aa16ff8",
+    "isEnable": true,
+    "itemLimit": "-1",
+    "name": "Commission Base Plan",
+    "orderLimit": "-1",
+    "place": "0",
+    "plan_points": [
+      "Access to all features in the restaurant panel.",
+      "Interaction with users through the app.",
+      "Easy to chat",
+      "Easy to make QR code"
+    ],
+    "price": "0",
+    "type": "free"
+  }
+]

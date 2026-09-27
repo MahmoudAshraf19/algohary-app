@@ -250,6 +250,7 @@ class _MessagesTabState extends State<MessagesTab> {
                   conversationId: conv.id,
                   recipientName: conv.title,
                   recipientAvatar: conv.avatar,
+                  recipientId: conv.otherUserId,
                 ),
               ),
             );

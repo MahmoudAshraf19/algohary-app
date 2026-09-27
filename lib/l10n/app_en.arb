@@ -285,5 +285,11 @@
   "complaintReason": "Reason",
   "complaintDescription": "Description",
   "submit": "Submit",
-  "navOrders": "Orders"
+  "navOrders": "Orders",
+  "proposeNewPrice": "Propose New Price",
+  "newPrice": "New Price",
+  "btnCancel": "Cancel",
+  "newTotal": "New Total",
+  "newPriceProposedTitle": "New Price Proposed",
+  "newPriceProposedDesc": "The provider has proposed a new price. Please review the payment summary below."
 }
