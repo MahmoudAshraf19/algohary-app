@@ -4,6 +4,7 @@ import '../../../onboarding/presentation/pages/onboarding_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_state.dart';
+import '../../../subscriptions/presentation/pages/subscription_plan_screen.dart';
 import '../../../dashboard/presentation/pages/dashboard_screen.dart';
 import '../../../dashboard/presentation/pages/provider_dashboard_screen.dart';
 
@@ -35,13 +36,33 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (!mounted) return;
     if (state is AuthSuccess) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (_) => (state as AuthSuccess).user.userType == 'provider'
-              ? const ProviderDashboardScreen()
-              : const DashboardScreen(),
-        ),
-      );
+      final user = state.user;
+      
+      // Check for subscription expiry if user is provider
+      if (user.userType == 'provider') {
+        bool isExpired = false;
+        if (user.subscription.endDate != null) {
+          isExpired = user.subscription.endDate!.isBefore(DateTime.now());
+        }
+        
+        if (isExpired || !user.isActive) {
+          // If expired or inactive, redirect to Subscription plans
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (_) => const SubscriptionPlanScreen(isForced: true),
+            ),
+          );
+          return;
+        }
+        
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const ProviderDashboardScreen()),
+        );
+      } else {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const DashboardScreen()),
+        );
+      }
     } else {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => const OnboardingScreen()),

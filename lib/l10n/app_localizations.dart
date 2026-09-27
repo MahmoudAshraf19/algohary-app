@@ -1849,6 +1849,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The provider has proposed a new price. Please review the payment summary below.'**
   String get newPriceProposedDesc;
+
+  /// No description provided for @chooseBusinessPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Your Business Plan'**
+  String get chooseBusinessPlan;
+
+  /// No description provided for @chooseBusinessPlanDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the most suitable business plan for your account to maximize your potential and access exclusive features.'**
+  String get chooseBusinessPlanDesc;
+
+  /// No description provided for @planNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription plan not found.'**
+  String get planNotFound;
+
+  /// No description provided for @chat.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat'**
+  String get chat;
+
+  /// No description provided for @dineIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Dine In'**
+  String get dineIn;
+
+  /// No description provided for @qrCodeGenerate.
+  ///
+  /// In en, this message translates to:
+  /// **'QR Code Generate'**
+  String get qrCodeGenerate;
+
+  /// No description provided for @restaurantMobileApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile App'**
+  String get restaurantMobileApp;
+
+  /// No description provided for @active.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get active;
+
+  /// No description provided for @free.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get free;
+
+  /// No description provided for @days.
+  ///
+  /// In en, this message translates to:
+  /// **'Days'**
+  String get days;
+
+  /// No description provided for @lifetime.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifetime'**
+  String get lifetime;
+
+  /// No description provided for @addItemLimits.
+  ///
+  /// In en, this message translates to:
+  /// **'Add item limits'**
+  String get addItemLimits;
+
+  /// No description provided for @unlimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited'**
+  String get unlimited;
+
+  /// No description provided for @acceptOrderLimits.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept order limits'**
+  String get acceptOrderLimits;
+
+  /// No description provided for @renew.
+  ///
+  /// In en, this message translates to:
+  /// **'Renew'**
+  String get renew;
+
+  /// No description provided for @selectPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Plan'**
+  String get selectPlan;
+
+  /// No description provided for @renewSubscriptionConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Your subscription will be renewed from {startDate} to {endDate}. Are you sure?'**
+  String renewSubscriptionConfirm(String startDate, String endDate);
+
+  /// No description provided for @subscriptionActivatedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Activated'**
+  String get subscriptionActivatedTitle;
+
+  /// No description provided for @subscriptionActivatedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Congratulations! Your subscription to the {planName} plan has been successfully activated.'**
+  String subscriptionActivatedBody(String planName);
 }
 
 class _AppLocalizationsDelegate

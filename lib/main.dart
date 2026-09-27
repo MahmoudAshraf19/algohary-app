@@ -18,6 +18,8 @@ import 'features/dashboard/presentation/pages/dashboard_screen.dart';
 import 'core/bloc/location_bloc/location_bloc.dart';
 import 'core/bloc/settings_cubit/settings_cubit.dart';
 import 'core/bloc/settings_cubit/settings_state.dart';
+import 'features/subscriptions/data/repositories/subscription_repository.dart';
+import 'features/subscriptions/presentation/bloc/subscription_bloc.dart';
 
 import 'firebase_options.dart';
 
@@ -38,16 +40,6 @@ void main() async {
         cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
       );
       debugPrint('✅ Firebase Firestore [algohary] persistence enabled.');
-    } else {
-      // On Web, persistence is experimental and must be enabled asynchronously
-      try {
-        await firestore.enablePersistence(
-          const PersistenceSettings(synchronizeTabs: true),
-        );
-        debugPrint('✅ Firebase Firestore [algohary] web persistence enabled.');
-      } catch (e) {
-        debugPrint('⚠️ Web persistence failed to enable: $e');
-      }
     }
   } catch (e) {
     debugPrint('❌ Firebase init error (or missing firebase_options.dart on Web): $e');
@@ -77,6 +69,11 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(create: (_) => LocationBloc()),
         BlocProvider(create: (_) => SettingsCubit()),
+        BlocProvider(
+          create: (_) => SubscriptionBloc(
+            repository: SubscriptionRepository(),
+          ),
+        ),
       ],
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, settingsState) {

@@ -291,5 +291,41 @@
   "btnCancel": "Cancel",
   "newTotal": "New Total",
   "newPriceProposedTitle": "New Price Proposed",
-  "newPriceProposedDesc": "The provider has proposed a new price. Please review the payment summary below."
+  "newPriceProposedDesc": "The provider has proposed a new price. Please review the payment summary below.",
+  "chooseBusinessPlan": "Choose Your Business Plan",
+  "chooseBusinessPlanDesc": "Select the most suitable business plan for your account to maximize your potential and access exclusive features.",
+  "planNotFound": "Subscription plan not found.",
+  "chat": "Chat",
+  "dineIn": "Dine In",
+  "qrCodeGenerate": "QR Code Generate",
+  "restaurantMobileApp": "Mobile App",
+  "active": "Active",
+  "free": "Free",
+  "days": "Days",
+  "lifetime": "Lifetime",
+  "addItemLimits": "Add item limits",
+  "unlimited": "Unlimited",
+  "acceptOrderLimits": "Accept order limits",
+  "renew": "Renew",
+  "selectPlan": "Select Plan",
+  "renewSubscriptionConfirm": "Your subscription will be renewed from {startDate} to {endDate}. Are you sure?",
+  "@renewSubscriptionConfirm": {
+    "placeholders": {
+      "startDate": {
+        "type": "String"
+      },
+      "endDate": {
+        "type": "String"
+      }
+    }
+  },
+  "subscriptionActivatedTitle": "Subscription Activated",
+  "subscriptionActivatedBody": "Congratulations! Your subscription to the {planName} plan has been successfully activated.",
+  "@subscriptionActivatedBody": {
+    "placeholders": {
+      "planName": {
+        "type": "String"
+      }
+    }
+  }
 }

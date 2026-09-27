@@ -898,4 +898,66 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get newPriceProposedDesc =>
       'لقد اقترح مقدم الخدمة سعراً جديداً للطلب. يرجى مراجعته والموافقة عليه.';
+
+  @override
+  String get chooseBusinessPlan => 'اختر خطة العمل الخاصة بك';
+
+  @override
+  String get chooseBusinessPlanDesc =>
+      'اختر خطة العمل الأنسب لحسابك لزيادة إمكانياتك والوصول إلى الميزات الحصرية.';
+
+  @override
+  String get planNotFound => 'لم يتم العثور على خطة اشتراك.';
+
+  @override
+  String get chat => 'المحادثة';
+
+  @override
+  String get dineIn => 'تناول الطعام';
+
+  @override
+  String get qrCodeGenerate => 'إنشاء رمز الاستجابة السريعة';
+
+  @override
+  String get restaurantMobileApp => 'تطبيق الهاتف';
+
+  @override
+  String get active => 'مفعل';
+
+  @override
+  String get free => 'مجاني';
+
+  @override
+  String get days => 'أيام';
+
+  @override
+  String get lifetime => 'مدى الحياة';
+
+  @override
+  String get addItemLimits => 'حدود إضافة العناصر';
+
+  @override
+  String get unlimited => 'غير محدود';
+
+  @override
+  String get acceptOrderLimits => 'حدود قبول الطلبات';
+
+  @override
+  String get renew => 'تجديد';
+
+  @override
+  String get selectPlan => 'اختيار الخطة';
+
+  @override
+  String renewSubscriptionConfirm(String startDate, String endDate) {
+    return 'سيتم تجديد الاشتراك لك من يوم $startDate إلى يوم $endDate. هل أنت متأكد؟';
+  }
+
+  @override
+  String get subscriptionActivatedTitle => 'تم تفعيل الاشتراك';
+
+  @override
+  String subscriptionActivatedBody(String planName) {
+    return 'مبروك! تم تفعيل اشتراكك في خطة $planName بنجاح.';
+  }
 }

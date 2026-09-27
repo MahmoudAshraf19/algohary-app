@@ -899,4 +899,66 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get newPriceProposedDesc =>
       'The provider has proposed a new price. Please review the payment summary below.';
+
+  @override
+  String get chooseBusinessPlan => 'Choose Your Business Plan';
+
+  @override
+  String get chooseBusinessPlanDesc =>
+      'Select the most suitable business plan for your account to maximize your potential and access exclusive features.';
+
+  @override
+  String get planNotFound => 'Subscription plan not found.';
+
+  @override
+  String get chat => 'Chat';
+
+  @override
+  String get dineIn => 'Dine In';
+
+  @override
+  String get qrCodeGenerate => 'QR Code Generate';
+
+  @override
+  String get restaurantMobileApp => 'Mobile App';
+
+  @override
+  String get active => 'Active';
+
+  @override
+  String get free => 'Free';
+
+  @override
+  String get days => 'Days';
+
+  @override
+  String get lifetime => 'Lifetime';
+
+  @override
+  String get addItemLimits => 'Add item limits';
+
+  @override
+  String get unlimited => 'Unlimited';
+
+  @override
+  String get acceptOrderLimits => 'Accept order limits';
+
+  @override
+  String get renew => 'Renew';
+
+  @override
+  String get selectPlan => 'Select Plan';
+
+  @override
+  String renewSubscriptionConfirm(String startDate, String endDate) {
+    return 'Your subscription will be renewed from $startDate to $endDate. Are you sure?';
+  }
+
+  @override
+  String get subscriptionActivatedTitle => 'Subscription Activated';
+
+  @override
+  String subscriptionActivatedBody(String planName) {
+    return 'Congratulations! Your subscription to the $planName plan has been successfully activated.';
+  }
 }

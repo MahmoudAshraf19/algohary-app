@@ -5,6 +5,9 @@ import 'package:algohary_project/l10n/app_localizations.dart';
 import 'package:algohary_project/core/theme/app_colors.dart';
 import 'package:algohary_project/core/bloc/settings_cubit/settings_cubit.dart';
 import 'package:algohary_project/core/bloc/settings_cubit/settings_state.dart';
+import 'package:algohary_project/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:algohary_project/features/auth/presentation/bloc/auth_state.dart';
+import 'package:algohary_project/features/subscriptions/presentation/pages/subscription_plan_screen.dart';
 import 'change_password_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -62,6 +65,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             
+            BlocBuilder<AuthBloc, AuthState>(
+              builder: (context, authState) {
+                if (authState is AuthSuccess && authState.user.userType == 'provider') {
+                  return Column(
+                    children: [
+                      _buildDivider(),
+                      _buildSettingsRow(
+                        icon: Icons.business_center,
+                        title: l10n.chooseBusinessPlan,
+                        theme: theme,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const SubscriptionPlanScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
+
             const SizedBox(height: 32),
             _buildSectionTitle(l10n.notificationsTitle ?? 'Notifications', theme),
             _buildSettingsRow(
