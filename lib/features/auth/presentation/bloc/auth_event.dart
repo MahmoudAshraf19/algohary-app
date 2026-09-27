@@ -12,11 +12,16 @@ class CheckAuthStatus extends AuthEvent {}
 class LoginSubmitted extends AuthEvent {
   final String email;
   final String password;
+  final bool isProvider;
 
-  const LoginSubmitted({required this.email, required this.password});
+  const LoginSubmitted({
+    required this.email,
+    required this.password,
+    this.isProvider = false,
+  });
 
   @override
-  List<Object?> get props => [email, password];
+  List<Object?> get props => [email, password, isProvider];
 }
 
 class SignUpSubmitted extends AuthEvent {
@@ -55,4 +60,13 @@ class UpdateProfileRequested extends AuthEvent {
 
   @override
   List<Object?> get props => [firstName, lastName, phone, profileImage];
+}
+
+class ToggleOnlineStatus extends AuthEvent {
+  final bool isOnline;
+
+  const ToggleOnlineStatus({required this.isOnline});
+
+  @override
+  List<Object?> get props => [isOnline];
 }

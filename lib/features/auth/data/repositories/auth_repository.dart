@@ -26,6 +26,7 @@ class AuthRepository {
   Future<UserModel> loginWithEmailAndPassword({
     required String email,
     required String password,
+    bool isProvider = false,
   }) async {
     try {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
@@ -39,27 +40,53 @@ class AuthRepository {
       }
 
       // Fetch user from Firestore
-      final docSnapshot = await _firestore.collection('users').doc(user.uid).get();
+      DocumentSnapshot<Map<String, dynamic>>? userDoc;
+      final uidDoc = await _firestore.collection('users').doc(user.uid).get();
       
-      if (!docSnapshot.exists) {
-        // Auth exists but no Firestore profile yet (should happen during sign up)
+      if (uidDoc.exists) {
+        userDoc = uidDoc;
+      } else {
+        // Fallback: search by email (for manually created documents)
+        final query = await _firestore.collection('users').where('email', isEqualTo: email).limit(1).get();
+        if (query.docs.isNotEmpty) {
+          userDoc = query.docs.first;
+        }
+      }
+
+      if (userDoc == null) {
+        // Auth exists but no Firestore profile yet
+        await _firebaseAuth.signOut();
         throw Exception('user-not-found');
       }
 
-      var userModel = UserModel.fromJson(docSnapshot.data()!);
+      var data = userDoc.data()!;
+      data['id'] = userDoc.id; // Ensure the ID comes from the document ID
+      var userModel = UserModel.fromJson(data);
+
+      // Check if user is a provider if they are logging in as a provider
+      if (isProvider && userModel.userType != 'provider') {
+        await _firebaseAuth.signOut();
+        throw Exception('not-a-provider');
+      }
+      
+      // Check if user is a customer if they are logging in normally
+      if (!isProvider && userModel.userType != 'customer') {
+        await _firebaseAuth.signOut();
+        throw Exception('Not a customer account. Please login as Provider.');
+      }
 
       // Update FCM Token unless it's Web
       if (!kIsWeb) {
         try {
           final token = await _firebaseMessaging.getToken();
           if (token != null && token != userModel.fcmToken) {
-            await _firestore.collection('users').doc(user.uid).update({
+            await _firestore.collection('users').doc(userDoc.id).update({
               'fcm_token': token,
               'last_login_at': FieldValue.serverTimestamp(),
             });
             // Update local model
             userModel = UserModel(
-              id: userModel.id,
+              id: userDoc.id,
               firstName: userModel.firstName,
               lastName: userModel.lastName,
               email: userModel.email,
@@ -76,7 +103,7 @@ class AuthRepository {
             );
           } else {
              // Just update last login
-             await _firestore.collection('users').doc(user.uid).update({
+             await _firestore.collection('users').doc(userDoc.id).update({
               'last_login_at': FieldValue.serverTimestamp(),
             });
           }
@@ -86,12 +113,13 @@ class AuthRepository {
         }
       } else {
           // Just update last login on web
-          await _firestore.collection('users').doc(user.uid).update({
+          await _firestore.collection('users').doc(userDoc.id).update({
           'last_login_at': FieldValue.serverTimestamp(),
         });
       }
 
       if (userModel.isBlocked) {
+         await _firebaseAuth.signOut();
          throw Exception('user-blocked');
       }
 
@@ -182,21 +210,35 @@ class AuthRepository {
       final user = _firebaseAuth.currentUser;
       if (user == null) return null;
 
-      final docSnapshot = await _firestore.collection('users').doc(user.uid).get();
-      if (!docSnapshot.exists) return null;
+      DocumentSnapshot<Map<String, dynamic>>? userDoc;
+      final uidDoc = await _firestore.collection('users').doc(user.uid).get();
+      
+      if (uidDoc.exists) {
+        userDoc = uidDoc;
+      } else if (user.email != null) {
+        // Fallback: search by email (for manually created documents)
+        final query = await _firestore.collection('users').where('email', isEqualTo: user.email).limit(1).get();
+        if (query.docs.isNotEmpty) {
+          userDoc = query.docs.first;
+        }
+      }
 
-      var userModel = UserModel.fromJson(docSnapshot.data()!);
+      if (userDoc == null) return null;
+
+      var data = userDoc.data()!;
+      data['id'] = userDoc.id; // Ensure the ID comes from the document ID
+      var userModel = UserModel.fromJson(data);
 
       if (!kIsWeb) {
         try {
           final token = await _firebaseMessaging.getToken();
           if (token != null && token != userModel.fcmToken) {
-            await _firestore.collection('users').doc(user.uid).update({
+            await _firestore.collection('users').doc(userDoc.id).update({
               'fcm_token': token,
               'last_login_at': FieldValue.serverTimestamp(),
             });
             userModel = UserModel.fromJson({
-              ...docSnapshot.data()!,
+              ...userDoc.data()!,
               'fcm_token': token,
             });
           }
@@ -299,6 +341,32 @@ class AuthRepository {
     } catch (e) {
       print('Error fetching user by id: $e');
       return null;
+    }
+  }
+
+  Future<void> updateOnlineStatus(bool isOnline) async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) throw Exception('User not logged in');
+
+      DocumentSnapshot<Map<String, dynamic>>? userDoc;
+      final uidDoc = await _firestore.collection('users').doc(user.uid).get();
+      
+      if (uidDoc.exists) {
+        userDoc = uidDoc;
+      } else if (user.email != null) {
+        final query = await _firestore.collection('users').where('email', isEqualTo: user.email).limit(1).get();
+        if (query.docs.isNotEmpty) userDoc = query.docs.first;
+      }
+
+      if (userDoc == null) throw Exception('User document not found');
+
+      await _firestore.collection('users').doc(userDoc.id).update({
+        'is_online': isOnline,
+        'updated_at': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 }

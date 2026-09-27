@@ -6,8 +6,11 @@ import 'package:algohary_project/core/network/firebase_config.dart';
 class ChatService {
   final FirebaseFirestore _firestore = FirebaseConfig.firestore;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final String? injectedUserId;
 
-  String? get currentUserId => _auth.currentUser?.uid;
+  ChatService({this.injectedUserId});
+
+  String? get currentUserId => injectedUserId ?? _auth.currentUser?.uid;
 
   /// Ensure a conversation exists between the current user and another user
   Future<String> createOrGetConversation(String otherUserId) async {
@@ -97,7 +100,7 @@ class ChatService {
         .collection('conversations')
         .doc(conversationId)
         .collection('messages')
-        .orderBy('createdAt', descending: false)
+        .orderBy('createdAt', descending: true)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs

@@ -1597,6 +1597,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Email or Password incorrect'**
   String get errorInvalidCredential;
+
+  /// No description provided for @loginAsProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Login as Provider'**
+  String get loginAsProvider;
+
+  /// No description provided for @errorUserBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'This account is blocked, please contact support'**
+  String get errorUserBlocked;
+
+  /// No description provided for @errorNotProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'This account is not registered as a provider'**
+  String get errorNotProvider;
+
+  /// No description provided for @navProviderHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get navProviderHome;
+
+  /// No description provided for @navProviderOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'Orders'**
+  String get navProviderOrders;
+
+  /// No description provided for @navProviderMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'Messages'**
+  String get navProviderMessages;
+
+  /// No description provided for @navProviderSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get navProviderSettings;
+
+  /// No description provided for @welcomeBackProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back! Have a successful day.'**
+  String get welcomeBackProvider;
+
+  /// No description provided for @goodMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good Morning'**
+  String get goodMorning;
+
+  /// No description provided for @goodEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good Evening'**
+  String get goodEvening;
+
+  /// No description provided for @statusOnline.
+  ///
+  /// In en, this message translates to:
+  /// **'Online'**
+  String get statusOnline;
+
+  /// No description provided for @statusOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline'**
+  String get statusOffline;
+
+  /// No description provided for @tabNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get tabNew;
+
+  /// No description provided for @tabInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get tabInProgress;
+
+  /// No description provided for @tabCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get tabCompleted;
+
+  /// No description provided for @tabCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get tabCancelled;
+
+  /// No description provided for @orderStatusPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Approval'**
+  String get orderStatusPending;
+
+  /// No description provided for @orderStatusChangeProposed.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Proposed'**
+  String get orderStatusChangeProposed;
+
+  /// No description provided for @orderStatusPendingConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Confirmation'**
+  String get orderStatusPendingConfirmation;
+
+  /// No description provided for @orderStatusApproved.
+  ///
+  /// In en, this message translates to:
+  /// **'Approved'**
+  String get orderStatusApproved;
+
+  /// No description provided for @orderStatusRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'Rejected'**
+  String get orderStatusRejected;
+
+  /// No description provided for @orderStatusCancelledUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled by User'**
+  String get orderStatusCancelledUser;
+
+  /// No description provided for @orderStatusCancelledProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled by You'**
+  String get orderStatusCancelledProvider;
+
+  /// No description provided for @orderStatusInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get orderStatusInProgress;
+
+  /// No description provided for @orderStatusCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get orderStatusCompleted;
+
+  /// No description provided for @orderStatusExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get orderStatusExpired;
+
+  /// No description provided for @acceptOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept Order'**
+  String get acceptOrder;
+
+  /// No description provided for @declineOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline'**
+  String get declineOrder;
+
+  /// No description provided for @proposeChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Propose Change'**
+  String get proposeChange;
+
+  /// No description provided for @updateStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Status'**
+  String get updateStatus;
+
+  /// No description provided for @fileComplaint.
+  ///
+  /// In en, this message translates to:
+  /// **'File a Complaint'**
+  String get fileComplaint;
+
+  /// No description provided for @complaintTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Complaint'**
+  String get complaintTitle;
+
+  /// No description provided for @complaintReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get complaintReason;
+
+  /// No description provided for @complaintDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get complaintDescription;
+
+  /// No description provided for @submit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get submit;
+
+  /// No description provided for @navOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'Orders'**
+  String get navOrders;
 }
 
 class _AppLocalizationsDelegate

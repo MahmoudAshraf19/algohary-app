@@ -10,6 +10,7 @@ class UserModel {
   final String userType; // 'customer', 'provider'
   final bool isActive;
   final bool isBlocked;
+  final bool isOnline;
   final String? fcmToken;
   final Subscription subscription;
   final DateTime? createdAt;
@@ -33,6 +34,7 @@ class UserModel {
     this.userType = 'customer',
     this.isActive = true,
     this.isBlocked = false,
+    this.isOnline = false,
     this.fcmToken,
     required this.subscription,
     this.createdAt,
@@ -56,6 +58,7 @@ class UserModel {
       userType: json['user_type'] ?? 'customer',
       isActive: json['is_active'] ?? true,
       isBlocked: json['is_blocked'] ?? false,
+      isOnline: json['is_online'] ?? false,
       fcmToken: json['fcm_token'],
       subscription: Subscription.fromJson(json['subscription'] ?? {}),
       createdAt: (json['created_at'] as Timestamp?)?.toDate(),
@@ -80,6 +83,7 @@ class UserModel {
       'user_type': userType,
       'is_active': isActive,
       'is_blocked': isBlocked,
+      'is_online': isOnline,
       if (fcmToken != null) 'fcm_token': fcmToken,
       'subscription': subscription.toJson(),
       'created_at': createdAt != null ? Timestamp.fromDate(createdAt!) : FieldValue.serverTimestamp(),

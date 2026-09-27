@@ -771,4 +771,112 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get errorInvalidCredential =>
       'البريد الإلكتروني أو كلمة المرور غير صحيحة!';
+
+  @override
+  String get loginAsProvider => 'الدخول كمقدم خدمة';
+
+  @override
+  String get errorUserBlocked => 'هذا الحساب محظور، يرجى التواصل مع الإدارة';
+
+  @override
+  String get errorNotProvider => 'هذا الحساب ليس مسجلاً كمقدم خدمة';
+
+  @override
+  String get navProviderHome => 'الرئيسية';
+
+  @override
+  String get navProviderOrders => 'الطلبات';
+
+  @override
+  String get navProviderMessages => 'الرسائل';
+
+  @override
+  String get navProviderSettings => 'الإعدادات';
+
+  @override
+  String get welcomeBackProvider => 'مرحباً بعودتك! نتمنى لك يوماً موفقاً';
+
+  @override
+  String get goodMorning => 'صباح الخير';
+
+  @override
+  String get goodEvening => 'مساء الخير';
+
+  @override
+  String get statusOnline => 'متصل الآن';
+
+  @override
+  String get statusOffline => 'غير متصل';
+
+  @override
+  String get tabNew => 'الجديدة';
+
+  @override
+  String get tabInProgress => 'قيد التنفيذ';
+
+  @override
+  String get tabCompleted => 'المكتملة';
+
+  @override
+  String get tabCancelled => 'الملغية';
+
+  @override
+  String get orderStatusPending => 'في انتظار موافقتك';
+
+  @override
+  String get orderStatusChangeProposed => 'تم اقتراح تعديل';
+
+  @override
+  String get orderStatusPendingConfirmation => 'في انتظار التأكيد';
+
+  @override
+  String get orderStatusApproved => 'تمت الموافقة';
+
+  @override
+  String get orderStatusRejected => 'مرفوضة';
+
+  @override
+  String get orderStatusCancelledUser => 'أُلغيت من العميل';
+
+  @override
+  String get orderStatusCancelledProvider => 'أُلغيت بواسطتك';
+
+  @override
+  String get orderStatusInProgress => 'قيد التنفيذ';
+
+  @override
+  String get orderStatusCompleted => 'مكتملة';
+
+  @override
+  String get orderStatusExpired => 'منتهية';
+
+  @override
+  String get acceptOrder => 'قبول الطلب';
+
+  @override
+  String get declineOrder => 'رفض';
+
+  @override
+  String get proposeChange => 'اقتراح تعديل';
+
+  @override
+  String get updateStatus => 'تحديث الحالة';
+
+  @override
+  String get fileComplaint => 'تقديم شكوى';
+
+  @override
+  String get complaintTitle => 'تقديم شكوى';
+
+  @override
+  String get complaintReason => 'السبب';
+
+  @override
+  String get complaintDescription => 'التفاصيل';
+
+  @override
+  String get submit => 'إرسال';
+
+  @override
+  String get navOrders => 'الطلبات';
 }

@@ -7,10 +7,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:algohary_project/features/chat/presentation/widgets/full_screen_image_viewer.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../data/models/chat_models.dart';
 import '../../data/services/chat_service.dart';
 import '../../data/services/chat_media_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../features/auth/presentation/bloc/auth_bloc.dart';
+import '../../../../features/auth/presentation/bloc/auth_state.dart';
 import '../widgets/voice_recorder_widget.dart';
 import 'instagram_gallery_picker.dart';
 
@@ -35,7 +39,7 @@ class ChatDetailScreen extends StatefulWidget {
 }
 
 class _ChatDetailScreenState extends State<ChatDetailScreen> {
-  final ChatService _chatService = ChatService();
+  late ChatService _chatService;
   final ChatMediaService _mediaService = ChatMediaService();
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
@@ -53,6 +57,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   @override
   void initState() {
     super.initState();
+    
+    final authState = context.read<AuthBloc>().state;
+    final userId = (authState is AuthSuccess) ? authState.user.id : null;
+    _chatService = ChatService(injectedUserId: userId);
+    
     _messagesStream = _chatService.streamMessages(widget.conversationId);
     _markAsRead();
 
@@ -98,15 +107,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   }
 
   void _scrollToBottom() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_scrollController.hasClients) {
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
-        );
-      }
-    });
+    // Scrolling to bottom is now handled automatically by `reverse: true`
   }
 
   Future<void> _handleSendMessage({
@@ -257,60 +258,21 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         titleSpacing: 0,
-        title: Row(
-          children: [
-            Stack(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(1.5),
-                  decoration: BoxDecoration(color: colorScheme.primary, shape: BoxShape.circle),
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: colorScheme.surfaceContainerHighest,
-                    backgroundImage: widget.recipientAvatar != null
-                        ? (widget.recipientAvatar!.startsWith('http')
-                            ? CachedNetworkImageProvider(widget.recipientAvatar!) as ImageProvider
-                            : (widget.recipientAvatar!.startsWith('assets/')
-                                ? AssetImage(widget.recipientAvatar!) as ImageProvider
-                                : null))
-                        : null,
-                    child: widget.recipientAvatar == null || (!widget.recipientAvatar!.startsWith('http') && !widget.recipientAvatar!.startsWith('assets/'))
-                        ? Icon(Icons.person, color: colorScheme.onSurfaceVariant, size: 22)
-                        : null,
-                  ),
-                ),
-                if (widget.isOnline)
-                  Positioned(
-                    right: 0,
-                    bottom: 0,
-                    child: Container(
-                      width: 12, height: 12,
-                      decoration: BoxDecoration(color: const Color(0xFF10B981), shape: BoxShape.circle, border: Border.all(color: colorScheme.surface, width: 2)),
-                    ),
-                  ),
-              ],
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    widget.recipientName,
-                    maxLines: 1, overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.onSurface, letterSpacing: -0.2),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'Service Provider',
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: colorScheme.onSurfaceVariant),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+        title: widget.recipientId != null
+            ? StreamBuilder<DocumentSnapshot>(
+                stream: FirebaseFirestore.instance.collection('users').doc(widget.recipientId).snapshots(),
+                builder: (context, snapshot) {
+                  bool isOnline = widget.isOnline;
+                  if (snapshot.hasData && snapshot.data!.exists) {
+                    final data = snapshot.data!.data() as Map<String, dynamic>?;
+                    if (data != null && data.containsKey('is_online')) {
+                      isOnline = data['is_online'] == true;
+                    }
+                  }
+                  return _buildAppBarTitle(colorScheme, isOnline, l10n);
+                },
+              )
+            : _buildAppBarTitle(colorScheme, widget.isOnline, l10n),
         actions: const [SizedBox(width: 16)],
       ),
       body: Column(
@@ -343,6 +305,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                   return Skeletonizer(
                     enabled: true,
                     child: ListView.builder(
+                      reverse: true,
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       itemCount: 4,
                       itemBuilder: (context, index) {
@@ -361,22 +324,20 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                   return const Center(child: Text('Error loading messages'));
                 }
                 final messages = snapshot.data ?? [];
-                if (messages.isNotEmpty) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    if (_scrollController.hasClients) {
-                      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-                    }
-                  });
-                }
                 if (messages.isEmpty) return const SizedBox();
 
                 return ListView.builder(
                   controller: _scrollController,
+                  reverse: true,
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
                     final msg = messages[index];
-                    final showDateHeader = index == 0 || _formatDateHeader(msg.createdAt) != _formatDateHeader(messages[index - 1].createdAt);
+                    // Because list is reversed, index 0 is newest. 
+                    // Date header should be shown if this is the last item (oldest) 
+                    // OR if the NEXT item (which is older) has a different date.
+                    final showDateHeader = index == messages.length - 1 || 
+                        _formatDateHeader(msg.createdAt) != _formatDateHeader(messages[index + 1].createdAt);
 
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -690,6 +651,67 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
           );
         }).toList(),
       ),
+    );
+  }
+
+  Widget _buildAppBarTitle(ColorScheme colorScheme, bool isOnline, AppLocalizations l10n) {
+    return Row(
+      children: [
+        Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(1.5),
+              decoration: BoxDecoration(color: colorScheme.primary, shape: BoxShape.circle),
+              child: CircleAvatar(
+                radius: 20,
+                backgroundColor: colorScheme.surfaceContainerHighest,
+                backgroundImage: widget.recipientAvatar != null
+                    ? (widget.recipientAvatar!.startsWith('http')
+                        ? CachedNetworkImageProvider(widget.recipientAvatar!) as ImageProvider
+                        : (widget.recipientAvatar!.startsWith('assets/')
+                            ? AssetImage(widget.recipientAvatar!) as ImageProvider
+                            : null))
+                    : null,
+                child: widget.recipientAvatar == null || (!widget.recipientAvatar!.startsWith('http') && !widget.recipientAvatar!.startsWith('assets/'))
+                    ? Icon(Icons.person, color: colorScheme.onSurfaceVariant, size: 22)
+                    : null,
+              ),
+            ),
+            if (isOnline)
+              Positioned(
+                right: 0,
+                bottom: 0,
+                child: Container(
+                  width: 12, height: 12,
+                  decoration: BoxDecoration(color: const Color(0xFF10B981), shape: BoxShape.circle, border: Border.all(color: colorScheme.surface, width: 2)),
+                ),
+              ),
+          ],
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                widget.recipientName,
+                maxLines: 1, overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.onSurface, letterSpacing: -0.2),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                isOnline ? l10n.statusOnline : l10n.statusOffline,
+                style: TextStyle(
+                  fontSize: 12, 
+                  fontWeight: FontWeight.w500, 
+                  color: isOnline ? const Color(0xFF10B981) : colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

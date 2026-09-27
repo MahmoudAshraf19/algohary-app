@@ -412,3 +412,54 @@ class StatusHistoryModel {
     };
   }
 }
+
+class ComplaintModel {
+  final String id;
+  final String bookingId;
+  final String submittedBy;
+  final String submittedById;
+  final String againstId;
+  final String reason;
+  final String description;
+  final String status; // e.g., 'UNDER_REVIEW', 'RESOLVED', 'DISMISSED'
+  final DateTime createdAt;
+
+  ComplaintModel({
+    required this.id,
+    required this.bookingId,
+    required this.submittedBy,
+    required this.submittedById,
+    required this.againstId,
+    required this.reason,
+    required this.description,
+    required this.status,
+    required this.createdAt,
+  });
+
+  factory ComplaintModel.fromJson(Map<String, dynamic> json, String docId) {
+    return ComplaintModel(
+      id: docId,
+      bookingId: json['bookingId'] ?? '',
+      submittedBy: json['submittedBy'] ?? '',
+      submittedById: json['submittedById'] ?? '',
+      againstId: json['againstId'] ?? '',
+      reason: json['reason'] ?? '',
+      description: json['description'] ?? '',
+      status: json['status'] ?? 'UNDER_REVIEW',
+      createdAt: json['createdAt'] != null ? (json['createdAt'] as Timestamp).toDate() : DateTime.now(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'bookingId': bookingId,
+      'submittedBy': submittedBy,
+      'submittedById': submittedById,
+      'againstId': againstId,
+      'reason': reason,
+      'description': description,
+      'status': status,
+      'createdAt': Timestamp.fromDate(createdAt),
+    };
+  }
+}

@@ -81,6 +81,33 @@ class NotificationService {
     );
   }
 
+  Future<void> showWelcomeNotification(String title, String body) async {
+    if (kIsWeb) return; // Local notifications usually not supported well on web
+
+    if (!_isInitialized) {
+      await initialize();
+    }
+
+    const androidDetails = AndroidNotificationDetails(
+      'welcome_channel',
+      'Welcome Notifications',
+      importance: Importance.max,
+      priority: Priority.high,
+      icon: '@mipmap/ic_launcher',
+    );
+    
+    const iosDetails = DarwinNotificationDetails();
+
+    const platformDetails = NotificationDetails(android: androidDetails, iOS: iosDetails);
+
+    await _localNotifications.show(
+      id: DateTime.now().millisecond,
+      title: title,
+      body: body,
+      notificationDetails: platformDetails,
+    );
+  }
+
   /// Stream of user's notifications, ordered by newest
   Stream<List<AppNotification>> streamNotifications() {
     final user = _auth.currentUser;

@@ -117,7 +117,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (_) => const LoginScreen()),
+                            MaterialPageRoute(builder: (_) => const LoginScreen(isProvider: false)),
                           );
                         },
                         style: ElevatedButton.styleFrom(

@@ -771,4 +771,113 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorInvalidCredential => 'Email or Password incorrect';
+
+  @override
+  String get loginAsProvider => 'Login as Provider';
+
+  @override
+  String get errorUserBlocked =>
+      'This account is blocked, please contact support';
+
+  @override
+  String get errorNotProvider => 'This account is not registered as a provider';
+
+  @override
+  String get navProviderHome => 'Home';
+
+  @override
+  String get navProviderOrders => 'Orders';
+
+  @override
+  String get navProviderMessages => 'Messages';
+
+  @override
+  String get navProviderSettings => 'Settings';
+
+  @override
+  String get welcomeBackProvider => 'Welcome back! Have a successful day.';
+
+  @override
+  String get goodMorning => 'Good Morning';
+
+  @override
+  String get goodEvening => 'Good Evening';
+
+  @override
+  String get statusOnline => 'Online';
+
+  @override
+  String get statusOffline => 'Offline';
+
+  @override
+  String get tabNew => 'New';
+
+  @override
+  String get tabInProgress => 'In Progress';
+
+  @override
+  String get tabCompleted => 'Completed';
+
+  @override
+  String get tabCancelled => 'Cancelled';
+
+  @override
+  String get orderStatusPending => 'Pending Approval';
+
+  @override
+  String get orderStatusChangeProposed => 'Change Proposed';
+
+  @override
+  String get orderStatusPendingConfirmation => 'Pending Confirmation';
+
+  @override
+  String get orderStatusApproved => 'Approved';
+
+  @override
+  String get orderStatusRejected => 'Rejected';
+
+  @override
+  String get orderStatusCancelledUser => 'Cancelled by User';
+
+  @override
+  String get orderStatusCancelledProvider => 'Cancelled by You';
+
+  @override
+  String get orderStatusInProgress => 'In Progress';
+
+  @override
+  String get orderStatusCompleted => 'Completed';
+
+  @override
+  String get orderStatusExpired => 'Expired';
+
+  @override
+  String get acceptOrder => 'Accept Order';
+
+  @override
+  String get declineOrder => 'Decline';
+
+  @override
+  String get proposeChange => 'Propose Change';
+
+  @override
+  String get updateStatus => 'Update Status';
+
+  @override
+  String get fileComplaint => 'File a Complaint';
+
+  @override
+  String get complaintTitle => 'Submit Complaint';
+
+  @override
+  String get complaintReason => 'Reason';
+
+  @override
+  String get complaintDescription => 'Description';
+
+  @override
+  String get submit => 'Submit';
+
+  @override
+  String get navOrders => 'Orders';
 }

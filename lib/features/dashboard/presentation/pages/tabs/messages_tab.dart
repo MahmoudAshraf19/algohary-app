@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../auth/presentation/bloc/auth_bloc.dart';
+import '../../../../auth/presentation/bloc/auth_state.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
 import '../../../../chat/data/models/chat_models.dart';
@@ -14,7 +17,7 @@ class MessagesTab extends StatefulWidget {
 }
 
 class _MessagesTabState extends State<MessagesTab> {
-  final ChatService _chatService = ChatService();
+  late ChatService _chatService;
   final TextEditingController _searchController = TextEditingController();
   
   String _searchQuery = '';
@@ -23,6 +26,16 @@ class _MessagesTabState extends State<MessagesTab> {
   @override
   void initState() {
     super.initState();
+    
+    final authState = context.read<AuthBloc>().state;
+    final userId = (authState is AuthSuccess) ? authState.user.id : null;
+    print('==================================================');
+    print('DEBUG: MessagesTab initState');
+    print('DEBUG: AuthState is $authState');
+    print('DEBUG: userId is $userId');
+    print('==================================================');
+    _chatService = ChatService(injectedUserId: userId);
+    
     _conversationsStream = _chatService.streamConversations();
     
     _searchController.addListener(() {

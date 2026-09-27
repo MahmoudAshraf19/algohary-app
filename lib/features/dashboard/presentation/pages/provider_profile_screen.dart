@@ -9,6 +9,8 @@ import '../../../chat/data/services/chat_service.dart';
 import '../../../chat/presentation/pages/chat_detail_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../auth/presentation/bloc/auth_bloc.dart';
+import '../../../auth/presentation/bloc/auth_state.dart';
 import 'package:algohary_project/features/bookings/presentation/pages/create_request_wizard_screen.dart';
 import 'package:algohary_project/features/bookings/presentation/bloc/create_request/create_request_bloc.dart';
 import 'package:algohary_project/features/bookings/data/repositories/bookings_repository.dart';
@@ -255,7 +257,9 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
                               ),
                             );
 
-                            final chatService = ChatService();
+                            final authState = context.read<AuthBloc>().state;
+                            final userId = (authState is AuthSuccess) ? authState.user.id : null;
+                            final chatService = ChatService(injectedUserId: userId);
                             final conversationId = await chatService
                                 .createOrGetConversation(widget.provider.id);
 
@@ -270,6 +274,7 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
                                         '${widget.provider.firstName} ${widget.provider.lastName}',
                                     recipientAvatar: widget.provider.imageUrl,
                                     recipientId: widget.provider.id,
+                                    isOnline: widget.provider.isOnline,
                                   ),
                                 ),
                               );

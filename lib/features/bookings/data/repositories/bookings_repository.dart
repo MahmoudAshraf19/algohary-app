@@ -193,4 +193,60 @@ class BookingsRepository {
 
     await batch.commit();
   }
+
+  /// Submit a complaint
+  Future<void> submitComplaint(ComplaintModel complaint) async {
+    final docRef = _firestore.collection('complaints').doc();
+    final complaintWithId = ComplaintModel(
+      id: docRef.id,
+      bookingId: complaint.bookingId,
+      submittedBy: complaint.submittedBy,
+      submittedById: complaint.submittedById,
+      againstId: complaint.againstId,
+      reason: complaint.reason,
+      description: complaint.description,
+      status: complaint.status,
+      createdAt: complaint.createdAt,
+    );
+    await docRef.set(complaintWithId.toJson());
+
+    // Also update request history to reflect complaint
+    final historyRef = _requestsCol.doc(complaint.bookingId).collection('statusHistory').doc();
+    final history = StatusHistoryModel(
+      status: 'COMPLAINT_FILED',
+      performedBy: complaint.submittedBy,
+      performedById: complaint.submittedById,
+      message: 'Complaint filed: ${complaint.reason}',
+      createdAt: DateTime.now(),
+    );
+    await historyRef.set(history.toJson());
+
+    // Send notification
+    await _sendNotification(
+      userId: complaint.againstId,
+      title: 'New Complaint Filed',
+      body: 'A complaint has been filed against you regarding booking #${complaint.bookingId.substring(0, 5)}',
+      type: 'COMPLAINT',
+      relatedId: complaint.bookingId,
+    );
+  }
+
+  /// Helper to send a notification (writes to Firestore, assumes Cloud Functions will send FCM)
+  Future<void> _sendNotification({
+    required String userId,
+    required String title,
+    required String body,
+    required String type,
+    required String relatedId,
+  }) async {
+    await _firestore.collection('notifications').add({
+      'userId': userId,
+      'title': title,
+      'body': body,
+      'type': type,
+      'relatedId': relatedId,
+      'isRead': false,
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+  }
 }

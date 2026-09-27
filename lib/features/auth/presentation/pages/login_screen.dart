@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
 import 'package:algohary_project/features/dashboard/presentation/pages/dashboard_screen.dart';
+import 'package:algohary_project/features/dashboard/presentation/pages/provider_dashboard_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
@@ -10,7 +11,12 @@ import 'signup_screen.dart';
 import '../../../../core/theme/app_colors.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final bool isProvider;
+  
+  const LoginScreen({
+    super.key,
+    this.isProvider = false,
+  });
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -62,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.center,
                 style: theme.textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.w800,
-                  color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary,
+                  color: theme.brightness == Brightness.dark ? AppColors.lightYellow : const Color(0xFF325A65),
                 ),
               ),
               const SizedBox(height: 8),
@@ -100,14 +106,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: TextButton(
                   onPressed: () {},
                   style: TextButton.styleFrom(
-                    foregroundColor: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary,
+                    foregroundColor: theme.brightness == Brightness.dark ? AppColors.lightYellow : const Color(0xFF325A65),
                     padding: EdgeInsets.zero,
                     minimumSize: Size.zero,
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   child: Text(
                     l10n.loginForgotPassword,
-                    style: const TextStyle(fontWeight: FontWeight.w700),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                   ),
                 ),
               ),
@@ -121,7 +127,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (state is AuthSuccess) {
                       Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (_) => const DashboardScreen()),
+                        MaterialPageRoute(
+                          builder: (_) => state.user.userType == 'provider'
+                              ? const ProviderDashboardScreen()
+                              : const DashboardScreen(),
+                        ),
                         (route) => false,
                       );
                     } else if (state is AuthFailure) {
@@ -130,10 +140,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         SnackBar(
                           content: Text(
                             state.message == 'user-not-found' || state.message == 'wrong-password' || state.message == 'invalid-credential'
-                                ? (l10n.errorInvalidCredential ?? 'Email or Password incorrect')
+                                ? (l10n.errorInvalidCredential)
                                 : state.message == 'user-blocked'
-                                    ? 'هذا الحساب محظور، يرجى التواصل مع الإدارة'
-                                    : l10n.errorGeneric,
+                                    ? l10n.errorUserBlocked
+                                    : state.message == 'not-a-provider'
+                                        ? l10n.errorNotProvider
+                                        : l10n.errorGeneric,
                           ),
                           backgroundColor: Colors.red.shade700,
                           behavior: SnackBarBehavior.floating,
@@ -154,20 +166,24 @@ class _LoginScreenState extends State<LoginScreen> {
                               final password = _passwordController.text;
                               if (email.isNotEmpty && password.isNotEmpty) {
                                 context.read<AuthBloc>().add(
-                                      LoginSubmitted(email: email, password: password),
+                                      LoginSubmitted(
+                                        email: email, 
+                                        password: password,
+                                        isProvider: widget.isProvider,
+                                      ),
                                     );
                               }
                             },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.colorScheme.primary,
-                        foregroundColor: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onPrimary,
+                        backgroundColor: const Color(0xFF325A65),
+                        foregroundColor: Colors.white,
                         elevation: 0, // No shadows
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
                         textStyle: const TextStyle(
                           fontSize: 16,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       child: state is AuthLoading
@@ -215,36 +231,64 @@ class _LoginScreenState extends State<LoginScreen> {
               
               const SizedBox(height: 48),
               
-              // Create Account
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    l10n.loginNoAccount,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : theme.colorScheme.onSurface.withOpacity(0.7),
+              // Create Account or Provider Login
+              if (widget.isProvider)
+                const SizedBox.shrink()
+              else ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      l10n.loginNoAccount,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : theme.colorScheme.onSurface.withOpacity(0.7),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const SignUpScreen()),
+                        );
+                      },
+                      style: TextButton.styleFrom(
+                        foregroundColor: theme.brightness == Brightness.dark ? AppColors.lightYellow : const Color(0xFF325A65),
+                        padding: EdgeInsets.zero,
+                        minimumSize: Size.zero,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      child: Text(
+                        l10n.loginCreateAccount,
+                        style: const TextStyle(fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                
+                // Login as Provider Button
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const LoginScreen(isProvider: true),
+                      ),
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.orange.shade700,
+                  ),
+                  child: Text(
+                    l10n.loginAsProvider,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                      decorationColor: Colors.orange.shade700,
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => const SignUpScreen()),
-                      );
-                    },
-                    style: TextButton.styleFrom(
-                      foregroundColor: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary,
-                      padding: EdgeInsets.zero,
-                      minimumSize: Size.zero,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                    child: Text(
-                      l10n.loginCreateAccount,
-                      style: const TextStyle(fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
               const SizedBox(height: 24),
             ],
           ),

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_state.dart';
 import '../../../dashboard/presentation/pages/dashboard_screen.dart';
+import '../../../dashboard/presentation/pages/provider_dashboard_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -35,7 +36,11 @@ class _SplashScreenState extends State<SplashScreen> {
     if (!mounted) return;
     if (state is AuthSuccess) {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const DashboardScreen()),
+        MaterialPageRoute(
+          builder: (_) => (state as AuthSuccess).user.userType == 'provider'
+              ? const ProviderDashboardScreen()
+              : const DashboardScreen(),
+        ),
       );
     } else {
       Navigator.of(context).pushReplacement(
