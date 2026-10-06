@@ -8,7 +8,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   static const String _localeKey = 'locale_code';
 
   SettingsCubit() : super(const SettingsState(
-    themeMode: ThemeMode.system,
+    themeMode: ThemeMode.light,
     locale: Locale('en'),
   )) {
     _loadSettings();
@@ -19,13 +19,17 @@ class SettingsCubit extends Cubit<SettingsState> {
     
     // Load Theme
     final isDark = prefs.getBool(_themeKey);
-    ThemeMode mode = ThemeMode.system;
+    ThemeMode mode = ThemeMode.light;
     if (isDark != null) {
       mode = isDark ? ThemeMode.dark : ThemeMode.light;
     }
 
     // Load Locale
-    final langCode = prefs.getString(_localeKey) ?? 'en';
+    String? langCode = prefs.getString(_localeKey);
+    if (langCode == null) {
+      final deviceLocale = WidgetsBinding.instance.platformDispatcher.locale;
+      langCode = deviceLocale.languageCode == 'ar' ? 'ar' : 'en';
+    }
     final locale = Locale(langCode);
 
     emit(state.copyWith(themeMode: mode, locale: locale));

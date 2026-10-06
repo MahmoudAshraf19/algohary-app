@@ -68,12 +68,6 @@ class AuthRepository {
         await _firebaseAuth.signOut();
         throw Exception('not-a-provider');
       }
-      
-      // Check if user is a customer if they are logging in normally
-      if (!isProvider && userModel.userType != 'customer') {
-        await _firebaseAuth.signOut();
-        throw Exception('Not a customer account. Please login as Provider.');
-      }
 
       // Update FCM Token unless it's Web
       if (!kIsWeb) {
@@ -144,6 +138,17 @@ class AuthRepository {
     XFile? profileImage,
   }) async {
     try {
+      // Check if email exists in Firestore first
+      final existingUsers = await _firestore
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .limit(1)
+          .get();
+          
+      if (existingUsers.docs.isNotEmpty) {
+        throw Exception('email-already-in-use');
+      }
+
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -293,6 +298,11 @@ class AuthRepository {
     required String lastName,
     required String phone,
     dynamic profileImage,
+    String? categoryId,
+    List<String>? services,
+    String? governorateId,
+    List<String>? cities,
+    String? about,
   }) async {
     try {
       final user = _firebaseAuth.currentUser;
@@ -309,12 +319,18 @@ class AuthRepository {
         imageUrl = await uploadTask.ref.getDownloadURL();
       }
 
-      final updateData = {
+      final updateData = <String, dynamic>{
         'first_name': firstName,
         'last_name': lastName,
         'phone': phone,
         'updated_at': FieldValue.serverTimestamp(),
       };
+
+      if (categoryId != null) updateData['category_id'] = categoryId;
+      if (services != null) updateData['services'] = services;
+      if (governorateId != null) updateData['governorate_id'] = governorateId;
+      if (cities != null) updateData['cities'] = cities;
+      if (about != null) updateData['about'] = about;
 
       if (imageUrl != null) {
         updateData['image_url'] = imageUrl;

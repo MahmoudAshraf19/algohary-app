@@ -5,6 +5,7 @@ import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_state.dart';
 import '../../../auth/presentation/pages/login_screen.dart';
 import '../../../notifications/data/services/notification_service.dart';
+import '../../../subscriptions/presentation/pages/subscription_plan_screen.dart';
 
 import '../widgets/provider_bottom_nav_bar.dart';
 
@@ -54,6 +55,46 @@ class _ProviderDashboardScreenState extends State<ProviderDashboardScreen> {
             l10n.appTitle, // Title: Al Gohary
             l10n.welcomeBackProvider, // Body: Welcome back...
           );
+
+          // Check if provider needs subscription
+          final user = state.user;
+          bool needsSubscription = false;
+          if (!user.subscription.isSubscribed || !user.subscription.isActive) {
+            needsSubscription = true;
+          } else if (user.subscription.endDate != null && user.subscription.endDate!.isBefore(DateTime.now())) {
+            needsSubscription = true;
+          }
+
+          if (needsSubscription) {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (dialogContext) => AlertDialog(
+                title: Text(l10n.subscriptionRequiredTitle ?? 'Subscription Required'),
+                content: Text(l10n.subscriptionRequiredMessage ?? 'You must subscribe to a plan to display your services on our app.'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(dialogContext),
+                    child: Text(l10n.skipForNow ?? 'Skip for now'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(dialogContext);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const SubscriptionPlanScreen()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(dialogContext).colorScheme.primary,
+                      foregroundColor: Theme.of(dialogContext).colorScheme.onPrimary,
+                    ),
+                    child: Text(l10n.viewPlans ?? 'View Plans'),
+                  ),
+                ],
+              ),
+            );
+          }
         }
       }
     });

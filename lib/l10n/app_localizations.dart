@@ -98,6 +98,18 @@ abstract class AppLocalizations {
     Locale('en'),
   ];
 
+  /// No description provided for @alGoharySupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Al Gohary Support'**
+  String get alGoharySupport;
+
+  /// No description provided for @appAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get appAbout;
+
   /// No description provided for @helloWorld.
   ///
   /// In en, this message translates to:
@@ -1963,6 +1975,546 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Congratulations! Your subscription to the {planName} plan has been successfully activated.'**
   String subscriptionActivatedBody(String planName);
+
+  /// No description provided for @switchToUserMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to User Mode'**
+  String get switchToUserMode;
+
+  /// No description provided for @switchToProviderMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to Provider Mode'**
+  String get switchToProviderMode;
+
+  /// No description provided for @joinAsProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Join as Provider'**
+  String get joinAsProvider;
+
+  /// No description provided for @comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon!'**
+  String get comingSoon;
+
+  /// No description provided for @becomeProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Become a Provider'**
+  String get becomeProvider;
+
+  /// No description provided for @becomeProviderDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Join us and start your journey as a verified provider.'**
+  String get becomeProviderDesc;
+
+  /// No description provided for @earnIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Earn Income'**
+  String get earnIncome;
+
+  /// No description provided for @earnIncomeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn your skills into a steady source of income.'**
+  String get earnIncomeDesc;
+
+  /// No description provided for @reachMoreCustomers.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach More Customers'**
+  String get reachMoreCustomers;
+
+  /// No description provided for @reachMoreCustomersDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect with trusted customers looking for your services.'**
+  String get reachMoreCustomersDesc;
+
+  /// No description provided for @getSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Full Support'**
+  String get getSupport;
+
+  /// No description provided for @getSupportDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'re with you at every step of your journey.'**
+  String get getSupportDesc;
+
+  /// No description provided for @startApplication.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Application'**
+  String get startApplication;
+
+  /// No description provided for @learnMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn More'**
+  String get learnMore;
+
+  /// No description provided for @checkStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Status'**
+  String get checkStatus;
+
+  /// No description provided for @appStepCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category & Services'**
+  String get appStepCategory;
+
+  /// No description provided for @appStepLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get appStepLocation;
+
+  /// No description provided for @appStepId.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity Verification'**
+  String get appStepId;
+
+  /// No description provided for @appSelectCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Category'**
+  String get appSelectCategory;
+
+  /// No description provided for @appSelectServices.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Services'**
+  String get appSelectServices;
+
+  /// No description provided for @appSelectGovernorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Governorate'**
+  String get appSelectGovernorate;
+
+  /// No description provided for @appSelectCities.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Cities'**
+  String get appSelectCities;
+
+  /// No description provided for @appUploadIdFront.
+  ///
+  /// In en, this message translates to:
+  /// **'ID Card (Front)'**
+  String get appUploadIdFront;
+
+  /// No description provided for @appUploadIdBack.
+  ///
+  /// In en, this message translates to:
+  /// **'ID Card (Back)'**
+  String get appUploadIdBack;
+
+  /// No description provided for @appNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get appNext;
+
+  /// No description provided for @appBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get appBack;
+
+  /// No description provided for @appSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Application'**
+  String get appSubmit;
+
+  /// No description provided for @appRequiredField.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get appRequiredField;
+
+  /// No description provided for @checkApplication.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Application'**
+  String get checkApplication;
+
+  /// No description provided for @checkApplicationDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your Application ID to view your application status.'**
+  String get checkApplicationDesc;
+
+  /// No description provided for @enterAppOrPersonalId.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Application ID'**
+  String get enterAppOrPersonalId;
+
+  /// No description provided for @noApplicationFoundForId.
+  ///
+  /// In en, this message translates to:
+  /// **'No application found for the given ID.'**
+  String get noApplicationFoundForId;
+
+  /// No description provided for @whereToFindId.
+  ///
+  /// In en, this message translates to:
+  /// **'Where can I find my Application ID?'**
+  String get whereToFindId;
+
+  /// No description provided for @findIdInEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'You can find your Application ID in the app or in your email.'**
+  String get findIdInEmail;
+
+  /// No description provided for @applicationNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Application not found.'**
+  String get applicationNotFound;
+
+  /// No description provided for @applicationStatusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Application Status'**
+  String get applicationStatusTitle;
+
+  /// No description provided for @applicationStatusDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Here is the current status of your provider application.'**
+  String get applicationStatusDesc;
+
+  /// No description provided for @applicationId.
+  ///
+  /// In en, this message translates to:
+  /// **'Application ID'**
+  String get applicationId;
+
+  /// No description provided for @statusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get statusTitle;
+
+  /// No description provided for @statusUnderReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Under Review'**
+  String get statusUnderReview;
+
+  /// No description provided for @statusPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get statusPending;
+
+  /// No description provided for @stepAppSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Application Submitted'**
+  String get stepAppSubmitted;
+
+  /// No description provided for @stepIdentityVerification.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity Verification'**
+  String get stepIdentityVerification;
+
+  /// No description provided for @stepBackgroundReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Background Review'**
+  String get stepBackgroundReview;
+
+  /// No description provided for @stepFinalDecision.
+  ///
+  /// In en, this message translates to:
+  /// **'Final Decision'**
+  String get stepFinalDecision;
+
+  /// No description provided for @reviewTimeInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'We are reviewing your application. This may take 1-2 business days.'**
+  String get reviewTimeInfo;
+
+  /// No description provided for @applicationSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Application Submitted'**
+  String get applicationSubmitted;
+
+  /// No description provided for @applicationUnderReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Your provider application is now under review.'**
+  String get applicationUnderReview;
+
+  /// No description provided for @copiedToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied to clipboard'**
+  String get copiedToClipboard;
+
+  /// No description provided for @keepIdSafe.
+  ///
+  /// In en, this message translates to:
+  /// **'Please keep this ID safe to track your application.'**
+  String get keepIdSafe;
+
+  /// No description provided for @submittedDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitted Date'**
+  String get submittedDate;
+
+  /// No description provided for @ourTeamWillReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Our team will review your application and notify you once approved.'**
+  String get ourTeamWillReview;
+
+  /// No description provided for @trackApplication.
+  ///
+  /// In en, this message translates to:
+  /// **'Track Application'**
+  String get trackApplication;
+
+  /// No description provided for @backToHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get backToHome;
+
+  /// No description provided for @youAreApproved.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re Approved!'**
+  String get youAreApproved;
+
+  /// No description provided for @welcomeToHostCommunity.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to the Provider Community.'**
+  String get welcomeToHostCommunity;
+
+  /// No description provided for @proceedToCreateProperties.
+  ///
+  /// In en, this message translates to:
+  /// **'You can now start receiving requests.'**
+  String get proceedToCreateProperties;
+
+  /// No description provided for @hostStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Status'**
+  String get hostStatus;
+
+  /// No description provided for @statusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get statusActive;
+
+  /// No description provided for @verification.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification'**
+  String get verification;
+
+  /// No description provided for @actionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Action Required'**
+  String get actionRequired;
+
+  /// No description provided for @needAdditionalInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'We need additional information to complete your verification.'**
+  String get needAdditionalInfo;
+
+  /// No description provided for @statusNotApproved.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Approved Yet'**
+  String get statusNotApproved;
+
+  /// No description provided for @reasonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get reasonTitle;
+
+  /// No description provided for @appPersonalInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Info'**
+  String get appPersonalInfo;
+
+  /// No description provided for @appFirstName.
+  ///
+  /// In en, this message translates to:
+  /// **'First Name'**
+  String get appFirstName;
+
+  /// No description provided for @appLastName.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Name'**
+  String get appLastName;
+
+  /// No description provided for @appEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get appEmail;
+
+  /// No description provided for @appPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get appPhone;
+
+  /// No description provided for @appUploadProfileImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Photo'**
+  String get appUploadProfileImage;
+
+  /// No description provided for @appIdNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Please ensure your name matches your ID card exactly, and your profile photo matches the person on the ID card.'**
+  String get appIdNotice;
+
+  /// No description provided for @appSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get appSearch;
+
+  /// No description provided for @helpSupportSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How can we help you?'**
+  String get helpSupportSubtitle;
+
+  /// No description provided for @subjectLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Subject'**
+  String get subjectLabel;
+
+  /// No description provided for @complaintDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Complaint Details'**
+  String get complaintDetails;
+
+  /// No description provided for @writeYourComplaint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your complaint here...'**
+  String get writeYourComplaint;
+
+  /// No description provided for @submitComplaint.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Complaint'**
+  String get submitComplaint;
+
+  /// No description provided for @complaintSubmittedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Your complaint has been submitted successfully.'**
+  String get complaintSubmittedSuccessfully;
+
+  /// No description provided for @subjectTechnical.
+  ///
+  /// In en, this message translates to:
+  /// **'Technical Issue'**
+  String get subjectTechnical;
+
+  /// No description provided for @subjectBilling.
+  ///
+  /// In en, this message translates to:
+  /// **'Billing and Payments'**
+  String get subjectBilling;
+
+  /// No description provided for @subjectSuggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestion'**
+  String get subjectSuggestion;
+
+  /// No description provided for @subjectOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get subjectOther;
+
+  /// No description provided for @settingsLegal.
+  ///
+  /// In en, this message translates to:
+  /// **'Legal'**
+  String get settingsLegal;
+
+  /// No description provided for @settingsPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get settingsPrivacyPolicy;
+
+  /// No description provided for @settingsTermsConditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms and Conditions'**
+  String get settingsTermsConditions;
+
+  /// No description provided for @chatWithSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat with Support'**
+  String get chatWithSupport;
+
+  /// No description provided for @subscriptionRequiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Required'**
+  String get subscriptionRequiredTitle;
+
+  /// No description provided for @subscriptionRequiredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You must subscribe to a plan to display your services on our app.'**
+  String get subscriptionRequiredMessage;
+
+  /// No description provided for @viewPlans.
+  ///
+  /// In en, this message translates to:
+  /// **'View Plans'**
+  String get viewPlans;
+
+  /// No description provided for @skipForNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip for now'**
+  String get skipForNow;
 }
 
 class _AppLocalizationsDelegate

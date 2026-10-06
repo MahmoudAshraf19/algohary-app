@@ -545,8 +545,8 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
           const SizedBox(height: 24),
 
           // Governorate Dropdown
-          StreamBuilder<QuerySnapshot>(
-            stream: FirebaseConfig.firestore.collection('governorates').snapshots(),
+          FutureBuilder<QuerySnapshot>(
+            future: FirebaseConfig.firestore.collection('governorates').get(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
               final govDocs = snapshot.data!.docs;
@@ -591,11 +591,11 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
 
           // City Dropdown
           if (_selectedGovernorateId != null)
-            StreamBuilder<QuerySnapshot>(
-              stream: FirebaseConfig.firestore
+            FutureBuilder<QuerySnapshot>(
+              future: FirebaseConfig.firestore
                   .collection('cities')
                   .where('governorate_id', isEqualTo: _selectedGovernorateId)
-                  .snapshots(),
+                  .get(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
                 final cityDocs = snapshot.data!.docs;

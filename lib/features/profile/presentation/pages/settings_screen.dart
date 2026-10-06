@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:algohary_project/core/network/firebase_config.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
 import 'package:algohary_project/core/theme/app_colors.dart';
 import 'package:algohary_project/core/bloc/settings_cubit/settings_cubit.dart';
@@ -9,6 +12,8 @@ import 'package:algohary_project/features/auth/presentation/bloc/auth_bloc.dart'
 import 'package:algohary_project/features/auth/presentation/bloc/auth_state.dart';
 import 'package:algohary_project/features/subscriptions/presentation/pages/subscription_plan_screen.dart';
 import 'change_password_screen.dart';
+import 'help_and_support_screen.dart';
+import 'dynamic_html_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -170,16 +175,77 @@ class _SettingsScreenState extends State<SettingsScreen> {
               icon: Icons.help_outline,
               title: l10n.settingsHelpAndSupport ?? 'Help & Support',
               theme: theme,
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const HelpAndSupportScreen()),
+                );
+              },
             ),
             _buildDivider(),
             _buildSettingsRow(
               icon: Icons.info_outline,
               title: l10n.settingsAboutApp ?? 'About App',
               theme: theme,
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const DynamicHtmlScreen(type: HtmlScreenType.aboutApp)),
+                );
+              },
             ),
-            const SizedBox(height: 48),
+            
+            const SizedBox(height: 32),
+            _buildSectionTitle(l10n.settingsLegal ?? 'Legal', theme),
+            _buildSettingsRow(
+              icon: Icons.privacy_tip_outlined,
+              title: l10n.settingsPrivacyPolicy ?? 'Privacy Policy',
+              theme: theme,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const DynamicHtmlScreen(type: HtmlScreenType.privacyPolicy)),
+                );
+              },
+            ),
+            _buildDivider(),
+            _buildSettingsRow(
+              icon: Icons.description_outlined,
+              title: l10n.settingsTermsConditions ?? 'Terms and Conditions',
+              theme: theme,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const DynamicHtmlScreen(type: HtmlScreenType.termsAndConditions)),
+                );
+              },
+            ),
+            
+            const SizedBox(height: 16),
+            StreamBuilder<DocumentSnapshot>(
+              stream: FirebaseConfig.firestore.collection('settings').doc('Version').snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData && snapshot.data != null && snapshot.data!.exists) {
+                  final data = snapshot.data!.data() as Map<String, dynamic>?;
+                  final version = kIsWeb ? (data?['web_version'] ?? '1.1') : (data?['app_version'] ?? '1.1');
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 24.0),
+                      child: Text(
+                        'Version $version',
+                        style: TextStyle(
+                          color: theme.brightness == Brightness.dark ? Colors.white54 : Colors.grey[500],
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  );
+                }
+                return const SizedBox(height: 48);
+              },
+            ),
+            const SizedBox(height: 24),
           ],
         ),
       ),

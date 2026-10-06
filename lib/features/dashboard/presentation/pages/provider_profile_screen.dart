@@ -107,6 +107,10 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
+    
+    final authState = context.watch<AuthBloc>().state;
+    final currentUserId = (authState is AuthSuccess) ? authState.user.id : null;
+    final isOwnProfile = currentUserId == widget.provider.id;
 
     final primaryColor = theme.colorScheme.primary;
     final onSurface = theme.colorScheme.onSurface;
@@ -239,8 +243,9 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
               const SizedBox(height: 24),
 
               // Action Buttons
-              Row(
-                children: [
+              if (!isOwnProfile) ...[
+                Row(
+                  children: [
                   Expanded(
                     child: SizedBox(
                       height: 52,
@@ -367,8 +372,8 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
                   ),
                 ],
               ),
-
               const SizedBox(height: 32),
+              ],
 
               // Contact Information
               _buildContactRow(

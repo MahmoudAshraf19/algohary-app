@@ -259,26 +259,23 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         titleSpacing: 0,
-        title: widget.recipientId != null
-            ? StreamBuilder<DocumentSnapshot>(
-                stream: FirebaseConfig.firestore.collection('users').doc(widget.recipientId).snapshots(),
-                builder: (context, snapshot) {
-                  bool isOnline = widget.isOnline;
-                  if (snapshot.hasData && snapshot.data!.exists) {
-                    final data = snapshot.data!.data() as Map<String, dynamic>?;
-                    if (data != null && data.containsKey('is_online')) {
-                      isOnline = data['is_online'] == true;
-                    }
-                    print('ChatDetailScreen DBG: user ${widget.recipientId} is_online in DB = ${data?['is_online']}, final isOnline = $isOnline');
-                  } else if (snapshot.hasError) {
-                    print('ChatDetailScreen DBG: Error fetching online status for ${widget.recipientId}: ${snapshot.error}');
-                  } else {
-                    print('ChatDetailScreen DBG: Loading or not exists for ${widget.recipientId}, hasData=${snapshot.hasData}, exists=${snapshot.data?.exists}');
-                  }
-                  return _buildAppBarTitle(colorScheme, isOnline, l10n);
-                },
-              )
-            : _buildAppBarTitle(colorScheme, widget.isOnline, l10n),
+        title: widget.recipientId == 'admin'
+            ? _buildAppBarTitle(colorScheme, true, l10n)
+            : (widget.recipientId != null
+                ? StreamBuilder<DocumentSnapshot>(
+                    stream: FirebaseConfig.firestore.collection('users').doc(widget.recipientId).snapshots(),
+                    builder: (context, snapshot) {
+                      bool isOnline = widget.isOnline;
+                      if (snapshot.hasData && snapshot.data!.exists) {
+                        final data = snapshot.data!.data() as Map<String, dynamic>?;
+                        if (data != null && data.containsKey('is_online')) {
+                          isOnline = data['is_online'] == true;
+                        }
+                      }
+                      return _buildAppBarTitle(colorScheme, isOnline, l10n);
+                    },
+                  )
+                : _buildAppBarTitle(colorScheme, widget.isOnline, l10n)),
         actions: const [SizedBox(width: 16)],
       ),
       body: Column(

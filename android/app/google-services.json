@@ -32,10 +32,10 @@
               "client_type": 3
             },
             {
-              "client_id": "574849261990-gqebfdc5al7fbqvnvlpc5hp6i7o0ttac.apps.googleusercontent.com",
+              "client_id": "574849261990-b61m6u78n06su4p7jtubtc9joj74lbva.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.naslook"
+                "bundle_id": "com.platform.algohary"
               }
             }
           ]
@@ -68,10 +68,10 @@
               "client_type": 3
             },
             {
-              "client_id": "574849261990-gqebfdc5al7fbqvnvlpc5hp6i7o0ttac.apps.googleusercontent.com",
+              "client_id": "574849261990-b61m6u78n06su4p7jtubtc9joj74lbva.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.naslook"
+                "bundle_id": "com.platform.algohary"
               }
             }
           ]
@@ -112,10 +112,10 @@
               "client_type": 3
             },
             {
-              "client_id": "574849261990-gqebfdc5al7fbqvnvlpc5hp6i7o0ttac.apps.googleusercontent.com",
+              "client_id": "574849261990-b61m6u78n06su4p7jtubtc9joj74lbva.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.naslook"
+                "bundle_id": "com.platform.algohary"
               }
             }
           ]
@@ -148,10 +148,46 @@
               "client_type": 3
             },
             {
-              "client_id": "574849261990-gqebfdc5al7fbqvnvlpc5hp6i7o0ttac.apps.googleusercontent.com",
+              "client_id": "574849261990-b61m6u78n06su4p7jtubtc9joj74lbva.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.naslook"
+                "bundle_id": "com.platform.algohary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574849261990:android:967702676dfb7a42c4af67",
+        "android_client_info": {
+          "package_name": "com.platform.algohary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574849261990-15d8ucia5pjn1eere7s9tpc88f9udih3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2slKpjtRNhbCHDWEO9G5s-z7J9ZG-I4M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574849261990-15d8ucia5pjn1eere7s9tpc88f9udih3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "574849261990-b61m6u78n06su4p7jtubtc9joj74lbva.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.platform.algohary"
               }
             }
           ]
@@ -192,10 +228,10 @@
               "client_type": 3
             },
             {
-              "client_id": "574849261990-gqebfdc5al7fbqvnvlpc5hp6i7o0ttac.apps.googleusercontent.com",
+              "client_id": "574849261990-b61m6u78n06su4p7jtubtc9joj74lbva.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.naslook"
+                "bundle_id": "com.platform.algohary"
               }
             }
           ]

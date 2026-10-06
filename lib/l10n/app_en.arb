@@ -1,4 +1,6 @@
 {
+  "alGoharySupport": "Al Gohary Support",
+  "appAbout": "About",
   "helloWorld": "Hello World!",
   "appTitle": "Al Gohary",
   "welcomeMessage": "Welcome to our application!",
@@ -328,4 +330,24 @@
       }
     }
   }
+, "switchToUserMode": "Switch to User Mode", "switchToProviderMode": "Switch to Provider Mode", "joinAsProvider": "Join as Provider", "comingSoon": "Coming soon!", "becomeProvider": "Become a Provider", "becomeProviderDesc": "Join us and start your journey as a verified provider.", "earnIncome": "Earn Income", "earnIncomeDesc": "Turn your skills into a steady source of income.", "reachMoreCustomers": "Reach More Customers", "reachMoreCustomersDesc": "Connect with trusted customers looking for your services.", "getSupport": "Get Full Support", "getSupportDesc": "We're with you at every step of your journey.", "startApplication": "Start Application", "learnMore": "Learn More", "checkStatus": "Check Status", "appStepCategory": "Category & Services", "appStepLocation": "Location", "appStepId": "Identity Verification", "appSelectCategory": "Select Category", "appSelectServices": "Select Services", "appSelectGovernorate": "Select Governorate", "appSelectCities": "Select Cities", "appUploadIdFront": "ID Card (Front)", "appUploadIdBack": "ID Card (Back)", "appNext": "Next", "appBack": "Back", "appSubmit": "Submit Application", "appRequiredField": "This field is required", "checkApplication": "Check Application", "checkApplicationDesc": "Enter your Application ID to view your application status.", "enterAppOrPersonalId": "Enter Application ID", "noApplicationFoundForId": "No application found for the given ID.", "whereToFindId": "Where can I find my Application ID?", "findIdInEmail": "You can find your Application ID in the app or in your email.", "applicationNotFound": "Application not found.", "applicationStatusTitle": "Application Status", "applicationStatusDesc": "Here is the current status of your provider application.", "applicationId": "Application ID", "statusTitle": "Status", "statusUnderReview": "Under Review", "statusInProgress": "In Progress", "statusPending": "Pending", "stepAppSubmitted": "Application Submitted", "stepIdentityVerification": "Identity Verification", "stepBackgroundReview": "Background Review", "stepFinalDecision": "Final Decision", "reviewTimeInfo": "We are reviewing your application. This may take 1-2 business days.", "contactSupport": "Contact Support", "applicationSubmitted": "Application Submitted", "applicationUnderReview": "Your provider application is now under review.", "copiedToClipboard": "Copied to clipboard", "keepIdSafe": "Please keep this ID safe to track your application.", "submittedDate": "Submitted Date", "ourTeamWillReview": "Our team will review your application and notify you once approved.", "trackApplication": "Track Application", "backToHome": "Back to Home", "youAreApproved": "You're Approved!", "welcomeToHostCommunity": "Welcome to the Provider Community.", "proceedToCreateProperties": "You can now start receiving requests.", "hostStatus": "Account Status", "statusActive": "Active", "verification": "Verification", "statusCompleted": "Completed", "actionRequired": "Action Required", "needAdditionalInfo": "We need additional information to complete your verification.", "statusNotApproved": "Not Approved Yet", "reasonTitle": "Reason", "appPersonalInfo": "Personal Info", "appFirstName": "First Name", "appLastName": "Last Name", "appEmail": "Email", "appPhone": "Phone Number", "appUploadProfileImage": "Profile Photo", "appIdNotice": "Please ensure your name matches your ID card exactly, and your profile photo matches the person on the ID card.", 
+"appSearch": "Search",
+"helpSupportSubtitle": "How can we help you?",
+"subjectLabel": "Subject",
+"complaintDetails": "Complaint Details",
+"writeYourComplaint": "Write your complaint here...",
+"submitComplaint": "Submit Complaint",
+"complaintSubmittedSuccessfully": "Your complaint has been submitted successfully.",
+"subjectTechnical": "Technical Issue",
+"subjectBilling": "Billing and Payments",
+"subjectSuggestion": "Suggestion",
+"subjectOther": "Other",
+"settingsLegal": "Legal",
+"settingsPrivacyPolicy": "Privacy Policy",
+"settingsTermsConditions": "Terms and Conditions",
+"chatWithSupport": "Chat with Support",
+"subscriptionRequiredTitle": "Subscription Required",
+"subscriptionRequiredMessage": "You must subscribe to a plan to display your services on our app.",
+"viewPlans": "View Plans",
+"skipForNow": "Skip for now"
 }

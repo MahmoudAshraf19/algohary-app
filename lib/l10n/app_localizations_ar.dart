@@ -9,6 +9,12 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
+  String get alGoharySupport => 'دعم الجوهري';
+
+  @override
+  String get appAbout => 'نبذة عني';
+
+  @override
   String get helloWorld => 'مرحباً بالعالم!';
 
   @override
@@ -960,4 +966,279 @@ class AppLocalizationsAr extends AppLocalizations {
   String subscriptionActivatedBody(String planName) {
     return 'مبروك! تم تفعيل اشتراكك في خطة $planName بنجاح.';
   }
+
+  @override
+  String get switchToUserMode => 'التبديل لحساب المستخدم';
+
+  @override
+  String get switchToProviderMode => 'التبديل لحساب المزود';
+
+  @override
+  String get joinAsProvider => 'انضم كمزود خدمة';
+
+  @override
+  String get comingSoon => 'قريباً!';
+
+  @override
+  String get becomeProvider => 'أصبح مزود خدمة';
+
+  @override
+  String get becomeProviderDesc => 'انضم إلينا وابدأ رحلتك كمزود خدمة معتمد.';
+
+  @override
+  String get earnIncome => 'اكسب دخل';
+
+  @override
+  String get earnIncomeDesc => 'حول مهاراتك لمصدر دخل ثابت.';
+
+  @override
+  String get reachMoreCustomers => 'وصل لعملاء أكتر';
+
+  @override
+  String get reachMoreCustomersDesc => 'تواصل مع عملاء يبحثون عن خدماتك.';
+
+  @override
+  String get getSupport => 'احصل على دعم كامل';
+
+  @override
+  String get getSupportDesc => 'نحن معك في كل خطوة.';
+
+  @override
+  String get startApplication => 'ابدأ التقديم';
+
+  @override
+  String get learnMore => 'اعرف المزيد';
+
+  @override
+  String get checkStatus => 'التحقق من الحالة';
+
+  @override
+  String get appStepCategory => 'الفئة والخدمات';
+
+  @override
+  String get appStepLocation => 'الموقع';
+
+  @override
+  String get appStepId => 'التحقق من الهوية';
+
+  @override
+  String get appSelectCategory => 'اختر الفئة';
+
+  @override
+  String get appSelectServices => 'اختر الخدمات';
+
+  @override
+  String get appSelectGovernorate => 'اختر المحافظة';
+
+  @override
+  String get appSelectCities => 'اختر المدن';
+
+  @override
+  String get appUploadIdFront => 'البطاقة (أمام)';
+
+  @override
+  String get appUploadIdBack => 'البطاقة (خلف)';
+
+  @override
+  String get appNext => 'التالي';
+
+  @override
+  String get appBack => 'السابق';
+
+  @override
+  String get appSubmit => 'تقديم الطلب';
+
+  @override
+  String get appRequiredField => 'هذا الحقل مطلوب';
+
+  @override
+  String get checkApplication => 'فحص الطلب';
+
+  @override
+  String get checkApplicationDesc => 'أدخل رقم الطلب لعرض حالته.';
+
+  @override
+  String get enterAppOrPersonalId => 'أدخل رقم الطلب';
+
+  @override
+  String get noApplicationFoundForId => 'لم يتم العثور على طلب بهذا الرقم.';
+
+  @override
+  String get whereToFindId => 'أين أجد رقم الطلب؟';
+
+  @override
+  String get findIdInEmail =>
+      'يمكنك العثور على رقم الطلب في التطبيق أو في بريدك الإلكتروني.';
+
+  @override
+  String get applicationNotFound => 'الطلب غير موجود.';
+
+  @override
+  String get applicationStatusTitle => 'حالة الطلب';
+
+  @override
+  String get applicationStatusDesc => 'هذه هي الحالة الحالية لطلبك كمزود خدمة.';
+
+  @override
+  String get applicationId => 'رقم الطلب';
+
+  @override
+  String get statusTitle => 'الحالة';
+
+  @override
+  String get statusUnderReview => 'قيد المراجعة';
+
+  @override
+  String get statusPending => 'قيد الانتظار';
+
+  @override
+  String get stepAppSubmitted => 'تم تقديم الطلب';
+
+  @override
+  String get stepIdentityVerification => 'التحقق من الهوية';
+
+  @override
+  String get stepBackgroundReview => 'مراجعة الخلفية';
+
+  @override
+  String get stepFinalDecision => 'القرار النهائي';
+
+  @override
+  String get reviewTimeInfo =>
+      'نحن نقوم بمراجعة طلبك. قد يستغرق هذا يوم أو يومين عمل.';
+
+  @override
+  String get applicationSubmitted => 'تم تقديم الطلب';
+
+  @override
+  String get applicationUnderReview => 'طلبك الآن قيد المراجعة.';
+
+  @override
+  String get copiedToClipboard => 'تم النسخ';
+
+  @override
+  String get keepIdSafe => 'يرجى الاحتفاظ بهذا الرقم لمتابعة طلبك.';
+
+  @override
+  String get submittedDate => 'تاريخ التقديم';
+
+  @override
+  String get ourTeamWillReview =>
+      'سيقوم فريقنا بمراجعة طلبك وإعلامك عند الموافقة.';
+
+  @override
+  String get trackApplication => 'تتبع الطلب';
+
+  @override
+  String get backToHome => 'العودة للرئيسية';
+
+  @override
+  String get youAreApproved => 'تمت الموافقة!';
+
+  @override
+  String get welcomeToHostCommunity => 'مرحباً بك في مجتمع مزودي الخدمة.';
+
+  @override
+  String get proceedToCreateProperties => 'يمكنك الآن البدء في تلقي الطلبات.';
+
+  @override
+  String get hostStatus => 'حالة الحساب';
+
+  @override
+  String get statusActive => 'نشط';
+
+  @override
+  String get verification => 'التحقق';
+
+  @override
+  String get actionRequired => 'إجراء مطلوب';
+
+  @override
+  String get needAdditionalInfo => 'نحتاج لمعلومات إضافية لإكمال التحقق.';
+
+  @override
+  String get statusNotApproved => 'لم تتم الموافقة بعد';
+
+  @override
+  String get reasonTitle => 'السبب';
+
+  @override
+  String get appPersonalInfo => 'المعلومات الشخصية';
+
+  @override
+  String get appFirstName => 'الاسم الأول';
+
+  @override
+  String get appLastName => 'اسم العائلة';
+
+  @override
+  String get appEmail => 'البريد الإلكتروني';
+
+  @override
+  String get appPhone => 'رقم الهاتف';
+
+  @override
+  String get appUploadProfileImage => 'صورة الملف الشخصي';
+
+  @override
+  String get appIdNotice =>
+      'يرجى التأكد من تطابق اسمك وصورتك مع البطاقة الشخصية.';
+
+  @override
+  String get appSearch => 'بحث';
+
+  @override
+  String get helpSupportSubtitle => 'كيف يمكننا مساعدتك؟';
+
+  @override
+  String get subjectLabel => 'الموضوع';
+
+  @override
+  String get complaintDetails => 'تفاصيل الشكوى';
+
+  @override
+  String get writeYourComplaint => 'اكتب شكواك هنا...';
+
+  @override
+  String get submitComplaint => 'إرسال الشكوى';
+
+  @override
+  String get complaintSubmittedSuccessfully => 'تم إرسال شكواك بنجاح.';
+
+  @override
+  String get subjectTechnical => 'مشكلة تقنية';
+
+  @override
+  String get subjectBilling => 'الفواتير والمدفوعات';
+
+  @override
+  String get subjectSuggestion => 'اقتراح';
+
+  @override
+  String get subjectOther => 'أخرى';
+
+  @override
+  String get settingsLegal => 'قانوني';
+
+  @override
+  String get settingsPrivacyPolicy => 'سياسة الخصوصية';
+
+  @override
+  String get settingsTermsConditions => 'الشروط والأحكام';
+
+  @override
+  String get chatWithSupport => 'تحدث مع الدعم الفني';
+
+  @override
+  String get subscriptionRequiredTitle => 'الاشتراك مطلوب';
+
+  @override
+  String get subscriptionRequiredMessage =>
+      'يجب عليك الاشتراك في باقة لعرض خدماتك عبر تطبيقنا.';
+
+  @override
+  String get viewPlans => 'عرض الخطط';
+
+  @override
+  String get skipForNow => 'تخطي الآن';
 }

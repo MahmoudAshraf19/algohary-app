@@ -36,6 +36,11 @@ class _MessagesTabState extends State<MessagesTab> {
     print('==================================================');
     _chatService = ChatService(injectedUserId: userId);
     
+    // Auto-create admin conversation so it is stored in Firestore
+    if (userId != null) {
+      _chatService.createOrGetConversation('admin');
+    }
+    
     _conversationsStream = _chatService.streamConversations();
     
     _searchController.addListener(() {
@@ -162,20 +167,31 @@ class _MessagesTabState extends State<MessagesTab> {
                   }).toList();
                 }
 
-                if (conversations.isEmpty) {
-                  return _buildEmptyState(colorScheme, l10n);
+                ConversationModel? adminConv;
+                final regularConvs = <ConversationModel>[];
+                for (var conv in conversations) {
+                  if (conv.otherUserId == 'admin') {
+                    adminConv = conv;
+                  } else {
+                    regularConvs.add(conv);
+                  }
                 }
 
                 return ListView.separated(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  itemCount: conversations.length,
-                  separatorBuilder: (context, index) => Divider(
-                    height: 1, 
-                    color: colorScheme.outlineVariant.withOpacity(0.5),
-                    indent: 72,
-                  ),
+                  itemCount: 1 + regularConvs.length, // 1 for Support, then regular list
+                  separatorBuilder: (context, index) {
+                    return Divider(
+                      height: 1, 
+                      color: colorScheme.outlineVariant.withOpacity(0.5),
+                      indent: 72,
+                    );
+                  },
                   itemBuilder: (context, index) {
-                    final conv = conversations[index];
+                    if (index == 0) {
+                      return _buildSupportChatTile(colorScheme, l10n, adminConv);
+                    }
+                    final conv = regularConvs[index - 1];
                     return _buildChatTile(conv, colorScheme);
                   },
                 );
@@ -215,6 +231,143 @@ class _MessagesTabState extends State<MessagesTab> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSupportChatTile(ColorScheme colorScheme, AppLocalizations l10n, ConversationModel? adminConv) {
+    String subtitle = l10n.chatWithSupport ?? 'How can we help you?';
+    String timeStr = '';
+    int unreadCount = 0;
+    
+    if (adminConv != null) {
+      unreadCount = adminConv.unreadCount;
+      timeStr = _formatTimeStr(adminConv.lastMessageAt);
+      final lastMsg = adminConv.lastMessage;
+      if (lastMsg != null) {
+        if (lastMsg.type == 'IMAGE') subtitle = '📷 Photo';
+        else if (lastMsg.type == 'VOICE') subtitle = '🎤 Voice Message';
+        else if (lastMsg.isMe) subtitle = 'You: ${lastMsg.content ?? ''}';
+        else subtitle = lastMsg.content ?? '';
+      }
+    }
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: colorScheme.surface,
+        border: Border.all(color: colorScheme.primary.withOpacity(0.4), width: 1.5),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: () async {
+            // Generate or get conversation ID with 'admin'
+            final convId = adminConv?.id ?? await _chatService.createOrGetConversation('admin');
+            if (mounted) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ChatDetailScreen(
+                    conversationId: convId,
+                    recipientName: l10n.alGoharySupport ?? 'Al Gohary Support',
+                    recipientAvatar: 'assets/icons/support_logo.png',
+                    recipientId: 'admin',
+                  ),
+                ),
+              );
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                // Support Avatar
+                CircleAvatar(
+                  radius: 28,
+                  backgroundColor: colorScheme.primary.withOpacity(0.1),
+                  backgroundImage: const AssetImage('assets/icons/support_logo.png'),
+                ),
+                const SizedBox(width: 16),
+                
+                // Text Content
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              l10n.alGoharySupport ?? 'Al Gohary Support',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: colorScheme.onSurface,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          if (timeStr.isNotEmpty)
+                            Text(
+                              timeStr,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: unreadCount > 0 ? FontWeight.bold : FontWeight.w500,
+                                color: unreadCount > 0 ? colorScheme.primary : colorScheme.onSurfaceVariant,
+                              ),
+                            )
+                          else
+                            Icon(Icons.verified, color: colorScheme.primary, size: 16),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              subtitle,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: unreadCount > 0 ? FontWeight.w600 : FontWeight.normal,
+                                color: unreadCount > 0 ? colorScheme.onSurface : colorScheme.onSurfaceVariant,
+                              ),
+                            ),
+                          ),
+                          if (unreadCount > 0) ...[
+                            const SizedBox(width: 8),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                              decoration: BoxDecoration(
+                                color: colorScheme.primary,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Text(
+                                '$unreadCount',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  color: colorScheme.onPrimary,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -265,8 +418,8 @@ class _MessagesTabState extends State<MessagesTab> {
               backgroundColor: colorScheme.surfaceContainerHighest,
               backgroundImage: conv.avatar != null && conv.avatar!.startsWith('http')
                   ? CachedNetworkImageProvider(conv.avatar!)
-                  : null,
-              child: conv.avatar == null || !conv.avatar!.startsWith('http')
+                  : (conv.otherUserId == 'admin' ? const AssetImage('assets/icons/support_logo.png') as ImageProvider : null),
+              child: conv.otherUserId != 'admin' && (conv.avatar == null || !conv.avatar!.startsWith('http'))
                   ? Icon(Icons.person, color: colorScheme.onSurfaceVariant, size: 28)
                   : null,
             ),

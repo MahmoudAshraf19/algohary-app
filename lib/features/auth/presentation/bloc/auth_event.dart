@@ -50,16 +50,29 @@ class UpdateProfileRequested extends AuthEvent {
   final String lastName;
   final String phone;
   final dynamic profileImage;
+  final String? categoryId;
+  final List<String>? services;
+  final String? governorateId;
+  final List<String>? cities;
+  final String? about;
 
   const UpdateProfileRequested({
     required this.firstName,
     required this.lastName,
     required this.phone,
     this.profileImage,
+    this.categoryId,
+    this.services,
+    this.governorateId,
+    this.cities,
+    this.about,
   });
 
   @override
-  List<Object?> get props => [firstName, lastName, phone, profileImage];
+  List<Object?> get props => [
+    firstName, lastName, phone, profileImage,
+    categoryId, services, governorateId, cities, about
+  ];
 }
 
 class ToggleOnlineStatus extends AuthEvent {

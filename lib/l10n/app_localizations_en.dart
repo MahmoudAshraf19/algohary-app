@@ -9,6 +9,12 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get alGoharySupport => 'Al Gohary Support';
+
+  @override
+  String get appAbout => 'About';
+
+  @override
   String get helloWorld => 'Hello World!';
 
   @override
@@ -961,4 +967,290 @@ class AppLocalizationsEn extends AppLocalizations {
   String subscriptionActivatedBody(String planName) {
     return 'Congratulations! Your subscription to the $planName plan has been successfully activated.';
   }
+
+  @override
+  String get switchToUserMode => 'Switch to User Mode';
+
+  @override
+  String get switchToProviderMode => 'Switch to Provider Mode';
+
+  @override
+  String get joinAsProvider => 'Join as Provider';
+
+  @override
+  String get comingSoon => 'Coming soon!';
+
+  @override
+  String get becomeProvider => 'Become a Provider';
+
+  @override
+  String get becomeProviderDesc =>
+      'Join us and start your journey as a verified provider.';
+
+  @override
+  String get earnIncome => 'Earn Income';
+
+  @override
+  String get earnIncomeDesc =>
+      'Turn your skills into a steady source of income.';
+
+  @override
+  String get reachMoreCustomers => 'Reach More Customers';
+
+  @override
+  String get reachMoreCustomersDesc =>
+      'Connect with trusted customers looking for your services.';
+
+  @override
+  String get getSupport => 'Get Full Support';
+
+  @override
+  String get getSupportDesc => 'We\'re with you at every step of your journey.';
+
+  @override
+  String get startApplication => 'Start Application';
+
+  @override
+  String get learnMore => 'Learn More';
+
+  @override
+  String get checkStatus => 'Check Status';
+
+  @override
+  String get appStepCategory => 'Category & Services';
+
+  @override
+  String get appStepLocation => 'Location';
+
+  @override
+  String get appStepId => 'Identity Verification';
+
+  @override
+  String get appSelectCategory => 'Select Category';
+
+  @override
+  String get appSelectServices => 'Select Services';
+
+  @override
+  String get appSelectGovernorate => 'Select Governorate';
+
+  @override
+  String get appSelectCities => 'Select Cities';
+
+  @override
+  String get appUploadIdFront => 'ID Card (Front)';
+
+  @override
+  String get appUploadIdBack => 'ID Card (Back)';
+
+  @override
+  String get appNext => 'Next';
+
+  @override
+  String get appBack => 'Back';
+
+  @override
+  String get appSubmit => 'Submit Application';
+
+  @override
+  String get appRequiredField => 'This field is required';
+
+  @override
+  String get checkApplication => 'Check Application';
+
+  @override
+  String get checkApplicationDesc =>
+      'Enter your Application ID to view your application status.';
+
+  @override
+  String get enterAppOrPersonalId => 'Enter Application ID';
+
+  @override
+  String get noApplicationFoundForId =>
+      'No application found for the given ID.';
+
+  @override
+  String get whereToFindId => 'Where can I find my Application ID?';
+
+  @override
+  String get findIdInEmail =>
+      'You can find your Application ID in the app or in your email.';
+
+  @override
+  String get applicationNotFound => 'Application not found.';
+
+  @override
+  String get applicationStatusTitle => 'Application Status';
+
+  @override
+  String get applicationStatusDesc =>
+      'Here is the current status of your provider application.';
+
+  @override
+  String get applicationId => 'Application ID';
+
+  @override
+  String get statusTitle => 'Status';
+
+  @override
+  String get statusUnderReview => 'Under Review';
+
+  @override
+  String get statusPending => 'Pending';
+
+  @override
+  String get stepAppSubmitted => 'Application Submitted';
+
+  @override
+  String get stepIdentityVerification => 'Identity Verification';
+
+  @override
+  String get stepBackgroundReview => 'Background Review';
+
+  @override
+  String get stepFinalDecision => 'Final Decision';
+
+  @override
+  String get reviewTimeInfo =>
+      'We are reviewing your application. This may take 1-2 business days.';
+
+  @override
+  String get applicationSubmitted => 'Application Submitted';
+
+  @override
+  String get applicationUnderReview =>
+      'Your provider application is now under review.';
+
+  @override
+  String get copiedToClipboard => 'Copied to clipboard';
+
+  @override
+  String get keepIdSafe =>
+      'Please keep this ID safe to track your application.';
+
+  @override
+  String get submittedDate => 'Submitted Date';
+
+  @override
+  String get ourTeamWillReview =>
+      'Our team will review your application and notify you once approved.';
+
+  @override
+  String get trackApplication => 'Track Application';
+
+  @override
+  String get backToHome => 'Back to Home';
+
+  @override
+  String get youAreApproved => 'You\'re Approved!';
+
+  @override
+  String get welcomeToHostCommunity => 'Welcome to the Provider Community.';
+
+  @override
+  String get proceedToCreateProperties =>
+      'You can now start receiving requests.';
+
+  @override
+  String get hostStatus => 'Account Status';
+
+  @override
+  String get statusActive => 'Active';
+
+  @override
+  String get verification => 'Verification';
+
+  @override
+  String get actionRequired => 'Action Required';
+
+  @override
+  String get needAdditionalInfo =>
+      'We need additional information to complete your verification.';
+
+  @override
+  String get statusNotApproved => 'Not Approved Yet';
+
+  @override
+  String get reasonTitle => 'Reason';
+
+  @override
+  String get appPersonalInfo => 'Personal Info';
+
+  @override
+  String get appFirstName => 'First Name';
+
+  @override
+  String get appLastName => 'Last Name';
+
+  @override
+  String get appEmail => 'Email';
+
+  @override
+  String get appPhone => 'Phone Number';
+
+  @override
+  String get appUploadProfileImage => 'Profile Photo';
+
+  @override
+  String get appIdNotice =>
+      'Please ensure your name matches your ID card exactly, and your profile photo matches the person on the ID card.';
+
+  @override
+  String get appSearch => 'Search';
+
+  @override
+  String get helpSupportSubtitle => 'How can we help you?';
+
+  @override
+  String get subjectLabel => 'Subject';
+
+  @override
+  String get complaintDetails => 'Complaint Details';
+
+  @override
+  String get writeYourComplaint => 'Write your complaint here...';
+
+  @override
+  String get submitComplaint => 'Submit Complaint';
+
+  @override
+  String get complaintSubmittedSuccessfully =>
+      'Your complaint has been submitted successfully.';
+
+  @override
+  String get subjectTechnical => 'Technical Issue';
+
+  @override
+  String get subjectBilling => 'Billing and Payments';
+
+  @override
+  String get subjectSuggestion => 'Suggestion';
+
+  @override
+  String get subjectOther => 'Other';
+
+  @override
+  String get settingsLegal => 'Legal';
+
+  @override
+  String get settingsPrivacyPolicy => 'Privacy Policy';
+
+  @override
+  String get settingsTermsConditions => 'Terms and Conditions';
+
+  @override
+  String get chatWithSupport => 'Chat with Support';
+
+  @override
+  String get subscriptionRequiredTitle => 'Subscription Required';
+
+  @override
+  String get subscriptionRequiredMessage =>
+      'You must subscribe to a plan to display your services on our app.';
+
+  @override
+  String get viewPlans => 'View Plans';
+
+  @override
+  String get skipForNow => 'Skip for now';
 }

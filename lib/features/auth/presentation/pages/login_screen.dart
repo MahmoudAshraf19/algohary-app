@@ -4,6 +4,7 @@ import 'package:algohary_project/l10n/app_localizations.dart';
 import 'package:algohary_project/features/dashboard/presentation/pages/dashboard_screen.dart';
 import 'package:algohary_project/features/dashboard/presentation/pages/provider_dashboard_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
@@ -123,17 +124,28 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 56,
                 child: BlocConsumer<AuthBloc, AuthState>(
-                  listener: (context, state) {
-                    if (state is AuthSuccess) {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => state.user.userType == 'provider'
-                              ? const ProviderDashboardScreen()
-                              : const DashboardScreen(),
-                        ),
-                        (route) => false,
-                      );
+                  listener: (context, state) async {
+                      if (state is AuthSuccess) {
+                      final prefs = await SharedPreferences.getInstance();
+                      
+                      if (!widget.isProvider && state.user.userType == 'provider') {
+                        // Provider logging in from User Login
+                        await prefs.setBool('isUserModeOverride', true);
+                      } else {
+                        await prefs.remove('isUserModeOverride');
+                      }
+                      
+                      if (context.mounted) {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => (state.user.userType == 'provider' && widget.isProvider)
+                                ? const ProviderDashboardScreen()
+                                : const DashboardScreen(),
+                          ),
+                          (route) => false,
+                        );
+                      }
                     } else if (state is AuthFailure) {
                       debugPrint('Login Error: ${state.message}');
                       ScaffoldMessenger.of(context).showSnackBar(

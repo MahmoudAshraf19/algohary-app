@@ -9,6 +9,8 @@ import 'package:algohary_project/features/auth/presentation/bloc/auth_event.dart
 import 'package:algohary_project/features/auth/presentation/bloc/auth_state.dart';
 import 'package:algohary_project/features/auth/data/models/user_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:algohary_project/core/network/firebase_config.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final UserModel user;
@@ -29,6 +31,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   XFile? _profileImage;
   final ImagePicker _picker = ImagePicker();
 
+  String? _selectedCategoryId;
+  List<String> _selectedServices = [];
+  String? _selectedGovernorateId;
+  List<String> _selectedCities = [];
+  late TextEditingController _aboutController;
+
+  final FirebaseFirestore _firestore = FirebaseConfig.firestore;
+  late Future<QuerySnapshot> _categoriesFuture = _firestore.collection('categories').get();
+  Future<QuerySnapshot>? _servicesFuture;
+  late Future<QuerySnapshot> _governoratesFuture = _firestore.collection('governorates').get();
+  Future<QuerySnapshot>? _citiesFuture;
+
   @override
   void initState() {
     super.initState();
@@ -36,6 +50,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _lastNameController = TextEditingController(text: widget.user.lastName);
     _emailController = TextEditingController(text: widget.user.email);
     _phoneController = TextEditingController(text: widget.user.phone);
+    _aboutController = TextEditingController(text: widget.user.about);
+    
+    if (widget.user.userType == 'provider') {
+      _selectedCategoryId = widget.user.categoryId;
+      _selectedServices = List.from(widget.user.services ?? []);
+      _selectedGovernorateId = widget.user.governorateId;
+      _selectedCities = List.from(widget.user.cities ?? []);
+      
+      if (_selectedCategoryId != null) {
+        _servicesFuture = _firestore.collection('services').where('category_id', isEqualTo: _selectedCategoryId).get();
+      }
+      if (_selectedGovernorateId != null) {
+        _citiesFuture = _firestore.collection('cities').where('governorate_id', isEqualTo: _selectedGovernorateId).get();
+      }
+    }
   }
 
   @override
@@ -44,6 +73,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _lastNameController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
+    _aboutController.dispose();
     super.dispose();
   }
 
@@ -85,6 +115,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         lastName: lastName,
         phone: phone,
         profileImage: _profileImage,
+        categoryId: widget.user.userType == 'provider' ? _selectedCategoryId : null,
+        services: widget.user.userType == 'provider' ? _selectedServices : null,
+        governorateId: widget.user.userType == 'provider' ? _selectedGovernorateId : null,
+        cities: widget.user.userType == 'provider' ? _selectedCities : null,
+        about: widget.user.userType == 'provider' ? _aboutController.text.trim() : null,
       ),
     );
   }
@@ -93,6 +128,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
+    final isAr = l10n.localeName == 'ar';
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
@@ -236,6 +272,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   return null;
                 },
               ),
+              
+              if (widget.user.userType == 'provider') ...[
+                const SizedBox(height: 16),
+                _buildProviderFields(theme, isAr, l10n),
+              ],
+              
               const SizedBox(height: 40),
               
               // Save Button
@@ -332,6 +374,351 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           borderSide: BorderSide(color: theme.colorScheme.primary, width: 1.5),
         ),
       ),
+    );
+  }
+
+  Widget _buildProviderFields(ThemeData theme, bool isAr, AppLocalizations l10n) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _buildTextField(
+          hintText: l10n.appAbout ?? 'About',
+          icon: Icons.info_outline,
+          theme: theme,
+          controller: _aboutController,
+        ),
+        const SizedBox(height: 16),
+        FutureBuilder<QuerySnapshot>(
+          future: _governoratesFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) return const LinearProgressIndicator();
+            if (!snapshot.hasData || snapshot.data!.docs.isEmpty) return const SizedBox.shrink();
+            final docs = snapshot.data!.docs;
+            return DropdownButtonFormField<String>(
+              value: _selectedGovernorateId,
+              decoration: _buildInputDecoration(theme).copyWith(
+                prefixIcon: Icon(Icons.location_city, color: theme.colorScheme.onSurface.withOpacity(0.5)),
+              ),
+              dropdownColor: theme.scaffoldBackgroundColor,
+              borderRadius: BorderRadius.circular(12),
+              icon: Icon(Icons.keyboard_arrow_down_rounded, color: theme.colorScheme.primary),
+              style: TextStyle(color: theme.colorScheme.onSurface),
+              hint: Text(l10n.appSelectGovernorate ?? 'Select Governorate'),
+              items: docs.map((doc) {
+                final data = doc.data() as Map<String, dynamic>;
+                return DropdownMenuItem<String>(
+                  value: doc.id,
+                  child: Text(isAr ? (data['governorate_name_ar'] ?? '') : (data['governorate_name_en'] ?? '')),
+                );
+              }).toList(),
+              onChanged: (val) {
+                setState(() {
+                  _selectedGovernorateId = val;
+                  _selectedCities.clear();
+                  if (val != null) {
+                    _citiesFuture = _firestore.collection('cities').where('governorate_id', isEqualTo: val).get();
+                  } else {
+                    _citiesFuture = null;
+                  }
+                });
+              },
+            );
+          },
+        ),
+        const SizedBox(height: 16),
+        if (_selectedGovernorateId != null && _citiesFuture != null)
+          FutureBuilder<QuerySnapshot>(
+            future: _citiesFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) return const LinearProgressIndicator();
+              if (!snapshot.hasData || snapshot.data!.docs.isEmpty) return const SizedBox.shrink();
+              final docs = snapshot.data!.docs;
+              return _buildMultiSelectDropdown(
+                theme: theme,
+                title: l10n.appSelectCities ?? 'Select Cities',
+                items: docs,
+                selectedIds: _selectedCities,
+                icon: Icons.location_on_outlined,
+                onChanged: (val) {
+                  setState(() {
+                    _selectedCities = val;
+                  });
+                },
+                isAr: isAr,
+                nameArKey: 'city_name_ar',
+                nameEnKey: 'city_name_en',
+              );
+            },
+          ),
+        if (_selectedGovernorateId != null && _citiesFuture != null) const SizedBox(height: 16),
+        FutureBuilder<QuerySnapshot>(
+          future: _categoriesFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) return const LinearProgressIndicator();
+            if (!snapshot.hasData || snapshot.data!.docs.isEmpty) return const SizedBox.shrink();
+            final docs = snapshot.data!.docs;
+            return DropdownButtonFormField<String>(
+              value: _selectedCategoryId,
+              decoration: _buildInputDecoration(theme).copyWith(
+                prefixIcon: Icon(Icons.category_outlined, color: theme.colorScheme.onSurface.withOpacity(0.5)),
+              ),
+              dropdownColor: theme.scaffoldBackgroundColor,
+              borderRadius: BorderRadius.circular(12),
+              icon: Icon(Icons.keyboard_arrow_down_rounded, color: theme.colorScheme.primary),
+              style: TextStyle(color: theme.colorScheme.onSurface),
+              hint: Text(l10n.appSelectCategory ?? 'Select Category'),
+              items: docs.map((doc) {
+                final data = doc.data() as Map<String, dynamic>;
+                return DropdownMenuItem<String>(
+                  value: doc.id,
+                  child: Text(isAr ? (data['name_ar'] ?? '') : (data['name_en'] ?? '')),
+                );
+              }).toList(),
+              onChanged: (val) {
+                setState(() {
+                  _selectedCategoryId = val;
+                  _selectedServices.clear();
+                  if (val != null) {
+                    _servicesFuture = _firestore.collection('services').where('category_id', isEqualTo: val).get();
+                  } else {
+                    _servicesFuture = null;
+                  }
+                });
+              },
+            );
+          },
+        ),
+        const SizedBox(height: 16),
+        if (_selectedCategoryId != null && _servicesFuture != null)
+          FutureBuilder<QuerySnapshot>(
+            future: _servicesFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) return const LinearProgressIndicator();
+              if (!snapshot.hasData || snapshot.data!.docs.isEmpty) return const SizedBox.shrink();
+              final docs = snapshot.data!.docs;
+              return _buildMultiSelectDropdown(
+                theme: theme,
+                title: l10n.appSelectServices ?? 'Select Services',
+                items: docs,
+                selectedIds: _selectedServices,
+                icon: Icons.design_services_outlined,
+                onChanged: (val) {
+                  setState(() {
+                    _selectedServices = val;
+                  });
+                },
+                isAr: isAr,
+                nameArKey: 'name_ar',
+                nameEnKey: 'name_en',
+              );
+            },
+          ),
+      ],
+    );
+  }
+
+  InputDecoration _buildInputDecoration(ThemeData theme) {
+    return InputDecoration(
+      filled: true,
+      fillColor: theme.colorScheme.surface,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: theme.colorScheme.onSurface.withOpacity(0.2)),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: theme.colorScheme.onSurface.withOpacity(0.2)),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: theme.colorScheme.primary, width: 1.5),
+      ),
+    );
+  }
+
+  Widget _buildMultiSelectDropdown({
+    required ThemeData theme,
+    required String title,
+    required List<dynamic> items,
+    required List<String> selectedIds,
+    required Function(List<String>) onChanged,
+    required bool isAr,
+    required String nameArKey,
+    required String nameEnKey,
+    IconData? icon,
+  }) {
+    final selectedNames = items
+        .where((doc) => selectedIds.contains(doc.id))
+        .map((doc) => isAr ? ((doc.data() as Map<String, dynamic>)[nameArKey] ?? '') : ((doc.data() as Map<String, dynamic>)[nameEnKey] ?? ''))
+        .join(', ');
+
+    return InkWell(
+      onTap: () async {
+        final List<String>? result = await showDialog<List<String>>(
+          context: context,
+          builder: (context) {
+            return _MultiSelectDialog(
+              items: items,
+              initialSelectedIds: selectedIds,
+              isAr: isAr,
+              nameArKey: nameArKey,
+              nameEnKey: nameEnKey,
+              title: title,
+            );
+          },
+        );
+        if (result != null) {
+          onChanged(result);
+        }
+      },
+      child: InputDecorator(
+        decoration: _buildInputDecoration(theme).copyWith(
+          prefixIcon: icon != null ? Icon(icon, color: theme.colorScheme.onSurface.withOpacity(0.5)) : null,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                selectedIds.isEmpty ? title : selectedNames,
+                style: TextStyle(
+                  color: selectedIds.isEmpty ? theme.colorScheme.onSurface.withOpacity(0.4) : theme.colorScheme.onSurface,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            Icon(Icons.arrow_drop_down, color: theme.colorScheme.onSurface.withOpacity(0.5)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _MultiSelectDialog extends StatefulWidget {
+  final List<dynamic> items;
+  final List<String> initialSelectedIds;
+  final bool isAr;
+  final String nameArKey;
+  final String nameEnKey;
+  final String title;
+
+  const _MultiSelectDialog({
+    required this.items,
+    required this.initialSelectedIds,
+    required this.isAr,
+    required this.nameArKey,
+    required this.nameEnKey,
+    required this.title,
+  });
+
+  @override
+  State<_MultiSelectDialog> createState() => _MultiSelectDialogState();
+}
+
+class _MultiSelectDialogState extends State<_MultiSelectDialog> {
+  late List<String> _selectedIds;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIds = List.from(widget.initialSelectedIds);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      backgroundColor: colorScheme.surface,
+      surfaceTintColor: Colors.transparent,
+      titlePadding: const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 8),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+      actionsPadding: const EdgeInsets.only(left: 24, right: 24, bottom: 24, top: 16),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+          ),
+          const SizedBox(height: 12),
+          Divider(color: colorScheme.outline.withOpacity(0.2), height: 1),
+        ],
+      ),
+      content: SizedBox(
+        width: double.maxFinite,
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: widget.items.length,
+          itemBuilder: (context, index) {
+            final doc = widget.items[index];
+            final data = doc.data() as Map<String, dynamic>;
+            final name = widget.isAr ? (data[widget.nameArKey] ?? '') : (data[widget.nameEnKey] ?? '');
+            final isSelected = _selectedIds.contains(doc.id);
+
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              child: Material(
+                color: isSelected ? colorScheme.primary.withOpacity(0.08) : Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: BorderSide(
+                    color: isSelected ? colorScheme.primary.withOpacity(0.3) : Colors.transparent,
+                  ),
+                ),
+                child: CheckboxListTile(
+                  title: Text(
+                    name,
+                    style: TextStyle(
+                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      color: isSelected ? colorScheme.primary : colorScheme.onSurface,
+                    ),
+                  ),
+                  value: isSelected,
+                  activeColor: colorScheme.primary,
+                  checkColor: colorScheme.onPrimary,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                  side: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                  onChanged: (bool? checked) {
+                    setState(() {
+                      if (checked == true) {
+                        _selectedIds.add(doc.id);
+                      } else {
+                        _selectedIds.remove(doc.id);
+                      }
+                    });
+                  },
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          style: TextButton.styleFrom(
+            foregroundColor: colorScheme.onSurface.withOpacity(0.7),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          ),
+          child: Text(AppLocalizations.of(context)!.appBack ?? 'Cancel', style: const TextStyle(fontWeight: FontWeight.bold)),
+        ),
+        ElevatedButton(
+          onPressed: () => Navigator.pop(context, _selectedIds),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: colorScheme.primary,
+            foregroundColor: colorScheme.onPrimary,
+            elevation: 0,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+          child: const Text('OK', style: TextStyle(fontWeight: FontWeight.bold)),
+        ),
+      ],
     );
   }
 }

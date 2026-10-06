@@ -1,4 +1,4 @@
-package com.example.algohary_project
+package com.platform.algohary
 
 import io.flutter.embedding.android.FlutterActivity
 

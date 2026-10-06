@@ -51,8 +51,14 @@ class _LocationBottomSheetState extends State<LocationBottomSheet> {
       }
     } catch (e) {
       if (context.mounted) {
+        String msg = AppLocalizations.of(context)!.homeLocationError;
+        if (e.toString().contains('location_disabled')) {
+          msg = 'الرجاء تفعيل الموقع الجغرافي (GPS) والمحاولة مرة أخرى.';
+        } else if (e.toString().contains('permission_denied_forever')) {
+          msg = 'لقد رفضت صلاحية الموقع بشكل دائم. الرجاء تفعيلها من إعدادات التطبيق.';
+        }
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.homeLocationError)),
+          SnackBar(content: Text(msg)),
         );
       }
     } finally {

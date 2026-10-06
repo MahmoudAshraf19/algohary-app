@@ -91,6 +91,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         lastName: event.lastName,
         phone: event.phone,
         profileImage: event.profileImage,
+        categoryId: event.categoryId,
+        services: event.services,
+        governorateId: event.governorateId,
+        cities: event.cities,
+        about: event.about,
       );
       emit(AuthSuccess(user: user));
     } catch (e) {

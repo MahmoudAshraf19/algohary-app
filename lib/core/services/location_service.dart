@@ -10,10 +10,8 @@ class LocationService {
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the 
-      // App to enable the location services.
-      return null;
+      await Geolocator.openLocationSettings();
+      throw Exception('location_disabled');
     }
 
     permission = await Geolocator.checkPermission();
@@ -30,8 +28,8 @@ class LocationService {
     }
     
     if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately. 
-      return null;
+      await Geolocator.openAppSettings();
+      throw Exception('permission_denied_forever');
     } 
 
     // When we reach here, permissions are granted and we can

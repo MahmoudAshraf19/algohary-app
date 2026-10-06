@@ -59,22 +59,21 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyC2slKpjtRNhbCHDWEO9G5s-z7J9ZG-I4M',
-    appId: '1:574849261990:android:c0344be9fd0e0ffdc4af67',
+    appId: '1:574849261990:android:967702676dfb7a42c4af67',
     messagingSenderId: '574849261990',
     projectId: 'naslookapp-ecf15',
     databaseURL: 'https://naslookapp-ecf15-default-rtdb.firebaseio.com',
     storageBucket: 'naslookapp-ecf15.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBJAmReGVYYe7Hlk8NBzZtiqPDR3ABlso8',
-    appId: '1:574849261990:ios:b7a1b9a98e9c4d9ac4af67',
+    appId: '1:574849261990:ios:38812136d9aaa7edc4af67',
     messagingSenderId: '574849261990',
     projectId: 'naslookapp-ecf15',
     databaseURL: 'https://naslookapp-ecf15-default-rtdb.firebaseio.com',
     storageBucket: 'naslookapp-ecf15.firebasestorage.app',
     androidClientId: '574849261990-4iaefgh0imasom85d79dl2i4s1obmkk9.apps.googleusercontent.com',
-    iosClientId: '574849261990-s2ih35kf0ljaapltq6d3md1c26vis039.apps.googleusercontent.com',
-    iosBundleId: 'com.example.algoharyProject',
+    iosClientId: '574849261990-b61m6u78n06su4p7jtubtc9joj74lbva.apps.googleusercontent.com',
+    iosBundleId: 'com.platform.algohary',
   );
 }

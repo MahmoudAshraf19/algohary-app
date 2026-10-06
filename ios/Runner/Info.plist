@@ -66,5 +66,13 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>We need camera access to allow you to take photos for chat and profile.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need photo library access to allow you to choose photos for chat and profile.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need your location to show nearby services and providers.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need your location to show nearby services and providers.</string>
 </dict>
 </plist>

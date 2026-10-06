@@ -12,6 +12,6 @@ class AppColors {
   static const Color lightBackground = Color(0xFFFFFFFF);
   static const Color darkBackground = Color(0xFF0F1720);
   
-  // Text Colors
+  // Text Colors for dark mode
   static const Color offWhite = Color(0xFFFAF9F6);
 }

@@ -7,6 +7,7 @@ import '../../../auth/presentation/bloc/auth_state.dart';
 import '../../../subscriptions/presentation/pages/subscription_plan_screen.dart';
 import '../../../dashboard/presentation/pages/dashboard_screen.dart';
 import '../../../dashboard/presentation/pages/provider_dashboard_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -55,9 +56,18 @@ class _SplashScreenState extends State<SplashScreen> {
           return;
         }
         
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const ProviderDashboardScreen()),
-        );
+        final prefs = await SharedPreferences.getInstance();
+        final isUserModeOverride = prefs.getBool('isUserModeOverride') ?? false;
+
+        if (isUserModeOverride) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => const DashboardScreen()),
+          );
+        } else {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => const ProviderDashboardScreen()),
+          );
+        }
       } else {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (_) => const DashboardScreen()),

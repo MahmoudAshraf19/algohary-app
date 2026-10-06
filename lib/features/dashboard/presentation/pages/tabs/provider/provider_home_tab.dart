@@ -117,13 +117,12 @@ class _ProviderHomeTabState extends State<ProviderHomeTab> {
             }
 
             return SafeArea(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Header
-                    Row(
+              child: Column(
+                children: [
+                  // Fixed Header
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20.0, 16.0, 20.0, 0),
+                    child: Row(
                       children: [
                         // Profile Image
                         ClipOval(
@@ -241,12 +240,19 @@ class _ProviderHomeTabState extends State<ProviderHomeTab> {
                         ),
                       ],
                     ),
-                    
-                    const SizedBox(height: 20),
-                    
-                    // Online / Offline Toggle
-                    Align(
-                      alignment: AlignmentDirectional.centerStart,
+                  ),
+                  
+                  const SizedBox(height: 20),
+                  
+                  Expanded(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Online / Offline Toggle
+                          Align(
+                            alignment: AlignmentDirectional.centerStart,
                       child: GestureDetector(
                         onTap: () {
                           context.read<AuthBloc>().add(ToggleOnlineStatus(isOnline: !isOnline));
@@ -292,8 +298,11 @@ class _ProviderHomeTabState extends State<ProviderHomeTab> {
                     
                     // Provider Dashboard Content
                     _buildDashboardContent(context, theme, theme.colorScheme),
-                  ],
-                ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             );
           },

@@ -10,6 +10,10 @@ import '../../../../profile/presentation/pages/edit_profile_screen.dart';
 import '../../../../notifications/presentation/pages/notifications_screen.dart';
 import '../../../../profile/presentation/pages/settings_screen.dart';
 import '../../../../../core/theme/app_colors.dart';
+import 'package:algohary_project/features/dashboard/presentation/pages/provider_dashboard_screen.dart';
+import 'package:algohary_project/features/dashboard/presentation/pages/dashboard_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:algohary_project/features/auth/presentation/pages/provider_onboarding/become_provider_landing_screen.dart';
 
 class ProfileTab extends StatelessWidget {
   const ProfileTab({super.key});
@@ -152,11 +156,35 @@ class ProfileTab extends StatelessWidget {
                             Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen()));
                           },
                         ),
+                        if (user.userType != 'provider') ...[
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: Divider(height: 1, color: Colors.grey.withOpacity(0.2)),
+                          ),
+                          _buildActionRow(
+                            context: context,
+                            icon: Icons.business_center,
+                            title: l10n.joinAsProvider ?? 'Join as Provider',
+                            theme: theme,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const BecomeProviderLandingScreen(),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ],
                     ),
                   ),
                   
                   const SizedBox(height: 32),
+                  if (user.userType == 'provider') ...[
+                    _buildSwitchModeButton(context, l10n, theme),
+                    const SizedBox(height: 16),
+                  ],
                   _buildLogoutButton(context, l10n, theme),
                   const SizedBox(height: 24),
                 ],
@@ -349,8 +377,13 @@ class ProfileTab extends StatelessWidget {
 
   Widget _buildLogoutButton(BuildContext context, AppLocalizations l10n, ThemeData theme) {
     return InkWell(
-      onTap: () {
-        context.read<AuthBloc>().add(LogoutRequested());
+      onTap: () async {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.remove('isUserModeOverride');
+        
+        if (context.mounted) {
+          context.read<AuthBloc>().add(LogoutRequested());
+        }
       },
       borderRadius: BorderRadius.circular(12),
       child: Container(
@@ -369,6 +402,80 @@ class ProfileTab extends StatelessWidget {
               l10n.logOut ?? 'Log Out',
               style: TextStyle(
                 color: theme.brightness == Brightness.dark ? Colors.red[300] : AppColors.red,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSwitchModeButton(BuildContext context, AppLocalizations l10n, ThemeData theme) {
+    // Check which dashboard we are currently in
+    final bool isInProviderMode = context.findAncestorWidgetOfExactType<ProviderDashboardScreen>() != null;
+    
+    // Using localization strings from app.arb
+    final String buttonText = isInProviderMode 
+        ? l10n.switchToUserMode
+        : l10n.switchToProviderMode;
+
+    return InkWell(
+      onTap: () async {
+        final prefs = await SharedPreferences.getInstance();
+        
+        if (isInProviderMode) {
+          // Switch to User mode
+          await prefs.setBool('isUserModeOverride', true);
+          
+          if (context.mounted) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const DashboardScreen()),
+              (route) => false,
+            );
+          }
+        } else {
+          // Switch to Provider mode
+          await prefs.remove('isUserModeOverride');
+          
+          if (context.mounted) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const ProviderDashboardScreen()),
+              (route) => false,
+            );
+          }
+        }
+      },
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        decoration: BoxDecoration(
+          color: theme.brightness == Brightness.dark 
+              ? AppColors.primaryBlue.withOpacity(0.15) 
+              : AppColors.primaryBlue.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: AppColors.primaryBlue.withOpacity(0.5),
+            width: 1,
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              isInProviderMode ? Icons.person_outline : Icons.business_center_outlined, 
+              color: AppColors.primaryBlue, 
+              size: 20
+            ),
+            const SizedBox(width: 12),
+            Text(
+              buttonText,
+              style: TextStyle(
+                color: theme.brightness == Brightness.dark ? Colors.white : AppColors.primaryBlue,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
