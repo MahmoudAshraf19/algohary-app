@@ -11,8 +11,8 @@ enum MapFailureType { network, permission, unknown }
 
 /// User-selectable filters. Immutable and cheap to compare.
 class MapFilters extends Equatable {
-  static const double defaultRadiusKm = 25;
-  static const List<double> radiusOptionsKm = [5, 10, 25, 50, double.infinity];
+  static const double defaultRadiusKm = 10;
+  static const List<double> radiusOptionsKm = [5, 10, 25, 40, 75, double.infinity];
 
   final String? categoryId;
   final Set<String> serviceIds;

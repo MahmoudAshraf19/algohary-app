@@ -298,9 +298,27 @@ class _ProvidersMapViewState extends State<_ProvidersMapView>
     final locationState = context.watch<LocationBloc>().state;
 
     return BlocConsumer<ProvidersMapCubit, ProvidersMapState>(
-      listenWhen: (a, b) => a.originVersion != b.originVersion,
-      listener: (context, state) =>
-          _animateTo(state.origin, zoom: _defaultZoom),
+      listenWhen: (a, b) =>
+          a.originVersion != b.originVersion ||
+          a.filters.radiusKm != b.filters.radiusKm,
+      listener: (context, state) {
+        if (!state.filters.radiusKm.isInfinite) {
+          final km = state.filters.radiusKm;
+          // Dynamically calculate camera zoom to frame the selected radius
+          final double zoom = km <= 5
+              ? 12.8
+              : km <= 10
+                  ? 11.8
+                  : km <= 25
+                      ? 10.4
+                      : km <= 40
+                          ? 9.6
+                          : 8.8; // for 75 km
+          _animateTo(state.origin, zoom: zoom);
+        } else {
+          _animateTo(state.origin, zoom: _defaultZoom);
+        }
+      },
       builder: (context, state) {
         final l10n = AppLocalizations.of(context)!;
         final hasCarousel =
