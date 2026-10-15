@@ -163,13 +163,21 @@ class _MapFilterSheetState extends State<_MapFilterSheet> {
                                         final color = isSelected
                                             ? palette.onAccent
                                             : palette.onSurface;
-                                        return SvgPicture.asset(
-                                          'assets/icons/infinity.svg',
-                                          width: 22,
-                                          height: 22,
-                                          colorFilter: ColorFilter.mode(
-                                            color,
-                                            BlendMode.srcIn,
+                                        return SizedBox(
+                                          width: 24,
+                                          height: 18,
+                                          child: SvgPicture.asset(
+                                            'assets/icons/infinity.svg',
+                                            fit: BoxFit.contain,
+                                            colorFilter: ColorFilter.mode(
+                                              color,
+                                              BlendMode.srcIn,
+                                            ),
+                                            placeholderBuilder: (_) => Icon(
+                                              Icons.all_inclusive_rounded,
+                                              size: 20,
+                                              color: color,
+                                            ),
                                           ),
                                         );
                                       },
