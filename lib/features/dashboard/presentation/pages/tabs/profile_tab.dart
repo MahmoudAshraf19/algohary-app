@@ -16,7 +16,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:algohary_project/features/auth/presentation/pages/provider_onboarding/become_provider_landing_screen.dart';
 
 class ProfileTab extends StatelessWidget {
-  const ProfileTab({super.key});
+  final bool showBackButton;
+
+  const ProfileTab({
+    super.key,
+    this.showBackButton = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +42,13 @@ class ProfileTab extends StatelessWidget {
               backgroundColor: bgColor,
               elevation: 0,
               centerTitle: true,
-              leading: Navigator.canPop(context) ? IconButton(
-                icon: Icon(Icons.arrow_back_ios_new, color: AppColors.primaryBlue, size: 20),
-                onPressed: () => Navigator.pop(context),
-              ) : const SizedBox(),
+              leading: (showBackButton && Navigator.canPop(context))
+                  ? IconButton(
+                      icon: Icon(Icons.arrow_back_ios_new, color: AppColors.primaryBlue, size: 20),
+                      onPressed: () => Navigator.pop(context),
+                    )
+                  : null,
+              automaticallyImplyLeading: false,
               title: Text(
                 l10n.navProfile,
                 style: TextStyle(
