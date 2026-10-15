@@ -184,7 +184,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeLocating => 'Locating...';
 
   @override
-  String get homeLocationError => 'Location not found';
+  String get homeLocationError => 'Enter current location';
 
   @override
   String get locationAccessTitle => 'Allow Location Access';
@@ -209,10 +209,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mapConfirmBtn => 'Confirm Location';
 
   @override
-  String get homeBannerTitle => 'Need a hand\nat home?';
+  String get homeBannerTitle => 'Home Services Made Easy';
 
   @override
-  String get homeBannerSubtitle => 'Find trusted professionals\nnear you.';
+  String get homeBannerSubtitle => 'Find top experts near you';
 
   @override
   String get homeBannerButton => 'Explore Services';
@@ -417,6 +417,53 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get seeAll => 'See All';
+
+  @override
+  String notificationMessageSent(String senderName) {
+    return '$senderName sent you a message';
+  }
+
+  @override
+  String notificationImages(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count images 📸',
+      one: '1 image 📸',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get notificationUser => 'User';
+
+  @override
+  String get timeAgoNow => 'now';
+
+  @override
+  String timeAgoYear(int count) {
+    return '${count}y';
+  }
+
+  @override
+  String timeAgoMonth(int count) {
+    return '${count}m';
+  }
+
+  @override
+  String timeAgoDay(int count) {
+    return '${count}d';
+  }
+
+  @override
+  String timeAgoHour(int count) {
+    return '${count}h';
+  }
+
+  @override
+  String timeAgoMinute(int count) {
+    return '${count}m';
+  }
 
   @override
   String get personalInformation => 'Personal Information';

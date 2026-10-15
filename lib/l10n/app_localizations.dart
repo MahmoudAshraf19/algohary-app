@@ -443,7 +443,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeLocationError.
   ///
   /// In en, this message translates to:
-  /// **'Location not found'**
+  /// **'Enter current location'**
   String get homeLocationError;
 
   /// No description provided for @locationAccessTitle.
@@ -491,13 +491,13 @@ abstract class AppLocalizations {
   /// No description provided for @homeBannerTitle.
   ///
   /// In en, this message translates to:
-  /// **'Need a hand\nat home?'**
+  /// **'Home Services Made Easy'**
   String get homeBannerTitle;
 
   /// No description provided for @homeBannerSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Find trusted professionals\nnear you.'**
+  /// **'Find top experts near you'**
   String get homeBannerSubtitle;
 
   /// No description provided for @homeBannerButton.
@@ -895,6 +895,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'See All'**
   String get seeAll;
+
+  /// No description provided for @notificationMessageSent.
+  ///
+  /// In en, this message translates to:
+  /// **'{senderName} sent you a message'**
+  String notificationMessageSent(String senderName);
+
+  /// No description provided for @notificationImages.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 image 📸} other{{count} images 📸}}'**
+  String notificationImages(int count);
+
+  /// No description provided for @notificationUser.
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get notificationUser;
+
+  /// No description provided for @timeAgoNow.
+  ///
+  /// In en, this message translates to:
+  /// **'now'**
+  String get timeAgoNow;
+
+  /// No description provided for @timeAgoYear.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}y'**
+  String timeAgoYear(int count);
+
+  /// No description provided for @timeAgoMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}m'**
+  String timeAgoMonth(int count);
+
+  /// No description provided for @timeAgoDay.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}d'**
+  String timeAgoDay(int count);
+
+  /// No description provided for @timeAgoHour.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}h'**
+  String timeAgoHour(int count);
+
+  /// No description provided for @timeAgoMinute.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}m'**
+  String timeAgoMinute(int count);
 
   /// No description provided for @personalInformation.
   ///

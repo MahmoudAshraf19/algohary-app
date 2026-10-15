@@ -3,6 +3,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../../data/models/notification_model.dart';
 import '../../data/services/notification_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import '../../data/services/notification_localizer.dart';
 import '../pages/notifications_screen.dart';
 
 class NotificationDropdownWidget extends StatefulWidget {
@@ -15,16 +16,6 @@ class NotificationDropdownWidget extends StatefulWidget {
 
 class _NotificationDropdownWidgetState extends State<NotificationDropdownWidget> {
   final NotificationService _notificationService = NotificationService();
-
-  String _timeAgo(DateTime d) {
-    final diff = DateTime.now().difference(d);
-    if (diff.inDays > 365) return '${(diff.inDays / 365).floor()}y';
-    if (diff.inDays > 30) return '${(diff.inDays / 30).floor()}m';
-    if (diff.inDays > 0) return '${diff.inDays}d';
-    if (diff.inHours > 0) return '${diff.inHours}h';
-    if (diff.inMinutes > 0) return '${diff.inMinutes}m';
-    return 'now';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,20 +121,20 @@ class _NotificationDropdownWidgetState extends State<NotificationDropdownWidget>
                           child: notif.senderAvatar == null ? const Icon(Icons.person, size: 20) : null,
                         ),
                         title: Text(
-                          notif.title,
+                          NotificationLocalizer.getLocalizedTitle(context, notif),
                           style: TextStyle(
                             fontWeight: notif.isRead ? FontWeight.normal : FontWeight.bold,
                             fontSize: 14,
                           ),
                         ),
                         subtitle: Text(
-                          notif.body,
+                          NotificationLocalizer.getLocalizedBody(context, notif),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 12),
                         ),
                         trailing: Text(
-                          _timeAgo(notif.createdAt),
+                          NotificationLocalizer.formatTimeAgo(context, notif.createdAt),
                           style: TextStyle(fontSize: 11, color: colorScheme.onSurfaceVariant),
                         ),
                       );

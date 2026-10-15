@@ -56,7 +56,7 @@
   "homeWelcome": "Hi",
   "homeSearchHint": "Search for a service...",
   "homeLocating": "Locating...",
-  "homeLocationError": "Location not found",
+  "homeLocationError": "Enter current location",
   "locationAccessTitle": "Allow Location Access",
   "locationAccessDesc": "We need your current location to show you nearby services and provide a better experience.",
   "locationAccessAllowBtn": "Allow Location Access",
@@ -64,8 +64,8 @@
   "locationAccessNotNowBtn": "Not Now",
   "mapSearchHint": "Search for a place...",
   "mapConfirmBtn": "Confirm Location",
-  "homeBannerTitle": "Need a hand\nat home?",
-  "homeBannerSubtitle": "Find trusted professionals\nnear you.",
+  "homeBannerTitle": "Home Services Made Easy",
+  "homeBannerSubtitle": "Find top experts near you",
   "homeBannerButton": "Explore Services",
   "homePopularServices": "Categories",
   "homePopularServicesTitle": "Popular Services",
@@ -132,6 +132,64 @@
   "markAllAsRead": "Mark all as read",
   "noNotifications": "No notifications yet",
   "seeAll": "See All",
+  "notificationMessageSent": "{senderName} sent you a message",
+  "@notificationMessageSent": {
+    "placeholders": {
+      "senderName": {
+        "type": "String"
+      }
+    }
+  },
+  "notificationImages": "{count, plural, =1{1 image 📸} other{{count} images 📸}}",
+  "@notificationImages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationUser": "User",
+  "timeAgoNow": "now",
+  "timeAgoYear": "{count}y",
+  "@timeAgoYear": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "timeAgoMonth": "{count}m",
+  "@timeAgoMonth": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "timeAgoDay": "{count}d",
+  "@timeAgoDay": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "timeAgoHour": "{count}h",
+  "@timeAgoHour": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "timeAgoMinute": "{count}m",
+  "@timeAgoMinute": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "personalInformation": "Personal Information",
   "account": "Account",
   "editProfile": "Edit Profile",

@@ -184,7 +184,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeLocating => 'جاري تحديد الموقع...';
 
   @override
-  String get homeLocationError => 'لم يتم العثور على الموقع';
+  String get homeLocationError => 'دخل اللوكيشن الحالي!';
 
   @override
   String get locationAccessTitle => 'السماح بالوصول للموقع';
@@ -209,10 +209,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get mapConfirmBtn => 'تأكيد الموقع';
 
   @override
-  String get homeBannerTitle => 'تحتاج مساعدة\nفي المنزل؟';
+  String get homeBannerTitle => 'خدمات منزلك بكل سهولة';
 
   @override
-  String get homeBannerSubtitle => 'ابحث عن محترفين موثوقين\nبالقرب منك.';
+  String get homeBannerSubtitle => 'أفضل الفنيين بالقرب منك';
 
   @override
   String get homeBannerButton => 'استكشف الخدمات';
@@ -417,6 +417,56 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get seeAll => 'عرض الكل';
+
+  @override
+  String notificationMessageSent(String senderName) {
+    return 'أرسل لك $senderName رسالة';
+  }
+
+  @override
+  String notificationImages(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count صورة 📸',
+      many: '$count صورة 📸',
+      few: '$count صور 📸',
+      two: 'صورتان 📸',
+      one: 'صورة واحدة 📸',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get notificationUser => 'مستخدم';
+
+  @override
+  String get timeAgoNow => 'الآن';
+
+  @override
+  String timeAgoYear(int count) {
+    return '$count سنة';
+  }
+
+  @override
+  String timeAgoMonth(int count) {
+    return '$count شهر';
+  }
+
+  @override
+  String timeAgoDay(int count) {
+    return '$count يوم';
+  }
+
+  @override
+  String timeAgoHour(int count) {
+    return '$count س';
+  }
+
+  @override
+  String timeAgoMinute(int count) {
+    return '$count د';
+  }
 
   @override
   String get personalInformation => 'المعلومات الشخصية';
