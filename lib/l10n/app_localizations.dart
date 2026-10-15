@@ -2738,12 +2738,6 @@ abstract class AppLocalizations {
   /// **'{km} km'**
   String mapRadiusKm(int km);
 
-  /// No description provided for @mapRadiusAny.
-  ///
-  /// In en, this message translates to:
-  /// **'Anywhere'**
-  String get mapRadiusAny;
-
   /// No description provided for @mapProviderFallbackName.
   ///
   /// In en, this message translates to:

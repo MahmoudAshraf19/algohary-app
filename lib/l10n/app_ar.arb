@@ -441,7 +441,6 @@
   "mapFilterShowResults": "عرض {count} نتيجة",
   "mapFilterNoMatch": "لا توجد نتائج مطابقة",
   "mapRadiusKm": "{km} كم",
-  "mapRadiusAny": "في كل مكان (بلا حدود)",
   "filterAll": "الكل",
   "mapProviderFallbackName": "مزود خدمة",
   "mapViewDetails": "عرض التفاصيل",

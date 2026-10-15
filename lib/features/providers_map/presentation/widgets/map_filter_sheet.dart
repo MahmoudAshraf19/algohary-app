@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
 import 'package:algohary_project/features/dashboard/data/models/service_model.dart';
 import '../cubit/providers_map_cubit.dart';
@@ -143,12 +144,11 @@ class _MapFilterSheetState extends State<_MapFilterSheet> {
                       Wrap(
                         spacing: 8,
                         runSpacing: 8,
+                        crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
                           for (final km in MapFilters.radiusOptionsKm)
                             _OptionChip(
-                              label: km.isInfinite
-                                  ? l10n.mapRadiusAny
-                                  : l10n.mapRadiusKm(km.toInt()),
+                              label: km.isInfinite ? null : l10n.mapRadiusKm(km.toInt()),
                               selected: _draft.radiusKm == km,
                               onTap: () {
                                 HapticFeedback.selectionClick();
@@ -156,6 +156,25 @@ class _MapFilterSheetState extends State<_MapFilterSheet> {
                                   () => _draft = _draft.copyWith(radiusKm: km),
                                 );
                               },
+                              child: km.isInfinite
+                                  ? Builder(
+                                      builder: (context) {
+                                        final isSelected = _draft.radiusKm == km;
+                                        final color = isSelected
+                                            ? palette.onAccent
+                                            : palette.onSurface;
+                                        return SvgPicture.asset(
+                                          'assets/icons/infinity.svg',
+                                          width: 22,
+                                          height: 22,
+                                          colorFilter: ColorFilter.mode(
+                                            color,
+                                            BlendMode.srcIn,
+                                          ),
+                                        );
+                                      },
+                                    )
+                                  : null,
                             ),
                         ],
                       ),
@@ -281,17 +300,19 @@ class _HintText extends StatelessWidget {
 }
 
 class _OptionChip extends StatelessWidget {
-  final String label;
+  final String? label;
+  final Widget? child;
   final int? count;
   final bool selected;
   final VoidCallback onTap;
 
   const _OptionChip({
-    required this.label,
+    this.label,
+    this.child,
     required this.selected,
     required this.onTap,
     this.count,
-  });
+  }) : assert(label != null || child != null);
 
   @override
   Widget build(BuildContext context) {
@@ -322,14 +343,17 @@ class _OptionChip extends StatelessWidget {
                   Icon(Icons.check_rounded, size: 16, color: fg),
                   const SizedBox(width: 6),
                 ],
-                Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 13.5,
-                    fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
-                    color: fg,
+                if (child != null)
+                  child!
+                else
+                  Text(
+                    label!,
+                    style: TextStyle(
+                      fontSize: 13.5,
+                      fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
+                      color: fg,
+                    ),
                   ),
-                ),
                 if (count != null && count! > 0) ...[
                   const SizedBox(width: 6),
                   Text(
