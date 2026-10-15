@@ -6,9 +6,12 @@ import 'package:algohary_project/features/auth/presentation/bloc/auth_state.dart
 import 'package:algohary_project/features/auth/presentation/bloc/auth_event.dart';
 import 'package:algohary_project/core/bloc/location_bloc/location_bloc.dart';
 import 'package:algohary_project/core/bloc/location_bloc/location_state.dart';
+import 'package:algohary_project/core/bloc/location_bloc/location_event.dart';
+import 'package:algohary_project/core/services/location_service.dart';
 import 'package:algohary_project/features/location/presentation/widgets/location_bottom_sheet.dart';
 import 'package:algohary_project/features/notifications/data/services/notification_service.dart';
 import 'package:algohary_project/features/notifications/presentation/widgets/notification_dropdown_widget.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../../../../bookings/data/models/booking_models.dart';
 import '../../../../../bookings/data/repositories/bookings_repository.dart';
 import '../../provider_dashboard_screen.dart';
@@ -27,14 +30,53 @@ class _ProviderHomeTabState extends State<ProviderHomeTab> {
   final NotificationService _notificationService = NotificationService();
   final LayerLink _layerLink = LayerLink();
   final BookingsRepository _bookingsRepository = BookingsRepository();
+  final LocationService _locationService = LocationService();
   Stream<List<ServiceRequestModel>>? _ordersStream;
   String? _currentProviderId;
   OverlayEntry? _overlayEntry;
+  String? _liveAddress;
+  bool _isResolvingLocation = false;
 
   @override
   void initState() {
     super.initState();
     _notificationService.initialize();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final authState = context.read<AuthBloc>().state;
+      if (authState is AuthSuccess && authState.user.isOnline) {
+        _resolveLiveLocation();
+      }
+    });
+  }
+
+  Future<void> _resolveLiveLocation() async {
+    if (_isResolvingLocation) return;
+    _isResolvingLocation = true;
+    try {
+      final position = await Geolocator.getCurrentPosition(
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.medium,
+          timeLimit: Duration(seconds: 10),
+        ),
+      );
+      final address = await _locationService.getAddressFromCoordinates(position.latitude, position.longitude);
+      if (mounted) {
+        setState(() {
+          _liveAddress = address;
+        });
+        context.read<LocationBloc>().add(
+          SetLocation(
+            latitude: position.latitude,
+            longitude: position.longitude,
+            address: address,
+          ),
+        );
+      }
+    } catch (e) {
+      debugPrint('ProviderHomeTab _resolveLiveLocation error: $e');
+    } finally {
+      _isResolvingLocation = false;
+    }
   }
 
   void _toggleDropdown() {
@@ -111,10 +153,15 @@ class _ProviderHomeTabState extends State<ProviderHomeTab> {
 
         return BlocBuilder<LocationBloc, LocationState>(
           builder: (context, locationState) {
-            String locationText = l10n.homeLocationError;
-            if (locationState is LocationSelected) {
-              locationText = locationState.address;
-            }
+            final isArabic = Localizations.localeOf(context).languageCode == 'ar';
+            final separator = isArabic ? '، ' : ', ';
+
+            String locationText = _liveAddress ??
+                (locationState is LocationSelected
+                    ? locationState.address
+                    : (isOnline
+                        ? (isArabic ? 'جاري تحديد موقعك...' : 'Locating...')
+                        : l10n.homeLocationError));
 
             return SafeArea(
               child: Column(
@@ -153,14 +200,17 @@ class _ProviderHomeTabState extends State<ProviderHomeTab> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                '$greeting، $firstName 👋',
-                                style: theme.textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  height: 1.2,
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: AlignmentDirectional.centerStart,
+                                child: Text(
+                                  '$greeting$separator$firstName 👋',
+                                  style: theme.textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                  maxLines: 1,
                                 ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
                               ),
                               const SizedBox(height: 4),
                               GestureDetector(
@@ -250,12 +300,15 @@ class _ProviderHomeTabState extends State<ProviderHomeTab> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Online / Offline Toggle
                           Align(
                             alignment: AlignmentDirectional.centerStart,
                       child: GestureDetector(
                         onTap: () {
-                          context.read<AuthBloc>().add(ToggleOnlineStatus(isOnline: !isOnline));
+                          final newStatus = !isOnline;
+                          context.read<AuthBloc>().add(ToggleOnlineStatus(isOnline: newStatus));
+                          if (newStatus) {
+                            _resolveLiveLocation();
+                          }
                         },
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 300),
@@ -486,7 +539,7 @@ class _ProviderHomeTabState extends State<ProviderHomeTab> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(l10n.viewDetails ?? 'View Details'),
+                  Text(l10n.viewDetails),
                   const SizedBox(width: 8),
                   Icon(isRTL ? Icons.arrow_back : Icons.arrow_forward, size: 16),
                 ],
@@ -512,7 +565,7 @@ class _ProviderHomeTabState extends State<ProviderHomeTab> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
@@ -528,31 +581,42 @@ class _ProviderHomeTabState extends State<ProviderHomeTab> {
         child: Row(
           children: [
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: iconBgColor,
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, color: iconColor, size: 24),
+              child: Icon(icon, color: iconColor, size: 20),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 8),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    title,
-                    style: const TextStyle(fontSize: 13, color: Colors.grey, fontWeight: FontWeight.w500),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      maxLines: 1,
+                    ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 2),
                   Text(
                     count.toString(),
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF263238)),
+                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF263238)),
                   ),
                 ],
               ),
             ),
-            Icon(isRTL ? Icons.chevron_left : Icons.chevron_right, color: Colors.grey, size: 20),
+            const SizedBox(width: 4),
+            Icon(isRTL ? Icons.chevron_left : Icons.chevron_right, color: Colors.grey.shade400, size: 18),
           ],
         ),
       ),

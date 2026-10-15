@@ -80,4 +80,35 @@ class LocationService {
       return defaultFallbackAddress;
     }
   }
+
+  /// Reverse geocode given coordinates into a concise readable address (City, Country or Area)
+  Future<String> getAddressFromCoordinates(double latitude, double longitude) async {
+    if (!kIsWeb) {
+      try {
+        final placemarks = await Geocoding().placemarkFromCoordinates(latitude, longitude);
+        if (placemarks.isNotEmpty) {
+          final placemark = placemarks.first;
+          final street = placemark.street ?? '';
+          final subLocality = placemark.subLocality ?? '';
+          final locality = placemark.locality ?? placemark.administrativeArea ?? '';
+          final country = placemark.country ?? '';
+
+          if (subLocality.isNotEmpty && locality.isNotEmpty) {
+            return '$subLocality, $locality';
+          } else if (locality.isNotEmpty && country.isNotEmpty) {
+            return '$locality, $country';
+          } else if (street.isNotEmpty && locality.isNotEmpty) {
+            return '$street, $locality';
+          } else if (locality.isNotEmpty) {
+            return locality;
+          } else if (country.isNotEmpty) {
+            return country;
+          }
+        }
+      } catch (e) {
+        debugPrint('LocationService getAddressFromCoordinates error: $e');
+      }
+    }
+    return defaultFallbackAddress;
+  }
 }
