@@ -466,6 +466,49 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get notificationNewComplaintTitle => 'New Complaint Filed';
+
+  @override
+  String notificationNewComplaintBody(String bookingId) {
+    return 'A complaint has been filed against you regarding booking #$bookingId';
+  }
+
+  @override
+  String get notificationNewBookingTitle => 'New Booking Request';
+
+  @override
+  String notificationNewBookingBody(String bookingId) {
+    return 'You have received a new booking request #$bookingId';
+  }
+
+  @override
+  String get notificationBookingAcceptedTitle => 'Booking Accepted';
+
+  @override
+  String notificationBookingAcceptedBody(String bookingId) {
+    return 'Your booking #$bookingId has been accepted by the provider';
+  }
+
+  @override
+  String get notificationBookingCompletedTitle => 'Booking Completed';
+
+  @override
+  String notificationBookingCompletedBody(String bookingId) {
+    return 'Your booking #$bookingId has been marked as completed';
+  }
+
+  @override
+  String get notificationBookingCancelledTitle => 'Booking Cancelled';
+
+  @override
+  String notificationBookingCancelledBody(String bookingId) {
+    return 'Booking #$bookingId has been cancelled';
+  }
+
+  @override
+  String get notificationSentMediaFile => 'Sent a media file';
+
+  @override
   String get personalInformation => 'Personal Information';
 
   @override

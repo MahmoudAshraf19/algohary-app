@@ -37,6 +37,26 @@ class NotificationLocalizer {
       return l10n.subscriptionActivatedTitle;
     }
 
+    // Check complaint notification title
+    if (title.toLowerCase() == 'new complaint filed' ||
+        title == 'تم تقديم شكوى جديدة') {
+      return l10n.notificationNewComplaintTitle;
+    }
+
+    // Check booking notifications titles
+    if (title.toLowerCase() == 'new booking request' || title == 'طلب حجز جديد') {
+      return l10n.notificationNewBookingTitle;
+    }
+    if (title.toLowerCase() == 'booking accepted' || title == 'تم قبول الحجز') {
+      return l10n.notificationBookingAcceptedTitle;
+    }
+    if (title.toLowerCase() == 'booking completed' || title == 'اكتمل الحجز') {
+      return l10n.notificationBookingCompletedTitle;
+    }
+    if (title.toLowerCase() == 'booking cancelled' || title == 'تم إلغاء الحجز') {
+      return l10n.notificationBookingCancelledTitle;
+    }
+
     return notif.title;
   }
 
@@ -70,6 +90,66 @@ class NotificationLocalizer {
     if (subMatchAr != null) {
       final rawPlan = subMatchAr.group(1)?.trim() ?? '';
       return l10n.subscriptionActivatedBody(rawPlan);
+    }
+
+    // Complaint filed pattern
+    final complaintRegex = RegExp(
+      r'^(?:A complaint has been filed against you regarding booking #|تم تقديم شكوى ضدك بخصوص الحجز #)(.*?)$',
+      caseSensitive: false,
+    );
+    final complaintMatch = complaintRegex.firstMatch(body);
+    if (complaintMatch != null) {
+      final bookingId = complaintMatch.group(1)?.trim() ?? '';
+      return l10n.notificationNewComplaintBody(bookingId);
+    }
+
+    // New Booking Request pattern
+    final newBookingRegex = RegExp(
+      r'^(?:You have received a new booking request #|لقد تلقيت طلب حجز جديد #)(.*?)$',
+      caseSensitive: false,
+    );
+    final newBookingMatch = newBookingRegex.firstMatch(body);
+    if (newBookingMatch != null) {
+      final bookingId = newBookingMatch.group(1)?.trim() ?? '';
+      return l10n.notificationNewBookingBody(bookingId);
+    }
+
+    // Booking Accepted pattern
+    final acceptedRegex = RegExp(
+      r'^(?:Your booking #|تم قبول حجزك #)(.*?)(?:\s+has been accepted by the provider|\s+من قبل الفني)$',
+      caseSensitive: false,
+    );
+    final acceptedMatch = acceptedRegex.firstMatch(body);
+    if (acceptedMatch != null) {
+      final bookingId = acceptedMatch.group(1)?.trim() ?? '';
+      return l10n.notificationBookingAcceptedBody(bookingId);
+    }
+
+    // Booking Completed pattern
+    final completedRegex = RegExp(
+      r'^(?:Your booking #|تم تحديد حجزك #)(.*?)(?:\s+has been marked as completed|\s+كمكتمل)$',
+      caseSensitive: false,
+    );
+    final completedMatch = completedRegex.firstMatch(body);
+    if (completedMatch != null) {
+      final bookingId = completedMatch.group(1)?.trim() ?? '';
+      return l10n.notificationBookingCompletedBody(bookingId);
+    }
+
+    // Booking Cancelled pattern
+    final cancelledRegex = RegExp(
+      r'^(?:Booking #|تم إلغاء الحجز #)(.*?)(?:\s+has been cancelled|)$',
+      caseSensitive: false,
+    );
+    final cancelledMatch = cancelledRegex.firstMatch(body);
+    if (cancelledMatch != null) {
+      final bookingId = cancelledMatch.group(1)?.trim() ?? '';
+      return l10n.notificationBookingCancelledBody(bookingId);
+    }
+
+    // Media file pattern
+    if (body.toLowerCase() == 'sent a media file' || body == 'أرسل ملف وسائط') {
+      return l10n.notificationSentMediaFile;
     }
 
     // Pattern like "Images 5 📸" or "5 Images 📸"

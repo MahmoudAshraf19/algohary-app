@@ -950,6 +950,72 @@ abstract class AppLocalizations {
   /// **'{count}m'**
   String timeAgoMinute(int count);
 
+  /// No description provided for @notificationNewComplaintTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New Complaint Filed'**
+  String get notificationNewComplaintTitle;
+
+  /// No description provided for @notificationNewComplaintBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A complaint has been filed against you regarding booking #{bookingId}'**
+  String notificationNewComplaintBody(String bookingId);
+
+  /// No description provided for @notificationNewBookingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New Booking Request'**
+  String get notificationNewBookingTitle;
+
+  /// No description provided for @notificationNewBookingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You have received a new booking request #{bookingId}'**
+  String notificationNewBookingBody(String bookingId);
+
+  /// No description provided for @notificationBookingAcceptedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Accepted'**
+  String get notificationBookingAcceptedTitle;
+
+  /// No description provided for @notificationBookingAcceptedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your booking #{bookingId} has been accepted by the provider'**
+  String notificationBookingAcceptedBody(String bookingId);
+
+  /// No description provided for @notificationBookingCompletedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Completed'**
+  String get notificationBookingCompletedTitle;
+
+  /// No description provided for @notificationBookingCompletedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your booking #{bookingId} has been marked as completed'**
+  String notificationBookingCompletedBody(String bookingId);
+
+  /// No description provided for @notificationBookingCancelledTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Cancelled'**
+  String get notificationBookingCancelledTitle;
+
+  /// No description provided for @notificationBookingCancelledBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking #{bookingId} has been cancelled'**
+  String notificationBookingCancelledBody(String bookingId);
+
+  /// No description provided for @notificationSentMediaFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent a media file'**
+  String get notificationSentMediaFile;
+
   /// No description provided for @personalInformation.
   ///
   /// In en, this message translates to:

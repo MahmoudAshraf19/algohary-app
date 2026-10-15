@@ -190,6 +190,52 @@
       }
     }
   },
+  "notificationNewComplaintTitle": "New Complaint Filed",
+  "notificationNewComplaintBody": "A complaint has been filed against you regarding booking #{bookingId}",
+  "@notificationNewComplaintBody": {
+    "placeholders": {
+      "bookingId": {
+        "type": "String"
+      }
+    }
+  },
+  "notificationNewBookingTitle": "New Booking Request",
+  "notificationNewBookingBody": "You have received a new booking request #{bookingId}",
+  "@notificationNewBookingBody": {
+    "placeholders": {
+      "bookingId": {
+        "type": "String"
+      }
+    }
+  },
+  "notificationBookingAcceptedTitle": "Booking Accepted",
+  "notificationBookingAcceptedBody": "Your booking #{bookingId} has been accepted by the provider",
+  "@notificationBookingAcceptedBody": {
+    "placeholders": {
+      "bookingId": {
+        "type": "String"
+      }
+    }
+  },
+  "notificationBookingCompletedTitle": "Booking Completed",
+  "notificationBookingCompletedBody": "Your booking #{bookingId} has been marked as completed",
+  "@notificationBookingCompletedBody": {
+    "placeholders": {
+      "bookingId": {
+        "type": "String"
+      }
+    }
+  },
+  "notificationBookingCancelledTitle": "Booking Cancelled",
+  "notificationBookingCancelledBody": "Booking #{bookingId} has been cancelled",
+  "@notificationBookingCancelledBody": {
+    "placeholders": {
+      "bookingId": {
+        "type": "String"
+      }
+    }
+  },
+  "notificationSentMediaFile": "Sent a media file",
   "personalInformation": "Personal Information",
   "account": "Account",
   "editProfile": "Edit Profile",

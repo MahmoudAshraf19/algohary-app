@@ -469,6 +469,49 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get notificationNewComplaintTitle => 'تم تقديم شكوى جديدة';
+
+  @override
+  String notificationNewComplaintBody(String bookingId) {
+    return 'تم تقديم شكوى ضدك بخصوص الحجز #$bookingId';
+  }
+
+  @override
+  String get notificationNewBookingTitle => 'طلب حجز جديد';
+
+  @override
+  String notificationNewBookingBody(String bookingId) {
+    return 'لقد تلقيت طلب حجز جديد #$bookingId';
+  }
+
+  @override
+  String get notificationBookingAcceptedTitle => 'تم قبول الحجز';
+
+  @override
+  String notificationBookingAcceptedBody(String bookingId) {
+    return 'تم قبول حجزك #$bookingId من قبل الفني';
+  }
+
+  @override
+  String get notificationBookingCompletedTitle => 'اكتمل الحجز';
+
+  @override
+  String notificationBookingCompletedBody(String bookingId) {
+    return 'تم تحديد حجزك #$bookingId كمكتمل';
+  }
+
+  @override
+  String get notificationBookingCancelledTitle => 'تم إلغاء الحجز';
+
+  @override
+  String notificationBookingCancelledBody(String bookingId) {
+    return 'تم إلغاء الحجز #$bookingId';
+  }
+
+  @override
+  String get notificationSentMediaFile => 'أرسل ملف وسائط';
+
+  @override
   String get personalInformation => 'المعلومات الشخصية';
 
   @override
