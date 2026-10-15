@@ -31,15 +31,46 @@ class NotificationLocalizer {
       return l10n.notificationMessageSent(sender);
     }
 
+    // Check subscription notification title
+    if (title.toLowerCase() == 'subscription activated' ||
+        title == 'تم تفعيل الاشتراك') {
+      return l10n.subscriptionActivatedTitle;
+    }
+
     return notif.title;
   }
 
-  /// Localizes snippet bodies like "Images 5 📸" or "Sent a media file"
+  /// Localizes snippet bodies like "Images 5 📸" or "Sent a media file" or Subscription bodies
   static String getLocalizedBody(BuildContext context, AppNotification notif) {
     final l10n = AppLocalizations.of(context);
     if (l10n == null) return notif.body;
 
     final body = notif.body.trim();
+
+    // Check Subscription Activated body pattern:
+    // "Congratulations! Your subscription to the Bronze Plan plan has been successfully activated."
+    // or "مبروك! تم تفعيل اشتراكك في خطة Bronze Plan بنجاح."
+    final subRegexEn = RegExp(
+      r'^Congratulations!\s*Your subscription to the\s+(.*?)\s*(?:plan)?\s*has been successfully activated\.?$',
+      caseSensitive: false,
+    );
+    final subMatchEn = subRegexEn.firstMatch(body);
+    if (subMatchEn != null) {
+      final rawPlan = subMatchEn.group(1)?.trim() ?? '';
+      // Clean up duplicate "plan" suffix if present
+      final cleanPlan = rawPlan.replaceAll(RegExp(r'\s+plan$', caseSensitive: false), '');
+      return l10n.subscriptionActivatedBody(cleanPlan);
+    }
+
+    final subRegexAr = RegExp(
+      r'^(?:مبروك!|تهانينا!)\s*تم تفعيل اشتراكك في خطة\s+(.*?)\s*بنجاح\.?$',
+      caseSensitive: false,
+    );
+    final subMatchAr = subRegexAr.firstMatch(body);
+    if (subMatchAr != null) {
+      final rawPlan = subMatchAr.group(1)?.trim() ?? '';
+      return l10n.subscriptionActivatedBody(rawPlan);
+    }
 
     // Pattern like "Images 5 📸" or "5 Images 📸"
     final imgRegex = RegExp(r'(?:Images?\s*(\d+)|\b(\d+)\s*Images?)\s*📸?', caseSensitive: false);
