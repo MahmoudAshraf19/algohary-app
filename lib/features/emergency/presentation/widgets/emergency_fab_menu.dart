@@ -87,7 +87,6 @@ class _EmergencyFabMenuState extends State<EmergencyFabMenu>
     final fabBgColor = isDark ? const Color(0xFFC93B3B) : const Color(0xFFD63031);
     final itemBgColor = isDark ? const Color(0xFF1E293B) : Colors.white;
     final itemTextColor = isDark ? Colors.white : const Color(0xFF0F172A);
-    final badgeBgColor = isDark ? const Color(0xFF334155) : const Color(0xFFF1F5F9);
 
     return Stack(
       alignment: AlignmentDirectional.bottomEnd,
@@ -144,7 +143,6 @@ class _EmergencyFabMenuState extends State<EmergencyFabMenu>
                           locale: locale,
                           itemBgColor: itemBgColor,
                           itemTextColor: itemTextColor,
-                          badgeBgColor: badgeBgColor,
                           isDark: isDark,
                         ),
                       ),
@@ -216,7 +214,6 @@ class _EmergencyFabMenuState extends State<EmergencyFabMenu>
     required String locale,
     required Color itemBgColor,
     required Color itemTextColor,
-    required Color badgeBgColor,
     required bool isDark,
   }) {
     final title = item.localizedName(locale);
@@ -279,36 +276,7 @@ class _EmergencyFabMenuState extends State<EmergencyFabMenu>
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(width: 10),
-
-            // Number Badge
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
-              decoration: BoxDecoration(
-                color: badgeBgColor,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(
-                    Icons.phone_in_talk,
-                    size: 13,
-                    color: Color(0xFFD63031),
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    item.contactNumber,
-                    textDirection: TextDirection.ltr,
-                    style: const TextStyle(
-                      color: Color(0xFFD63031),
-                      fontWeight: FontWeight.w800,
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            const SizedBox(width: 4),
           ],
         ),
       ),
