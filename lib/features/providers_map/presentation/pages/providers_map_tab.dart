@@ -373,6 +373,7 @@ class _ProvidersMapViewState extends State<_ProvidersMapView>
                           onlineCount: state.providers.length,
                           isLoading: state.status == MapStatus.loading,
                           activeFilters: state.filters.activeCount,
+                          radiusKm: state.filters.radiusKm,
                           onFiltersTap: () =>
                               showMapFilterSheet(context, _cubit),
                           categories: state.categories,

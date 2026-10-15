@@ -9,6 +9,7 @@ class MapTopBar extends StatelessWidget {
   final int onlineCount;
   final bool isLoading;
   final int activeFilters;
+  final double radiusKm;
   final VoidCallback onFiltersTap;
   final List<CategoryModel> categories;
   final Map<String, int> categoryCounts;
@@ -21,6 +22,7 @@ class MapTopBar extends StatelessWidget {
     required this.onlineCount,
     required this.isLoading,
     required this.activeFilters,
+    required this.radiusKm,
     required this.onFiltersTap,
     required this.categories,
     required this.categoryCounts,
@@ -48,6 +50,7 @@ class MapTopBar extends StatelessWidget {
                   label: locationLabel,
                   onlineCount: onlineCount,
                   isLoading: isLoading,
+                  radiusKm: radiusKm,
                 ),
               ),
               const SizedBox(width: 10),
@@ -94,17 +97,23 @@ class _LocationPill extends StatelessWidget {
   final String label;
   final int onlineCount;
   final bool isLoading;
+  final double radiusKm;
 
   const _LocationPill({
     required this.label,
     required this.onlineCount,
     required this.isLoading,
+    required this.radiusKm,
   });
 
   @override
   Widget build(BuildContext context) {
     final palette = MapPalette.of(context);
     final l10n = AppLocalizations.of(context)!;
+
+    final String radiusSubtitle = radiusKm.isInfinite
+        ? ''
+        : ' (${l10n.mapRadiusKm(radiusKm.toInt())})';
 
     return Container(
       height: 52,
@@ -183,8 +192,8 @@ class _LocationPill extends StatelessWidget {
                         child: Text(
                           isLoading
                               ? l10n.mapSearching
-                              : l10n.mapOnlineCount(onlineCount),
-                          key: ValueKey('$isLoading-$onlineCount'),
+                              : '${l10n.mapOnlineCount(onlineCount)}$radiusSubtitle',
+                          key: ValueKey('$isLoading-$onlineCount-$radiusKm'),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
