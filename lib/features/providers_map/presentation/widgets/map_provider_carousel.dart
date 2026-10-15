@@ -182,7 +182,7 @@ class MapProviderCard extends StatelessWidget {
                         const SizedBox(height: 10),
                         Wrap(
                           spacing: 6,
-                          runSpacing: 6,
+                          runSpacing: 4,
                           children: [
                             _InfoChip(
                               icon: Icons.near_me_rounded,
@@ -194,7 +194,7 @@ class MapProviderCard extends StatelessWidget {
                             ),
                             _InfoChip(
                               icon: Icons.circle,
-                              iconSize: 8,
+                              iconSize: 7,
                               label: l10n.mapOnlineBadge,
                               color: MapPalette.online,
                             ),

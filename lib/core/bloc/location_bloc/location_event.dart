@@ -23,3 +23,5 @@ class SetLocation extends LocationEvent {
 }
 
 class ClearLocation extends LocationEvent {}
+
+class LoadSavedLocation extends LocationEvent {}

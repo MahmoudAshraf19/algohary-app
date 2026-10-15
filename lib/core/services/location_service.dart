@@ -1,66 +1,83 @@
+import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
 class LocationService {
+  static const String defaultFallbackAddress = 'Cairo, Egypt';
+  static const double defaultCairoLat = 30.0444;
+  static const double defaultCairoLng = 31.2357;
+
   /// Request location permissions and fetch the current readable address (e.g., Cairo, Egypt)
   Future<String?> getCurrentAddress() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      await Geolocator.openLocationSettings();
-      throw Exception('location_disabled');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale 
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
-        return null;
-      }
-    }
-    
-    if (permission == LocationPermission.deniedForever) {
-      await Geolocator.openAppSettings();
-      throw Exception('permission_denied_forever');
-    } 
-
-    // When we reach here, permissions are granted and we can
-    // continue accessing the position of the device.
     try {
+      bool serviceEnabled;
+      LocationPermission permission;
+
+      // On Web, Geolocator.isLocationServiceEnabled() can be true, but openLocationSettings() doesn't exist
+      if (!kIsWeb) {
+        serviceEnabled = await Geolocator.isLocationServiceEnabled();
+        if (!serviceEnabled) {
+          try {
+            await Geolocator.openLocationSettings();
+          } catch (_) {}
+          // Return default location if service is disabled
+          return defaultFallbackAddress;
+        }
+      }
+
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          return defaultFallbackAddress;
+        }
+      }
+      
+      if (permission == LocationPermission.deniedForever) {
+        if (!kIsWeb) {
+          try {
+            await Geolocator.openAppSettings();
+          } catch (_) {}
+        }
+        return defaultFallbackAddress;
+      } 
+
+      // Attempt to get the position of the device
       final position = await Geolocator.getCurrentPosition(
         locationSettings: const LocationSettings(
-          accuracy: LocationAccuracy.low,
+          accuracy: LocationAccuracy.medium,
+          timeLimit: Duration(seconds: 10),
         ),
       );
 
-      final placemarks = await Geocoding().placemarkFromCoordinates(position.latitude, position.longitude);
-      
-      if (placemarks.isNotEmpty) {
-        final placemark = placemarks.first;
-        // Construct a readable address, e.g., "Maadi, Cairo"
-        final city = placemark.locality ?? placemark.administrativeArea ?? '';
-        final country = placemark.country ?? '';
-        
-        if (city.isNotEmpty && country.isNotEmpty) {
-          return '$city, $country';
-        } else if (city.isNotEmpty) {
-          return city;
-        } else if (country.isNotEmpty) {
-          return country;
+      // On Web, the geocoding plugin does not support web reverse geocoding via placemarkFromCoordinates
+      if (!kIsWeb) {
+        try {
+          final placemarks = await Geocoding().placemarkFromCoordinates(position.latitude, position.longitude);
+          if (placemarks.isNotEmpty) {
+            final placemark = placemarks.first;
+            final city = placemark.locality ?? placemark.administrativeArea ?? '';
+            final country = placemark.country ?? '';
+            
+            if (city.isNotEmpty && country.isNotEmpty) {
+              return '$city, $country';
+            } else if (city.isNotEmpty) {
+              return city;
+            } else if (country.isNotEmpty) {
+              return country;
+            }
+          }
+        } catch (e) {
+          debugPrint('Reverse geocoding error on mobile: $e');
         }
       }
+
+      // If geocoding failed or on web, return Cairo, Egypt fallback
+      return defaultFallbackAddress;
     } catch (e) {
-      // Ignore errors (e.g. timeout or no internet for geocoding)
+      debugPrint('LocationService getCurrentAddress exception: $e');
+      // If anything fails on web/mobile, return Cairo, Egypt as requested
+      return defaultFallbackAddress;
     }
-    
-    return null;
   }
 }

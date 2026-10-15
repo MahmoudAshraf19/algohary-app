@@ -167,6 +167,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "574849261990-f5avkhh6c5t4gc7fcgp51mn71epebjb5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.platform.algohary",
+            "certificate_hash": "af51408b50fdc66936d67d2da23ed0e5732661d6"
+          }
+        },
+        {
           "client_id": "574849261990-15d8ucia5pjn1eere7s9tpc88f9udih3.apps.googleusercontent.com",
           "client_type": 3
         }

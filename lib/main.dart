@@ -13,9 +13,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/auth/data/repositories/auth_repository.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/bloc/auth_event.dart';
-import 'features/auth/presentation/pages/login_screen.dart';
-import 'features/dashboard/presentation/pages/dashboard_screen.dart';
 import 'core/bloc/location_bloc/location_bloc.dart';
+import 'core/bloc/location_bloc/location_event.dart';
 import 'core/bloc/settings_cubit/settings_cubit.dart';
 import 'core/bloc/settings_cubit/settings_state.dart';
 import 'features/subscriptions/data/repositories/subscription_repository.dart';
@@ -23,34 +22,47 @@ import 'features/subscriptions/presentation/bloc/subscription_bloc.dart';
 
 import 'firebase_options.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    
-    // Configure Firestore Named Database 'algohary' settings
-    // E.g., enable offline persistence explicitly if needed
-    final firestore = FirebaseConfig.firestore;
-    
-    if (!kIsWeb) {
-      firestore.settings = const Settings(
-        persistenceEnabled: true,
-        cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
-      );
-      debugPrint('✅ Firebase Firestore [algohary] persistence enabled.');
-    }
-  } catch (e) {
-    debugPrint('❌ Firebase init error (or missing firebase_options.dart on Web): $e');
-  }
+import 'dart:async';
 
-  runApp(
-    DevicePreview(
-      enabled: kIsWeb,
-      builder: (context) => const MyApp(),
-    ),
-  );
+void main() async {
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    FlutterError.onError = (FlutterErrorDetails details) {
+      FlutterError.presentError(details);
+      debugPrint('Caught Flutter Error: ${details.exception}');
+    };
+
+    try {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      
+      // Configure Firestore Named Database 'algohary' settings
+      final firestore = FirebaseConfig.firestore;
+      
+      if (!kIsWeb) {
+        firestore.settings = const Settings(
+          persistenceEnabled: true,
+          cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+        );
+        debugPrint('✅ Firebase Firestore [algohary] persistence enabled.');
+      }
+    } catch (e, stack) {
+      debugPrint('❌ Firebase init error: $e');
+      debugPrint('$stack');
+    }
+
+    runApp(
+      DevicePreview(
+        enabled: kIsWeb,
+        builder: (context) => const MyApp(),
+      ),
+    );
+  }, (error, stack) {
+    debugPrint('Uncaught Zone Error: $error');
+    debugPrint('$stack');
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -67,7 +79,9 @@ class MyApp extends StatelessWidget {
             authRepository: AuthRepository(),
           )..add(CheckAuthStatus()),
         ),
-        BlocProvider(create: (_) => LocationBloc()),
+        BlocProvider(
+          create: (_) => LocationBloc()..add(LoadSavedLocation()),
+        ),
         BlocProvider(create: (_) => SettingsCubit()),
         BlocProvider(
           create: (_) => SubscriptionBloc(

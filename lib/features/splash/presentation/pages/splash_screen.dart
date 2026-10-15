@@ -57,6 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
         }
         
         final prefs = await SharedPreferences.getInstance();
+        if (!mounted) return;
         final isUserModeOverride = prefs.getBool('isUserModeOverride') ?? false;
 
         if (isUserModeOverride) {

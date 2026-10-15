@@ -39,27 +39,25 @@ class _LocationBottomSheetState extends State<LocationBottomSheet> {
       
       if (!context.mounted) return;
       
-      if (address != null) {
-        context.read<LocationBloc>().add(
-          SetLocation(latitude: 0.0, longitude: 0.0, address: address),
-        );
-        Navigator.pop(context); // Close bottom sheet
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.homeLocationError)),
-        );
-      }
+      final resolvedAddress = address ?? LocationService.defaultFallbackAddress;
+      context.read<LocationBloc>().add(
+        SetLocation(
+          latitude: LocationService.defaultCairoLat,
+          longitude: LocationService.defaultCairoLng,
+          address: resolvedAddress,
+        ),
+      );
+      Navigator.pop(context); // Close bottom sheet
     } catch (e) {
       if (context.mounted) {
-        String msg = AppLocalizations.of(context)!.homeLocationError;
-        if (e.toString().contains('location_disabled')) {
-          msg = 'الرجاء تفعيل الموقع الجغرافي (GPS) والمحاولة مرة أخرى.';
-        } else if (e.toString().contains('permission_denied_forever')) {
-          msg = 'لقد رفضت صلاحية الموقع بشكل دائم. الرجاء تفعيلها من إعدادات التطبيق.';
-        }
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(msg)),
+        context.read<LocationBloc>().add(
+          const SetLocation(
+            latitude: LocationService.defaultCairoLat,
+            longitude: LocationService.defaultCairoLng,
+            address: LocationService.defaultFallbackAddress,
+          ),
         );
+        Navigator.pop(context);
       }
     } finally {
       if (mounted) {

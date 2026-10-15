@@ -34,7 +34,7 @@ class _MapPickerScreenState extends State<MapPickerScreen> {
   Future<void> _confirmLocation() async {
     setState(() => _isLoading = true);
     
-    String finalAddress = "Unknown Location";
+    String finalAddress = "Cairo, Egypt";
     try {
       final placemarks = await Geocoding().placemarkFromCoordinates(_currentCenter.latitude, _currentCenter.longitude);
       if (placemarks.isNotEmpty) {
@@ -49,7 +49,7 @@ class _MapPickerScreenState extends State<MapPickerScreen> {
         } else if (country.isNotEmpty) {
           finalAddress = country;
         } else {
-          finalAddress = placemark.street ?? "Selected Location";
+          finalAddress = placemark.street ?? "Cairo, Egypt";
         }
       }
     } catch (e) {

@@ -45,7 +45,12 @@ class UserLocationResolver {
       if (!kIsWeb) {
         try {
           final last = await Geolocator.getLastKnownPosition();
-          if (last != null) best = LatLng(last.latitude, last.longitude);
+          if (last != null) {
+            best = LatLng(
+              (last.latitude as num).toDouble(),
+              (last.longitude as num).toDouble(),
+            );
+          }
         } catch (_) {}
       }
 
@@ -56,7 +61,10 @@ class UserLocationResolver {
             timeLimit: Duration(seconds: 8),
           ),
         );
-        best = LatLng(position.latitude, position.longitude);
+        best = LatLng(
+          (position.latitude as num).toDouble(),
+          (position.longitude as num).toDouble(),
+        );
       } on TimeoutException {
         // Keep the last known fix if we have one.
       } catch (e) {
