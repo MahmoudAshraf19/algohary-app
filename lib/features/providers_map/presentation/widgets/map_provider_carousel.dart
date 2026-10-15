@@ -10,7 +10,7 @@ import '../utils/map_l10n_ext.dart';
 import '../utils/map_palette.dart';
 
 /// Height reserved for the carousel (also used for the map's bottom padding).
-const double kMapCarouselHeight = 124;
+const double kMapCarouselHeight = 140;
 
 class MapProviderAvatar extends StatelessWidget {
   final String imageUrl;
@@ -141,15 +141,15 @@ class MapProviderCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(24),
             onTap: onTap,
             child: Padding(
-              padding: const EdgeInsets.all(14),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               child: Row(
                 children: [
                   MapProviderAvatar(
                     imageUrl: provider.user.imageUrl,
                     initials: provider.initials,
-                    size: 68,
+                    size: 64,
                   ),
-                  const SizedBox(width: 14),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -160,51 +160,57 @@ class MapProviderCard extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 15,
                             fontWeight: FontWeight.w700,
                             color: palette.onSurface,
                             height: 1.2,
                           ),
                         ),
                         if (categoryName != null && categoryName!.isNotEmpty) ...[
-                          const SizedBox(height: 3),
+                          const SizedBox(height: 2),
                           Text(
                             categoryName!,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              fontSize: 13,
+                              fontSize: 12.5,
                               color: palette.muted,
                               height: 1.2,
                             ),
                           ),
                         ],
-                        const SizedBox(height: 10),
-                        Wrap(
-                          spacing: 6,
-                          runSpacing: 4,
-                          children: [
-                            _InfoChip(
-                              icon: Icons.near_me_rounded,
-                              label: formatMapDistance(
-                                l10n,
-                                provider.distanceMeters,
-                              ),
-                              color: palette.accent,
-                            ),
-                            _InfoChip(
-                              icon: Icons.circle,
-                              iconSize: 7,
-                              label: l10n.mapOnlineBadge,
-                              color: MapPalette.online,
-                            ),
-                            if (servicesCount > 0)
+                        const SizedBox(height: 8),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
                               _InfoChip(
-                                icon: Icons.handyman_rounded,
-                                label: l10n.mapServicesCount(servicesCount),
-                                color: palette.muted,
+                                icon: Icons.near_me_rounded,
+                                label: formatMapDistance(
+                                  l10n,
+                                  provider.distanceMeters,
+                                ),
+                                color: palette.accent,
                               ),
-                          ],
+                              const SizedBox(width: 6),
+                              _InfoChip(
+                                icon: Icons.circle,
+                                iconSize: 7,
+                                label: l10n.mapOnlineBadge,
+                                color: MapPalette.online,
+                              ),
+                              if (servicesCount > 0) ...[
+                                const SizedBox(width: 6),
+                                _InfoChip(
+                                  icon: Icons.handyman_rounded,
+                                  label: l10n.mapServicesCount(servicesCount),
+                                  color: palette.muted,
+                                ),
+                              ],
+                            ],
+                          ),
                         ),
                       ],
                     ),
