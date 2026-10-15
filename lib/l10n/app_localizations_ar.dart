@@ -209,7 +209,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get mapConfirmBtn => 'تأكيد الموقع';
 
   @override
-  String get homeBannerTitle => 'خدمات منزلك بكل سهولة';
+  String get homeBannerTitle => 'كل خدماتك الآن سهلة';
 
   @override
   String get homeBannerSubtitle => 'أفضل الفنيين بالقرب منك';

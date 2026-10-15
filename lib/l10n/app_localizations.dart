@@ -491,7 +491,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeBannerTitle.
   ///
   /// In en, this message translates to:
-  /// **'Home Services Made Easy'**
+  /// **'All Services Made Easy'**
   String get homeBannerTitle;
 
   /// No description provided for @homeBannerSubtitle.

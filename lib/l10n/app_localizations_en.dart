@@ -209,7 +209,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mapConfirmBtn => 'Confirm Location';
 
   @override
-  String get homeBannerTitle => 'Home Services Made Easy';
+  String get homeBannerTitle => 'All Services Made Easy';
 
   @override
   String get homeBannerSubtitle => 'Find top experts near you';
