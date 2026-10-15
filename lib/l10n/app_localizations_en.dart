@@ -1343,4 +1343,163 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get skipForNow => 'Skip for now';
+
+  @override
+  String get navMap => 'Map';
+
+  @override
+  String get mapAroundYou => 'Around You';
+
+  @override
+  String mapNearPlace(String place) {
+    return 'Near $place';
+  }
+
+  @override
+  String mapOnlineCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count providers online',
+      one: '1 provider online',
+      zero: 'No providers online',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get mapSearching => 'Searching for providers...';
+
+  @override
+  String get mapFilters => 'Filters';
+
+  @override
+  String get mapFiltersTitle => 'Filter Providers';
+
+  @override
+  String get mapFilterRadius => 'Distance Radius';
+
+  @override
+  String get mapFilterCategories => 'Categories';
+
+  @override
+  String get mapFilterServices => 'Services';
+
+  @override
+  String get mapFilterServicesHint =>
+      'Select a category first to filter services';
+
+  @override
+  String get mapFilterNoCategories => 'No categories available';
+
+  @override
+  String get mapFilterNoServices => 'No services found for this category';
+
+  @override
+  String get mapFilterReset => 'Reset';
+
+  @override
+  String mapFilterShowResults(int count) {
+    return 'Show $count Results';
+  }
+
+  @override
+  String get mapFilterNoMatch => 'No matching providers';
+
+  @override
+  String mapRadiusKm(int km) {
+    return '$km km';
+  }
+
+  @override
+  String get mapProviderFallbackName => 'Service Provider';
+
+  @override
+  String get mapViewDetails => 'View details';
+
+  @override
+  String get mapOnlineBadge => 'Online';
+
+  @override
+  String mapServicesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count services',
+      one: '1 service',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String mapDistanceMeters(int meters) {
+    return '$meters m';
+  }
+
+  @override
+  String mapDistanceKm(String km) {
+    return '$km km';
+  }
+
+  @override
+  String get mapFitAll => 'Fit All';
+
+  @override
+  String get mapRecenter => 'My Location';
+
+  @override
+  String get mapReconnecting => 'Reconnecting...';
+
+  @override
+  String get mapErrorTitle => 'Couldn\'t Load Map';
+
+  @override
+  String get mapErrorNetwork =>
+      'Network error. Please check your internet connection.';
+
+  @override
+  String get mapErrorPermission =>
+      'Permission denied to access providers data.';
+
+  @override
+  String get mapErrorUnknown => 'Something went wrong while loading the map.';
+
+  @override
+  String get mapRetry => 'Retry';
+
+  @override
+  String get mapEmptyTitle => 'No Online Providers Nearby';
+
+  @override
+  String get mapEmptySubtitle =>
+      'No service providers are currently online within your selected range. Try widening the radius.';
+
+  @override
+  String get mapEmptyFilteredSubtitle =>
+      'No online providers match the selected filters.';
+
+  @override
+  String get mapClearFilters => 'Clear Filters';
+
+  @override
+  String get mapLocationServiceOff =>
+      'Location service is disabled on this device';
+
+  @override
+  String get mapLocationDenied =>
+      'Location permission is required to find providers around you';
+
+  @override
+  String get mapLocationDeniedForever =>
+      'Location permission is permanently denied. Please enable it in Settings.';
+
+  @override
+  String get mapLocationUnavailable =>
+      'Could not determine your current position';
+
+  @override
+  String get mapOpenSettings => 'Settings';
+
+  @override
+  String get mapEnableLocation => 'Enable';
 }

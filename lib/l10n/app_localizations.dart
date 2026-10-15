@@ -2635,6 +2635,252 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Skip for now'**
   String get skipForNow;
+
+  /// No description provided for @navMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Map'**
+  String get navMap;
+
+  /// No description provided for @mapAroundYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Around You'**
+  String get mapAroundYou;
+
+  /// No description provided for @mapNearPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Near {place}'**
+  String mapNearPlace(String place);
+
+  /// No description provided for @mapOnlineCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No providers online} =1{1 provider online} other{{count} providers online}}'**
+  String mapOnlineCount(int count);
+
+  /// No description provided for @mapSearching.
+  ///
+  /// In en, this message translates to:
+  /// **'Searching for providers...'**
+  String get mapSearching;
+
+  /// No description provided for @mapFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get mapFilters;
+
+  /// No description provided for @mapFiltersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Providers'**
+  String get mapFiltersTitle;
+
+  /// No description provided for @mapFilterRadius.
+  ///
+  /// In en, this message translates to:
+  /// **'Distance Radius'**
+  String get mapFilterRadius;
+
+  /// No description provided for @mapFilterCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get mapFilterCategories;
+
+  /// No description provided for @mapFilterServices.
+  ///
+  /// In en, this message translates to:
+  /// **'Services'**
+  String get mapFilterServices;
+
+  /// No description provided for @mapFilterServicesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a category first to filter services'**
+  String get mapFilterServicesHint;
+
+  /// No description provided for @mapFilterNoCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'No categories available'**
+  String get mapFilterNoCategories;
+
+  /// No description provided for @mapFilterNoServices.
+  ///
+  /// In en, this message translates to:
+  /// **'No services found for this category'**
+  String get mapFilterNoServices;
+
+  /// No description provided for @mapFilterReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get mapFilterReset;
+
+  /// No description provided for @mapFilterShowResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Show {count} Results'**
+  String mapFilterShowResults(int count);
+
+  /// No description provided for @mapFilterNoMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching providers'**
+  String get mapFilterNoMatch;
+
+  /// No description provided for @mapRadiusKm.
+  ///
+  /// In en, this message translates to:
+  /// **'{km} km'**
+  String mapRadiusKm(int km);
+
+  /// No description provided for @mapProviderFallbackName.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Provider'**
+  String get mapProviderFallbackName;
+
+  /// No description provided for @mapViewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View details'**
+  String get mapViewDetails;
+
+  /// No description provided for @mapOnlineBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Online'**
+  String get mapOnlineBadge;
+
+  /// No description provided for @mapServicesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 service} other{{count} services}}'**
+  String mapServicesCount(int count);
+
+  /// No description provided for @mapDistanceMeters.
+  ///
+  /// In en, this message translates to:
+  /// **'{meters} m'**
+  String mapDistanceMeters(int meters);
+
+  /// No description provided for @mapDistanceKm.
+  ///
+  /// In en, this message translates to:
+  /// **'{km} km'**
+  String mapDistanceKm(String km);
+
+  /// No description provided for @mapFitAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Fit All'**
+  String get mapFitAll;
+
+  /// No description provided for @mapRecenter.
+  ///
+  /// In en, this message translates to:
+  /// **'My Location'**
+  String get mapRecenter;
+
+  /// No description provided for @mapReconnecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconnecting...'**
+  String get mapReconnecting;
+
+  /// No description provided for @mapErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t Load Map'**
+  String get mapErrorTitle;
+
+  /// No description provided for @mapErrorNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Network error. Please check your internet connection.'**
+  String get mapErrorNetwork;
+
+  /// No description provided for @mapErrorPermission.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission denied to access providers data.'**
+  String get mapErrorPermission;
+
+  /// No description provided for @mapErrorUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong while loading the map.'**
+  String get mapErrorUnknown;
+
+  /// No description provided for @mapRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get mapRetry;
+
+  /// No description provided for @mapEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No Online Providers Nearby'**
+  String get mapEmptyTitle;
+
+  /// No description provided for @mapEmptySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No service providers are currently online within your selected range. Try widening the radius.'**
+  String get mapEmptySubtitle;
+
+  /// No description provided for @mapEmptyFilteredSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No online providers match the selected filters.'**
+  String get mapEmptyFilteredSubtitle;
+
+  /// No description provided for @mapClearFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear Filters'**
+  String get mapClearFilters;
+
+  /// No description provided for @mapLocationServiceOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Location service is disabled on this device'**
+  String get mapLocationServiceOff;
+
+  /// No description provided for @mapLocationDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission is required to find providers around you'**
+  String get mapLocationDenied;
+
+  /// No description provided for @mapLocationDeniedForever.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission is permanently denied. Please enable it in Settings.'**
+  String get mapLocationDeniedForever;
+
+  /// No description provided for @mapLocationUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not determine your current position'**
+  String get mapLocationUnavailable;
+
+  /// No description provided for @mapOpenSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get mapOpenSettings;
+
+  /// No description provided for @mapEnableLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable'**
+  String get mapEnableLocation;
 }
 
 class _AppLocalizationsDelegate

@@ -453,5 +453,96 @@
 "subscriptionRequiredTitle": "Subscription Required",
 "subscriptionRequiredMessage": "You must subscribe to a plan to display your services on our app.",
 "viewPlans": "View Plans",
-"skipForNow": "Skip for now"
+"skipForNow": "Skip for now",
+"navMap": "Map",
+"mapAroundYou": "Around You",
+"mapNearPlace": "Near {place}",
+"@mapNearPlace": {
+  "placeholders": {
+    "place": {
+      "type": "String"
+    }
+  }
+},
+"mapOnlineCount": "{count, plural, =0{No providers online} =1{1 provider online} other{{count} providers online}}",
+"@mapOnlineCount": {
+  "placeholders": {
+    "count": {
+      "type": "int"
+    }
+  }
+},
+"mapSearching": "Searching for providers...",
+"mapFilters": "Filters",
+"mapFiltersTitle": "Filter Providers",
+"mapFilterRadius": "Distance Radius",
+"mapFilterCategories": "Categories",
+"mapFilterServices": "Services",
+"mapFilterServicesHint": "Select a category first to filter services",
+"mapFilterNoCategories": "No categories available",
+"mapFilterNoServices": "No services found for this category",
+"mapFilterReset": "Reset",
+"mapFilterShowResults": "Show {count} Results",
+"@mapFilterShowResults": {
+  "placeholders": {
+    "count": {
+      "type": "int"
+    }
+  }
+},
+"mapFilterNoMatch": "No matching providers",
+"mapRadiusKm": "{km} km",
+"@mapRadiusKm": {
+  "placeholders": {
+    "km": {
+      "type": "int"
+    }
+  }
+},
+"filterAll": "All",
+"mapProviderFallbackName": "Service Provider",
+"mapViewDetails": "View details",
+"mapOnlineBadge": "Online",
+"mapServicesCount": "{count, plural, =1{1 service} other{{count} services}}",
+"@mapServicesCount": {
+  "placeholders": {
+    "count": {
+      "type": "int"
+    }
+  }
+},
+"mapDistanceMeters": "{meters} m",
+"@mapDistanceMeters": {
+  "placeholders": {
+    "meters": {
+      "type": "int"
+    }
+  }
+},
+"mapDistanceKm": "{km} km",
+"@mapDistanceKm": {
+  "placeholders": {
+    "km": {
+      "type": "String"
+    }
+  }
+},
+"mapFitAll": "Fit All",
+"mapRecenter": "My Location",
+"mapReconnecting": "Reconnecting...",
+"mapErrorTitle": "Couldn't Load Map",
+"mapErrorNetwork": "Network error. Please check your internet connection.",
+"mapErrorPermission": "Permission denied to access providers data.",
+"mapErrorUnknown": "Something went wrong while loading the map.",
+"mapRetry": "Retry",
+"mapEmptyTitle": "No Online Providers Nearby",
+"mapEmptySubtitle": "No service providers are currently online within your selected range. Try widening the radius.",
+"mapEmptyFilteredSubtitle": "No online providers match the selected filters.",
+"mapClearFilters": "Clear Filters",
+"mapLocationServiceOff": "Location service is disabled on this device",
+"mapLocationDenied": "Location permission is required to find providers around you",
+"mapLocationDeniedForever": "Location permission is permanently denied. Please enable it in Settings.",
+"mapLocationUnavailable": "Could not determine your current position",
+"mapOpenSettings": "Settings",
+"mapEnableLocation": "Enable"
 }

@@ -55,6 +55,11 @@ class AlgoharyBottomNavBar extends StatelessWidget {
         inactiveIcon: Icons.home_outlined,
       ),
       _NavItem(
+        label: l10n.navMap,
+        activeIcon: Icons.map_rounded,
+        inactiveIcon: Icons.map_outlined,
+      ),
+      _NavItem(
         label: l10n.navBookings,
         activeIcon: Icons.calendar_month_rounded,
         inactiveIcon: Icons.calendar_month_outlined,

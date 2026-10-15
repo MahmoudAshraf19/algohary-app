@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/algohary_bottom_nav_bar.dart';
 
-// Placeholder imports for the 5 tabs
 import 'tabs/home_tab.dart';
+import '../../providers_map/presentation/pages/providers_map_tab.dart';
 import 'tabs/bookings_tab.dart';
 import 'tabs/messages_tab.dart';
 import 'tabs/profile_tab.dart';
@@ -48,17 +48,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
         await prefs.setBool('has_shown_location_prompt', true);
       }
     }
-  }
-
-  final List<Widget> _screens = [
-    const HomeTab(),
-    const BookingsTab(),
-    const MessagesTab(),
-    const ProfileTab(),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    final screens = [
+      const HomeTab(),
+      ProvidersMapTab(isActive: _currentIndex == 1),
+      const BookingsTab(),
+      const MessagesTab(),
+      const ProfileTab(),
+    ];
+
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthInitial) {
@@ -72,7 +72,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Scaffold(
         body: IndexedStack(
           index: _currentIndex,
-          children: _screens,
+          children: screens,
         ),
         bottomNavigationBar: AlgoharyBottomNavBar(
           currentIndex: _currentIndex,

@@ -1334,4 +1334,167 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get skipForNow => 'تخطي الآن';
+
+  @override
+  String get navMap => 'الخريطة';
+
+  @override
+  String get mapAroundYou => 'من حولك';
+
+  @override
+  String mapNearPlace(String place) {
+    return 'بالقرب من $place';
+  }
+
+  @override
+  String mapOnlineCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count مزود خدمة متصل',
+      many: '$count مزود خدمة متصل',
+      few: '$count مزودي خدمة متصلين',
+      two: 'مزودا خدمة متصلان',
+      one: 'مزود خدمة واحد متصل',
+      zero: 'لا يوجد مزودو خدمة متصلين',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get mapSearching => 'جاري البحث عن مزودي الخدمة...';
+
+  @override
+  String get mapFilters => 'الفلاتر';
+
+  @override
+  String get mapFiltersTitle => 'تصفية مزودي الخدمة';
+
+  @override
+  String get mapFilterRadius => 'نطاق المسافة';
+
+  @override
+  String get mapFilterCategories => 'الأقسام';
+
+  @override
+  String get mapFilterServices => 'الخدمات';
+
+  @override
+  String get mapFilterServicesHint =>
+      'اختر قسماً أولاً لعرض الخدمات التابعة له';
+
+  @override
+  String get mapFilterNoCategories => 'لا توجد أقسام متاحة';
+
+  @override
+  String get mapFilterNoServices => 'لا توجد خدمات متاحة لهذا القسم';
+
+  @override
+  String get mapFilterReset => 'إعادة تعيين';
+
+  @override
+  String mapFilterShowResults(int count) {
+    return 'عرض $count نتيجة';
+  }
+
+  @override
+  String get mapFilterNoMatch => 'لا توجد نتائج مطابقة';
+
+  @override
+  String mapRadiusKm(int km) {
+    return '$km كم';
+  }
+
+  @override
+  String get mapProviderFallbackName => 'مزود خدمة';
+
+  @override
+  String get mapViewDetails => 'عرض التفاصيل';
+
+  @override
+  String get mapOnlineBadge => 'متاح الآن';
+
+  @override
+  String mapServicesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count خدمة',
+      many: '$count خدمة',
+      few: '$count خدمات',
+      two: 'خدمتان',
+      one: 'خدمة واحدة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String mapDistanceMeters(int meters) {
+    return '$meters م';
+  }
+
+  @override
+  String mapDistanceKm(String km) {
+    return '$km كم';
+  }
+
+  @override
+  String get mapFitAll => 'عرض الكل';
+
+  @override
+  String get mapRecenter => 'موقعي';
+
+  @override
+  String get mapReconnecting => 'جاري إعادة الاتصال...';
+
+  @override
+  String get mapErrorTitle => 'تعذر تحميل الخريطة';
+
+  @override
+  String get mapErrorNetwork =>
+      'خطأ في الاتصال بالشبكة. يرجى التأكد من اتصال الإنترنت.';
+
+  @override
+  String get mapErrorPermission => 'تم رفض الإذن للوصول لبيانات مزودي الخدمة.';
+
+  @override
+  String get mapErrorUnknown => 'حدث خطأ غير متوقع أثناء تحميل الخريطة.';
+
+  @override
+  String get mapRetry => 'إعادة المحاولة';
+
+  @override
+  String get mapEmptyTitle => 'لا يوجد مزودو خدمة متصلين بالقرب منك';
+
+  @override
+  String get mapEmptySubtitle =>
+      'لا يوجد مزودو خدمة نشطون حالياً ضمن النطاق المحدد. جرب توسيع مسافة البحث.';
+
+  @override
+  String get mapEmptyFilteredSubtitle =>
+      'لا يوجد مزودو خدمة مطابقون للفلاتر المحددة حالياً.';
+
+  @override
+  String get mapClearFilters => 'مسح الفلاتر';
+
+  @override
+  String get mapLocationServiceOff =>
+      'خدمة تحديد الموقع الجغرافي مغلقة على هذا الجهاز';
+
+  @override
+  String get mapLocationDenied =>
+      'إذن الوصول للموقع مطلوب لاكتشاف مزودي الخدمة من حولك';
+
+  @override
+  String get mapLocationDeniedForever =>
+      'إذن الموقع مرفوض بشكل دائم. يرجى تفعيله من إعدادات الجهاز.';
+
+  @override
+  String get mapLocationUnavailable => 'تعذر تحديد موقعك الحالي بدقة';
+
+  @override
+  String get mapOpenSettings => 'الإعدادات';
+
+  @override
+  String get mapEnableLocation => 'تفعيل';
 }
