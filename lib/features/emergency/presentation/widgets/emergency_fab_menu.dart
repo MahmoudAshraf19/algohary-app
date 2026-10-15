@@ -118,39 +118,49 @@ class _EmergencyFabMenuState extends State<EmergencyFabMenu>
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                // List of Emergency items with staggered animations
+                // List of Emergency items with staggered animations from bottom to top
                 ...List.generate(items.length, (index) {
-                  // Invert index so the bottom item animates first
+                  // Invert index so the item directly above the FAB (reversedIndex) appears first
                   final reversedIndex = items.length - 1 - index;
                   final item = items[reversedIndex];
 
-                  final start = (index * 0.15).clamp(0.0, 0.7);
+                  // Stagger index: index 0 is nearest the FAB (animates first), higher index animates later
+                  final staggerIndex = items.length - 1 - reversedIndex;
+                  final start = (staggerIndex * 0.12).clamp(0.0, 0.65);
                   final end = (start + 0.35).clamp(0.0, 1.0);
 
                   final itemAnimation = CurvedAnimation(
                     parent: _controller,
                     curve: Interval(start, end, curve: Curves.easeOutBack),
-                    reverseCurve: Interval(0.0, 0.8, curve: Curves.easeIn),
+                    reverseCurve: Interval(0.0, 0.7, curve: Curves.easeIn),
                   );
+
+                  final slideAnimation = Tween<Offset>(
+                    begin: const Offset(0.0, 0.4),
+                    end: Offset.zero,
+                  ).animate(itemAnimation);
 
                   final textDirection = Directionality.of(context);
                   final isRtl = textDirection == TextDirection.rtl;
 
-                  return ScaleTransition(
-                    scale: itemAnimation,
-                    alignment: isRtl ? Alignment.bottomLeft : Alignment.bottomRight,
-                    child: FadeTransition(
-                      opacity: itemAnimation,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 12.0),
-                        child: _buildEmergencyItemRow(
-                          item: item,
-                          locale: locale,
-                          itemBgColor: itemBgColor,
-                          itemTextColor: itemTextColor,
-                          iconBgColor: iconBgColor,
-                          iconTintColor: iconTintColor,
-                          isDark: isDark,
+                  return SlideTransition(
+                    position: slideAnimation,
+                    child: ScaleTransition(
+                      scale: itemAnimation,
+                      alignment: isRtl ? Alignment.bottomLeft : Alignment.bottomRight,
+                      child: FadeTransition(
+                        opacity: itemAnimation,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 12.0),
+                          child: _buildEmergencyItemRow(
+                            item: item,
+                            locale: locale,
+                            itemBgColor: itemBgColor,
+                            itemTextColor: itemTextColor,
+                            iconBgColor: iconBgColor,
+                            iconTintColor: iconTintColor,
+                            isDark: isDark,
+                          ),
                         ),
                       ),
                     ),
