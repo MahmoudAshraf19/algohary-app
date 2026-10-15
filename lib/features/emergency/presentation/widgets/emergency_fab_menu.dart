@@ -247,22 +247,26 @@ class _EmergencyFabMenuState extends State<EmergencyFabMenu>
               height: 38,
               padding: const EdgeInsets.all(7),
               decoration: BoxDecoration(
-                color: isDark ? const Color(0xFF0F172A) : const Color(0xFFF8FAFC),
+                color: isDark ? const Color(0xFF334155) : const Color(0xFFF1F5F9),
                 shape: BoxShape.circle,
               ),
               child: item.iconUrl.isNotEmpty
                   ? SvgPicture.network(
                       item.iconUrl,
-                      placeholderBuilder: (_) => const Icon(
+                      colorFilter: ColorFilter.mode(
+                        isDark ? Colors.white : const Color(0xFFD63031),
+                        BlendMode.srcIn,
+                      ),
+                      placeholderBuilder: (_) => Icon(
                         Icons.call,
                         size: 20,
-                        color: Color(0xFFD63031),
+                        color: isDark ? Colors.white : const Color(0xFFD63031),
                       ),
                     )
-                  : const Icon(
+                  : Icon(
                       Icons.call,
                       size: 20,
-                      color: Color(0xFFD63031),
+                      color: isDark ? Colors.white : const Color(0xFFD63031),
                     ),
             ),
             const SizedBox(width: 10),
