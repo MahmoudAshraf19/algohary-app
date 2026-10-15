@@ -151,39 +151,39 @@ class MapProviderCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                            color: palette.onSurface,
-                            height: 1.2,
-                          ),
-                        ),
-                        if (categoryName != null && categoryName!.isNotEmpty) ...[
-                          const SizedBox(height: 2),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                           Text(
-                            categoryName!,
+                            name,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              fontSize: 12.5,
-                              color: palette.muted,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                              color: palette.onSurface,
                               height: 1.2,
                             ),
                           ),
-                        ],
-                        const SizedBox(height: 8),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          physics: const BouncingScrollPhysics(),
-                          child: Row(
+                          if (categoryName != null && categoryName!.isNotEmpty) ...[
+                            const SizedBox(height: 2),
+                            Text(
+                              categoryName!,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 12.5,
+                                color: palette.muted,
+                                height: 1.2,
+                              ),
+                            ),
+                          ],
+                          const SizedBox(height: 6),
+                          Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               _InfoChip(
@@ -211,8 +211,8 @@ class MapProviderCard extends StatelessWidget {
                               ],
                             ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(width: 8),
