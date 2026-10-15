@@ -4,6 +4,7 @@ import '../../data/repositories/auth_repository.dart';
 import '../../data/models/user_model.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
+import '../../../dashboard/presentation/services/provider_location_tracker.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
@@ -27,6 +28,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       final user = await _authRepository.getCurrentUser();
       if (user != null) {
+        if (user.userType == 'provider' && user.isOnline) {
+          ProviderLocationTracker().startTracking(user.id);
+        }
         emit(AuthSuccess(user: user));
       } else {
         emit(AuthInitial()); // User not logged in
@@ -47,6 +51,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         password: event.password,
         isProvider: event.isProvider,
       );
+      if (user.userType == 'provider' && user.isOnline) {
+        ProviderLocationTracker().startTracking(user.id);
+      }
       emit(AuthSuccess(user: user));
     } catch (e) {
       emit(AuthFailure(message: e.toString().replaceAll('Exception: ', '')));
@@ -76,6 +83,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     LogoutRequested event,
     Emitter<AuthState> emit,
   ) async {
+    await ProviderLocationTracker().stopTracking(updateStatus: true);
     await _authRepository.logout();
     emit(AuthInitial());
   }
@@ -111,6 +119,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (currentState is AuthSuccess) {
       try {
         await _authRepository.updateOnlineStatus(event.isOnline);
+        if (currentState.user.userType == 'provider') {
+          if (event.isOnline) {
+            ProviderLocationTracker().startTracking(currentState.user.id);
+          } else {
+            ProviderLocationTracker().stopTracking(updateStatus: false);
+          }
+        }
         // Create a new UserModel with updated isOnline status
         final updatedUser = UserModel(
           id: currentState.user.id,
