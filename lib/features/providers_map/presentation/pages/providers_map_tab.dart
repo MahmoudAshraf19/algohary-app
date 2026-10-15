@@ -334,15 +334,36 @@ class _ProvidersMapViewState extends State<_ProvidersMapView>
                   },
                   markers: _buildMarkers(state, palette),
                   circles: state.filters.radiusKm.isInfinite
-                      ? const <Circle>{}
+                      ? (state.userPosition != null
+                          ? {
+                              Circle(
+                                circleId: const CircleId('user_accuracy'),
+                                center: state.userPosition!,
+                                radius: 80,
+                                fillColor: palette.accent.withValues(alpha: 0.15),
+                                strokeColor: palette.accent.withValues(alpha: 0.5),
+                                strokeWidth: 2,
+                              ),
+                            }
+                          : const <Circle>{})
                       : {
+                          // Search radius zone
                           Circle(
                             circleId: const CircleId('search_radius'),
-                            center: state.origin,
+                            center: state.userPosition ?? state.origin,
                             radius: state.filters.radiusKm * 1000,
-                            fillColor: palette.accent.withOpacity(0.06),
-                            strokeColor: palette.accent.withOpacity(0.35),
-                            strokeWidth: 1,
+                            fillColor: palette.accent.withValues(alpha: 0.12),
+                            strokeColor: palette.accent.withValues(alpha: 0.7),
+                            strokeWidth: 2,
+                          ),
+                          // Subtle inner pulse circle at user center
+                          Circle(
+                            circleId: const CircleId('user_center_pulse'),
+                            center: state.userPosition ?? state.origin,
+                            radius: (state.filters.radiusKm * 1000 * 0.08).clamp(30.0, 150.0),
+                            fillColor: palette.accent.withValues(alpha: 0.25),
+                            strokeColor: Colors.transparent,
+                            strokeWidth: 0,
                           ),
                         },
                   padding: EdgeInsets.only(
