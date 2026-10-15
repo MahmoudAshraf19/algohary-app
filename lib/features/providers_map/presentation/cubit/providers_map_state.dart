@@ -12,7 +12,7 @@ enum MapFailureType { network, permission, unknown }
 /// User-selectable filters. Immutable and cheap to compare.
 class MapFilters extends Equatable {
   static const double defaultRadiusKm = 25;
-  static const List<double> radiusOptionsKm = [5, 10, 25, 50];
+  static const List<double> radiusOptionsKm = [5, 10, 25, 50, double.infinity];
 
   final String? categoryId;
   final Set<String> serviceIds;
@@ -23,6 +23,8 @@ class MapFilters extends Equatable {
     this.serviceIds = const <String>{},
     this.radiusKm = defaultRadiusKm,
   });
+
+  bool get isAnywhere => radiusKm.isInfinite;
 
   /// Number of filters that differ from the defaults (used for the badge).
   int get activeCount =>

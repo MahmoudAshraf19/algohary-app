@@ -1412,6 +1412,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get mapRadiusAny => 'Anywhere';
+
+  @override
   String get mapProviderFallbackName => 'Service Provider';
 
   @override

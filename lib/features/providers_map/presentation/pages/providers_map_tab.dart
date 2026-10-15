@@ -333,16 +333,18 @@ class _ProvidersMapViewState extends State<_ProvidersMapView>
                     }
                   },
                   markers: _buildMarkers(state, palette),
-                  circles: {
-                    Circle(
-                      circleId: const CircleId('search_radius'),
-                      center: state.origin,
-                      radius: state.filters.radiusKm * 1000,
-                      fillColor: palette.accent.withOpacity(0.06),
-                      strokeColor: palette.accent.withOpacity(0.35),
-                      strokeWidth: 1,
-                    ),
-                  },
+                  circles: state.filters.radiusKm.isInfinite
+                      ? const <Circle>{}
+                      : {
+                          Circle(
+                            circleId: const CircleId('search_radius'),
+                            center: state.origin,
+                            radius: state.filters.radiusKm * 1000,
+                            fillColor: palette.accent.withOpacity(0.06),
+                            strokeColor: palette.accent.withOpacity(0.35),
+                            strokeWidth: 1,
+                          ),
+                        },
                   padding: EdgeInsets.only(
                     bottom: hasCarousel ? kMapCarouselHeight + 12 : 0,
                   ),

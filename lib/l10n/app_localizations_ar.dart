@@ -1406,6 +1406,9 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get mapRadiusAny => 'في كل مكان (بلا حدود)';
+
+  @override
   String get mapProviderFallbackName => 'مزود خدمة';
 
   @override

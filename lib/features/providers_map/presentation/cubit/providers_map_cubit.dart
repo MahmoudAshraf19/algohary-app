@@ -312,10 +312,11 @@ class ProvidersMapCubit extends Cubit<ProvidersMapState> {
 
   /// How many providers would be shown with [filters] (for the sheet's CTA).
   int countFor(MapFilters filters) {
-    final radiusM = filters.radiusKm * 1000;
+    final isInfinite = filters.radiusKm.isInfinite;
+    final radiusM = isInfinite ? double.infinity : filters.radiusKm * 1000;
     var count = 0;
     for (final p in _raw) {
-      if (_distanceTo(p) > radiusM) continue;
+      if (!isInfinite && _distanceTo(p) > radiusM) continue;
       if (_matches(p, filters)) count++;
     }
     return count;
@@ -373,14 +374,15 @@ class ProvidersMapCubit extends Cubit<ProvidersMapState> {
   void _recompute() {
     if (isClosed) return;
     final filters = state.filters;
-    final radiusM = filters.radiusKm * 1000;
+    final isInfinite = filters.radiusKm.isInfinite;
+    final radiusM = isInfinite ? double.infinity : filters.radiusKm * 1000;
 
     final counts = <String, int>{};
     final visible = <MapProvider>[];
 
     for (final provider in _raw) {
       final distance = _distanceTo(provider);
-      if (distance > radiusM) continue;
+      if (!isInfinite && distance > radiusM) continue;
       final withDistance = provider.withDistance(distance);
       for (final c in _categoriesOf(withDistance)) {
         counts[c] = (counts[c] ?? 0) + 1;

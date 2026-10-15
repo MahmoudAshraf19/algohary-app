@@ -146,7 +146,9 @@ class _MapFilterSheetState extends State<_MapFilterSheet> {
                         children: [
                           for (final km in MapFilters.radiusOptionsKm)
                             _OptionChip(
-                              label: l10n.mapRadiusKm(km.toInt()),
+                              label: km.isInfinite
+                                  ? l10n.mapRadiusAny
+                                  : l10n.mapRadiusKm(km.toInt()),
                               selected: _draft.radiusKm == km,
                               onTap: () {
                                 HapticFeedback.selectionClick();
