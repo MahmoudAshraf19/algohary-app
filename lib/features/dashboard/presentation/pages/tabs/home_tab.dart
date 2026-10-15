@@ -12,6 +12,7 @@ import 'package:algohary_project/features/dashboard/presentation/widgets/provide
 import 'package:algohary_project/core/widgets/custom_search_bar.dart';
 import 'package:algohary_project/features/notifications/data/services/notification_service.dart';
 import 'package:algohary_project/features/notifications/presentation/widgets/notification_dropdown_widget.dart';
+import 'package:algohary_project/features/emergency/presentation/widgets/emergency_fab_menu.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -103,7 +104,9 @@ class _HomeTabState extends State<HomeTab> {
             }
 
             return SafeArea(
-              child: SingleChildScrollView(
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -264,7 +267,7 @@ class _HomeTabState extends State<HomeTab> {
                           ),
                         ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         child: Row(
                           children: [
                             Expanded(
@@ -273,27 +276,26 @@ class _HomeTabState extends State<HomeTab> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    alignment: AlignmentDirectional.centerStart,
-                                    child: Text(
-                                      l10n.homeBannerTitle,
-                                      style: theme.textTheme.titleLarge?.copyWith(
-                                        fontWeight: FontWeight.w800,
-                                        color: const Color(0xFF0D475C),
-                                      ),
+                                  Text(
+                                    l10n.homeBannerTitle,
+                                    style: theme.textTheme.titleMedium?.copyWith(
+                                      fontWeight: FontWeight.w800,
+                                      color: const Color(0xFF0D475C),
+                                      height: 1.2,
                                     ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  const SizedBox(height: 4),
-                                  Expanded(
-                                    child: Text(
-                                      l10n.homeBannerSubtitle,
-                                      style: theme.textTheme.bodyMedium?.copyWith(
-                                        color: const Color(0xFF1E5B70),
-                                      ),
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    l10n.homeBannerSubtitle,
+                                    style: theme.textTheme.bodySmall?.copyWith(
+                                      color: const Color(0xFF1E5B70),
+                                      fontWeight: FontWeight.w500,
+                                      height: 1.2,
                                     ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ],
                               ),
@@ -315,11 +317,18 @@ class _HomeTabState extends State<HomeTab> {
                     // Popular Services Section
                     const PopularServicesSection(),
 
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 80),
                   ],
                 ),
               ),
-            );
+              const PositionedDirectional(
+                end: 16,
+                bottom: 16,
+                child: EmergencyFabMenu(),
+              ),
+            ],
+          ),
+        );
           },
         );
       },
