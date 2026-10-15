@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../data/models/emergency_service_item.dart';
 import '../../data/repositories/emergency_repository.dart';
 
@@ -80,13 +81,17 @@ class _EmergencyFabMenuState extends State<EmergencyFabMenu>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final isDark = theme.brightness == Brightness.dark;
     final locale = Localizations.localeOf(context).languageCode;
 
-    // Harmonious theme-tailored styling
-    final fabBgColor = isDark ? const Color(0xFFC93B3B) : const Color(0xFFD63031);
-    final itemBgColor = isDark ? const Color(0xFF1E293B) : Colors.white;
-    final itemTextColor = isDark ? Colors.white : const Color(0xFF0F172A);
+    // Derived strictly from AppColors and ThemeData / ColorScheme
+    final fabBgColor = isDark ? AppColors.red : colorScheme.error;
+    final fabActiveColor = isDark ? AppColors.darkRed : AppColors.red;
+    final itemBgColor = colorScheme.surface;
+    final itemTextColor = isDark ? AppColors.offWhite : colorScheme.onSurface;
+    final iconBgColor = isDark ? AppColors.primaryBlue : AppColors.lightYellow;
+    final iconTintColor = isDark ? AppColors.offWhite : AppColors.red;
 
     return Stack(
       alignment: AlignmentDirectional.bottomEnd,
@@ -143,6 +148,8 @@ class _EmergencyFabMenuState extends State<EmergencyFabMenu>
                           locale: locale,
                           itemBgColor: itemBgColor,
                           itemTextColor: itemTextColor,
+                          iconBgColor: iconBgColor,
+                          iconTintColor: iconTintColor,
                           isDark: isDark,
                         ),
                       ),
@@ -158,11 +165,12 @@ class _EmergencyFabMenuState extends State<EmergencyFabMenu>
                     width: 58,
                     height: 58,
                     decoration: BoxDecoration(
-                      color: _isOpen ? (isDark ? const Color(0xFF9E2A2B) : const Color(0xFFB71C1C)) : fabBgColor,
+                      color: _isOpen ? fabActiveColor : fabBgColor,
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: (_isOpen ? Colors.black45 : fabBgColor).withValues(alpha: isDark ? 0.4 : 0.35),
+                          color: (_isOpen ? AppColors.darkBackground : fabBgColor)
+                              .withValues(alpha: isDark ? 0.45 : 0.35),
                           blurRadius: 14,
                           spreadRadius: 2,
                           offset: const Offset(0, 5),
@@ -182,18 +190,18 @@ class _EmergencyFabMenuState extends State<EmergencyFabMenu>
                             width: 28,
                             height: 28,
                             colorFilter: const ColorFilter.mode(
-                              Colors.white,
+                              AppColors.lightBackground,
                               BlendMode.srcIn,
                             ),
                             placeholderBuilder: (_) => const Icon(
                               Icons.emergency,
-                              color: Colors.white,
+                              color: AppColors.lightBackground,
                               size: 28,
                             ),
                           ),
                           secondChild: const Icon(
                             Icons.close_rounded,
-                            color: Colors.white,
+                            color: AppColors.lightBackground,
                             size: 30,
                           ),
                         ),
@@ -214,6 +222,8 @@ class _EmergencyFabMenuState extends State<EmergencyFabMenu>
     required String locale,
     required Color itemBgColor,
     required Color itemTextColor,
+    required Color iconBgColor,
+    required Color iconTintColor,
     required bool isDark,
   }) {
     final title = item.localizedName(locale);
@@ -228,13 +238,13 @@ class _EmergencyFabMenuState extends State<EmergencyFabMenu>
           borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: isDark ? 0.35 : 0.12),
+              color: AppColors.darkBackground.withValues(alpha: isDark ? 0.45 : 0.12),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
           ],
           border: Border.all(
-            color: isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0),
+            color: isDark ? AppColors.primaryBlue : AppColors.lightYellow,
             width: 1,
           ),
         ),
@@ -247,26 +257,26 @@ class _EmergencyFabMenuState extends State<EmergencyFabMenu>
               height: 38,
               padding: const EdgeInsets.all(7),
               decoration: BoxDecoration(
-                color: isDark ? const Color(0xFF334155) : const Color(0xFFF1F5F9),
+                color: iconBgColor,
                 shape: BoxShape.circle,
               ),
               child: item.iconUrl.isNotEmpty
                   ? SvgPicture.network(
                       item.iconUrl,
                       colorFilter: ColorFilter.mode(
-                        isDark ? Colors.white : const Color(0xFFD63031),
+                        iconTintColor,
                         BlendMode.srcIn,
                       ),
                       placeholderBuilder: (_) => Icon(
                         Icons.call,
                         size: 20,
-                        color: isDark ? Colors.white : const Color(0xFFD63031),
+                        color: iconTintColor,
                       ),
                     )
                   : Icon(
                       Icons.call,
                       size: 20,
-                      color: isDark ? Colors.white : const Color(0xFFD63031),
+                      color: iconTintColor,
                     ),
             ),
             const SizedBox(width: 10),
