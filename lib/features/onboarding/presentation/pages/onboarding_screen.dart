@@ -47,6 +47,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('has_seen_onboarding', true);
     if (!mounted) return;
+
+    PaintingBinding.instance.imageCache.clear();
+    PaintingBinding.instance.imageCache.clearLiveImages();
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => const WelcomeScreen()),
@@ -109,6 +113,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           child: Image.asset(
                             data.imagePath,
                             fit: BoxFit.contain,
+                            cacheWidth: (MediaQuery.of(context).size.width * MediaQuery.of(context).devicePixelRatio).round(),
                             errorBuilder: (context, error, stackTrace) => Center(
                               child: Icon(Icons.image_not_supported, size: 80, color: theme.colorScheme.primary),
                             ),

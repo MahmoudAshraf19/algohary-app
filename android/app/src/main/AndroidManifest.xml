@@ -7,7 +7,8 @@
     <application
         android:label="Al Gohary"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:largeHeap="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -39,8 +40,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAkJimJx_Vzga5x3eYYMTkgqZT11OySYB8" />
         <meta-data
-            android:name="io.flutter.embedding.android.ImpellerBackend"
-            android:value="opengles" />
+            android:name="io.flutter.embedding.android.EnableImpeller"
+            android:value="false" />
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

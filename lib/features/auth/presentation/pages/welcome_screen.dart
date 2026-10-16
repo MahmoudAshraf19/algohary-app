@@ -75,6 +75,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                     'assets/images/splash.png',
                     fit: BoxFit.cover,
                     alignment: Alignment.topCenter,
+                    cacheWidth: (MediaQuery.of(context).size.width * MediaQuery.of(context).devicePixelRatio).round(),
                   ),
                 ),
               ),
