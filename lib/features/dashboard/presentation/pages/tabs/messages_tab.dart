@@ -215,9 +215,13 @@ class _MessagesTabState extends State<MessagesTab> {
       if (lastMsg != null) {
         if (lastMsg.type == 'IMAGE') {
           subtitle = '📷 Photo';
-        } else if (lastMsg.type == 'VOICE') subtitle = '🎤 Voice Message';
-        else if (lastMsg.isMe) subtitle = 'You: ${lastMsg.content ?? ''}';
-        else subtitle = lastMsg.content ?? '';
+        } else if (lastMsg.type == 'VOICE') {
+          subtitle = '🎤 Voice Message';
+        } else if (lastMsg.isMe) {
+          subtitle = 'You: ${lastMsg.content ?? ''}';
+        } else {
+          subtitle = lastMsg.content ?? '';
+        }
       }
     }
 
@@ -349,9 +353,13 @@ class _MessagesTabState extends State<MessagesTab> {
     if (lastMsg != null) {
       if (lastMsg.type == 'IMAGE') {
         snippet = '📷 Photo';
-      } else if (lastMsg.type == 'VOICE') snippet = '🎤 Voice Message';
-      else if (lastMsg.isMe) snippet = 'You: ${lastMsg.content ?? ''}';
-      else snippet = lastMsg.content ?? '';
+      } else if (lastMsg.type == 'VOICE') {
+        snippet = '🎤 Voice Message';
+      } else if (lastMsg.isMe) {
+        snippet = 'You: ${lastMsg.content ?? ''}';
+      } else {
+        snippet = lastMsg.content ?? '';
+      }
     }
 
     return Container(
