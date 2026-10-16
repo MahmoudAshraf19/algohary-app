@@ -32,7 +32,7 @@ class _NotificationDropdownWidgetState extends State<NotificationDropdownWidget>
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.15),
+              color: Colors.black.withValues(alpha: 0.15),
               blurRadius: 15,
               offset: const Offset(0, 5),
             ),
@@ -112,7 +112,7 @@ class _NotificationDropdownWidgetState extends State<NotificationDropdownWidget>
                             // TODO: Add route to chat
                           }
                         },
-                        tileColor: notif.isRead ? null : colorScheme.primaryContainer.withOpacity(0.3),
+                        tileColor: notif.isRead ? null : colorScheme.primaryContainer.withValues(alpha: 0.3),
                         leading: CircleAvatar(
                           backgroundColor: colorScheme.surfaceContainerHighest,
                           backgroundImage: notif.senderAvatar != null && notif.senderAvatar!.startsWith('http')

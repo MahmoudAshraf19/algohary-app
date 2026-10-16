@@ -60,7 +60,7 @@ class _ChangePasswordViewState extends State<_ChangePasswordView> {
     final l10n = AppLocalizations.of(context)!;
     final isDark = theme.brightness == Brightness.dark;
     final bgColor = isDark ? theme.colorScheme.surface : Colors.white;
-    final textColor = isDark ? Colors.white.withOpacity(0.9) : AppColors.primaryBlue;
+    final textColor = isDark ? Colors.white.withValues(alpha: 0.9) : AppColors.primaryBlue;
 
     return Scaffold(
       backgroundColor: bgColor,

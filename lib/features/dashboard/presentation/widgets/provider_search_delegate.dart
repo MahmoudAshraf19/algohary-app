@@ -43,7 +43,7 @@ class ProviderSearchDelegate extends SearchDelegate<UserModel?> {
       return Center(
         child: Text(
           'Search for providers by name...',
-          style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5)),
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5)),
         ),
       );
     }
@@ -90,7 +90,7 @@ class ProviderSearchDelegate extends SearchDelegate<UserModel?> {
                   color: theme.colorScheme.surface,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: theme.colorScheme.outline.withOpacity(0.15),
+                    color: theme.colorScheme.outline.withValues(alpha: 0.15),
                     width: 1.5,
                   ),
                 ),
@@ -104,12 +104,12 @@ class ProviderSearchDelegate extends SearchDelegate<UserModel?> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: theme.colorScheme.primary.withOpacity(0.15),
+                            color: theme.colorScheme.primary.withValues(alpha: 0.15),
                             width: 3,
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: theme.colorScheme.primary.withOpacity(0.1),
+                              color: theme.colorScheme.primary.withValues(alpha: 0.1),
                               blurRadius: 8,
                               offset: const Offset(0, 4),
                             ),
@@ -156,12 +156,12 @@ class ProviderSearchDelegate extends SearchDelegate<UserModel?> {
                                   padding: const EdgeInsets.only(bottom: 8),
                                   child: Row(
                                     children: [
-                                      Icon(Icons.location_on, size: 16, color: theme.colorScheme.primary.withOpacity(0.8)),
+                                      Icon(Icons.location_on, size: 16, color: theme.colorScheme.primary.withValues(alpha: 0.8)),
                                       const SizedBox(width: 4),
                                       Text(
                                         govName,
                                         style: theme.textTheme.labelLarge?.copyWith(
-                                          color: theme.colorScheme.onSurface.withOpacity(0.7),
+                                          color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -173,7 +173,7 @@ class ProviderSearchDelegate extends SearchDelegate<UserModel?> {
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                             decoration: BoxDecoration(
-                              color: theme.colorScheme.primary.withOpacity(0.1),
+                              color: theme.colorScheme.primary.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Row(
@@ -201,7 +201,7 @@ class ProviderSearchDelegate extends SearchDelegate<UserModel?> {
                     Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: theme.colorScheme.primary.withOpacity(0.05),
+                        color: theme.colorScheme.primary.withValues(alpha: 0.05),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(

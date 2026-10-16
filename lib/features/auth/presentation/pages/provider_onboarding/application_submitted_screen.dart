@@ -48,7 +48,7 @@ class ApplicationSubmittedScreen extends StatelessWidget {
                       Text(
                         l10n.applicationUnderReview,
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7)),
+                        style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withValues(alpha: 0.7)),
                       ),
                       const SizedBox(height: 32),
                       
@@ -56,9 +56,9 @@ class ApplicationSubmittedScreen extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          color: colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                          color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                           borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: colorScheme.outline.withOpacity(0.3)),
+                          border: Border.all(color: colorScheme.outline.withValues(alpha: 0.3)),
                         ),
                         child: Column(
                           children: [
@@ -85,7 +85,7 @@ class ApplicationSubmittedScreen extends StatelessWidget {
                                         behavior: SnackBarBehavior.floating,
                                         margin: const EdgeInsets.only(bottom: 30, left: 40, right: 40),
                                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                        backgroundColor: colorScheme.onSurface.withOpacity(0.9),
+                                        backgroundColor: colorScheme.onSurface.withValues(alpha: 0.9),
                                         duration: const Duration(seconds: 2),
                                         elevation: 0,
                                       ),
@@ -98,7 +98,7 @@ class ApplicationSubmittedScreen extends StatelessWidget {
                             Text(
                               l10n.keepIdSafe,
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 14, color: colorScheme.onSurface.withOpacity(0.7)),
+                              style: TextStyle(fontSize: 14, color: colorScheme.onSurface.withValues(alpha: 0.7)),
                             ),
                           ],
                         ),
@@ -111,14 +111,14 @@ class ApplicationSubmittedScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: colorScheme.surface,
                           borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: colorScheme.outline.withOpacity(0.2)),
+                          border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
                         ),
                         child: Column(
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(l10n.statusTitle, style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7))),
+                                Text(l10n.statusTitle, style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withValues(alpha: 0.7))),
                                 Row(
                                   children: [
                                     const Icon(Icons.circle, color: Colors.orange, size: 12),
@@ -135,7 +135,7 @@ class ApplicationSubmittedScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(l10n.submittedDate, style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7))),
+                                Text(l10n.submittedDate, style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withValues(alpha: 0.7))),
                                 Text(
                                   DateFormat('d MMM yyyy').format(DateTime.now()),
                                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: colorScheme.onSurface),
@@ -151,7 +151,7 @@ class ApplicationSubmittedScreen extends StatelessWidget {
                       Text(
                         l10n.ourTeamWillReview,
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 14, color: colorScheme.onSurface.withOpacity(0.7)),
+                        style: TextStyle(fontSize: 14, color: colorScheme.onSurface.withValues(alpha: 0.7)),
                       ),
                       const SizedBox(height: 24),
                       

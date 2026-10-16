@@ -46,7 +46,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   final ScrollController _scrollController = ScrollController();
 
   bool _isTyping = false;
-  List<dynamic> _uploadingFiles = [];
+  final List<dynamic> _uploadingFiles = [];
   bool _isRecordingVoice = false;
   late Stream<List<ChatMessageModel>> _messagesStream;
 
@@ -258,7 +258,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       appBar: AppBar(
         backgroundColor: colorScheme.surface,
         elevation: 0.5,
-        shadowColor: Colors.black.withOpacity(0.08),
+        shadowColor: Colors.black.withValues(alpha: 0.08),
         leadingWidth: 44,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new_rounded, size: 20, color: colorScheme.onSurface),
@@ -360,7 +360,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                                 decoration: BoxDecoration(
                                   color: colorScheme.surface,
                                   borderRadius: BorderRadius.circular(12),
-                                  boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 6, offset: const Offset(0, 2))],
+                                  boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.04), blurRadius: 6, offset: const Offset(0, 2))],
                                 ),
                                 child: Text(_formatDateHeader(msg.createdAt), style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: colorScheme.onSurfaceVariant)),
                               ),
@@ -392,7 +392,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
 
   Widget _buildMessageBubble(ChatMessageModel msg, ColorScheme colorScheme) {
     final isMe = msg.isMe;
-    final bubbleColor = isMe ? colorScheme.primary.withOpacity(0.12) : colorScheme.surface;
+    final bubbleColor = isMe ? colorScheme.primary.withValues(alpha: 0.12) : colorScheme.surface;
     final textColor = colorScheme.onSurface;
     final timeColor = colorScheme.onSurfaceVariant;
 
@@ -476,7 +476,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.6),
+                          color: Colors.black.withValues(alpha: 0.6),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
@@ -568,9 +568,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: colorScheme.surfaceContainerHighest.withOpacity(0.5),
+                  color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: colorScheme.outlineVariant.withOpacity(0.5)),
+                  border: Border.all(color: colorScheme.outlineVariant.withValues(alpha: 0.5)),
                 ),
                 child: Row(
                   children: [
@@ -647,7 +647,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                 imageWidget,
                 Container(
                   width: 80, height: 80,
-                  color: Colors.black.withOpacity(0.4),
+                  color: Colors.black.withValues(alpha: 0.4),
                   child: const Center(
                     child: SizedBox(
                       width: 24, height: 24,

@@ -38,9 +38,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late TextEditingController _aboutController;
 
   final FirebaseFirestore _firestore = FirebaseConfig.firestore;
-  late Future<QuerySnapshot> _categoriesFuture = _firestore.collection('categories').get();
+  late final Future<QuerySnapshot> _categoriesFuture = _firestore.collection('categories').get();
   Future<QuerySnapshot>? _servicesFuture;
-  late Future<QuerySnapshot> _governoratesFuture = _firestore.collection('governorates').get();
+  late final Future<QuerySnapshot> _governoratesFuture = _firestore.collection('governorates').get();
   Future<QuerySnapshot>? _citiesFuture;
 
   @override
@@ -165,7 +165,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           color: theme.colorScheme.surfaceContainerHighest,
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: theme.colorScheme.primary.withOpacity(0.2),
+                            color: theme.colorScheme.primary.withValues(alpha: 0.2),
                             width: 2,
                           ),
                         ),
@@ -358,22 +358,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       readOnly: readOnly,
       style: TextStyle(
         color: readOnly 
-          ? theme.colorScheme.onSurface.withOpacity(0.5) 
+          ? theme.colorScheme.onSurface.withValues(alpha: 0.5) 
           : theme.colorScheme.onSurface,
       ),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.4)),
-        prefixIcon: Icon(icon, color: theme.colorScheme.onSurface.withOpacity(0.5)),
+        hintStyle: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+        prefixIcon: Icon(icon, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
         filled: true,
-        fillColor: readOnly ? theme.colorScheme.surfaceContainerHighest.withOpacity(0.5) : theme.colorScheme.surface,
+        fillColor: readOnly ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5) : theme.colorScheme.surface,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: theme.colorScheme.onSurface.withOpacity(0.2)),
+          borderSide: BorderSide(color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: theme.colorScheme.onSurface.withOpacity(0.2)),
+          borderSide: BorderSide(color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -401,9 +401,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             if (!snapshot.hasData || snapshot.data!.docs.isEmpty) return const SizedBox.shrink();
             final docs = snapshot.data!.docs;
             return DropdownButtonFormField<String>(
-              value: _selectedGovernorateId,
+              initialValue: _selectedGovernorateId,
               decoration: _buildInputDecoration(theme).copyWith(
-                prefixIcon: Icon(Icons.location_city, color: theme.colorScheme.onSurface.withOpacity(0.5)),
+                prefixIcon: Icon(Icons.location_city, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
               ),
               dropdownColor: theme.scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(12),
@@ -464,9 +464,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             if (!snapshot.hasData || snapshot.data!.docs.isEmpty) return const SizedBox.shrink();
             final docs = snapshot.data!.docs;
             return DropdownButtonFormField<String>(
-              value: _selectedCategoryId,
+              initialValue: _selectedCategoryId,
               decoration: _buildInputDecoration(theme).copyWith(
-                prefixIcon: Icon(Icons.category_outlined, color: theme.colorScheme.onSurface.withOpacity(0.5)),
+                prefixIcon: Icon(Icons.category_outlined, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
               ),
               dropdownColor: theme.scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(12),
@@ -529,11 +529,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       fillColor: theme.colorScheme.surface,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: theme.colorScheme.onSurface.withOpacity(0.2)),
+        borderSide: BorderSide(color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: theme.colorScheme.onSurface.withOpacity(0.2)),
+        borderSide: BorderSide(color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
@@ -579,7 +579,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       },
       child: InputDecorator(
         decoration: _buildInputDecoration(theme).copyWith(
-          prefixIcon: icon != null ? Icon(icon, color: theme.colorScheme.onSurface.withOpacity(0.5)) : null,
+          prefixIcon: icon != null ? Icon(icon, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)) : null,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -588,13 +588,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               child: Text(
                 selectedIds.isEmpty ? title : selectedNames,
                 style: TextStyle(
-                  color: selectedIds.isEmpty ? theme.colorScheme.onSurface.withOpacity(0.4) : theme.colorScheme.onSurface,
+                  color: selectedIds.isEmpty ? theme.colorScheme.onSurface.withValues(alpha: 0.4) : theme.colorScheme.onSurface,
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            Icon(Icons.arrow_drop_down, color: theme.colorScheme.onSurface.withOpacity(0.5)),
+            Icon(Icons.arrow_drop_down, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
           ],
         ),
       ),
@@ -651,7 +651,7 @@ class _MultiSelectDialogState extends State<_MultiSelectDialog> {
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
           ),
           const SizedBox(height: 12),
-          Divider(color: colorScheme.outline.withOpacity(0.2), height: 1),
+          Divider(color: colorScheme.outline.withValues(alpha: 0.2), height: 1),
         ],
       ),
       content: SizedBox(
@@ -668,11 +668,11 @@ class _MultiSelectDialogState extends State<_MultiSelectDialog> {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               child: Material(
-                color: isSelected ? colorScheme.primary.withOpacity(0.08) : Colors.transparent,
+                color: isSelected ? colorScheme.primary.withValues(alpha: 0.08) : Colors.transparent,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                   side: BorderSide(
-                    color: isSelected ? colorScheme.primary.withOpacity(0.3) : Colors.transparent,
+                    color: isSelected ? colorScheme.primary.withValues(alpha: 0.3) : Colors.transparent,
                   ),
                 ),
                 child: CheckboxListTile(
@@ -687,7 +687,7 @@ class _MultiSelectDialogState extends State<_MultiSelectDialog> {
                   activeColor: colorScheme.primary,
                   checkColor: colorScheme.onPrimary,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-                  side: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
+                  side: BorderSide(color: colorScheme.outline.withValues(alpha: 0.5)),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
                   onChanged: (bool? checked) {
                     setState(() {
@@ -708,7 +708,7 @@ class _MultiSelectDialogState extends State<_MultiSelectDialog> {
         TextButton(
           onPressed: () => Navigator.pop(context),
           style: TextButton.styleFrom(
-            foregroundColor: colorScheme.onSurface.withOpacity(0.7),
+            foregroundColor: colorScheme.onSurface.withValues(alpha: 0.7),
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           ),
           child: Text(AppLocalizations.of(context)!.appBack, style: const TextStyle(fontWeight: FontWeight.bold)),

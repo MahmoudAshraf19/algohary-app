@@ -22,7 +22,7 @@ class LocationPickerResult {
 }
 
 class LocationPickerScreen extends StatefulWidget {
-  const LocationPickerScreen({Key? key}) : super(key: key);
+  const LocationPickerScreen({super.key});
 
   @override
   State<LocationPickerScreen> createState() => _LocationPickerScreenState();
@@ -277,7 +277,7 @@ class _LocationPickerScreenState extends State<LocationPickerScreen> {
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
+                          color: Colors.black.withValues(alpha: 0.05),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         )
@@ -303,7 +303,7 @@ class _LocationPickerScreenState extends State<LocationPickerScreen> {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
+                          color: Colors.black.withValues(alpha: 0.1),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         )
@@ -323,7 +323,7 @@ class _LocationPickerScreenState extends State<LocationPickerScreen> {
                             leading: Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                color: theme.colorScheme.primary.withOpacity(0.1),
+                                color: theme.colorScheme.primary.withValues(alpha: 0.1),
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(Icons.location_on_outlined, color: theme.colorScheme.primary, size: 20),

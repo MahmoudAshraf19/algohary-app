@@ -321,7 +321,7 @@ class _ProviderHomeTabState extends State<ProviderHomeTab> {
                             borderRadius: BorderRadius.circular(24),
                             boxShadow: [
                               BoxShadow(
-                                color: (isOnline ? const Color(0xFF2EBA68) : Colors.grey).withOpacity(0.3),
+                                color: (isOnline ? const Color(0xFF2EBA68) : Colors.grey).withValues(alpha: 0.3),
                                 blurRadius: 8,
                                 offset: const Offset(0, 2),
                               ),
@@ -455,7 +455,7 @@ class _ProviderHomeTabState extends State<ProviderHomeTab> {
       decoration: BoxDecoration(
         color: const Color(0xFFFFF8E1), // Light yellow background
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.amber.withOpacity(0.3)),
+        border: Border.all(color: Colors.amber.withValues(alpha: 0.3)),
       ),
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -575,7 +575,7 @@ class _ProviderHomeTabState extends State<ProviderHomeTab> {
           border: Border.all(color: Colors.grey.shade200),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.02),
+              color: Colors.black.withValues(alpha: 0.02),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -728,7 +728,7 @@ class _ProviderHomeTabState extends State<ProviderHomeTab> {
           border: Border.all(color: Colors.grey.shade200),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.02),
+              color: Colors.black.withValues(alpha: 0.02),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),

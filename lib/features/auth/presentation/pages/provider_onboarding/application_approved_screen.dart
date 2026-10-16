@@ -37,7 +37,7 @@ class ApplicationApprovedScreen extends StatelessWidget {
               Text(
                 '${l10n.welcomeToHostCommunity}\n${l10n.proceedToCreateProperties}',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7)),
+                style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withValues(alpha: 0.7)),
               ),
               const SizedBox(height: 32),
               
@@ -45,16 +45,16 @@ class ApplicationApprovedScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: colorScheme.surfaceContainerHighest.withOpacity(0.2),
+                  color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: colorScheme.outline.withOpacity(0.2)),
+                  border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
                 ),
                 child: Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(l10n.hostStatus, style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7))),
+                        Text(l10n.hostStatus, style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withValues(alpha: 0.7))),
                         Row(
                           children: [
                             Text(
@@ -71,7 +71,7 @@ class ApplicationApprovedScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(l10n.verification, style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7))),
+                        Text(l10n.verification, style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withValues(alpha: 0.7))),
                         Row(
                           children: [
                             Text(

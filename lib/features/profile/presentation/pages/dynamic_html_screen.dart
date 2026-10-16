@@ -51,7 +51,7 @@ class DynamicHtmlScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     
     final bgColor = theme.brightness == Brightness.light ? Colors.white : theme.colorScheme.surface;
-    final textColor = theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : AppColors.primaryBlue;
+    final textColor = theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.9) : AppColors.primaryBlue;
 
     return Scaffold(
       backgroundColor: bgColor,

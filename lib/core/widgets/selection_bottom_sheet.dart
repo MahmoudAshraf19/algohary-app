@@ -14,10 +14,10 @@ class SelectionBottomSheet extends StatefulWidget {
   final List<SelectionItem> items;
 
   const SelectionBottomSheet({
-    Key? key,
+    super.key,
     required this.title,
     required this.items,
-  }) : super(key: key);
+  });
 
   static Future<SelectionItem?> show(BuildContext context, {required String title, required List<SelectionItem> items}) {
     return showModalBottomSheet<SelectionItem>(
@@ -73,7 +73,7 @@ class _SelectionBottomSheetState extends State<SelectionBottomSheet> {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: theme.colorScheme.onSurface.withOpacity(0.2),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -119,11 +119,11 @@ class _SelectionBottomSheetState extends State<SelectionBottomSheet> {
                           color: theme.colorScheme.surface,
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(
-                            color: theme.colorScheme.onSurface.withOpacity(0.08),
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.08),
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.03),
+                              color: Colors.black.withValues(alpha: 0.03),
                               blurRadius: 10,
                               offset: const Offset(0, 4),
                             )
@@ -136,7 +136,7 @@ class _SelectionBottomSheetState extends State<SelectionBottomSheet> {
                               leading: Container(
                                 padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                  color: theme.colorScheme.primary.withOpacity(0.1),
+                                  color: theme.colorScheme.primary.withValues(alpha: 0.1),
                                   shape: BoxShape.circle,
                                 ),
                                 child: Icon(Icons.location_on_outlined, color: theme.colorScheme.primary, size: 22),
@@ -148,7 +148,7 @@ class _SelectionBottomSheetState extends State<SelectionBottomSheet> {
                               trailing: Container(
                                 padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
-                                  color: theme.colorScheme.onSurface.withOpacity(0.05),
+                                  color: theme.colorScheme.onSurface.withValues(alpha: 0.05),
                                   shape: BoxShape.circle,
                                 ),
                                 child: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey),

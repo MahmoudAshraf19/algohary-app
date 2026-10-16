@@ -90,8 +90,8 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
     final l10n = AppLocalizations.of(context)!;
     
     final bgColor = theme.brightness == Brightness.light ? Colors.white : theme.colorScheme.surface;
-    final textColor = theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : AppColors.primaryBlue;
-    final hintColor = theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.5) : Colors.grey;
+    final textColor = theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.9) : AppColors.primaryBlue;
+    final hintColor = theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.5) : Colors.grey;
 
     final List<String> subjects = [
       l10n.subjectTechnical,
@@ -130,7 +130,7 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
                 Icon(
                   Icons.support_agent,
                   size: 80,
-                  color: AppColors.primaryBlue.withOpacity(0.8),
+                  color: AppColors.primaryBlue.withValues(alpha: 0.8),
                 ),
                 const SizedBox(height: 16),
                 Text(
@@ -198,11 +198,11 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
                     hintStyle: TextStyle(color: hintColor),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.grey.withOpacity(0.3)),
+                      borderSide: BorderSide(color: Colors.grey.withValues(alpha: 0.3)),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.grey.withOpacity(0.3)),
+                      borderSide: BorderSide(color: Colors.grey.withValues(alpha: 0.3)),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -210,7 +210,7 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
                     ),
                     filled: true,
                     fillColor: theme.brightness == Brightness.dark 
-                        ? theme.colorScheme.surfaceContainerHighest.withOpacity(0.3) 
+                        ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3) 
                         : Colors.grey.shade50,
                   ),
                   validator: (value) {

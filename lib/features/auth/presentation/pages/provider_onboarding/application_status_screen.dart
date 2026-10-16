@@ -108,7 +108,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
               Text(
                 l10n.applicationStatusDesc,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7)),
+                style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withValues(alpha: 0.7)),
               ),
               const SizedBox(height: 32),
               
@@ -116,16 +116,16 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                  color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: colorScheme.outline.withOpacity(0.2)),
+                  border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       l10n.applicationId,
-                      style: TextStyle(fontSize: 12, color: colorScheme.onSurface.withOpacity(0.7)),
+                      style: TextStyle(fontSize: 12, color: colorScheme.onSurface.withValues(alpha: 0.7)),
                     ),
                     const SizedBox(height: 4),
                     Text(
@@ -135,7 +135,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                     const SizedBox(height: 16),
                     Text(
                       l10n.statusTitle,
-                      style: TextStyle(fontSize: 12, color: colorScheme.onSurface.withOpacity(0.7)),
+                      style: TextStyle(fontSize: 12, color: colorScheme.onSurface.withValues(alpha: 0.7)),
                     ),
                     const SizedBox(height: 4),
                     Row(
@@ -189,7 +189,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.orange.withOpacity(0.1),
+                  color: Colors.orange.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -244,7 +244,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
     bool isInProgress = false,
   }) {
     final colorScheme = theme.colorScheme;
-    final color = isCompleted ? colorScheme.primary : (isInProgress ? Colors.orange : colorScheme.onSurface.withOpacity(0.3));
+    final color = isCompleted ? colorScheme.primary : (isInProgress ? Colors.orange : colorScheme.onSurface.withValues(alpha: 0.3));
     final icon = isCompleted ? Icons.check_circle : (isInProgress ? Icons.access_time_filled : Icons.circle_outlined);
     
     return Row(
@@ -257,7 +257,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
               Container(
                 width: 2,
                 height: 30,
-                color: isCompleted && !isInProgress ? colorScheme.primary : colorScheme.onSurface.withOpacity(0.2),
+                color: isCompleted && !isInProgress ? colorScheme.primary : colorScheme.onSurface.withValues(alpha: 0.2),
               ),
           ],
         ),
@@ -273,7 +273,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: isCompleted || isInProgress ? FontWeight.bold : FontWeight.normal,
-                    color: isCompleted || isInProgress ? colorScheme.onSurface : colorScheme.onSurface.withOpacity(0.6),
+                    color: isCompleted || isInProgress ? colorScheme.onSurface : colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                 ),
                 Text(
@@ -281,7 +281,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: isInProgress ? FontWeight.bold : FontWeight.normal,
-                    color: isInProgress ? Colors.orange : colorScheme.onSurface.withOpacity(0.5),
+                    color: isInProgress ? Colors.orange : colorScheme.onSurface.withValues(alpha: 0.5),
                   ),
                 ),
               ],

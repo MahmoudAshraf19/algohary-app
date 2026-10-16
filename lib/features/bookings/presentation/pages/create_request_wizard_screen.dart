@@ -87,16 +87,16 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
   InputDecoration _buildInputDecoration(ThemeData theme, String label) {
     return InputDecoration(
       labelText: label,
-      labelStyle: TextStyle(color: theme.brightness == Brightness.dark ? AppColors.lightYellow.withOpacity(0.5) : theme.colorScheme.onSurface.withOpacity(0.6)),
+      labelStyle: TextStyle(color: theme.brightness == Brightness.dark ? AppColors.lightYellow.withValues(alpha: 0.5) : theme.colorScheme.onSurface.withValues(alpha: 0.6)),
       filled: true,
       fillColor: theme.colorScheme.surface,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: theme.colorScheme.onSurface.withOpacity(0.2)),
+        borderSide: BorderSide(color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: theme.colorScheme.onSurface.withOpacity(0.2)),
+        borderSide: BorderSide(color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
@@ -327,7 +327,7 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 4.0),
               height: 6,
               decoration: BoxDecoration(
-                color: isActive ? AppColors.primaryBlue : theme.colorScheme.onSurface.withOpacity(0.1),
+                color: isActive ? AppColors.primaryBlue : theme.colorScheme.onSurface.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(3),
               ),
             ),
@@ -425,11 +425,11 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: isSelected ? AppColors.primaryBlue : theme.colorScheme.onSurface.withOpacity(0.1),
+                        color: isSelected ? AppColors.primaryBlue : theme.colorScheme.onSurface.withValues(alpha: 0.1),
                         width: isSelected ? 2 : 1,
                       ),
                       borderRadius: BorderRadius.circular(16),
-                      color: isSelected ? AppColors.primaryBlue.withOpacity(0.05) : theme.colorScheme.surface,
+                      color: isSelected ? AppColors.primaryBlue.withValues(alpha: 0.05) : theme.colorScheme.surface,
                     ),
                     child: Row(
                       children: [
@@ -453,7 +453,7 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
                   ),
                 ),
               );
-            }).toList(),
+            }),
         ],
       ),
     );
@@ -738,7 +738,7 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.amber.withOpacity(0.1),
+              color: Colors.amber.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Colors.amber.shade300),
             ),
@@ -845,10 +845,10 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: theme.colorScheme.onSurface.withOpacity(0.1)),
+        border: Border.all(color: theme.colorScheme.onSurface.withValues(alpha: 0.1)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: Colors.black.withValues(alpha: 0.02),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -859,7 +859,7 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.primaryBlue.withOpacity(0.1),
+              color: AppColors.primaryBlue.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(icon, color: AppColors.primaryBlue),

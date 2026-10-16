@@ -106,7 +106,7 @@ class _MapFilterSheetState extends State<_MapFilterSheet> {
                   width: 42,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: palette.muted.withOpacity(0.4),
+                    color: palette.muted.withValues(alpha: 0.4),
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -344,7 +344,7 @@ class _OptionChip extends StatelessWidget {
         color: selected ? palette.accent : Colors.transparent,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: selected ? palette.accent : palette.muted.withOpacity(0.35),
+          color: selected ? palette.accent : palette.muted.withValues(alpha: 0.35),
         ),
       ),
       child: Material(
@@ -379,7 +379,7 @@ class _OptionChip extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
-                      color: fg.withOpacity(0.7),
+                      color: fg.withValues(alpha: 0.7),
                     ),
                   ),
                 ],

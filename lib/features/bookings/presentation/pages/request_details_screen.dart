@@ -193,7 +193,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 value: 'report',
                 child: Row(
                   children: [
-                    Icon(Icons.report_problem_outlined, size: 20, color: theme.colorScheme.onSurface.withOpacity(0.7)),
+                    Icon(Icons.report_problem_outlined, size: 20, color: theme.colorScheme.onSurface.withValues(alpha: 0.7)),
                     const SizedBox(width: 12),
                     Text(l10n.reportProblem, style: const TextStyle(fontWeight: FontWeight.w500)),
                   ],
@@ -203,7 +203,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 value: 'support',
                 child: Row(
                   children: [
-                    Icon(Icons.support_agent_outlined, size: 20, color: theme.colorScheme.onSurface.withOpacity(0.7)),
+                    Icon(Icons.support_agent_outlined, size: 20, color: theme.colorScheme.onSurface.withValues(alpha: 0.7)),
                     const SizedBox(width: 12),
                     Text(l10n.contactSupport, style: const TextStyle(fontWeight: FontWeight.w500)),
                   ],
@@ -295,7 +295,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
           Text(
             '${l10n.bookingId} #${request.id.substring(0, 8).toUpperCase()}',
             style: TextStyle(
-              color: theme.colorScheme.onSurface.withOpacity(0.6),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
@@ -310,9 +310,9 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.red.withOpacity(0.1),
+        color: AppColors.red.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.red.withOpacity(0.3)),
+        border: Border.all(color: AppColors.red.withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -324,7 +324,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
           const SizedBox(height: 8),
           Text(
             '${l10n.cancellationReasonTitle} ${request.originalRequest?["cancellation_reason"] ?? "Customer request"}',
-            style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.8)),
+            style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.8)),
           ),
         ],
       ),
@@ -336,9 +336,9 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.orange.withOpacity(0.1),
+        color: AppColors.orange.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.orange.withOpacity(0.3)),
+        border: Border.all(color: AppColors.orange.withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -355,7 +355,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 const SizedBox(height: 4),
                 Text(
                   l10n.newPriceProposedDesc,
-                  style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.8), fontSize: 14),
+                  style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.8), fontSize: 14),
                 ),
               ],
             ),
@@ -376,7 +376,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
       currentStep = 3;
     }
 
-    Widget _buildStep(String title, bool isCompleted, bool isActive) {
+    Widget buildStep(String title, bool isCompleted, bool isActive) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Row(
@@ -386,7 +386,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               height: 24,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isCompleted ? AppColors.primaryBlue : (isActive ? AppColors.primaryBlue.withOpacity(0.2) : theme.colorScheme.surfaceContainerHighest),
+                color: isCompleted ? AppColors.primaryBlue : (isActive ? AppColors.primaryBlue.withValues(alpha: 0.2) : theme.colorScheme.surfaceContainerHighest),
                 border: Border.all(
                   color: isActive || isCompleted ? AppColors.primaryBlue : theme.colorScheme.surfaceContainerHighest,
                   width: 2,
@@ -402,7 +402,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: isActive || isCompleted ? FontWeight.bold : FontWeight.normal,
-                color: isActive || isCompleted ? theme.colorScheme.onSurface : theme.colorScheme.onSurface.withOpacity(0.5),
+                color: isActive || isCompleted ? theme.colorScheme.onSurface : theme.colorScheme.onSurface.withValues(alpha: 0.5),
               ),
             ),
           ],
@@ -412,10 +412,10 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
 
     return Column(
       children: [
-        _buildStep(l10n.timelineRequestSubmitted, currentStep > 0, currentStep == 0),
-        _buildStep(l10n.timelineProviderConfirmed, currentStep > 1, currentStep == 1),
-        _buildStep(l10n.timelineServiceInProgress, currentStep > 2, currentStep == 2),
-        _buildStep(l10n.timelineServiceCompleted, currentStep >= 3, currentStep == 3),
+        buildStep(l10n.timelineRequestSubmitted, currentStep > 0, currentStep == 0),
+        buildStep(l10n.timelineProviderConfirmed, currentStep > 1, currentStep == 1),
+        buildStep(l10n.timelineServiceInProgress, currentStep > 2, currentStep == 2),
+        buildStep(l10n.timelineServiceCompleted, currentStep >= 3, currentStep == 3),
       ],
     );
   }
@@ -439,7 +439,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                       children: [
                         CircleAvatar(
                           radius: 30,
-                          backgroundColor: AppColors.primaryBlue.withOpacity(0.1),
+                          backgroundColor: AppColors.primaryBlue.withValues(alpha: 0.1),
                           backgroundImage: _otherPartyUser!.imageUrl.isNotEmpty
                               ? CachedNetworkImageProvider(_otherPartyUser!.imageUrl)
                               : null,
@@ -506,7 +506,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
             const SizedBox(height: 4),
             Text(
               request.selectedServices.first.categoryName,
-              style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.6), fontSize: 14),
+              style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 14),
             ),
             const SizedBox(height: 16),
             Text(l10n.selectedServices, style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -543,7 +543,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
           const SizedBox(height: 8),
           Text(
             notes,
-            style: TextStyle(fontSize: 15, color: theme.colorScheme.onSurface.withOpacity(0.8), height: 1.5),
+            style: TextStyle(fontSize: 15, color: theme.colorScheme.onSurface.withValues(alpha: 0.8), height: 1.5),
           ),
         ],
       ),
@@ -600,12 +600,12 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               Expanded(
                 child: Row(
                   children: [
-                    Icon(Icons.calendar_month, color: theme.colorScheme.onSurface.withOpacity(0.6)),
+                    Icon(Icons.calendar_month, color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
                     const SizedBox(width: 12),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Date', style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.6), fontSize: 12)),
+                        Text('Date', style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 12)),
                         Text(request.appointment.date, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                       ],
                     ),
@@ -615,12 +615,12 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               Expanded(
                 child: Row(
                   children: [
-                    Icon(Icons.access_time, color: theme.colorScheme.onSurface.withOpacity(0.6)),
+                    Icon(Icons.access_time, color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
                     const SizedBox(width: 12),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Time', style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.6), fontSize: 12)),
+                        Text('Time', style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 12)),
                         Text(request.appointment.time, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                       ],
                     ),
@@ -651,7 +651,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Address', style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.6), fontSize: 12)),
+                    Text('Address', style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 12)),
                     const SizedBox(height: 4),
                     Text(
                       request.location.formattedAddress,
@@ -713,7 +713,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(l10n.paymentCash, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  Text(l10n.paymentStatusUnpaid, style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.6))),
+                  Text(l10n.paymentStatusUnpaid, style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.6))),
                 ],
               ),
             ],
@@ -764,7 +764,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 ));
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.red.withOpacity(0.1),
+                backgroundColor: AppColors.red.withValues(alpha: 0.1),
                 foregroundColor: AppColors.red,
                 elevation: 0,
                 padding: const EdgeInsets.symmetric(vertical: 16),
@@ -798,7 +798,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               child: ElevatedButton(
                 onPressed: () => _showCancelDialog(context, l10n),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.red.withOpacity(0.1),
+                  backgroundColor: AppColors.red.withValues(alpha: 0.1),
                   foregroundColor: AppColors.red,
                   elevation: 0,
                   padding: const EdgeInsets.symmetric(vertical: 16),
@@ -851,7 +851,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
             child: ElevatedButton(
               onPressed: () => _showCancelDialog(context, l10n),
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.red.withOpacity(0.1),
+                backgroundColor: AppColors.red.withValues(alpha: 0.1),
                 foregroundColor: AppColors.red,
                 elevation: 0,
                 padding: const EdgeInsets.symmetric(vertical: 16),

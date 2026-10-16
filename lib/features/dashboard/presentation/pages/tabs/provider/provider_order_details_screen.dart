@@ -65,7 +65,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
                 labelText: '${l10n.newPrice} (${order.pricing.currency})',
                 labelStyle: TextStyle(color: colorScheme.primary),
                 filled: true,
-                fillColor: colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                fillColor: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                 prefixIcon: Icon(Icons.attach_money, color: colorScheme.primary),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
@@ -194,7 +194,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
                       decoration: BoxDecoration(
                         color: colorScheme.surface,
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: colorScheme.outlineVariant.withOpacity(0.5)),
+                        border: Border.all(color: colorScheme.outlineVariant.withValues(alpha: 0.5)),
                       ),
                       child: Row(
                         children: [
@@ -227,7 +227,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
                   decoration: BoxDecoration(
                     color: colorScheme.surface,
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: colorScheme.outlineVariant.withOpacity(0.5)),
+                    border: Border.all(color: colorScheme.outlineVariant.withValues(alpha: 0.5)),
                   ),
                   child: Column(
                     children: [
@@ -249,7 +249,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
                   decoration: BoxDecoration(
                     color: colorScheme.surface,
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: colorScheme.outlineVariant.withOpacity(0.5)),
+                    border: Border.all(color: colorScheme.outlineVariant.withValues(alpha: 0.5)),
                   ),
                   child: Column(
                     children: [
@@ -487,7 +487,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
 
       return Column(
         children: [
-          if (existingButton != null) existingButton,
+          ?existingButton,
           const SizedBox(height: 16),
           TextButton.icon(
             onPressed: () {

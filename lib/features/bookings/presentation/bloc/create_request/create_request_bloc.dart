@@ -7,9 +7,8 @@ import 'create_request_state.dart';
 class CreateRequestBloc extends Bloc<CreateRequestEvent, CreateRequestState> {
   final BookingsRepository _bookingsRepository;
 
-  CreateRequestBloc({required BookingsRepository bookingsRepository})
-      : _bookingsRepository = bookingsRepository,
-        super(const CreateRequestState()) {
+  CreateRequestBloc({required this._bookingsRepository})
+      : super(const CreateRequestState()) {
     on<SelectServiceEvent>(_onSelectService);
     on<RemoveServiceEvent>(_onRemoveService);
     on<ConfirmContactNoticeEvent>(_onConfirmContactNotice);

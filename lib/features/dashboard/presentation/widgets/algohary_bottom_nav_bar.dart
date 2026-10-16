@@ -45,8 +45,8 @@ class AlgoharyBottomNavBar extends StatelessWidget {
 
     final bgColor = theme.colorScheme.surface;
     final activeColor = theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary;
-    final inactiveColor = theme.colorScheme.onSurface.withOpacity(0.5);
-    final activeBg = (theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary).withOpacity(0.1);
+    final inactiveColor = theme.colorScheme.onSurface.withValues(alpha: 0.5);
+    final activeBg = (theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary).withValues(alpha: 0.1);
 
     final items = <_NavItem>[
       _NavItem(

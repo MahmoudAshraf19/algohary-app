@@ -5,9 +5,8 @@ import 'change_password_state.dart';
 class ChangePasswordCubit extends Cubit<ChangePasswordState> {
   final AuthRepository _authRepository;
 
-  ChangePasswordCubit({required AuthRepository authRepository})
-      : _authRepository = authRepository,
-        super(ChangePasswordInitial());
+  ChangePasswordCubit({required this._authRepository})
+      : super(ChangePasswordInitial());
 
   Future<void> changePassword({
     required String currentPassword,

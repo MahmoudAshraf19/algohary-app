@@ -27,19 +27,19 @@ class CustomDropdown<T> extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
     
     final fillColor = isDark 
-        ? theme.colorScheme.surfaceContainerHighest.withOpacity(0.3) 
+        ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3) 
         : Colors.white;
         
     final borderColor = isDark 
-        ? Colors.grey.withOpacity(0.3) 
+        ? Colors.grey.withValues(alpha: 0.3) 
         : Colors.grey.shade300;
         
     final hintColor = isDark 
-        ? Colors.white.withOpacity(0.5) 
+        ? Colors.white.withValues(alpha: 0.5) 
         : Colors.grey.shade500;
 
     return DropdownButtonFormField<T>(
-      value: value,
+      initialValue: value,
       items: items,
       onChanged: onChanged,
       validator: validator,
@@ -52,7 +52,7 @@ class CustomDropdown<T> extends StatelessWidget {
       style: TextStyle(
         fontSize: 15,
         fontWeight: FontWeight.w500,
-        color: isDark ? Colors.white.withOpacity(0.9) : AppColors.primaryBlue,
+        color: isDark ? Colors.white.withValues(alpha: 0.9) : AppColors.primaryBlue,
         fontFamily: theme.textTheme.bodyLarge?.fontFamily,
       ),
       decoration: InputDecoration(

@@ -13,7 +13,7 @@ class InstagramGalleryPicker extends StatefulWidget {
 
 class _InstagramGalleryPickerState extends State<InstagramGalleryPicker> {
   List<AssetEntity> _mediaList = [];
-  List<AssetEntity> _selectedMedia = [];
+  final List<AssetEntity> _selectedMedia = [];
   bool _isLoading = true;
 
   @override
@@ -128,7 +128,7 @@ class _InstagramGalleryPickerState extends State<InstagramGalleryPicker> {
                         ),
                       if (isSelected)
                         Container(
-                          color: Colors.black.withOpacity(0.4),
+                          color: Colors.black.withValues(alpha: 0.4),
                         ),
                       Positioned(
                         top: 5,
@@ -139,7 +139,7 @@ class _InstagramGalleryPickerState extends State<InstagramGalleryPicker> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(color: Colors.white, width: 2),
-                            color: isSelected ? Theme.of(context).colorScheme.primary : Colors.black.withOpacity(0.3),
+                            color: isSelected ? Theme.of(context).colorScheme.primary : Colors.black.withValues(alpha: 0.3),
                           ),
                           child: isSelected
                               ? Center(

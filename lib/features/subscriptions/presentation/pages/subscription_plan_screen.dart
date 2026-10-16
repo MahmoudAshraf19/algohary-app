@@ -13,7 +13,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 class SubscriptionPlanScreen extends StatefulWidget {
   final bool isForced;
-  const SubscriptionPlanScreen({Key? key, this.isForced = false}) : super(key: key);
+  const SubscriptionPlanScreen({super.key, this.isForced = false});
 
   @override
   State<SubscriptionPlanScreen> createState() => _SubscriptionPlanScreenState();
@@ -105,9 +105,9 @@ class _SubscriptionPlanScreenState extends State<SubscriptionPlanScreen> {
                           Container(
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: Colors.red.withOpacity(0.1),
+                              color: Colors.red.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: Colors.red.withOpacity(0.5)),
+                              border: Border.all(color: Colors.red.withValues(alpha: 0.5)),
                             ),
                             child: Row(
                               children: [
@@ -236,7 +236,7 @@ class _SubscriptionPlanScreenState extends State<SubscriptionPlanScreen> {
           boxShadow: [
             if (!isDark)
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               )
@@ -399,7 +399,7 @@ class _SubscriptionPlanScreenState extends State<SubscriptionPlanScreen> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: AppColors.primaryBlue.withOpacity(0.1),
+                    color: AppColors.primaryBlue.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(

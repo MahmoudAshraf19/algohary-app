@@ -52,7 +52,7 @@ class BecomeProviderLandingScreen extends StatelessWidget {
                 l10n.becomeProviderDesc,
                 textAlign: TextAlign.center,
                 style: textTheme.bodyLarge?.copyWith(
-                  color: colorScheme.onSurface.withOpacity(0.7),
+                  color: colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
               ),
               const SizedBox(height: 40),
@@ -148,7 +148,7 @@ class BecomeProviderLandingScreen extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.5),
+            color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Icon(icon, color: theme.colorScheme.primary, size: 28),
@@ -171,7 +171,7 @@ class BecomeProviderLandingScreen extends StatelessWidget {
                 description,
                 style: TextStyle(
                   fontSize: 14,
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
               ),
             ],

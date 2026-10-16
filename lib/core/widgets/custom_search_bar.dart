@@ -12,7 +12,7 @@ class CustomSearchBar extends StatelessWidget {
   final bool isLoading;
 
   const CustomSearchBar({
-    Key? key,
+    super.key,
     required this.hintText,
     this.controller,
     this.onSubmitted,
@@ -22,7 +22,7 @@ class CustomSearchBar extends StatelessWidget {
     this.prefixIcon,
     this.readOnly = false,
     this.isLoading = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class CustomSearchBar extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(
-            color: theme.colorScheme.primary.withOpacity(0.3),
+            color: theme.colorScheme.primary.withValues(alpha: 0.3),
             width: 1,
           ),
         ),

@@ -126,7 +126,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 l10n.signupSubtitle,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyLarge?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.6),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
               ),
               const SizedBox(height: 32),
@@ -145,7 +145,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           color: theme.colorScheme.surfaceContainerHighest,
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: theme.colorScheme.primary.withOpacity(0.2),
+                            color: theme.colorScheme.primary.withValues(alpha: 0.2),
                             width: 2,
                           ),
                         ),
@@ -359,7 +359,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   Text(
                     l10n.signupAlreadyHaveAccount,
-                    style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.6)),
+                    style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
                   ),
                   TextButton(
                     onPressed: () => Navigator.pop(context),
@@ -407,13 +407,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
       style: TextStyle(color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(color: theme.brightness == Brightness.dark ? AppColors.lightYellow.withOpacity(0.5) : theme.colorScheme.onSurface.withOpacity(0.4)),
-        prefixIcon: Icon(icon, color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface.withOpacity(0.5)),
+        hintStyle: TextStyle(color: theme.brightness == Brightness.dark ? AppColors.lightYellow.withValues(alpha: 0.5) : theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+        prefixIcon: Icon(icon, color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface.withValues(alpha: 0.5)),
         suffixIcon: isPassword
             ? IconButton(
                 icon: Icon(
                   (obscureText ?? false) ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                  color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface.withOpacity(0.5),
+                  color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface.withValues(alpha: 0.5),
                 ),
                 onPressed: onToggleObscure,
               )
@@ -422,11 +422,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
         fillColor: theme.colorScheme.surface,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: theme.colorScheme.onSurface.withOpacity(0.2)),
+          borderSide: BorderSide(color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: theme.colorScheme.onSurface.withOpacity(0.2)),
+          borderSide: BorderSide(color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

@@ -47,7 +47,7 @@ class ApplicationRejectedScreen extends StatelessWidget {
               Text(
                 l10n.needAdditionalInfo,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7)),
+                style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withValues(alpha: 0.7)),
               ),
               const SizedBox(height: 32),
               
@@ -55,9 +55,9 @@ class ApplicationRejectedScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Colors.orange.withOpacity(0.1),
+                  color: Colors.orange.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.orange.withOpacity(0.2)),
+                  border: Border.all(color: Colors.orange.withValues(alpha: 0.2)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +65,7 @@ class ApplicationRejectedScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(l10n.statusTitle, style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7))),
+                        Text(l10n.statusTitle, style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withValues(alpha: 0.7))),
                         Row(
                           children: [
                             const Icon(Icons.circle, color: Colors.deepOrange, size: 12),
@@ -81,7 +81,7 @@ class ApplicationRejectedScreen extends StatelessWidget {
                     const Divider(height: 32),
                     Text(
                       l10n.reasonTitle,
-                      style: TextStyle(fontSize: 14, color: colorScheme.onSurface.withOpacity(0.7)),
+                      style: TextStyle(fontSize: 14, color: colorScheme.onSurface.withValues(alpha: 0.7)),
                     ),
                     const SizedBox(height: 8),
                     Text(
@@ -97,7 +97,7 @@ class ApplicationRejectedScreen extends StatelessWidget {
               Text(
                 'Please update your application or contact our support team for further assistance.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14, color: colorScheme.onSurface.withOpacity(0.7)),
+                style: TextStyle(fontSize: 14, color: colorScheme.onSurface.withValues(alpha: 0.7)),
               ),
               const SizedBox(height: 24),
               

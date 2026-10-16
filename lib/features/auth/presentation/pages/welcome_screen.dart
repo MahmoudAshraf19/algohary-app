@@ -61,11 +61,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                       end: Alignment.bottomCenter,
                       colors: [
                         Colors.black,
-                        Colors.black.withOpacity(0.9),
-                        Colors.black.withOpacity(0.7),
-                        Colors.black.withOpacity(0.4),
-                        Colors.black.withOpacity(0.1),
-                        Colors.black.withOpacity(0.0),
+                        Colors.black.withValues(alpha: 0.9),
+                        Colors.black.withValues(alpha: 0.7),
+                        Colors.black.withValues(alpha: 0.4),
+                        Colors.black.withValues(alpha: 0.1),
+                        Colors.black.withValues(alpha: 0.0),
                       ],
                       stops: const [0.0, 0.6, 0.7, 0.8, 0.9, 1.0],
                     ).createShader(bounds);
@@ -110,7 +110,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                       l10n.welcomeSubtitle,
                       textAlign: TextAlign.center,
                       style: theme.textTheme.bodyLarge?.copyWith(
-                        color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : theme.colorScheme.onSurface.withOpacity(0.6),
+                        color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.9) : theme.colorScheme.onSurface.withValues(alpha: 0.6),
                         height: 1.5,
                       ),
                     ),

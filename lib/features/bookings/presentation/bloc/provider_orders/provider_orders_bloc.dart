@@ -10,9 +10,8 @@ class ProviderOrdersBloc extends Bloc<ProviderOrdersEvent, ProviderOrdersState> 
   final BookingsRepository _bookingsRepository;
   StreamSubscription<List<ServiceRequestModel>>? _ordersSubscription;
 
-  ProviderOrdersBloc({required BookingsRepository bookingsRepository})
-      : _bookingsRepository = bookingsRepository,
-        super(ProviderOrdersInitial()) {
+  ProviderOrdersBloc({required this._bookingsRepository})
+      : super(ProviderOrdersInitial()) {
     on<LoadProviderOrders>(_onLoadProviderOrders);
     on<FilterOrders>(_onFilterOrders);
     on<_OrdersUpdated>(_onOrdersUpdated);

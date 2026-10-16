@@ -59,7 +59,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.notifications_off_outlined, size: 64, color: colorScheme.onSurfaceVariant.withOpacity(0.5)),
+                  Icon(Icons.notifications_off_outlined, size: 64, color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5)),
                   const SizedBox(height: 16),
                   Text(
                     l10n.noNotifications,
@@ -77,11 +77,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 decoration: BoxDecoration(
-                  color: notif.isRead ? colorScheme.surface : colorScheme.primaryContainer.withOpacity(0.3),
+                  color: notif.isRead ? colorScheme.surface : colorScheme.primaryContainer.withValues(alpha: 0.3),
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: notif.isRead ? [] : [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.02),
+                      color: Colors.black.withValues(alpha: 0.02),
                       blurRadius: 4,
                       offset: const Offset(0, 2),
                     ),

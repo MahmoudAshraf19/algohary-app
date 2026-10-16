@@ -124,7 +124,7 @@ class _BookingsTabState extends State<BookingsTab> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: isSelected ? AppColors.primaryBlue : theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+        color: isSelected ? AppColors.primaryBlue : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
@@ -330,7 +330,7 @@ class _BookingsTabState extends State<BookingsTab> {
               margin: const EdgeInsetsDirectional.only(end: 8),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
-                color: isSelected ? AppColors.primaryBlue : theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                color: isSelected ? AppColors.primaryBlue : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
                   color: isSelected ? AppColors.primaryBlue : Colors.transparent,
@@ -366,7 +366,7 @@ class _BookingsTabState extends State<BookingsTab> {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide(
-              color: theme.colorScheme.primary.withOpacity(0.3),
+              color: theme.colorScheme.primary.withValues(alpha: 0.3),
               width: 1,
             ),
           ),
@@ -390,7 +390,7 @@ class _BookingsTabState extends State<BookingsTab> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.assignment_outlined, size: 80, color: theme.colorScheme.onSurface.withOpacity(0.2)),
+            Icon(Icons.assignment_outlined, size: 80, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
             const SizedBox(height: 24),
             Text(
               l10n.emptyBookingsTitle,
@@ -400,7 +400,7 @@ class _BookingsTabState extends State<BookingsTab> {
             Text(
               l10n.emptyBookingsDesc,
               textAlign: TextAlign.center,
-              style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.6)),
+              style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
             ),
             const SizedBox(height: 32),
             ElevatedButton(
@@ -449,7 +449,7 @@ class _BookingsTabState extends State<BookingsTab> {
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: theme.colorScheme.onSurface.withOpacity(0.08)),
+          border: Border.all(color: theme.colorScheme.onSurface.withValues(alpha: 0.08)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -472,7 +472,7 @@ class _BookingsTabState extends State<BookingsTab> {
                         children: [
                           CircleAvatar(
                             radius: 24,
-                            backgroundColor: AppColors.primaryBlue.withOpacity(0.1),
+                            backgroundColor: AppColors.primaryBlue.withValues(alpha: 0.1),
                             backgroundImage: providerImage != null && providerImage.isNotEmpty
                                 ? CachedNetworkImageProvider(providerImage)
                                 : null,
@@ -493,7 +493,7 @@ class _BookingsTabState extends State<BookingsTab> {
                                 ),
                                 Text(
                                   category,
-                                  style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.6), fontSize: 12),
+                                  style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 12),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -506,7 +506,7 @@ class _BookingsTabState extends State<BookingsTab> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
-                        color: statusColor.withOpacity(0.1),
+                        color: statusColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
@@ -528,36 +528,36 @@ class _BookingsTabState extends State<BookingsTab> {
             const SizedBox(height: 4),
             Text(
               '${l10n.bookingId} #${request.id.substring(0, 8).toUpperCase()}',
-              style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.6), fontSize: 13),
+              style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 13),
             ),
             // Date, Time & Location Container
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.calendar_today_outlined, size: 16, color: theme.colorScheme.onSurface.withOpacity(0.6)),
+                      Icon(Icons.calendar_today_outlined, size: 16, color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
                       const SizedBox(width: 8),
                       Text(
                         dateDisplay,
-                        style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.7), fontSize: 13, fontWeight: FontWeight.w500),
+                        style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.7), fontSize: 13, fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      Icon(Icons.location_on_outlined, size: 16, color: theme.colorScheme.onSurface.withOpacity(0.6)),
+                      Icon(Icons.location_on_outlined, size: 16, color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           request.location.formattedAddress,
-                          style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.7), fontSize: 13, fontWeight: FontWeight.w500),
+                          style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.7), fontSize: 13, fontWeight: FontWeight.w500),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -585,7 +585,7 @@ class _BookingsTabState extends State<BookingsTab> {
                       padding: const EdgeInsets.only(bottom: 3.0),
                       child: Text(
                         request.pricing.currency,
-                        style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.6), fontSize: 12),
+                        style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 12),
                       ),
                     ),
                   ],

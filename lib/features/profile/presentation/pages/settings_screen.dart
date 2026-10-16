@@ -40,13 +40,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new, color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : AppColors.primaryBlue, size: 20),
+          icon: Icon(Icons.arrow_back_ios_new, color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.9) : AppColors.primaryBlue, size: 20),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           l10n.settings,
           style: TextStyle(
-            color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : AppColors.primaryBlue,
+            color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.9) : AppColors.primaryBlue,
             fontWeight: FontWeight.w600,
             fontSize: 18,
           ),
@@ -104,7 +104,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               theme: theme,
               trailing: CupertinoSwitch(
                 value: _pushNotificationsEnabled,
-                activeColor: AppColors.primaryBlue,
+                activeTrackColor: AppColors.primaryBlue,
                 onChanged: (value) {
                   setState(() {
                     _pushNotificationsEnabled = value;
@@ -125,7 +125,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   theme: theme,
                   trailing: CupertinoSwitch(
                     value: isDark,
-                    activeColor: AppColors.primaryBlue,
+                    activeTrackColor: AppColors.primaryBlue,
                     onChanged: (value) {
                       context.read<SettingsCubit>().toggleTheme(value);
                     },
@@ -151,13 +151,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         languageText,
                         style: TextStyle(
                           fontSize: 15,
-                          color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.8) : AppColors.primaryBlue.withOpacity(0.8),
+                          color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.8) : AppColors.primaryBlue.withValues(alpha: 0.8),
                         ),
                       ),
                       const SizedBox(width: 8),
                       Icon(
                         isRtl ? Icons.chevron_left : Icons.chevron_right,
-                        color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.5) : AppColors.primaryBlue,
+                        color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.5) : AppColors.primaryBlue,
                         size: 20,
                       ),
                     ],
@@ -260,7 +260,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
-          color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.8) : AppColors.primaryBlue,
+          color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.8) : AppColors.primaryBlue,
         ),
       ),
     );
@@ -295,7 +295,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 title,
                 style: TextStyle(
                   fontSize: 15,
-                  color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : AppColors.primaryBlue,
+                  color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.9) : AppColors.primaryBlue,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -305,7 +305,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             else
               Icon(
                 isRtl ? Icons.chevron_left : Icons.chevron_right,
-                color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.5) : AppColors.primaryBlue,
+                color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.5) : AppColors.primaryBlue,
                 size: 20,
               ),
           ],
@@ -323,7 +323,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       child: Divider(
         height: 1,
-        color: Colors.grey.withOpacity(0.2),
+        color: Colors.grey.withValues(alpha: 0.2),
       ),
     );
   }

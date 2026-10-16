@@ -57,7 +57,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
               leading: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CircleAvatar(
-                  backgroundColor: theme.colorScheme.surface.withOpacity(0.7),
+                  backgroundColor: theme.colorScheme.surface.withValues(alpha: 0.7),
                   child: IconButton(
                     icon: Icon(Icons.arrow_back, color: theme.colorScheme.onSurface),
                     onPressed: () => Navigator.pop(context),
@@ -100,9 +100,9 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [
-                              Colors.black.withOpacity(0.4),
-                              Colors.black.withOpacity(0.1),
-                              Colors.black.withOpacity(0.7),
+                              Colors.black.withValues(alpha: 0.4),
+                              Colors.black.withValues(alpha: 0.1),
+                              Colors.black.withValues(alpha: 0.7),
                             ],
                           ),
                         ),
@@ -124,7 +124,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
               Text(
                 description,
                 style: theme.textTheme.bodyLarge?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.8),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
                   height: 1.5,
                 ),
               ),
@@ -151,7 +151,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
                     borderSide: BorderSide(
-                      color: theme.colorScheme.primary.withOpacity(0.3),
+                      color: theme.colorScheme.primary.withValues(alpha: 0.3),
                       width: 1,
                     ),
                   ),
@@ -215,7 +215,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                         child: Text(
                           l10n.noProvidersFound,
                           style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.onSurface.withOpacity(0.6),
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                           ),
                         ),
                       ),
@@ -266,7 +266,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
           color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: theme.colorScheme.outline.withOpacity(0.15),
+            color: theme.colorScheme.outline.withValues(alpha: 0.15),
             width: 1.5,
           ),
         ),
@@ -280,12 +280,12 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: theme.colorScheme.primary.withOpacity(0.15),
+                    color: theme.colorScheme.primary.withValues(alpha: 0.15),
                     width: 3,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: theme.colorScheme.primary.withOpacity(0.1),
+                      color: theme.colorScheme.primary.withValues(alpha: 0.1),
                       blurRadius: 8,
                       offset: const Offset(0, 4),
                     ),
@@ -332,13 +332,13 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                           padding: const EdgeInsets.only(bottom: 8),
                           child: Row(
                             children: [
-                              Icon(Icons.location_on, size: 16, color: theme.colorScheme.primary.withOpacity(0.8)),
+                              Icon(Icons.location_on, size: 16, color: theme.colorScheme.primary.withValues(alpha: 0.8)),
                               const SizedBox(width: 4),
                               Flexible(
                                 child: Text(
                                   govName,
                                   style: theme.textTheme.labelLarge?.copyWith(
-                                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                                     fontWeight: FontWeight.w500,
                                   ),
                                   maxLines: 1,
@@ -353,7 +353,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.primary.withOpacity(0.1),
+                      color: theme.colorScheme.primary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Row(
@@ -385,7 +385,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: theme.colorScheme.primary.withOpacity(0.05),
+                color: theme.colorScheme.primary.withValues(alpha: 0.05),
                 shape: BoxShape.circle,
               ),
               child: Icon(

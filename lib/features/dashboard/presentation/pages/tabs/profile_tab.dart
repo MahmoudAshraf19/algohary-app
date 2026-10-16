@@ -51,7 +51,7 @@ class ProfileTab extends StatelessWidget {
               title: Text(
                 l10n.navProfile,
                 style: TextStyle(
-                  color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : AppColors.primaryBlue,
+                  color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.9) : AppColors.primaryBlue,
                   fontWeight: FontWeight.w600,
                   fontSize: 18,
                 ),
@@ -72,7 +72,7 @@ class ProfileTab extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.02),
+                          color: Colors.black.withValues(alpha: 0.02),
                           blurRadius: 10,
                           offset: const Offset(0, 2),
                         ),
@@ -87,7 +87,7 @@ class ProfileTab extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.8) : AppColors.primaryBlue,
+                            color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.8) : AppColors.primaryBlue,
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -101,7 +101,7 @@ class ProfileTab extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16),
-                          child: Divider(height: 1, color: Colors.grey.withOpacity(0.2)),
+                          child: Divider(height: 1, color: Colors.grey.withValues(alpha: 0.2)),
                         ),
                         _buildInfoRow(
                           icon: Icons.phone_in_talk, 
@@ -124,7 +124,7 @@ class ProfileTab extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.02),
+                          color: Colors.black.withValues(alpha: 0.02),
                           blurRadius: 10,
                           offset: const Offset(0, 2),
                         ),
@@ -139,7 +139,7 @@ class ProfileTab extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.8) : AppColors.primaryBlue,
+                            color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.8) : AppColors.primaryBlue,
                           ),
                         ),
                         const SizedBox(height: 12),
@@ -152,7 +152,7 @@ class ProfileTab extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: Divider(height: 1, color: Colors.grey.withOpacity(0.2)),
+                          child: Divider(height: 1, color: Colors.grey.withValues(alpha: 0.2)),
                         ),
                         _buildActionRow(
                           context: context,
@@ -166,7 +166,7 @@ class ProfileTab extends StatelessWidget {
                         if (user.userType != 'provider') ...[
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: Divider(height: 1, color: Colors.grey.withOpacity(0.2)),
+                            child: Divider(height: 1, color: Colors.grey.withValues(alpha: 0.2)),
                           ),
                           _buildActionRow(
                             context: context,
@@ -224,7 +224,7 @@ class ProfileTab extends StatelessWidget {
             border: Border.all(color: Colors.white, width: 4),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
+                color: Colors.black.withValues(alpha: 0.1),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -267,7 +267,7 @@ class ProfileTab extends StatelessWidget {
           label: Text(
             l10n.editProfile,
             style: TextStyle(
-              color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : AppColors.primaryBlue,
+              color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.9) : AppColors.primaryBlue,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -312,7 +312,7 @@ class ProfileTab extends StatelessWidget {
                 label,
                 style: TextStyle(
                   fontSize: 13,
-                  color: theme.colorScheme.onSurfaceVariant.withOpacity(0.7),
+                  color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -330,7 +330,7 @@ class ProfileTab extends StatelessWidget {
         ),
         Icon(
           Icons.chevron_right,
-          color: theme.colorScheme.onSurfaceVariant.withOpacity(0.5),
+          color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
           size: 20,
         ),
       ],
@@ -355,10 +355,10 @@ class ProfileTab extends StatelessWidget {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: theme.brightness == Brightness.dark ? theme.colorScheme.onSurfaceVariant.withOpacity(0.2) : theme.colorScheme.surfaceContainerHighest,
+                color: theme.brightness == Brightness.dark ? theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.2) : theme.colorScheme.surfaceContainerHighest,
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.8) : theme.colorScheme.onSurfaceVariant, size: 20),
+              child: Icon(icon, color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.8) : theme.colorScheme.onSurfaceVariant, size: 20),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -366,14 +366,14 @@ class ProfileTab extends StatelessWidget {
                 title,
                 style: TextStyle(
                   fontSize: 15,
-                  color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : AppColors.primaryBlue,
+                  color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.9) : AppColors.primaryBlue,
                   fontWeight: FontWeight.w500,
                 ),
               ),
             ),
             Icon(
               isRtl ? Icons.chevron_left : Icons.chevron_right,
-              color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.5) : theme.colorScheme.onSurfaceVariant.withOpacity(0.5),
+              color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.5) : theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
               size: 20,
             ),
           ],
@@ -397,7 +397,7 @@ class ProfileTab extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         decoration: BoxDecoration(
-          color: theme.brightness == Brightness.dark ? Colors.red[300]!.withOpacity(0.15) : AppColors.red.withOpacity(0.1),
+          color: theme.brightness == Brightness.dark ? Colors.red[300]!.withValues(alpha: 0.15) : AppColors.red.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
@@ -462,11 +462,11 @@ class ProfileTab extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         decoration: BoxDecoration(
           color: theme.brightness == Brightness.dark 
-              ? AppColors.primaryBlue.withOpacity(0.15) 
-              : AppColors.primaryBlue.withOpacity(0.1),
+              ? AppColors.primaryBlue.withValues(alpha: 0.15) 
+              : AppColors.primaryBlue.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: AppColors.primaryBlue.withOpacity(0.5),
+            color: AppColors.primaryBlue.withValues(alpha: 0.5),
             width: 1,
           ),
         ),

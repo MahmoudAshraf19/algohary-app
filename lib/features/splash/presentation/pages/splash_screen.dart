@@ -142,7 +142,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   child: Text(
                     l10n.splashSubtitle,
                     style: textTheme.bodyLarge?.copyWith(
-                      color: colorScheme.primary.withOpacity(0.8),
+                      color: colorScheme.primary.withValues(alpha: 0.8),
                       fontWeight: FontWeight.w500,
                     ),
                     textAlign: TextAlign.center,
@@ -158,7 +158,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 width: 50,
                 height: 4,
                 child: LinearProgressIndicator(
-                  backgroundColor: colorScheme.secondary.withOpacity(0.2),
+                  backgroundColor: colorScheme.secondary.withValues(alpha: 0.2),
                   valueColor: AlwaysStoppedAnimation<Color>(colorScheme.secondary),
                   borderRadius: BorderRadius.circular(8),
                 ),

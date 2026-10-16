@@ -66,7 +66,7 @@ class MapTopBar extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: visibleCategories.length + 1,
-              separatorBuilder: (_, __) => const SizedBox(width: 8),
+              separatorBuilder: (_, _) => const SizedBox(width: 8),
               itemBuilder: (context, index) {
                 final l10n = AppLocalizations.of(context)!;
                 if (index == 0) {
@@ -136,7 +136,7 @@ class _LocationPill extends StatelessWidget {
             width: 36,
             height: 36,
             decoration: BoxDecoration(
-              color: palette.accent.withOpacity(0.14),
+              color: palette.accent.withValues(alpha: 0.14),
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -313,7 +313,7 @@ class _CategoryChip extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: palette.shadow.withOpacity(selected ? 0.5 : 0.35),
+            color: palette.shadow.withValues(alpha: selected ? 0.5 : 0.35),
             blurRadius: 8,
             offset: const Offset(0, 3),
           ),
@@ -345,7 +345,7 @@ class _CategoryChip extends StatelessWidget {
                       vertical: 1,
                     ),
                     decoration: BoxDecoration(
-                      color: fg.withOpacity(0.16),
+                      color: fg.withValues(alpha: 0.16),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(

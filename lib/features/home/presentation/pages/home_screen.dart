@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 // Using theme colors for the container
-                color: colorScheme.secondary.withOpacity(0.1),
+                color: colorScheme.secondary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: colorScheme.secondary),
               ),

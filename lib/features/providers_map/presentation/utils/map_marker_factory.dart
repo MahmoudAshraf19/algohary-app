@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -133,7 +132,7 @@ class MapMarkerFactory {
       canvas.drawCircle(
         center,
         radius + 7,
-        Paint()..color = AppColors.orange.withOpacity(0.28),
+        Paint()..color = AppColors.orange.withValues(alpha: 0.28),
       );
     }
 
@@ -142,7 +141,7 @@ class MapMarkerFactory {
       center.translate(0, 2),
       radius,
       Paint()
-        ..color = Colors.black.withOpacity(0.30)
+        ..color = Colors.black.withValues(alpha: 0.30)
         ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4),
     );
 
@@ -271,7 +270,7 @@ class MapMarkerFactory {
   }
 
   static String _hex(Color c) =>
-      '#${(c.value & 0xFFFFFF).toRadixString(16).padLeft(6, '0')}';
+      '#${(c.toARGB32() & 0xFFFFFF).toRadixString(16).padLeft(6, '0')}';
 
   static String _userLocationSvg(String primary, String accent) => '''
 <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">

@@ -52,10 +52,10 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
   final FirebaseFirestore _firestore = FirebaseConfig.firestore;
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
-  late Future<QuerySnapshot> _categoriesFuture = _firestore.collection('categories').get();
+  late final Future<QuerySnapshot> _categoriesFuture = _firestore.collection('categories').get();
   Future<QuerySnapshot>? _servicesFuture;
   
-  late Future<QuerySnapshot> _governoratesFuture = _firestore.collection('governorates').get();
+  late final Future<QuerySnapshot> _governoratesFuture = _firestore.collection('governorates').get();
   Future<QuerySnapshot>? _citiesFuture;
 
   @override
@@ -411,9 +411,9 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: Colors.orange.withOpacity(0.1),
+            color: Colors.orange.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.orange.withOpacity(0.3)),
+            border: Border.all(color: Colors.orange.withValues(alpha: 0.3)),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -506,7 +506,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
                 margin: const EdgeInsetsDirectional.only(end: 8),
                 decoration: BoxDecoration(
                   border: Border(
-                    right: BorderSide(color: theme.colorScheme.outline.withOpacity(0.3)),
+                    right: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
                   ),
                 ),
                 child: Row(
@@ -528,7 +528,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
           enabled: false,
           decoration: _inputDecoration(theme).copyWith(
             labelText: l10n.appEmail,
-            fillColor: theme.colorScheme.surfaceContainerHighest.withOpacity(0.1),
+            fillColor: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.1),
           ),
         ),
       ],
@@ -557,7 +557,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
               return data['available'] == true || data['is_available'] == true;
             }).toList();
             return DropdownButtonFormField<String>(
-              value: _selectedCategoryId,
+              initialValue: _selectedCategoryId,
               decoration: _inputDecoration(theme),
               dropdownColor: theme.scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(16),
@@ -640,7 +640,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
             if (!snapshot.hasData || snapshot.data!.docs.isEmpty) return const Text('No governorates found');
             final docs = snapshot.data!.docs;
             return DropdownButtonFormField<String>(
-              value: _selectedGovernorateId,
+              initialValue: _selectedGovernorateId,
               decoration: _inputDecoration(theme),
               dropdownColor: theme.scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(16),
@@ -723,10 +723,10 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
       child: Container(
         height: 160,
         decoration: BoxDecoration(
-          color: image != null ? Colors.transparent : theme.colorScheme.primary.withOpacity(0.05),
+          color: image != null ? Colors.transparent : theme.colorScheme.primary.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: image != null ? theme.colorScheme.primary : theme.colorScheme.primary.withOpacity(0.3),
+            color: image != null ? theme.colorScheme.primary : theme.colorScheme.primary.withValues(alpha: 0.3),
             width: 1.5,
             style: BorderStyle.solid,
           ),
@@ -757,11 +757,11 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
       fillColor: theme.colorScheme.surface,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
-        borderSide: BorderSide(color: theme.colorScheme.outline.withOpacity(0.2)),
+        borderSide: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
-        borderSide: BorderSide(color: theme.colorScheme.outline.withOpacity(0.2)),
+        borderSide: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
@@ -814,13 +814,13 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
               child: Text(
                 selectedIds.isEmpty ? title : selectedNames,
                 style: TextStyle(
-                  color: selectedIds.isEmpty ? theme.colorScheme.onSurface.withOpacity(0.5) : theme.colorScheme.onSurface,
+                  color: selectedIds.isEmpty ? theme.colorScheme.onSurface.withValues(alpha: 0.5) : theme.colorScheme.onSurface,
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            Icon(Icons.arrow_drop_down, color: theme.colorScheme.onSurface.withOpacity(0.5)),
+            Icon(Icons.arrow_drop_down, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
           ],
         ),
       ),
@@ -877,7 +877,7 @@ class _MultiSelectDialogState extends State<_MultiSelectDialog> {
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
           ),
           const SizedBox(height: 12),
-          Divider(color: colorScheme.outline.withOpacity(0.2), height: 1),
+          Divider(color: colorScheme.outline.withValues(alpha: 0.2), height: 1),
         ],
       ),
       content: SizedBox(
@@ -894,11 +894,11 @@ class _MultiSelectDialogState extends State<_MultiSelectDialog> {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               child: Material(
-                color: isSelected ? colorScheme.primary.withOpacity(0.08) : Colors.transparent,
+                color: isSelected ? colorScheme.primary.withValues(alpha: 0.08) : Colors.transparent,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                   side: BorderSide(
-                    color: isSelected ? colorScheme.primary.withOpacity(0.3) : Colors.transparent,
+                    color: isSelected ? colorScheme.primary.withValues(alpha: 0.3) : Colors.transparent,
                   ),
                 ),
                 child: CheckboxListTile(
@@ -913,7 +913,7 @@ class _MultiSelectDialogState extends State<_MultiSelectDialog> {
                   activeColor: colorScheme.primary,
                   checkColor: colorScheme.onPrimary,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-                  side: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
+                  side: BorderSide(color: colorScheme.outline.withValues(alpha: 0.5)),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
                   onChanged: (bool? checked) {
                     setState(() {
@@ -934,7 +934,7 @@ class _MultiSelectDialogState extends State<_MultiSelectDialog> {
         TextButton(
           onPressed: () => Navigator.pop(context),
           style: TextButton.styleFrom(
-            foregroundColor: colorScheme.onSurface.withOpacity(0.7),
+            foregroundColor: colorScheme.onSurface.withValues(alpha: 0.7),
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           ),
           child: Text(AppLocalizations.of(context)!.appBack, style: const TextStyle(fontWeight: FontWeight.bold)),

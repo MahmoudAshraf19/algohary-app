@@ -207,7 +207,7 @@ class _ProviderOrdersViewState extends State<ProviderOrdersView> with SingleTick
     return ListView.separated(
       padding: const EdgeInsets.all(16),
       itemCount: orders.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 12),
+      separatorBuilder: (_, _) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
         final order = orders[index];
         return _buildOrderCard(order, colorScheme, l10n);
@@ -276,10 +276,10 @@ class _ProviderOrdersViewState extends State<ProviderOrdersView> with SingleTick
         decoration: BoxDecoration(
           color: colorScheme.surface,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: colorScheme.outlineVariant.withOpacity(0.5)),
+          border: Border.all(color: colorScheme.outlineVariant.withValues(alpha: 0.5)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.02),
+              color: Colors.black.withValues(alpha: 0.02),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -315,7 +315,7 @@ class _ProviderOrdersViewState extends State<ProviderOrdersView> with SingleTick
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
-                          color: statusColor.withOpacity(0.1),
+                          color: statusColor.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(

@@ -100,7 +100,7 @@ class _CategoriesRowState extends State<CategoriesRow> {
                     scrollDirection: Axis.horizontal,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 6,
-                    separatorBuilder: (_, __) => const SizedBox(width: 16),
+                    separatorBuilder: (_, _) => const SizedBox(width: 16),
                     itemBuilder: (context, index) {
                       return CategoryItem(
                         category: mockCategory,
@@ -134,7 +134,7 @@ class _CategoriesRowState extends State<CategoriesRow> {
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 itemCount: displayCategories.length,
-                separatorBuilder: (_, __) => const SizedBox(width: 16),
+                separatorBuilder: (_, _) => const SizedBox(width: 16),
                 itemBuilder: (context, index) {
                   return CategoryItem(
                     category: displayCategories[index],
@@ -279,7 +279,7 @@ class _CategoryIcon extends StatelessWidget {
         height: 32,
         color: iconColor,
         fit: BoxFit.contain,
-        errorBuilder: (_, __, ___) => Icon(Icons.category, color: iconColor, size: 32),
+        errorBuilder: (_, _, _) => Icon(Icons.category, color: iconColor, size: 32),
       );
     }
   }

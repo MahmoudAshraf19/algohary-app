@@ -18,13 +18,12 @@ import 'providers_map_state.dart';
 /// tab is visible ([setActive]), and stream-driven recomputation is throttled.
 class ProvidersMapCubit extends Cubit<ProvidersMapState> {
   ProvidersMapCubit({
-    String? currentUserId,
+    this._currentUserId,
     MapProvidersRepository? repository,
     CategoryRepository? categoryRepository,
     ServiceRepository? serviceRepository,
     UserLocationResolver? locationResolver,
-  })  : _currentUserId = currentUserId,
-        _repo = repository ?? MapProvidersRepository(),
+  })  : _repo = repository ?? MapProvidersRepository(),
         _categoryRepo = categoryRepository ?? CategoryRepository(),
         _serviceRepo = serviceRepository ?? ServiceRepository(),
         _location = locationResolver ?? UserLocationResolver(),

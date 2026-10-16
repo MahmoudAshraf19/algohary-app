@@ -109,7 +109,7 @@ class _ReportProblemDialogState extends State<ReportProblemDialog> {
               const SizedBox(height: 16),
               Text(
                 'Please provide details about the issue and how we can reach you.',
-                style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.7)),
+                style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.7)),
               ),
               const SizedBox(height: 24),
               TextFormField(

@@ -107,7 +107,7 @@ class _MessagesTabState extends State<MessagesTab> {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: BorderSide(
-                    color: colorScheme.primary.withOpacity(0.3),
+                    color: colorScheme.primary.withValues(alpha: 0.3),
                     width: 1,
                   ),
                 ),
@@ -145,7 +145,7 @@ class _MessagesTabState extends State<MessagesTab> {
                       itemCount: 5,
                       separatorBuilder: (context, index) => Divider(
                         height: 1, 
-                        color: colorScheme.outlineVariant.withOpacity(0.5),
+                        color: colorScheme.outlineVariant.withValues(alpha: 0.5),
                         indent: 72,
                       ),
                       itemBuilder: (context, index) {
@@ -183,7 +183,7 @@ class _MessagesTabState extends State<MessagesTab> {
                   separatorBuilder: (context, index) {
                     return Divider(
                       height: 1, 
-                      color: colorScheme.outlineVariant.withOpacity(0.5),
+                      color: colorScheme.outlineVariant.withValues(alpha: 0.5),
                       indent: 72,
                     );
                   },
@@ -213,8 +213,9 @@ class _MessagesTabState extends State<MessagesTab> {
       timeStr = _formatTimeStr(adminConv.lastMessageAt);
       final lastMsg = adminConv.lastMessage;
       if (lastMsg != null) {
-        if (lastMsg.type == 'IMAGE') subtitle = '📷 Photo';
-        else if (lastMsg.type == 'VOICE') subtitle = '🎤 Voice Message';
+        if (lastMsg.type == 'IMAGE') {
+          subtitle = '📷 Photo';
+        } else if (lastMsg.type == 'VOICE') subtitle = '🎤 Voice Message';
         else if (lastMsg.isMe) subtitle = 'You: ${lastMsg.content ?? ''}';
         else subtitle = lastMsg.content ?? '';
       }
@@ -224,7 +225,7 @@ class _MessagesTabState extends State<MessagesTab> {
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: colorScheme.surface,
-        border: Border.all(color: colorScheme.primary.withOpacity(0.4), width: 1.5),
+        border: Border.all(color: colorScheme.primary.withValues(alpha: 0.4), width: 1.5),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Material(
@@ -255,7 +256,7 @@ class _MessagesTabState extends State<MessagesTab> {
                 // Support Avatar
                 CircleAvatar(
                   radius: 28,
-                  backgroundColor: colorScheme.primary.withOpacity(0.1),
+                  backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
                   backgroundImage: const AssetImage('assets/icons/support_logo.png'),
                 ),
                 const SizedBox(width: 16),
@@ -346,8 +347,9 @@ class _MessagesTabState extends State<MessagesTab> {
     
     String snippet = 'No messages yet';
     if (lastMsg != null) {
-      if (lastMsg.type == 'IMAGE') snippet = '📷 Photo';
-      else if (lastMsg.type == 'VOICE') snippet = '🎤 Voice Message';
+      if (lastMsg.type == 'IMAGE') {
+        snippet = '📷 Photo';
+      } else if (lastMsg.type == 'VOICE') snippet = '🎤 Voice Message';
       else if (lastMsg.isMe) snippet = 'You: ${lastMsg.content ?? ''}';
       else snippet = lastMsg.content ?? '';
     }
@@ -356,7 +358,7 @@ class _MessagesTabState extends State<MessagesTab> {
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: colorScheme.surface,
-        border: Border.all(color: colorScheme.primary.withOpacity(0.4), width: 1.5),
+        border: Border.all(color: colorScheme.primary.withValues(alpha: 0.4), width: 1.5),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Material(

@@ -67,8 +67,8 @@ class MapProviderAvatar extends StatelessWidget {
                     height: size,
                     fit: BoxFit.cover,
                     memCacheWidth: (size * 3).round(),
-                    placeholder: (_, __) => _fallback(),
-                    errorWidget: (_, __, ___) => _fallback(),
+                    placeholder: (_, _) => _fallback(),
+                    errorWidget: (_, _, _) => _fallback(),
                   ),
           ),
           if (showOnlineDot)
@@ -259,7 +259,7 @@ class _InfoChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.12),
+        color: color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(

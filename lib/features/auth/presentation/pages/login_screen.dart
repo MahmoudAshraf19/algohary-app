@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 l10n.loginSubtitle,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyLarge?.copyWith(
-                  color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : theme.colorScheme.onSurface.withOpacity(0.6),
+                  color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.9) : theme.colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
               ),
               const SizedBox(height: 40),
@@ -226,17 +226,17 @@ class _LoginScreenState extends State<LoginScreen> {
               // OR Divider
               Row(
                 children: [
-                  Expanded(child: Divider(color: theme.colorScheme.onSurface.withOpacity(0.2))),
+                  Expanded(child: Divider(color: theme.colorScheme.onSurface.withValues(alpha: 0.2))),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
                       l10n.loginOr,
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.7) : theme.colorScheme.onSurface.withOpacity(0.5),
+                        color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.7) : theme.colorScheme.onSurface.withValues(alpha: 0.5),
                       ),
                     ),
                   ),
-                  Expanded(child: Divider(color: theme.colorScheme.onSurface.withOpacity(0.2))),
+                  Expanded(child: Divider(color: theme.colorScheme.onSurface.withValues(alpha: 0.2))),
                 ],
               ),
               const SizedBox(height: 32),
@@ -265,7 +265,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text(
                       l10n.loginNoAccount,
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : theme.colorScheme.onSurface.withOpacity(0.7),
+                        color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.9) : theme.colorScheme.onSurface.withValues(alpha: 0.7),
                       ),
                     ),
                     TextButton(
@@ -339,13 +339,13 @@ class _LoginScreenState extends State<LoginScreen> {
       style: TextStyle(color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(color: theme.brightness == Brightness.dark ? AppColors.lightYellow.withOpacity(0.5) : theme.colorScheme.onSurface.withOpacity(0.4)),
-        prefixIcon: Icon(icon, color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface.withOpacity(0.5)),
+        hintStyle: TextStyle(color: theme.brightness == Brightness.dark ? AppColors.lightYellow.withValues(alpha: 0.5) : theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+        prefixIcon: Icon(icon, color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface.withValues(alpha: 0.5)),
         suffixIcon: isPassword
             ? IconButton(
                 icon: Icon(
                   _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                  color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface.withOpacity(0.5),
+                  color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface.withValues(alpha: 0.5),
                 ),
                 onPressed: () {
                   setState(() {
@@ -358,11 +358,11 @@ class _LoginScreenState extends State<LoginScreen> {
         fillColor: theme.colorScheme.surface,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: theme.colorScheme.onSurface.withOpacity(0.2)),
+          borderSide: BorderSide(color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: theme.colorScheme.onSurface.withOpacity(0.2)),
+          borderSide: BorderSide(color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -381,6 +381,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
     if (email == null || email.isEmpty) return;
+    if (!mounted) return;
 
     final messenger = ScaffoldMessenger.of(context);
     if (!Validators.isValidEmail(email)) {
@@ -412,7 +413,7 @@ class _LoginScreenState extends State<LoginScreen> {
         height: 56,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          border: Border.all(color: theme.colorScheme.onSurface.withOpacity(0.2)),
+          border: Border.all(color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
           borderRadius: BorderRadius.circular(24),
         ),
         child: Image.asset(

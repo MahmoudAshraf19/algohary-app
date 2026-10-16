@@ -10,9 +10,8 @@ class RequestDetailsBloc extends Bloc<RequestDetailsEvent, RequestDetailsState> 
   final BookingsRepository _bookingsRepository;
   StreamSubscription<ServiceRequestModel?>? _requestSubscription;
 
-  RequestDetailsBloc({required BookingsRepository bookingsRepository})
-      : _bookingsRepository = bookingsRepository,
-        super(RequestDetailsInitial()) {
+  RequestDetailsBloc({required this._bookingsRepository})
+      : super(RequestDetailsInitial()) {
     on<LoadRequestDetailsEvent>(_onLoadRequestDetails);
     on<RequestUpdatedEvent>(_onRequestUpdated);
     on<ApproveRequestEvent>(_onApproveRequest);

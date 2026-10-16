@@ -148,7 +148,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           data.subtitle,
                           textAlign: TextAlign.center,
                           style: theme.textTheme.bodyLarge?.copyWith(
-                            color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : theme.colorScheme.onSurface.withOpacity(0.6),
+                            color: theme.brightness == Brightness.dark ? Colors.white.withValues(alpha: 0.9) : theme.colorScheme.onSurface.withValues(alpha: 0.6),
                             height: 1.5,
                           ),
                         ),
@@ -179,7 +179,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         decoration: BoxDecoration(
                           color: isActive
                               ? theme.colorScheme.primary
-                              : theme.colorScheme.primary.withOpacity(0.2),
+                              : theme.colorScheme.primary.withValues(alpha: 0.2),
                           shape: BoxShape.circle,
                         ),
                       );
@@ -196,7 +196,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           child: TextButton(
                             onPressed: _skip,
                             style: TextButton.styleFrom(
-                              foregroundColor: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary.withOpacity(0.7),
+                              foregroundColor: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.primary.withValues(alpha: 0.7),
                               textStyle: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,

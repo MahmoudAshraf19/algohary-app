@@ -106,7 +106,7 @@ class MapStateCard extends StatelessWidget {
                 width: 48,
                 height: 48,
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.14),
+                  color: color.withValues(alpha: 0.14),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(icon, color: color, size: 26),
@@ -202,7 +202,7 @@ class MapLocationBanner extends StatelessWidget {
       decoration: BoxDecoration(
         color: palette.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: palette.highlight.withOpacity(0.5)),
+        border: Border.all(color: palette.highlight.withValues(alpha: 0.5)),
         boxShadow: [
           BoxShadow(
             color: palette.shadow,
