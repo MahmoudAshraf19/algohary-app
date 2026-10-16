@@ -286,7 +286,7 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
                             }
                           } catch (e, stackTrace) {
                             debugPrint('🚨 Error opening chat: $e');
-                            debugPrint(stackTrace);
+                            debugPrint(stackTrace.toString());
                             if (context.mounted) {
                               Navigator.pop(context);
                               ScaffoldMessenger.of(context).showSnackBar(
