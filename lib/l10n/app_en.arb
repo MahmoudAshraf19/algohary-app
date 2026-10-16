@@ -550,5 +550,7 @@
   "forgotPasswordSend": "Send reset link",
   "forgotPasswordSent": "If an account exists for this email, a reset link has been sent.",
   "dashboard": "Dashboard",
-  "myAccount": "My Account"
+  "myAccount": "My Account",
+  "updateAvailableMessage": "A new update is available, you can get it now",
+  "updateNow": "Update"
 }

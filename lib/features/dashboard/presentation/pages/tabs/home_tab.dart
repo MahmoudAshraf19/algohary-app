@@ -13,6 +13,7 @@ import 'package:algohary_project/core/widgets/custom_search_bar.dart';
 import 'package:algohary_project/features/notifications/data/services/notification_service.dart';
 import 'package:algohary_project/features/notifications/presentation/widgets/notification_dropdown_widget.dart';
 import 'package:algohary_project/features/emergency/presentation/widgets/emergency_fab_menu.dart';
+import 'package:algohary_project/core/widgets/update_banner.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -328,6 +329,14 @@ class _HomeTabState extends State<HomeTab> {
                 end: 16,
                 bottom: 16,
                 child: EmergencyFabMenu(),
+              ),
+              // Floats above the content; renders nothing unless a newer
+              // version has been published on the stores.
+              const PositionedDirectional(
+                top: 8,
+                start: 16,
+                end: 16,
+                child: UpdateBanner(),
               ),
             ],
           ),

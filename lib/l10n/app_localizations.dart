@@ -2917,6 +2917,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'My Account'**
   String get myAccount;
+
+  /// No description provided for @updateAvailableMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'A new update is available, you can get it now'**
+  String get updateAvailableMessage;
+
+  /// No description provided for @updateNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get updateNow;
 }
 
 class _AppLocalizationsDelegate

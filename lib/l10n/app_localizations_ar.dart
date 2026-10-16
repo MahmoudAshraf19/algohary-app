@@ -1517,4 +1517,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get myAccount => 'حسابي';
+
+  @override
+  String get updateAvailableMessage => 'فيه تحديث جديد تقدر تنزله دلوقتي';
+
+  @override
+  String get updateNow => 'تحديث';
 }

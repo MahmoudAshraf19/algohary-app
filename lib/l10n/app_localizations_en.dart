@@ -1522,4 +1522,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get myAccount => 'My Account';
+
+  @override
+  String get updateAvailableMessage =>
+      'A new update is available, you can get it now';
+
+  @override
+  String get updateNow => 'Update';
 }
