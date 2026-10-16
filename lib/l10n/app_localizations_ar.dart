@@ -1502,13 +1502,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get forgotPasswordTitle => 'إعادة تعيين كلمة المرور';
 
   @override
-  String get forgotPasswordMessage => 'أدخل بريدك الإلكتروني وسنرسل لك رابطاً لإعادة تعيين كلمة المرور.';
+  String get forgotPasswordMessage =>
+      'أدخل بريدك الإلكتروني وسنرسل لك رابطاً لإعادة تعيين كلمة المرور.';
 
   @override
   String get forgotPasswordSend => 'إرسال رابط إعادة التعيين';
 
   @override
-  String get forgotPasswordSent => 'إذا كان هناك حساب مرتبط بهذا البريد، فقد تم إرسال رابط إعادة التعيين.';
+  String get forgotPasswordSent =>
+      'إذا كان هناك حساب مرتبط بهذا البريد، فقد تم إرسال رابط إعادة التعيين.';
 
   @override
   String get dashboard => 'لوحة التحكم';

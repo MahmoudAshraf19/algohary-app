@@ -11,6 +11,7 @@ class MapTopBar extends StatelessWidget {
   final int activeFilters;
   final double radiusKm;
   final VoidCallback onFiltersTap;
+  final VoidCallback? onLocationTap;
   final List<CategoryModel> categories;
   final Map<String, int> categoryCounts;
   final String? selectedCategoryId;
@@ -24,6 +25,7 @@ class MapTopBar extends StatelessWidget {
     required this.activeFilters,
     required this.radiusKm,
     required this.onFiltersTap,
+    this.onLocationTap,
     required this.categories,
     required this.categoryCounts,
     required this.selectedCategoryId,
@@ -51,6 +53,7 @@ class MapTopBar extends StatelessWidget {
                   onlineCount: onlineCount,
                   isLoading: isLoading,
                   radiusKm: radiusKm,
+                  onTap: onLocationTap,
                 ),
               ),
               const SizedBox(width: 10),
@@ -98,12 +101,14 @@ class _LocationPill extends StatelessWidget {
   final int onlineCount;
   final bool isLoading;
   final double radiusKm;
+  final VoidCallback? onTap;
 
   const _LocationPill({
     required this.label,
     required this.onlineCount,
     required this.isLoading,
     required this.radiusKm,
+    this.onTap,
   });
 
   @override
@@ -115,23 +120,28 @@ class _LocationPill extends StatelessWidget {
         ? ''
         : ' (${l10n.mapRadiusKm(radiusKm.toInt())})';
 
-    return Container(
-      height: 52,
-      padding: const EdgeInsetsDirectional.only(start: 8, end: 14),
-      decoration: BoxDecoration(
-        color: palette.surface,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
         borderRadius: BorderRadius.circular(26),
-        border: Border.all(color: palette.border),
-        boxShadow: [
-          BoxShadow(
-            color: palette.shadow,
-            blurRadius: 18,
-            offset: const Offset(0, 6),
+        child: Container(
+          height: 52,
+          padding: const EdgeInsetsDirectional.only(start: 8, end: 14),
+          decoration: BoxDecoration(
+            color: palette.surface,
+            borderRadius: BorderRadius.circular(26),
+            border: Border.all(color: palette.border),
+            boxShadow: [
+              BoxShadow(
+                color: palette.shadow,
+                blurRadius: 18,
+                offset: const Offset(0, 6),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Row(
-        children: [
+          child: Row(
+            children: [
           Container(
             width: 36,
             height: 36,
@@ -211,7 +221,9 @@ class _LocationPill extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ),
+  ),
+);
   }
 }
 

@@ -1507,13 +1507,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forgotPasswordTitle => 'Reset your password';
 
   @override
-  String get forgotPasswordMessage => 'Enter your email address and we will send you a link to reset your password.';
+  String get forgotPasswordMessage =>
+      'Enter your email address and we will send you a link to reset your password.';
 
   @override
   String get forgotPasswordSend => 'Send reset link';
 
   @override
-  String get forgotPasswordSent => 'If an account exists for this email, a reset link has been sent.';
+  String get forgotPasswordSent =>
+      'If an account exists for this email, a reset link has been sent.';
 
   @override
   String get dashboard => 'Dashboard';

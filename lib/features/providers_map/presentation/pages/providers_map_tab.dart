@@ -8,6 +8,7 @@ import 'package:algohary_project/core/services/location_service.dart';
 import 'package:algohary_project/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:algohary_project/features/auth/presentation/bloc/auth_state.dart';
 import 'package:algohary_project/features/dashboard/presentation/pages/provider_profile_screen.dart';
+import 'package:algohary_project/features/location/presentation/widgets/location_bottom_sheet.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
 import '../../data/models/map_provider.dart';
 import '../../data/services/user_location_resolver.dart';
@@ -219,7 +220,7 @@ class _ProvidersMapViewState extends State<_ProvidersMapView>
     if (position != null) {
       await _animateTo(position, zoom: 15);
     } else {
-      await _cubit.refreshLocation();
+      LocationBottomSheet.show(context);
     }
   }
 
@@ -415,6 +416,7 @@ class _ProvidersMapViewState extends State<_ProvidersMapView>
                           radiusKm: state.filters.radiusKm,
                           onFiltersTap: () =>
                               showMapFilterSheet(context, _cubit),
+                          onLocationTap: () => LocationBottomSheet.show(context),
                           categories: state.categories,
                           categoryCounts: state.categoryCounts,
                           selectedCategoryId: state.filters.categoryId,
