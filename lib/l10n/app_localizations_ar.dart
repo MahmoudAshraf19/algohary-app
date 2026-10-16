@@ -1519,7 +1519,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get myAccount => 'حسابي';
 
   @override
-  String get updateAvailableMessage => 'فيه تحديث جديد تقدر تنزله دلوقتي';
+  String get updateAvailableMessage => 'فيه تحديث جديد الان!';
 
   @override
   String get updateNow => 'تحديث';

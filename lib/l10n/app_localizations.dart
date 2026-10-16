@@ -2921,7 +2921,7 @@ abstract class AppLocalizations {
   /// No description provided for @updateAvailableMessage.
   ///
   /// In en, this message translates to:
-  /// **'A new update is available, you can get it now'**
+  /// **'A new update is available'**
   String get updateAvailableMessage;
 
   /// No description provided for @updateNow.

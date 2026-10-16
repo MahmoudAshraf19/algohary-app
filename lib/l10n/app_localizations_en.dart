@@ -1524,8 +1524,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get myAccount => 'My Account';
 
   @override
-  String get updateAvailableMessage =>
-      'A new update is available, you can get it now';
+  String get updateAvailableMessage => 'A new update is available';
 
   @override
   String get updateNow => 'Update';

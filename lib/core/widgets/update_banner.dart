@@ -8,17 +8,7 @@ import '../../l10n/app_localizations.dart';
 import '../services/app_update_service.dart';
 import '../theme/app_colors.dart';
 
-/// A floating "new version available" card.
-///
-/// * Checks the store version once when it is first built; renders nothing
-///   when the app is up to date (or the check fails).
-/// * Slides in from the *start* edge of the screen: left → right in LTR
-///   (English) and right → left in RTL (Arabic).
-/// * Stays visible for [visibleFor], showing a thin countdown bar, then slides
-///   away on its own.
-/// * The user can swipe it away at any time (either direction). Touching /
-///   dragging it pauses the countdown.
-/// * The button opens Google Play / the App Store.
+
 class UpdateBanner extends StatefulWidget {
   const UpdateBanner({
     super.key,
