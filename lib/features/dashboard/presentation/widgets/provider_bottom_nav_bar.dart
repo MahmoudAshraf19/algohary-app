@@ -67,7 +67,7 @@ class ProviderBottomNavBar extends StatelessWidget {
         badgeCount: totalUnread,
       ),
       _NavItem(
-        label: l10n.navProfile ?? 'Profile',
+        label: l10n.navProfile,
         activeIcon: Icons.person_rounded,
         inactiveIcon: Icons.person_outline_rounded,
       ),

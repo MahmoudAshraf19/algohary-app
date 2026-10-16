@@ -29,11 +29,11 @@ class _MessagesTabState extends State<MessagesTab> {
     
     final authState = context.read<AuthBloc>().state;
     final userId = (authState is AuthSuccess) ? authState.user.id : null;
-    print('==================================================');
-    print('DEBUG: MessagesTab initState');
-    print('DEBUG: AuthState is $authState');
-    print('DEBUG: userId is $userId');
-    print('==================================================');
+    debugPrint('==================================================');
+    debugPrint('DEBUG: MessagesTab initState');
+    debugPrint('DEBUG: AuthState is $authState');
+    debugPrint('DEBUG: userId is $userId');
+    debugPrint('==================================================');
     _chatService = ChatService(injectedUserId: userId);
     
     // Auto-create admin conversation so it is stored in Firestore
@@ -84,7 +84,7 @@ class _MessagesTabState extends State<MessagesTab> {
         backgroundColor: colorScheme.surface,
         elevation: 0,
         title: Text(
-          l10n.navMessages ?? 'Messages',
+          l10n.navMessages,
           style: TextStyle(
             color: colorScheme.onSurface,
             fontWeight: FontWeight.bold,
@@ -215,7 +215,7 @@ class _MessagesTabState extends State<MessagesTab> {
           ),
           const SizedBox(height: 20),
           Text(
-            l10n.chatsNoChats ?? 'No Messages Yet',
+            l10n.chatsNoChats,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -236,7 +236,7 @@ class _MessagesTabState extends State<MessagesTab> {
   }
 
   Widget _buildSupportChatTile(ColorScheme colorScheme, AppLocalizations l10n, ConversationModel? adminConv) {
-    String subtitle = l10n.chatWithSupport ?? 'How can we help you?';
+    String subtitle = l10n.chatWithSupport;
     String timeStr = '';
     int unreadCount = 0;
     
@@ -272,7 +272,7 @@ class _MessagesTabState extends State<MessagesTab> {
                 MaterialPageRoute(
                   builder: (_) => ChatDetailScreen(
                     conversationId: convId,
-                    recipientName: l10n.alGoharySupport ?? 'Al Gohary Support',
+                    recipientName: l10n.alGoharySupport,
                     recipientAvatar: 'assets/icons/support_logo.png',
                     recipientId: 'admin',
                   ),
@@ -302,7 +302,7 @@ class _MessagesTabState extends State<MessagesTab> {
                         children: [
                           Expanded(
                             child: Text(
-                              l10n.alGoharySupport ?? 'Al Gohary Support',
+                              l10n.alGoharySupport,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(

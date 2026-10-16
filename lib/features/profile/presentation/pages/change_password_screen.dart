@@ -73,7 +73,7 @@ class _ChangePasswordViewState extends State<_ChangePasswordView> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          l10n.settingsChangePassword ?? 'Change Password',
+          l10n.settingsChangePassword,
           style: TextStyle(
             color: textColor,
             fontWeight: FontWeight.w600,
@@ -86,7 +86,7 @@ class _ChangePasswordViewState extends State<_ChangePasswordView> {
           if (state is ChangePasswordSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(l10n.passwordChangedSuccessfully ?? 'Password changed successfully'),
+                content: Text(l10n.passwordChangedSuccessfully),
                 backgroundColor: Colors.green,
               ),
             );
@@ -94,11 +94,11 @@ class _ChangePasswordViewState extends State<_ChangePasswordView> {
           } else if (state is ChangePasswordFailure) {
             String errorMessage = state.errorMessage;
             if (errorMessage.contains('wrong-password')) {
-              errorMessage = l10n.errorWrongPassword ?? 'Incorrect current password';
+              errorMessage = l10n.errorWrongPassword;
             } else if (errorMessage.contains('weak-password')) {
-              errorMessage = l10n.errorWeakPassword ?? 'The new password is too weak';
+              errorMessage = l10n.errorWeakPassword;
             } else if (errorMessage.contains('requires-recent-login')) {
-              errorMessage = l10n.errorRequiresRecentLogin ?? 'Please log out and log in again to perform this action';
+              errorMessage = l10n.errorRequiresRecentLogin;
             }
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -118,12 +118,12 @@ class _ChangePasswordViewState extends State<_ChangePasswordView> {
                 children: [
                   _buildPasswordField(
                     controller: _currentPasswordController,
-                    label: l10n.currentPassword ?? 'Current Password',
+                    label: l10n.currentPassword,
                     obscureText: _obscureCurrent,
                     onToggleObscure: () => setState(() => _obscureCurrent = !_obscureCurrent),
                     validator: (val) {
                       if (val == null || val.isEmpty) {
-                        return l10n.errorRequiredField ?? 'Required field';
+                        return l10n.errorRequiredField;
                       }
                       return null;
                     },
@@ -132,15 +132,15 @@ class _ChangePasswordViewState extends State<_ChangePasswordView> {
                   const SizedBox(height: 20),
                   _buildPasswordField(
                     controller: _newPasswordController,
-                    label: l10n.newPassword ?? 'New Password',
+                    label: l10n.newPassword,
                     obscureText: _obscureNew,
                     onToggleObscure: () => setState(() => _obscureNew = !_obscureNew),
                     validator: (val) {
                       if (val == null || val.isEmpty) {
-                        return l10n.errorRequiredField ?? 'Required field';
+                        return l10n.errorRequiredField;
                       }
                       if (val.length < 6) {
-                        return l10n.errorPasswordLength ?? 'Password must be at least 6 characters';
+                        return l10n.errorPasswordLength;
                       }
                       return null;
                     },
@@ -149,15 +149,15 @@ class _ChangePasswordViewState extends State<_ChangePasswordView> {
                   const SizedBox(height: 20),
                   _buildPasswordField(
                     controller: _confirmPasswordController,
-                    label: l10n.confirmNewPassword ?? 'Confirm New Password',
+                    label: l10n.confirmNewPassword,
                     obscureText: _obscureConfirm,
                     onToggleObscure: () => setState(() => _obscureConfirm = !_obscureConfirm),
                     validator: (val) {
                       if (val == null || val.isEmpty) {
-                        return l10n.errorConfirmPasswordRequired ?? 'Please confirm password';
+                        return l10n.errorConfirmPasswordRequired;
                       }
                       if (val != _newPasswordController.text) {
-                        return l10n.signupPasswordsDoNotMatch ?? 'Passwords do not match';
+                        return l10n.signupPasswordsDoNotMatch;
                       }
                       return null;
                     },
@@ -184,7 +184,7 @@ class _ChangePasswordViewState extends State<_ChangePasswordView> {
                             ),
                           )
                         : Text(
-                            l10n.saveChanges ?? 'Save Changes',
+                            l10n.saveChanges,
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,

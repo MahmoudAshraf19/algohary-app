@@ -44,7 +44,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          l10n.settings ?? 'Settings',
+          l10n.settings,
           style: TextStyle(
             color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : AppColors.primaryBlue,
             fontWeight: FontWeight.w600,
@@ -57,10 +57,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 24),
-            _buildSectionTitle(l10n.account ?? 'Account', theme),
+            _buildSectionTitle(l10n.account, theme),
             _buildSettingsRow(
               icon: Icons.lock,
-              title: l10n.settingsChangePassword ?? 'Change Password',
+              title: l10n.settingsChangePassword,
               theme: theme,
               onTap: () {
                 Navigator.push(
@@ -97,10 +97,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
 
             const SizedBox(height: 32),
-            _buildSectionTitle(l10n.notificationsTitle ?? 'Notifications', theme),
+            _buildSectionTitle(l10n.notificationsTitle, theme),
             _buildSettingsRow(
               icon: Icons.notifications,
-              title: l10n.settingsPushNotifications ?? 'Push Notifications',
+              title: l10n.settingsPushNotifications,
               theme: theme,
               trailing: CupertinoSwitch(
                 value: _pushNotificationsEnabled,
@@ -115,13 +115,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             
             const SizedBox(height: 32),
-            _buildSectionTitle(l10n.settingsAppSettings ?? 'App Settings', theme),
+            _buildSectionTitle(l10n.settingsAppSettings, theme),
             BlocBuilder<SettingsCubit, SettingsState>(
               builder: (context, state) {
                 final isDark = state.themeMode == ThemeMode.dark;
                 return _buildSettingsRow(
                   icon: Icons.nightlight_round,
-                  title: l10n.settingsDarkMode ?? 'Dark Mode',
+                  title: l10n.settingsDarkMode,
                   theme: theme,
                   trailing: CupertinoSwitch(
                     value: isDark,
@@ -138,11 +138,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
             BlocBuilder<SettingsCubit, SettingsState>(
               builder: (context, state) {
                 final isEnglish = state.locale.languageCode == 'en';
-                final languageText = isEnglish ? (l10n.settingsEnglish ?? 'English') : (l10n.settingsArabic ?? 'العربية');
+                final languageText = isEnglish ? (l10n.settingsEnglish) : (l10n.settingsArabic);
                 final isRtl = Directionality.of(context) == TextDirection.rtl;
                 return _buildSettingsRow(
                   icon: Icons.language,
-                  title: l10n.settingsLanguage ?? 'Language',
+                  title: l10n.settingsLanguage,
                   theme: theme,
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -170,10 +170,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             
             const SizedBox(height: 32),
-            _buildSectionTitle(l10n.settingsSupport ?? 'Support', theme),
+            _buildSectionTitle(l10n.settingsSupport, theme),
             _buildSettingsRow(
               icon: Icons.help_outline,
-              title: l10n.settingsHelpAndSupport ?? 'Help & Support',
+              title: l10n.settingsHelpAndSupport,
               theme: theme,
               onTap: () {
                 Navigator.push(
@@ -185,7 +185,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildDivider(),
             _buildSettingsRow(
               icon: Icons.info_outline,
-              title: l10n.settingsAboutApp ?? 'About App',
+              title: l10n.settingsAboutApp,
               theme: theme,
               onTap: () {
                 Navigator.push(
@@ -196,10 +196,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             
             const SizedBox(height: 32),
-            _buildSectionTitle(l10n.settingsLegal ?? 'Legal', theme),
+            _buildSectionTitle(l10n.settingsLegal, theme),
             _buildSettingsRow(
               icon: Icons.privacy_tip_outlined,
-              title: l10n.settingsPrivacyPolicy ?? 'Privacy Policy',
+              title: l10n.settingsPrivacyPolicy,
               theme: theme,
               onTap: () {
                 Navigator.push(
@@ -211,7 +211,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildDivider(),
             _buildSettingsRow(
               icon: Icons.description_outlined,
-              title: l10n.settingsTermsConditions ?? 'Terms and Conditions',
+              title: l10n.settingsTermsConditions,
               theme: theme,
               onTap: () {
                 Navigator.push(
@@ -342,7 +342,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                l10n.settingsSelectLanguage ?? 'Select Language',
+                l10n.settingsSelectLanguage,
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -351,7 +351,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               const SizedBox(height: 16),
               ListTile(
-                title: Text(l10n.settingsEnglish ?? 'English'),
+                title: Text(l10n.settingsEnglish),
                 trailing: currentCode == 'en' ? const Icon(Icons.check, color: AppColors.primaryBlue) : null,
                 onTap: () {
                   context.read<SettingsCubit>().changeLanguage('en');
@@ -359,7 +359,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
               ),
               ListTile(
-                title: Text(l10n.settingsArabic ?? 'العربية'),
+                title: Text(l10n.settingsArabic),
                 trailing: currentCode == 'ar' ? const Icon(Icons.check, color: AppColors.primaryBlue) : null,
                 onTap: () {
                   context.read<SettingsCubit>().changeLanguage('ar');

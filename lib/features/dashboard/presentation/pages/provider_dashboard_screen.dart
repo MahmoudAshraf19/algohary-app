@@ -70,12 +70,12 @@ class _ProviderDashboardScreenState extends State<ProviderDashboardScreen> {
               context: context,
               barrierDismissible: false,
               builder: (dialogContext) => AlertDialog(
-                title: Text(l10n.subscriptionRequiredTitle ?? 'Subscription Required'),
-                content: Text(l10n.subscriptionRequiredMessage ?? 'You must subscribe to a plan to display your services on our app.'),
+                title: Text(l10n.subscriptionRequiredTitle),
+                content: Text(l10n.subscriptionRequiredMessage),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(dialogContext),
-                    child: Text(l10n.skipForNow ?? 'Skip for now'),
+                    child: Text(l10n.skipForNow),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -89,7 +89,7 @@ class _ProviderDashboardScreenState extends State<ProviderDashboardScreen> {
                       backgroundColor: Theme.of(dialogContext).colorScheme.primary,
                       foregroundColor: Theme.of(dialogContext).colorScheme.onPrimary,
                     ),
-                    child: Text(l10n.viewPlans ?? 'View Plans'),
+                    child: Text(l10n.viewPlans),
                   ),
                 ],
               ),

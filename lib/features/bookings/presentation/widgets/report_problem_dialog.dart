@@ -98,7 +98,7 @@ class _ReportProblemDialogState extends State<ReportProblemDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    l10n.reportProblem ?? 'Report a Problem',
+                    l10n.reportProblem,
                     style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   IconButton(

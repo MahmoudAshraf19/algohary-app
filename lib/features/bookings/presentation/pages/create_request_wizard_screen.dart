@@ -1,3 +1,4 @@
+import 'package:algohary_project/core/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/create_request/create_request_bloc.dart';
@@ -119,6 +120,34 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
     super.dispose();
   }
 
+  bool _appointmentIsInPast() {
+    try {
+      final d = _dateController.text.trim().split('-').map(int.parse).toList();
+      final t = _timeController.text.trim().split(':').map(int.parse).toList();
+      return DateTime(d[0], d[1], d[2], t[0], t[1]).isBefore(DateTime.now());
+    } catch (_) {
+      return false;
+    }
+  }
+
+  // Cached: creating these futures inside build() re-queried Firestore (and made
+  // the dropdowns flicker) on every setState.
+  late final Future<QuerySnapshot> _governoratesFuture =
+      FirebaseConfig.firestore.collection('governorates').get();
+  Future<QuerySnapshot>? _citiesFuture;
+  String? _citiesFutureGovernorate;
+
+  Future<QuerySnapshot> _citiesFor(String governorateId) {
+    if (_citiesFuture == null || _citiesFutureGovernorate != governorateId) {
+      _citiesFutureGovernorate = governorateId;
+      _citiesFuture = FirebaseConfig.firestore
+          .collection('cities')
+          .where('governorate_id', isEqualTo: governorateId)
+          .get();
+    }
+    return _citiesFuture!;
+  }
+
   void _nextPage(AppLocalizations l10n) {
     final state = context.read<CreateRequestBloc>().state;
     bool canProceed = true;
@@ -130,6 +159,10 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
       if (_dateController.text.isEmpty || _timeController.text.isEmpty) {
         _showError(l10n.wizardSelectDateAndTime);
         canProceed = false;
+      } else if (_appointmentIsInPast()) {
+        // Today + an earlier time used to be accepted.
+        _showError(l10n.wizardSelectDateAndTime);
+        canProceed = false;
       } else {
         context.read<CreateRequestBloc>().add(SelectAppointmentEvent(
           date: _dateController.text,
@@ -139,22 +172,22 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
       }
     } else if (_currentStep == 2) {
       if (_selectedGovernorateId == null) {
-        _showError(l10n.pleaseSelectGovernorate ?? 'Please select a governorate');
+        _showError(l10n.pleaseSelectGovernorate);
         canProceed = false;
       } else if (_selectedCityId == null) {
-        _showError(l10n.pleaseSelectCity ?? 'Please select a city');
+        _showError(l10n.pleaseSelectCity);
         canProceed = false;
       } else if (_isOtherCity && _otherCityController.text.isEmpty) {
-        _showError(l10n.pleaseEnterCityName ?? 'Please enter city name');
+        _showError(l10n.pleaseEnterCityName);
         canProceed = false;
       } else if (_streetController.text.isEmpty) {
-        _showError(l10n.pleaseEnterStreet ?? 'Please enter street name');
+        _showError(l10n.pleaseEnterStreet);
         canProceed = false;
       } else if (_buildingNumberController.text.isEmpty) {
-        _showError(l10n.pleaseEnterBuilding ?? 'Please enter building number');
+        _showError(l10n.pleaseEnterBuilding);
         canProceed = false;
       } else if (_apartmentNumberController.text.isEmpty) {
-        _showError(l10n.pleaseEnterApartment ?? 'Please enter apartment number');
+        _showError(l10n.pleaseEnterApartment);
         canProceed = false;
       } else {
         context.read<CreateRequestBloc>().add(SelectLocationEvent(
@@ -180,7 +213,8 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
       if (!state.hasConfirmedContact) {
         _showError(l10n.wizardConfirmContact);
         canProceed = false;
-      } else if (state.pricing == null) {
+      } else if (state.pricing == null || !(state.pricing!.amount > 0)) {
+        // An unparsable / zero / negative amount used to count as "entered".
         _showError(l10n.wizardEnterAgreedPrice);
         canProceed = false;
       }
@@ -452,7 +486,7 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
                 firstDate: DateTime.now(),
                 lastDate: DateTime.now().add(const Duration(days: 365)),
               );
-              if (date != null) {
+              if (date != null && mounted) {
                 setState(() {
                   _dateController.text = "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
                 });
@@ -473,7 +507,7 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
                 context: context,
                 initialTime: TimeOfDay.now(),
               );
-              if (time != null) {
+              if (time != null && mounted) {
                 setState(() {
                   _timeController.text = "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
                 });
@@ -521,14 +555,14 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
                   context,
                   MaterialPageRoute(builder: (context) => const LocationPickerScreen()),
                 );
-                if (result != null && result is LocationPickerResult) {
+                if (mounted && result != null && result is LocationPickerResult) {
                   setState(() {
                     _pickedLocation = result;
                   });
                 }
               },
               icon: Icon(Icons.map, color: theme.colorScheme.primary),
-              label: Text(l10n.pickLocationFromMap ?? 'Pick Location from Map'),
+              label: Text(l10n.pickLocationFromMap),
               style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
@@ -546,7 +580,7 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
 
           // Governorate Dropdown
           FutureBuilder<QuerySnapshot>(
-            future: FirebaseConfig.firestore.collection('governorates').get(),
+            future: _governoratesFuture,
             builder: (context, snapshot) {
               if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
               final govDocs = snapshot.data!.docs;
@@ -560,11 +594,11 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
 
                   final selected = await SelectionBottomSheet.show(
                     context,
-                    title: l10n.governorate ?? 'Governorate',
+                    title: l10n.governorate,
                     items: items,
                   );
 
-                  if (selected != null) {
+                  if (selected != null && mounted) {
                     setState(() {
                       _selectedGovernorateId = selected.id;
                       _selectedGovernorateName = selected.name;
@@ -578,7 +612,7 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
                   child: TextFormField(
                     key: ValueKey(_selectedGovernorateName), // Force rebuild on change
                     initialValue: (_selectedGovernorateName?.isNotEmpty ?? false) ? _selectedGovernorateName : null,
-                    decoration: _buildInputDecoration(theme, l10n.governorate ?? 'Governorate').copyWith(
+                    decoration: _buildInputDecoration(theme, l10n.governorate).copyWith(
                       suffixIcon: const Icon(Icons.arrow_drop_down),
                     ),
                   ),
@@ -592,10 +626,7 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
           // City Dropdown
           if (_selectedGovernorateId != null)
             FutureBuilder<QuerySnapshot>(
-              future: FirebaseConfig.firestore
-                  .collection('cities')
-                  .where('governorate_id', isEqualTo: _selectedGovernorateId)
-                  .get(),
+              future: _citiesFor(_selectedGovernorateId!),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
                 final cityDocs = snapshot.data!.docs;
@@ -608,15 +639,15 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
                     }).toList();
 
                     // Add "Other" option
-                    itemsList.add(SelectionItem(id: 'other', name: l10n.otherCity ?? 'Other City'));
+                    itemsList.add(SelectionItem(id: 'other', name: l10n.otherCity));
 
                     final selected = await SelectionBottomSheet.show(
                       context,
-                      title: l10n.city ?? 'City',
+                      title: l10n.city,
                       items: itemsList,
                     );
 
-                    if (selected != null) {
+                    if (selected != null && mounted) {
                       setState(() {
                         _selectedCityId = selected.id;
                         _isOtherCity = selected.id == 'other';
@@ -631,8 +662,8 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
                   child: AbsorbPointer(
                     child: TextFormField(
                       key: ValueKey('$_selectedCityId-$_selectedCityName'), // Force rebuild
-                      initialValue: _isOtherCity ? (l10n.otherCity ?? 'Other City') : ((_selectedCityName?.isNotEmpty ?? false) ? _selectedCityName : null),
-                      decoration: _buildInputDecoration(theme, l10n.city ?? 'City').copyWith(
+                      initialValue: _isOtherCity ? (l10n.otherCity) : ((_selectedCityName?.isNotEmpty ?? false) ? _selectedCityName : null),
+                      decoration: _buildInputDecoration(theme, l10n.city).copyWith(
                         suffixIcon: const Icon(Icons.arrow_drop_down),
                       ),
                     ),
@@ -645,14 +676,14 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
             const SizedBox(height: 16),
             TextField(
               controller: _otherCityController,
-              decoration: _buildInputDecoration(theme, l10n.enterCityName ?? 'Enter City Name'),
+              decoration: _buildInputDecoration(theme, l10n.enterCityName),
             ),
           ],
 
           const SizedBox(height: 16),
           TextField(
             controller: _streetController,
-            decoration: _buildInputDecoration(theme, l10n.street ?? 'Street'),
+            decoration: _buildInputDecoration(theme, l10n.street),
           ),
           
           const SizedBox(height: 16),
@@ -661,14 +692,14 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
               Expanded(
                 child: TextField(
                   controller: _buildingNumberController,
-                  decoration: _buildInputDecoration(theme, l10n.buildingNumber ?? 'Building Number'),
+                  decoration: _buildInputDecoration(theme, l10n.buildingNumber),
                 ),
               ),
               const SizedBox(width: 16),
               Expanded(
                 child: TextField(
                   controller: _apartmentNumberController,
-                  decoration: _buildInputDecoration(theme, l10n.apartmentNumber ?? 'Apartment Number'),
+                  decoration: _buildInputDecoration(theme, l10n.apartmentNumber),
                 ),
               ),
             ],
@@ -740,7 +771,7 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
           const SizedBox(height: 24),
           TextField(
             controller: _amountController,
-            keyboardType: TextInputType.number,
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
             decoration: InputDecoration(
               labelText: l10n.wizardAgreedPriceLabel,
               suffixText: 'EGP',
@@ -749,7 +780,7 @@ class _CreateRequestWizardScreenState extends State<CreateRequestWizardScreen> {
             ),
             onChanged: (val) {
                context.read<CreateRequestBloc>().add(EnterAgreedPriceEvent(
-                  amount: double.tryParse(val) ?? 0,
+                  amount: double.tryParse(Validators.normalizeDigits(val.trim())) ?? 0,
                ));
             },
           ),

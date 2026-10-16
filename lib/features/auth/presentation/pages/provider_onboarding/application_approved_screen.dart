@@ -29,14 +29,14 @@ class ApplicationApprovedScreen extends StatelessWidget {
               const SizedBox(height: 32),
               
               Text(
-                l10n.youAreApproved ?? "You're Approved!",
+                l10n.youAreApproved,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
               ),
               const SizedBox(height: 12),
               
               Text(
-                '${l10n.welcomeToHostCommunity ?? 'Welcome to the Provider Community.'}\n${l10n.proceedToCreateProperties ?? 'You can now start receiving requests.'}',
+                '${l10n.welcomeToHostCommunity}\n${l10n.proceedToCreateProperties}',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7)),
               ),
@@ -55,11 +55,11 @@ class ApplicationApprovedScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(l10n.hostStatus ?? 'Account Status', style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7))),
+                        Text(l10n.hostStatus, style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7))),
                         Row(
                           children: [
                             Text(
-                              l10n.statusActive ?? 'Active',
+                              l10n.statusActive,
                               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.primary),
                             ),
                             const SizedBox(width: 8),
@@ -72,11 +72,11 @@ class ApplicationApprovedScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(l10n.verification ?? 'Verification', style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7))),
+                        Text(l10n.verification, style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7))),
                         Row(
                           children: [
                             Text(
-                              l10n.statusCompleted ?? 'Completed',
+                              l10n.statusCompleted,
                               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.primary),
                             ),
                             const SizedBox(width: 8),
@@ -104,7 +104,7 @@ class ApplicationApprovedScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      l10n.backToHome ?? 'Back to Home',
+                      l10n.backToHome,
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.onPrimary),
                     ),
                     const SizedBox(width: 8),

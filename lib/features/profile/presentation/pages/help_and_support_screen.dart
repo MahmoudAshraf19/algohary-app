@@ -33,7 +33,7 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
     if (_selectedSubject == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(AppLocalizations.of(context)!.appRequiredField ?? 'This field is required'),
+          content: Text(AppLocalizations.of(context)!.appRequiredField),
           backgroundColor: Colors.red,
         ),
       );
@@ -61,7 +61,7 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context)!.complaintSubmittedSuccessfully ?? 'Your complaint has been submitted successfully.'),
+            content: Text(AppLocalizations.of(context)!.complaintSubmittedSuccessfully),
             backgroundColor: Colors.green,
             behavior: SnackBarBehavior.floating,
           ),
@@ -72,7 +72,7 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error: $e'),
+            content: Text(AppLocalizations.of(context)!.errorGeneric),
             backgroundColor: Colors.red,
           ),
         );
@@ -94,10 +94,10 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
     final hintColor = theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.5) : Colors.grey;
 
     final List<String> subjects = [
-      l10n.subjectTechnical ?? 'Technical Issue',
-      l10n.subjectBilling ?? 'Billing and Payments',
-      l10n.subjectSuggestion ?? 'Suggestion',
-      l10n.subjectOther ?? 'Other',
+      l10n.subjectTechnical,
+      l10n.subjectBilling,
+      l10n.subjectSuggestion,
+      l10n.subjectOther,
     ];
 
     return Scaffold(
@@ -111,7 +111,7 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          l10n.settingsHelpAndSupport ?? 'Help & Support',
+          l10n.settingsHelpAndSupport,
           style: TextStyle(
             color: textColor,
             fontWeight: FontWeight.w600,
@@ -134,7 +134,7 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  l10n.helpSupportSubtitle ?? 'How can we help you?',
+                  l10n.helpSupportSubtitle,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 22,
@@ -146,7 +146,7 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
                 
                 // Subject Dropdown
                 Text(
-                  l10n.subjectLabel ?? 'Subject',
+                  l10n.subjectLabel,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -155,7 +155,7 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
                 ),
                 const SizedBox(height: 8),
                 CustomDropdown<String>(
-                  hintText: l10n.subjectLabel ?? 'Select a subject',
+                  hintText: l10n.subjectLabel,
                   value: _selectedSubject,
                   prefixIcon: Icons.subject_rounded,
                   items: subjects.map((String subject) {
@@ -175,13 +175,13 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
                       _selectedSubject = newValue;
                     });
                   },
-                  validator: (value) => value == null ? (l10n.appRequiredField ?? 'Required field') : null,
+                  validator: (value) => value == null ? (l10n.appRequiredField) : null,
                 ),
                 const SizedBox(height: 24),
                 
                 // Message TextField
                 Text(
-                  l10n.complaintDetails ?? 'Complaint Details',
+                  l10n.complaintDetails,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -194,7 +194,7 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
                   maxLines: 6,
                   style: TextStyle(color: textColor),
                   decoration: InputDecoration(
-                    hintText: l10n.writeYourComplaint ?? 'Write your complaint here...',
+                    hintText: l10n.writeYourComplaint,
                     hintStyle: TextStyle(color: hintColor),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -215,7 +215,7 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return l10n.appRequiredField ?? 'This field is required';
+                      return l10n.appRequiredField;
                     }
                     if (value.trim().length < 10) {
                       return 'Please provide more details';
@@ -241,7 +241,7 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
                     child: _isLoading
                         ? const CircularProgressIndicator(color: Colors.white)
                         : Text(
-                            l10n.submitComplaint ?? 'Submit Complaint',
+                            l10n.submitComplaint,
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,

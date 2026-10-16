@@ -44,6 +44,18 @@ class NotificationService {
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         _showLocalNotification(message);
       });
+
+      // 4. Keep the stored token fresh. FCM rotates tokens; without this the
+      //    backend kept pushing to a dead token until the next login.
+      _messaging.onTokenRefresh.listen((token) async {
+        final user = _auth.currentUser;
+        if (user == null) return;
+        try {
+          await _firestore.collection('users').doc(user.uid).update({'fcm_token': token});
+        } catch (e) {
+          debugPrint('FCM token refresh update failed: $e');
+        }
+      });
     }
 
     _isInitialized = true;
@@ -102,7 +114,8 @@ class NotificationService {
     const platformDetails = NotificationDetails(android: androidDetails, iOS: iosDetails);
 
     await _localNotifications.show(
-      id: DateTime.now().millisecond,
+      // `millisecond` (0-999) collided easily and replaced earlier notifications.
+      id: DateTime.now().millisecondsSinceEpoch.remainder(2147483647),
       title: title,
       body: body,
       notificationDetails: platformDetails,
@@ -155,7 +168,6 @@ class NotificationService {
     final user = _auth.currentUser;
     if (user == null) return;
 
-    final batch = _firestore.batch();
     final snapshot = await _firestore
         .collection('users')
         .doc(user.uid)
@@ -163,10 +175,15 @@ class NotificationService {
         .where('isRead', isEqualTo: false)
         .get();
 
-    for (var doc in snapshot.docs) {
-      batch.update(doc.reference, {'isRead': true});
+    // A Firestore batch is limited to 500 writes; commit in chunks.
+    const chunkSize = 450;
+    for (var i = 0; i < snapshot.docs.length; i += chunkSize) {
+      final batch = _firestore.batch();
+      final end = (i + chunkSize < snapshot.docs.length) ? i + chunkSize : snapshot.docs.length;
+      for (final doc in snapshot.docs.sublist(i, end)) {
+        batch.update(doc.reference, {'isRead': true});
+      }
+      await batch.commit();
     }
-
-    await batch.commit();
   }
 }

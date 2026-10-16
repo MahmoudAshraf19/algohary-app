@@ -30,12 +30,17 @@ class _InstagramGalleryPickerState extends State<InstagramGalleryPicker> {
       );
       if (paths.isNotEmpty) {
         final List<AssetEntity> media = await paths.first.getAssetListPaged(page: 0, size: 100);
+        if (!mounted) return;
         setState(() {
           _mediaList = media;
           _isLoading = false;
         });
+      } else if (mounted) {
+        // No albums: stop the spinner instead of loading forever.
+        setState(() => _isLoading = false);
       }
     } else {
+      if (mounted) setState(() => _isLoading = false);
       PhotoManager.openSetting();
     }
   }

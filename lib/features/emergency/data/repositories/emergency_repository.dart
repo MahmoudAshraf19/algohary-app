@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import '../../../../core/network/firebase_config.dart';
@@ -50,18 +51,27 @@ class EmergencyRepository {
   ];
 
   Stream<List<EmergencyServiceItem>> streamEmergencyServices() {
-    return _firestore.collection('emergency').snapshots().map((snapshot) {
-      if (snapshot.docs.isEmpty) {
-        return defaultItems;
-      }
-      final items = snapshot.docs
-          .map((doc) => EmergencyServiceItem.fromFirestore(doc.data(), doc.id))
-          .where((item) => item.isAvailable)
-          .toList();
-      return items.isNotEmpty ? items : defaultItems;
-    }).handleError((error) {
-      debugPrint('Error streaming emergency services: $error');
-      return defaultItems;
-    });
+    return _firestore
+        .collection('emergency')
+        .snapshots()
+        .map((snapshot) {
+          if (snapshot.docs.isEmpty) {
+            return defaultItems;
+          }
+          final items = snapshot.docs
+              .map((doc) => EmergencyServiceItem.fromFirestore(doc.data(), doc.id))
+              .where((item) => item.isAvailable)
+              .toList();
+          return items.isNotEmpty ? items : defaultItems;
+        })
+        // Stream.handleError cannot substitute a value (its return value is
+        // ignored), so on failure the UI used to wait forever for data. Emit the
+        // built-in numbers instead.
+        .transform(StreamTransformer<List<EmergencyServiceItem>, List<EmergencyServiceItem>>.fromHandlers(
+          handleError: (error, stackTrace, sink) {
+            debugPrint('Error streaming emergency services: $error');
+            sink.add(defaultItems);
+          },
+        ));
   }
 }

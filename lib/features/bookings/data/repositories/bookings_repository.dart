@@ -153,49 +153,74 @@ class BookingsRepository {
     await batch.commit();
   }
 
-  /// Accept changes (User)
+  /// Accept changes (User).
+  ///
+  /// The terms that get applied are read from the server inside a transaction
+  /// (not from the client-side copy the user was looking at). Otherwise a
+  /// provider revising the proposal at the same moment would let the user
+  /// accept a price / appointment they never saw.
+  /// [acceptedProposal] is kept for API compatibility and only used to detect
+  /// that the proposal changed while the user was deciding.
   Future<void> acceptProposedChanges({
     required String requestId,
     required String userId,
     required Map<String, dynamic> acceptedProposal,
   }) async {
     final docRef = _requestsCol.doc(requestId);
-    final batch = _firestore.batch();
-
-    final action = RequestActionModel(
-      type: 'CHANGES_ACCEPTED',
-      performedBy: 'USER',
-      performedById: userId,
-      performedAt: DateTime.now(),
-    );
-
-    final updateData = <String, dynamic>{
-      'status': ServiceRequestStatus.approved.value,
-      'currentProposal': FieldValue.delete(),
-      'lastAction': action.toJson(),
-      'updatedAt': FieldValue.serverTimestamp(),
-    };
-
-    if (acceptedProposal['pricing'] != null) {
-      updateData['pricing'] = acceptedProposal['pricing'];
-    }
-    if (acceptedProposal['appointment'] != null) {
-      updateData['appointment'] = acceptedProposal['appointment'];
-    }
-
-    batch.update(docRef, updateData);
-
     final historyRef = docRef.collection('statusHistory').doc();
-    final history = StatusHistoryModel(
-      status: ServiceRequestStatus.approved.value,
-      performedBy: 'USER',
-      performedById: userId,
-      message: 'User accepted proposed changes',
-      createdAt: DateTime.now(),
-    );
-    batch.set(historyRef, history.toJson());
 
-    await batch.commit();
+    await _firestore.runTransaction((transaction) async {
+      final snap = await transaction.get(docRef);
+      if (!snap.exists) throw Exception('Request not found');
+
+      final data = snap.data() as Map<String, dynamic>;
+      if (data['userId'] != userId) {
+        throw Exception('Not allowed');
+      }
+      if (ServiceRequestStatusExt.fromString((data['status'] ?? '').toString()) !=
+          ServiceRequestStatus.changeProposed) {
+        throw Exception('Proposal is no longer pending');
+      }
+
+      final serverProposal = data['currentProposal'];
+      if (serverProposal is! Map) {
+        throw Exception('Proposal not found');
+      }
+      final proposal = Map<String, dynamic>.from(serverProposal);
+
+      final action = RequestActionModel(
+        type: 'CHANGES_ACCEPTED',
+        performedBy: 'USER',
+        performedById: userId,
+        performedAt: DateTime.now(),
+      );
+
+      final updateData = <String, dynamic>{
+        'status': ServiceRequestStatus.approved.value,
+        'currentProposal': FieldValue.delete(),
+        'lastAction': action.toJson(),
+        'updatedAt': FieldValue.serverTimestamp(),
+      };
+
+      if (proposal['pricing'] != null) {
+        updateData['pricing'] = proposal['pricing'];
+      }
+      if (proposal['appointment'] != null) {
+        updateData['appointment'] = proposal['appointment'];
+      }
+
+      transaction.update(docRef, updateData);
+      transaction.set(
+        historyRef,
+        StatusHistoryModel(
+          status: ServiceRequestStatus.approved.value,
+          performedBy: 'USER',
+          performedById: userId,
+          message: 'User accepted proposed changes',
+          createdAt: DateTime.now(),
+        ).toJson(),
+      );
+    });
   }
 
   /// Mark request as completed (by User or Provider)
@@ -211,7 +236,29 @@ class BookingsRepository {
       if (!docSnap.exists) throw Exception('Request not found');
 
       final request = ServiceRequestModel.fromJson(docSnap.data() as Map<String, dynamic>, docSnap.id);
-      
+
+      // Only the two parties of the request may complete it, and only while it
+      // is still active (never revive cancelled / rejected / expired requests).
+      if (isProvider ? request.providerId != userId : request.userId != userId) {
+        throw Exception('Not allowed');
+      }
+      const notCompletableStatuses = {
+        ServiceRequestStatus.completed,
+        ServiceRequestStatus.rejected,
+        ServiceRequestStatus.cancelledByUser,
+        ServiceRequestStatus.cancelledByProvider,
+        ServiceRequestStatus.expired,
+        ServiceRequestStatus.pendingProviderApproval,
+        ServiceRequestStatus.changeProposed,
+        ServiceRequestStatus.pendingProviderConfirmation,
+      };
+      if (notCompletableStatuses.contains(request.status)) {
+        throw Exception('Request cannot be completed in its current status');
+      }
+      if (isProvider ? request.isCompletedByProvider : request.isCompletedByUser) {
+        return; // already marked by this side: nothing to do (idempotent)
+      }
+
       bool willBeCompleted = false;
       if (isProvider) {
         if (request.isCompletedByUser) willBeCompleted = true;
@@ -260,7 +307,12 @@ class BookingsRepository {
       status: complaint.status,
       createdAt: complaint.createdAt,
     );
-    await docRef.set(complaintWithId.toJson());
+
+    // Complaint + history entry + notification are written atomically so a
+    // partial failure can never leave a complaint behind while the user is told
+    // the submission failed (which previously produced duplicate complaints).
+    final batch = _firestore.batch();
+    batch.set(docRef, complaintWithId.toJson());
 
     // Also update request history to reflect complaint
     final historyRef = _requestsCol.doc(complaint.bookingId).collection('statusHistory').doc();
@@ -271,32 +323,47 @@ class BookingsRepository {
       message: 'Complaint filed: ${complaint.reason}',
       createdAt: DateTime.now(),
     );
-    await historyRef.set(history.toJson());
+    batch.set(historyRef, history.toJson());
 
-    // Send notification
-    await _sendNotification(
+    final shortId = complaint.bookingId.length > 5
+        ? complaint.bookingId.substring(0, 5)
+        : complaint.bookingId;
+    _addNotification(
+      batch,
       userId: complaint.againstId,
       title: 'New Complaint Filed',
-      body: 'A complaint has been filed against you regarding booking #${complaint.bookingId.substring(0, 5)}',
+      body: 'A complaint has been filed against you regarding booking #$shortId',
       type: 'COMPLAINT',
       relatedId: complaint.bookingId,
     );
+
+    await batch.commit();
   }
 
-  /// Helper to send a notification (writes to Firestore, assumes Cloud Functions will send FCM)
-  Future<void> _sendNotification({
+  /// Queues an in-app notification in [batch].
+  ///
+  /// It is written to `users/{userId}/notifications` with the same field names
+  /// the app reads (`referenceId`, ...). The previous top-level `notifications`
+  /// collection (`userId` / `relatedId`) was never read by [NotificationService],
+  /// so complaint notifications never appeared in the app.
+  void _addNotification(
+    WriteBatch batch, {
     required String userId,
     required String title,
     required String body,
     required String type,
     required String relatedId,
-  }) async {
-    await _firestore.collection('notifications').add({
-      'userId': userId,
+  }) {
+    final ref = _firestore
+        .collection('users')
+        .doc(userId)
+        .collection('notifications')
+        .doc();
+    batch.set(ref, {
       'title': title,
       'body': body,
       'type': type,
-      'relatedId': relatedId,
+      'referenceId': relatedId,
       'isRead': false,
       'createdAt': FieldValue.serverTimestamp(),
     });

@@ -23,6 +23,9 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   final NotificationService _notificationService = NotificationService();
+  // Created once: calling streamUnreadCount() inside build() opened a new Firestore
+  // listener on every rebuild.
+  late final Stream<int> _unreadStream = _notificationService.streamUnreadCount();
   final LayerLink _layerLink = LayerLink();
   OverlayEntry? _overlayEntry;
 
@@ -202,7 +205,7 @@ class _HomeTabState extends State<HomeTab> {
                                   right: 4,
                                   top: 4,
                                   child: StreamBuilder<int>(
-                                    stream: _notificationService.streamUnreadCount(),
+                                    stream: _unreadStream,
                                     builder: (context, snapshot) {
                                       final count = snapshot.data ?? 0;
                                       if (count == 0) return const SizedBox();

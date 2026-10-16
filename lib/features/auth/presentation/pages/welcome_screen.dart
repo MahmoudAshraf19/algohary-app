@@ -84,8 +84,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
           // Bottom Content
           Expanded(
             flex: 4,
-            child: Container(
-              width: double.infinity,
+            // Scrollable + min-height so the content never overflows on small
+            // screens / landscape, while still pinning the button to the bottom.
+            child: LayoutBuilder(
+              builder: (context, constraints) => SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: IntrinsicHeight(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
                 child: Column(
@@ -143,6 +148,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                       ),
                     ),
                   ],
+                ),
+              ),
+                  ),
                 ),
               ),
             ),

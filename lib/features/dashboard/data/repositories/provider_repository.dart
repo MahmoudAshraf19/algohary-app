@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:algohary_project/features/auth/data/models/user_model.dart';
 import 'package:algohary_project/core/network/firebase_config.dart';
 
@@ -6,7 +7,7 @@ class ProviderRepository {
   final FirebaseFirestore _firestore = FirebaseConfig.firestore;
 
   Future<List<UserModel>> getProvidersByService(String serviceId) async {
-    print('🔍 [ProviderRepository] Fetching providers for service ID: $serviceId');
+    debugPrint('🔍 [ProviderRepository] Fetching providers for service ID: $serviceId');
     try {
       final snapshot = await _firestore
           .collection('users')
@@ -14,20 +15,25 @@ class ProviderRepository {
           .where('services', arrayContains: serviceId)
           .get();
 
-      print('✅ [ProviderRepository] Found ${snapshot.docs.length} providers for $serviceId');
+      debugPrint('✅ [ProviderRepository] Found ${snapshot.docs.length} providers for $serviceId');
       
       final providers = snapshot.docs.map((doc) {
         final data = doc.data();
         data['id'] = doc.id;
-        print('   -> Parsing provider: ${data['first_name']} ${data['last_name']} (ID: ${doc.id})');
         return UserModel.fromJson(data);
-      }).toList();
+      }).where((u) => !u.isBlocked).toList(); // never offer blocked providers for booking
       
-      print('✅ [ProviderRepository] Successfully parsed ${providers.length} providers');
+      debugPrint('✅ [ProviderRepository] Successfully parsed ${providers.length} providers');
       return providers;
     } catch (e) {
-      print('❌ [ProviderRepository] Error fetching providers: $e');
+      debugPrint('❌ [ProviderRepository] Error fetching providers: $e');
       throw Exception('Failed to load providers: $e');
+    }
+  }
+
+  Iterable<List<String>> _chunks(List<String> items, int size) sync* {
+    for (var i = 0; i < items.length; i += size) {
+      yield items.sublist(i, i + size > items.length ? items.length : i + size);
     }
   }
 
@@ -51,7 +57,7 @@ class ProviderRepository {
       }
       return '';
     } catch (e) {
-      print('❌ [ProviderRepository] Error fetching governorate: $e');
+      debugPrint('❌ [ProviderRepository] Error fetching governorate: $e');
       return '';
     }
   }
@@ -67,7 +73,7 @@ class ProviderRepository {
         final data = doc.data();
         data['id'] = doc.id;
         return UserModel.fromJson(data);
-      }).toList();
+      }).where((u) => !u.isBlocked).toList();
       if (query.isEmpty) return allProviders;
       
       final q = query.toLowerCase();
@@ -75,7 +81,7 @@ class ProviderRepository {
         return p.firstName.toLowerCase().contains(q) || p.lastName.toLowerCase().contains(q);
       }).toList();
     } catch (e) {
-      print('❌ [ProviderRepository] Error searching providers: $e');
+      debugPrint('❌ [ProviderRepository] Error searching providers: $e');
       return [];
     }
   }
@@ -94,7 +100,7 @@ class ProviderRepository {
       }
       return null;
     } catch (e) {
-      print('❌ Error fetching category details: $e');
+      debugPrint('❌ Error fetching category details: $e');
       return null;
     }
   }
@@ -103,16 +109,21 @@ class ProviderRepository {
     if (cityIds.isEmpty) return [];
     
     try {
-      final snapshot = await _firestore.collection('cities')
-          .where(FieldPath.documentId, whereIn: cityIds.take(10).toList())
-          .get();
-      
-      return snapshot.docs.map((doc) {
-        final data = doc.data();
-        return langCode == 'ar' ? (data['city_name_ar'] ?? '') : (data['city_name_en'] ?? '');
-      }).cast<String>().toList();
+      // `whereIn` accepts at most 10 values and the old `.take(10)` silently
+      // dropped every city after the tenth. Query in chunks instead.
+      final names = <String>[];
+      for (final chunk in _chunks(cityIds, 10)) {
+        final snapshot = await _firestore.collection('cities')
+            .where(FieldPath.documentId, whereIn: chunk)
+            .get();
+        for (final doc in snapshot.docs) {
+          final data = doc.data();
+          names.add(((langCode == 'ar' ? data['city_name_ar'] : data['city_name_en']) ?? '').toString());
+        }
+      }
+      return names;
     } catch (e) {
-      print('❌ Error fetching city names: $e');
+      debugPrint('❌ Error fetching city names: $e');
       return [];
     }
   }
@@ -121,23 +132,27 @@ class ProviderRepository {
     if (serviceIds.isEmpty) return [];
     
     try {
-      // Note: whereIn only supports up to 10 elements
-      final snapshot = await _firestore.collection('services')
-          .where(FieldPath.documentId, whereIn: serviceIds.take(10).toList())
-          .get();
-          
-      return snapshot.docs.map<Map<String, String>>((doc) {
-        final data = doc.data();
-        final nameAr = data['name_ar'] ?? '';
-        final nameEn = data['name_en'] ?? '';
-        return <String, String>{
-          'id': doc.id,
-          'name': (langCode == 'ar' ? nameAr : nameEn).toString(),
-          'icon_url': (data['icon_url'] ?? '').toString(),
-        };
-      }).toList();
+      // whereIn only supports up to 10 elements: query in chunks (the previous
+      // `.take(10)` silently hid the remaining services of a provider).
+      final result = <Map<String, String>>[];
+      for (final chunk in _chunks(serviceIds, 10)) {
+        final snapshot = await _firestore.collection('services')
+            .where(FieldPath.documentId, whereIn: chunk)
+            .get();
+        for (final doc in snapshot.docs) {
+          final data = doc.data();
+          final nameAr = data['name_ar'] ?? '';
+          final nameEn = data['name_en'] ?? '';
+          result.add(<String, String>{
+            'id': doc.id,
+            'name': (langCode == 'ar' ? nameAr : nameEn).toString(),
+            'icon_url': (data['icon_url'] ?? '').toString(),
+          });
+        }
+      }
+      return result;
     } catch (e) {
-      print('❌ Error fetching service details: $e');
+      debugPrint('❌ Error fetching service details: $e');
       return [];
     }
   }

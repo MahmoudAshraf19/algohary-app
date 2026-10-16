@@ -120,9 +120,12 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
         debugPrint('====================================');
         debugPrint('📸 ORIGINAL IMAGE SIZE: ${originalSizeKb.toStringAsFixed(2)} KB');
 
-        final tempDir = await getTemporaryDirectory();
-        final targetPath = '${tempDir.path}/compress_${DateTime.now().millisecondsSinceEpoch}.jpg';
-        
+        // path_provider has no web implementation: calling it unconditionally
+        // threw on web and made picking any image (profile / ID) impossible.
+        final String? targetPath = kIsWeb
+            ? null
+            : '${(await getTemporaryDirectory()).path}/compress_${DateTime.now().millisecondsSinceEpoch}.jpg';
+
         XFile? compressedImage;
         try {
           if (kIsWeb) {
@@ -133,7 +136,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
           } else {
             compressedImage = await FlutterImageCompress.compressAndGetFile(
               originalImage.path,
-              targetPath,
+              targetPath!,
               minHeight: 800,
               minWidth: 800,
               quality: 60,
@@ -151,6 +154,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
         debugPrint('📉 REDUCED BY: ${((1 - (compressedSizeKb / originalSizeKb)) * 100).toStringAsFixed(1)}%');
         debugPrint('====================================');
 
+        if (!mounted) return;
         setState(() {
           if (isProfile) {
             _profileImage = compressedImage;
@@ -163,8 +167,9 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
       }
     } catch (e) {
       debugPrint('Error picking image: $e');
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error picking image: $e')),
+        SnackBar(content: Text(AppLocalizations.of(context)!.errorGeneric)),
       );
     }
   }
@@ -176,7 +181,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
         _selectedGovernorateId == null || _selectedCities.isEmpty || 
         _idFrontImage == null || _idBackImage == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.appRequiredField ?? 'All fields are required!')),
+        SnackBar(content: Text(AppLocalizations.of(context)!.appRequiredField)),
       );
       return;
     }
@@ -231,6 +236,14 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
 
       // Create Application document
       final applicationRef = _firestore.collection('provider_applications').doc(userId);
+
+      // Re-submitting must not downgrade an application that was already approved
+      // (it would reset the status to "under review" and lock the provider out).
+      final existing = await applicationRef.get();
+      if (existing.exists &&
+          (existing.data() as Map<String, dynamic>?)?['status'] == 'approved') {
+        throw Exception('application-already-approved');
+      }
       await applicationRef.set({
         'application_id': shortAppId,
         'user_id': userId,
@@ -269,7 +282,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
       if (mounted) {
         setState(() => _isLoading = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red),
+          SnackBar(content: Text(AppLocalizations.of(context)!.errorGeneric), backgroundColor: Colors.red),
         );
       }
     }
@@ -285,7 +298,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
         leading: BackButton(color: theme.colorScheme.onSurface),
-        title: Text(l10n.becomeProvider ?? 'Become a Provider', style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(l10n.becomeProvider, style: const TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
       ),
@@ -297,22 +310,22 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
               onStepContinue: () {
                 if (_currentStep == 0) {
                   if (_firstNameController.text.isEmpty || _lastNameController.text.isEmpty || _phoneController.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.appRequiredField ?? '')));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.appRequiredField)));
                     return;
                   }
                 } else if (_currentStep == 1) {
                   if (_selectedCategoryId == null || _selectedServices.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.appRequiredField ?? '')));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.appRequiredField)));
                     return;
                   }
                 } else if (_currentStep == 2) {
                   if (_selectedGovernorateId == null || _selectedCities.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.appRequiredField ?? '')));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.appRequiredField)));
                     return;
                   }
                 } else if (_currentStep == 3) {
                   if (_idFrontImage == null || _idBackImage == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.appRequiredField ?? '')));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.appRequiredField)));
                     return;
                   }
                   _submitApplication();
@@ -339,7 +352,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                           ),
                           child: Text(
-                            _currentStep == 3 ? (l10n.appSubmit ?? 'Submit') : (l10n.appNext ?? 'Next'),
+                            _currentStep == 3 ? (l10n.appSubmit) : (l10n.appNext),
                             style: TextStyle(color: theme.colorScheme.onPrimary, fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -355,7 +368,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                             ),
                             child: Text(
-                              l10n.appBack ?? 'Back',
+                              l10n.appBack,
                               style: TextStyle(color: theme.colorScheme.primary, fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -367,25 +380,25 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
               },
               steps: [
                 Step(
-                  title: Text(l10n.appPersonalInfo ?? 'Personal Info', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  title: Text(l10n.appPersonalInfo, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   isActive: _currentStep >= 0,
                   state: _currentStep > 0 ? StepState.complete : StepState.indexed,
                   content: _buildPersonalInfoStep(theme, isAr, l10n),
                 ),
                 Step(
-                  title: Text(l10n.appStepCategory ?? 'Category', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  title: Text(l10n.appStepCategory, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   isActive: _currentStep >= 1,
                   state: _currentStep > 1 ? StepState.complete : StepState.indexed,
                   content: _buildCategoryStep(theme, isAr, l10n),
                 ),
                 Step(
-                  title: Text(l10n.appStepLocation ?? 'Location', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  title: Text(l10n.appStepLocation, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   isActive: _currentStep >= 2,
                   state: _currentStep > 2 ? StepState.complete : StepState.indexed,
                   content: _buildLocationStep(theme, isAr, l10n),
                 ),
                 Step(
-                  title: Text(l10n.appStepId ?? 'Identity', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  title: Text(l10n.appStepId, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   isActive: _currentStep >= 3,
                   content: _buildIdentityStep(theme, isAr, l10n),
                 ),
@@ -413,7 +426,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  l10n.appIdNotice ?? 'Please ensure your name matches your ID card exactly, and your profile photo matches the person on the ID card.',
+                  l10n.appIdNotice,
                   style: const TextStyle(color: Colors.orange, fontSize: 12),
                 ),
               ),
@@ -436,9 +449,9 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
                     ? Icon(Icons.person, size: 50, color: theme.colorScheme.onSurfaceVariant)
                     : null,
               ),
-              Positioned(
+              PositionedDirectional(
                 bottom: 0,
-                right: 0,
+                end: 0,
                 child: GestureDetector(
                   onTap: () => _pickImage(false, isProfile: true),
                   child: CircleAvatar(
@@ -454,19 +467,19 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
         const SizedBox(height: 24),
         TextField(
           controller: _firstNameController,
-          decoration: _inputDecoration(theme).copyWith(labelText: l10n.appFirstName ?? 'First Name'),
+          decoration: _inputDecoration(theme).copyWith(labelText: l10n.appFirstName),
         ),
         const SizedBox(height: 16),
         TextField(
           controller: _lastNameController,
-          decoration: _inputDecoration(theme).copyWith(labelText: l10n.appLastName ?? 'Last Name'),
+          decoration: _inputDecoration(theme).copyWith(labelText: l10n.appLastName),
         ),
         const SizedBox(height: 16),
         TextField(
           controller: _phoneController,
           keyboardType: TextInputType.phone,
           decoration: _inputDecoration(theme).copyWith(
-            labelText: l10n.appPhone ?? 'Phone Number',
+            labelText: l10n.appPhone,
             prefixIcon: GestureDetector(
               onTap: () {
                 showCountryPicker(
@@ -478,7 +491,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
                     textStyle: const TextStyle(fontSize: 12),
                     searchTextStyle: const TextStyle(fontSize: 14),
                     inputDecoration: InputDecoration(
-                      hintText: l10n.appSearch ?? 'Search',
+                      hintText: l10n.appSearch,
                       prefixIcon: const Icon(Icons.search),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
@@ -494,7 +507,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
-                margin: const EdgeInsets.only(right: 8),
+                margin: const EdgeInsetsDirectional.only(end: 8),
                 decoration: BoxDecoration(
                   border: Border(
                     right: BorderSide(color: theme.colorScheme.outline.withOpacity(0.3)),
@@ -518,7 +531,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
           controller: _emailController,
           enabled: false,
           decoration: _inputDecoration(theme).copyWith(
-            labelText: l10n.appEmail ?? 'Email',
+            labelText: l10n.appEmail,
             fillColor: theme.colorScheme.surfaceContainerHighest.withOpacity(0.1),
           ),
         ),
@@ -531,7 +544,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(height: 16),
-        Text(l10n.appSelectCategory ?? 'Select Category', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+        Text(l10n.appSelectCategory, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         FutureBuilder<QuerySnapshot>(
           future: _categoriesFuture,
@@ -556,7 +569,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
               menuMaxHeight: 350,
               icon: Icon(Icons.keyboard_arrow_down_rounded, color: theme.colorScheme.primary),
               style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500, color: theme.colorScheme.onSurface),
-              hint: Text(l10n.appSelectCategory ?? 'Select Category'),
+              hint: Text(l10n.appSelectCategory),
               items: availableDocs.map((doc) {
                 final data = doc.data() as Map<String, dynamic>;
                 return DropdownMenuItem<String>(
@@ -580,7 +593,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
         ),
         const SizedBox(height: 24),
         if (_selectedCategoryId != null && _servicesFuture != null) ...[
-          Text(l10n.appSelectServices ?? 'Select Services', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+          Text(l10n.appSelectServices, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
           FutureBuilder<QuerySnapshot>(
             future: _servicesFuture,
@@ -598,7 +611,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
               }).toList();
               return _buildMultiSelectDropdown(
                 theme: theme,
-                title: l10n.appSelectServices ?? 'Select Services',
+                title: l10n.appSelectServices,
                 items: availableDocs,
                 selectedIds: _selectedServices,
                 onChanged: (val) {
@@ -622,7 +635,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(height: 16),
-        Text(l10n.appSelectGovernorate ?? 'Select Governorate', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+        Text(l10n.appSelectGovernorate, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         FutureBuilder<QuerySnapshot>(
           future: _governoratesFuture,
@@ -639,12 +652,12 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
               menuMaxHeight: 350,
               icon: Icon(Icons.keyboard_arrow_down_rounded, color: theme.colorScheme.primary),
               style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500, color: theme.colorScheme.onSurface),
-              hint: Text(l10n.appSelectGovernorate ?? 'Select Governorate'),
+              hint: Text(l10n.appSelectGovernorate),
               items: docs.map((doc) {
                 final data = doc.data() as Map<String, dynamic>;
                 return DropdownMenuItem<String>(
                   value: doc.id,
-                  child: Text(isAr ? data['governorate_name_ar'] : data['governorate_name_en']),
+                  child: Text(((isAr ? data['governorate_name_ar'] : data['governorate_name_en']) ?? '').toString()),
                 );
               }).toList(),
               onChanged: (val) {
@@ -663,7 +676,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
         ),
         const SizedBox(height: 24),
         if (_selectedGovernorateId != null && _citiesFuture != null) ...[
-          Text(l10n.appSelectCities ?? 'Select Cities', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+          Text(l10n.appSelectCities, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
           FutureBuilder<QuerySnapshot>(
             future: _citiesFuture,
@@ -673,7 +686,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
               final docs = snapshot.data!.docs;
               return _buildMultiSelectDropdown(
                 theme: theme,
-                title: l10n.appSelectCities ?? 'Select Cities',
+                title: l10n.appSelectCities,
                 items: docs,
                 selectedIds: _selectedCities,
                 onChanged: (val) {
@@ -697,11 +710,11 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(height: 16),
-        Text(l10n.appUploadIdFront ?? 'ID Card (Front)', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+        Text(l10n.appUploadIdFront, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         _buildImagePickerBox(theme, true, _idFrontImage, l10n),
         const SizedBox(height: 24),
-        Text(l10n.appUploadIdBack ?? 'ID Card (Back)', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+        Text(l10n.appUploadIdBack, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         _buildImagePickerBox(theme, false, _idBackImage, l10n),
       ],
@@ -733,7 +746,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
                   Icon(Icons.add_a_photo_outlined, size: 40, color: theme.colorScheme.primary),
                   const SizedBox(height: 12),
                   Text(
-                    isFront ? (l10n.appUploadIdFront ?? 'Upload Front') : (l10n.appUploadIdBack ?? 'Upload Back'),
+                    isFront ? (l10n.appUploadIdFront) : (l10n.appUploadIdBack),
                     style: TextStyle(color: theme.colorScheme.onSurfaceVariant, fontWeight: FontWeight.w600),
                   ),
                 ],
@@ -928,7 +941,7 @@ class _MultiSelectDialogState extends State<_MultiSelectDialog> {
             foregroundColor: colorScheme.onSurface.withOpacity(0.7),
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           ),
-          child: Text(AppLocalizations.of(context)!.appBack ?? 'Cancel', style: const TextStyle(fontWeight: FontWeight.bold)),
+          child: Text(AppLocalizations.of(context)!.appBack, style: const TextStyle(fontWeight: FontWeight.bold)),
         ),
         ElevatedButton(
           onPressed: () => Navigator.pop(context, _selectedIds),

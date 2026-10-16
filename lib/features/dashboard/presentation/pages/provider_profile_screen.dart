@@ -128,7 +128,7 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
       backgroundColor: surfaceColor,
       appBar: AppBar(
         title: Text(
-          l10n.providerProfile ?? "Provider Profile",
+          l10n.providerProfile,
           style: TextStyle(color: onSurface, fontWeight: FontWeight.w600),
         ),
         centerTitle: false,
@@ -141,14 +141,14 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
             onSelected: (value) {
               if (value == 'report') {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(l10n.reportProvider ?? 'Report')),
+                  SnackBar(content: Text(l10n.reportProvider)),
                 );
               }
             },
             itemBuilder: (context) => [
               PopupMenuItem(
                 value: 'report',
-                child: Text(l10n.reportProvider ?? 'Report'),
+                child: Text(l10n.reportProvider),
               ),
             ],
           ),
@@ -213,7 +213,7 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
                         _categoryDetails!['icon_url'] != null &&
                         _categoryDetails!['icon_url']!.isNotEmpty)
                       Padding(
-                        padding: const EdgeInsets.only(right: 6.0),
+                        padding: const EdgeInsetsDirectional.only(end: 6.0),
                         child: CachedNetworkImage(
                           imageUrl: _categoryDetails!['icon_url']!,
                           width: 16,
@@ -225,7 +225,7 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
                       )
                     else
                       Padding(
-                        padding: const EdgeInsets.only(right: 6.0),
+                        padding: const EdgeInsetsDirectional.only(end: 6.0),
                         child: Icon(Icons.build, size: 16, color: primaryColor),
                       ),
                     Text(
@@ -285,8 +285,8 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
                               );
                             }
                           } catch (e, stackTrace) {
-                            print('🚨 Error opening chat: $e');
-                            print(stackTrace);
+                            debugPrint('🚨 Error opening chat: $e');
+                            debugPrint(stackTrace);
                             if (context.mounted) {
                               Navigator.pop(context);
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -304,7 +304,7 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
                           color: primaryColor,
                         ),
                         label: Text(
-                          l10n.messageProvider ?? "Message",
+                          l10n.messageProvider,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -353,7 +353,7 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
                           color: theme.colorScheme.onPrimary,
                         ),
                         label: Text(
-                          l10n.requestService ?? "Request Service",
+                          l10n.requestService,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -393,7 +393,7 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
 
               // About Section
               _buildSection(
-                title: l10n.aboutProvider ?? "About",
+                title: l10n.aboutProvider,
                 icon: Icons.person_outline,
                 color: primaryColor,
                 borderColor: borderColor,
@@ -401,8 +401,7 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
                 child: Text(
                   widget.provider.about?.isNotEmpty == true
                       ? widget.provider.about!
-                      : (l10n.aboutProvider ??
-                            'Professional service provider committed to delivering high-quality work and customer satisfaction.'),
+                      : (l10n.aboutProvider),
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: onSurface.withValues(alpha: 0.8),
                     height: 1.5,
@@ -413,7 +412,7 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
               // Category Section
               if (_categoryDetails != null)
                 _buildSection(
-                  title: l10n.category ?? "Category",
+                  title: l10n.category,
                   icon: Icons.grid_view_outlined,
                   color: primaryColor,
                   borderColor: borderColor,
@@ -433,7 +432,7 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
                         if (_categoryDetails!['icon_url'] != null &&
                             _categoryDetails!['icon_url']!.isNotEmpty)
                           Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
+                            padding: const EdgeInsetsDirectional.only(end: 8.0),
                             child: CachedNetworkImage(
                               imageUrl: _categoryDetails!['icon_url']!,
                               width: 20,
@@ -448,7 +447,7 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
                           )
                         else
                           Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
+                            padding: const EdgeInsetsDirectional.only(end: 8.0),
                             child: Icon(
                               Icons.build,
                               size: 20,
@@ -470,7 +469,7 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
               // Services Section
               if (_servicesDetails.isNotEmpty || _isLoading)
                 _buildExpandableSection(
-                  title: l10n.services ?? "Services",
+                  title: l10n.services,
                   icon: Icons.build_outlined,
                   color: primaryColor,
                   borderColor: borderColor,
@@ -560,7 +559,7 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
 
               // Location Section
               _buildSection(
-                title: l10n.location ?? "Location",
+                title: l10n.location,
                 icon: Icons.location_on_outlined,
                 color: primaryColor,
                 borderColor: borderColor,

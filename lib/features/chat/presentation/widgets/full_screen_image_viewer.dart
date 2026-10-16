@@ -59,6 +59,7 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
           quality: 100,
           name: "image_${DateTime.now().millisecondsSinceEpoch}",
         );
+        if (!mounted) return;
         
         if (result != null && result['isSuccess'] == true) {
           ScaffoldMessenger.of(context).showSnackBar(

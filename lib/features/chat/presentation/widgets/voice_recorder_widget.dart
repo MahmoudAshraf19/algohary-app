@@ -67,12 +67,21 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget> with SingleTi
             path: '',
           );
         }
+        if (!mounted) {
+          // The widget was closed while the recorder was starting.
+          await _audioRecorder.stop();
+          return;
+        }
         setState(() {
           _isRecording = true;
           _recordDuration = 0;
         });
 
         _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+          if (!mounted) {
+            timer.cancel();
+            return;
+          }
           setState(() {
             _recordDuration++;
           });
@@ -81,7 +90,7 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget> with SingleTi
         widget.onCancel();
       }
     } catch (e) {
-      print('❌ [VoiceRecorder] Error starting recording: $e');
+      debugPrint('❌ [VoiceRecorder] Error starting recording: $e');
       widget.onCancel();
     }
   }
@@ -89,7 +98,7 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget> with SingleTi
   Future<void> _stopRecording({bool save = true}) async {
     _timer?.cancel();
     final path = await _audioRecorder.stop();
-    setState(() => _isRecording = false);
+    if (mounted) setState(() => _isRecording = false);
 
     if (save && path != null && _recordDuration > 0) {
       widget.onRecordingComplete(path, _recordDuration);
@@ -153,7 +162,7 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget> with SingleTi
             GestureDetector(
               onTap: () => _stopRecording(save: true),
               child: Container(
-                margin: const EdgeInsets.only(left: 8),
+                margin: const EdgeInsetsDirectional.only(start: 8),
                 width: 46,
                 height: 46,
                 decoration: BoxDecoration(

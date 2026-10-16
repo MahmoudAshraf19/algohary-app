@@ -17,10 +17,19 @@ class ApplicationStatusScreen extends StatefulWidget {
 }
 
 class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
+  // Created once: building the stream inside build() re-subscribed on every rebuild.
+  late final Stream<DocumentSnapshot> _applicationStream = FirebaseConfig.firestore
+      .collection('provider_applications')
+      .doc(widget.applicationId)
+      .snapshots();
+
+  DateTime? _createdAt;
+  DateTime? _updatedAt;
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<DocumentSnapshot>(
-      stream: FirebaseConfig.firestore.collection('provider_applications').doc(widget.applicationId).snapshots(),
+      stream: _applicationStream,
       builder: (context, snapshot) {
         final theme = Theme.of(context);
         final colorScheme = theme.colorScheme;
@@ -32,16 +41,29 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
           );
         }
 
+        if (snapshot.hasError) {
+          debugPrint('ApplicationStatusScreen stream error: ${snapshot.error}');
+          return Scaffold(
+            backgroundColor: theme.scaffoldBackgroundColor,
+            appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
+            body: Center(child: Text(AppLocalizations.of(context)!.errorGeneric)),
+          );
+        }
+
         if (!snapshot.hasData || !snapshot.data!.exists) {
           return Scaffold(
             backgroundColor: theme.scaffoldBackgroundColor,
-            body: Center(child: Text(AppLocalizations.of(context)!.applicationNotFound ?? 'Application not found.')),
+            body: Center(child: Text(AppLocalizations.of(context)!.applicationNotFound)),
           );
         }
 
         final data = snapshot.data!.data() as Map<String, dynamic>? ?? {};
         final status = data['status'] as String? ?? 'under_review';
         final reason = data['reason'] as String?;
+        final created = data['created_at'];
+        final updated = data['updated_at'];
+        _createdAt = created is Timestamp ? created.toDate() : null;
+        _updatedAt = updated is Timestamp ? updated.toDate() : null;
 
         if (status == 'approved') {
           return const ApplicationApprovedScreen();
@@ -78,14 +100,14 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                l10n.applicationStatusTitle ?? 'Application Status',
+                l10n.applicationStatusTitle,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
               ),
               const SizedBox(height: 12),
               
               Text(
-                l10n.applicationStatusDesc ?? 'Here is the current status of your application.',
+                l10n.applicationStatusDesc,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7)),
               ),
@@ -103,7 +125,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      l10n.applicationId ?? 'Application ID',
+                      l10n.applicationId,
                       style: TextStyle(fontSize: 12, color: colorScheme.onSurface.withOpacity(0.7)),
                     ),
                     const SizedBox(height: 4),
@@ -113,7 +135,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      l10n.statusTitle ?? 'Status',
+                      l10n.statusTitle,
                       style: TextStyle(fontSize: 12, color: colorScheme.onSurface.withOpacity(0.7)),
                     ),
                     const SizedBox(height: 4),
@@ -122,7 +144,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                         const Icon(Icons.circle, color: Colors.orange, size: 12),
                         const SizedBox(width: 8),
                         Text(
-                          l10n.statusUnderReview ?? 'Under Review',
+                          l10n.statusUnderReview,
                           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.orange),
                         ),
                       ],
@@ -132,30 +154,30 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                     // Timeline
                     _buildTimelineStep(
                       theme: theme,
-                      title: l10n.stepAppSubmitted ?? 'Application Submitted',
-                      date: DateFormat('dd MMM yyyy').format(DateTime.now().subtract(const Duration(days: 1))),
+                      title: l10n.stepAppSubmitted,
+                      date: _createdAt != null ? DateFormat('dd MMM yyyy').format(_createdAt!) : '',
                       isCompleted: currentStep >= 0,
                       isLast: false,
                     ),
                     _buildTimelineStep(
                       theme: theme,
-                      title: l10n.stepIdentityVerification ?? 'Identity Verification',
-                      date: DateFormat('dd MMM yyyy').format(DateTime.now()),
+                      title: l10n.stepIdentityVerification,
+                      date: _updatedAt != null ? DateFormat('dd MMM yyyy').format(_updatedAt!) : '',
                       isCompleted: currentStep >= 1,
                       isLast: false,
                     ),
                     _buildTimelineStep(
                       theme: theme,
-                      title: l10n.stepBackgroundReview ?? 'Background Review',
-                      date: currentStep > 2 ? DateFormat('dd MMM yyyy').format(DateTime.now()) : (l10n.statusInProgress ?? 'In Progress'),
+                      title: l10n.stepBackgroundReview,
+                      date: currentStep > 2 ? DateFormat('dd MMM yyyy').format(DateTime.now()) : (l10n.statusInProgress),
                       isCompleted: currentStep >= 2,
                       isLast: false,
                       isInProgress: currentStep == 2,
                     ),
                     _buildTimelineStep(
                       theme: theme,
-                      title: l10n.stepFinalDecision ?? 'Final Decision',
-                      date: l10n.statusPending ?? 'Pending',
+                      title: l10n.stepFinalDecision,
+                      date: l10n.statusPending,
                       isCompleted: currentStep >= 3,
                       isLast: true,
                     ),
@@ -177,7 +199,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        l10n.reviewTimeInfo ?? 'We are reviewing your application. This may take 1-2 business days.',
+                        l10n.reviewTimeInfo,
                         style: const TextStyle(color: Colors.orange),
                       ),
                     ),
@@ -199,7 +221,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      l10n.contactSupport ?? 'Contact Support',
+                      l10n.contactSupport,
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.onPrimary),
                     ),
                     const SizedBox(width: 8),

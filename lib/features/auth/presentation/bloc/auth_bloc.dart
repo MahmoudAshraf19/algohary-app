@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../data/repositories/auth_repository.dart';
-import '../../data/models/user_model.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 import '../../../dashboard/presentation/services/provider_location_tracker.dart';
@@ -83,15 +82,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     LogoutRequested event,
     Emitter<AuthState> emit,
   ) async {
-    await ProviderLocationTracker().stopTracking(updateStatus: true);
-    await _authRepository.logout();
-    emit(AuthInitial());
+    try {
+      await ProviderLocationTracker().stopTracking(updateStatus: true);
+    } catch (_) {
+      // Never let a tracker failure prevent the user from signing out.
+    }
+    try {
+      await _authRepository.logout();
+    } finally {
+      // Always leave the authenticated area, even if remote cleanup failed.
+      emit(AuthInitial());
+    }
   }
 
   Future<void> _onUpdateProfileRequested(
     UpdateProfileRequested event,
     Emitter<AuthState> emit,
   ) async {
+    final previousState = state;
     emit(AuthLoading());
     try {
       final user = await _authRepository.updateProfile(
@@ -108,6 +116,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthSuccess(user: user));
     } catch (e) {
       emit(AuthFailure(message: e.toString().replaceAll('Exception: ', '')));
+      // A failed profile update must not log the user out of the UI: every
+      // screen that reads the user expects an AuthSuccess state. Screens that
+      // react to the update result only listen to AuthLoading -> X transitions.
+      if (previousState is AuthSuccess) {
+        emit(previousState);
+      }
     }
   }
 
@@ -119,6 +133,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (currentState is AuthSuccess) {
       try {
         await _authRepository.updateOnlineStatus(event.isOnline);
+        // The user may have logged out (or the state changed) while the request
+        // was in flight; never resurrect an authenticated state after that.
+        if (state is! AuthSuccess) return;
         if (currentState.user.userType == 'provider') {
           if (event.isOnline) {
             ProviderLocationTracker().startTracking(currentState.user.id);
@@ -127,32 +144,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           }
         }
         // Create a new UserModel with updated isOnline status
-        final updatedUser = UserModel(
-          id: currentState.user.id,
-          firstName: currentState.user.firstName,
-          lastName: currentState.user.lastName,
-          email: currentState.user.email,
-          phone: currentState.user.phone,
-          imageUrl: currentState.user.imageUrl,
-          userType: currentState.user.userType,
-          isActive: currentState.user.isActive,
-          isBlocked: currentState.user.isBlocked,
+        final updatedUser = currentState.user.copyWith(
           isOnline: event.isOnline,
-          fcmToken: currentState.user.fcmToken,
-          subscription: currentState.user.subscription,
-          createdAt: currentState.user.createdAt,
           updatedAt: DateTime.now(),
-          lastLoginAt: currentState.user.lastLoginAt,
-          categoryId: currentState.user.categoryId,
-          services: currentState.user.services,
-          governorateId: currentState.user.governorateId,
-          cities: currentState.user.cities,
-          about: currentState.user.about,
         );
         emit(AuthSuccess(user: updatedUser));
       } catch (e) {
-        // Fallback to current state if failed, optionally could show a toast
-        emit(currentState);
+        // Fallback to the latest authenticated state if the request failed.
+        if (state is AuthSuccess) emit(state);
       }
     }
   }

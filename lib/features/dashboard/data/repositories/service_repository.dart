@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../core/network/firebase_config.dart';
 import '../models/service_model.dart';
@@ -7,7 +8,7 @@ class ServiceRepository {
 
   Future<List<ServiceModel>> getServicesByCategory(String categoryId) async {
     try {
-      print('⏳ Loading services for category: $categoryId...');
+      debugPrint('⏳ Loading services for category: $categoryId...');
       Query<Map<String, dynamic>> query = _firestore.collection('services');
       
       if (categoryId != 'all') {
@@ -21,17 +22,17 @@ class ServiceRepository {
           .where((service) => service.available)
           .toList();
           
-      print('✅ Successfully loaded ${servicesList.length} services! 🚀');
+      debugPrint('✅ Successfully loaded ${servicesList.length} services! 🚀');
       return servicesList;
     } catch (e) {
-      print('❌ Error fetching services by category: $e 😢');
+      debugPrint('❌ Error fetching services by category: $e 😢');
       return [];
     }
   }
 
   Future<List<ServiceModel>> getPopularServices() async {
     try {
-      print('⏳ Loading popular services...');
+      debugPrint('⏳ Loading popular services...');
       final snapshot = await _firestore
           .collection('services')
           .where('show_in_home', isEqualTo: true)
@@ -42,10 +43,10 @@ class ServiceRepository {
           .where((service) => service.available)
           .toList();
           
-      print('✅ Successfully loaded ${servicesList.length} popular services! 🚀');
+      debugPrint('✅ Successfully loaded ${servicesList.length} popular services! 🚀');
       return servicesList;
     } catch (e) {
-      print('❌ Error fetching popular services: $e 😢');
+      debugPrint('❌ Error fetching popular services: $e 😢');
       return [];
     }
   }

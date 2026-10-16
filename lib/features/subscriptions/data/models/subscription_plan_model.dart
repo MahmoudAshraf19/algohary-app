@@ -34,17 +34,19 @@ class SubscriptionPlanModel {
   factory SubscriptionPlanModel.fromMap(Map<String, dynamic> data, String documentId) {
     return SubscriptionPlanModel(
       id: documentId,
-      name: data['name'] ?? '',
-      description: data['description'] ?? '',
-      expiryDay: data['expiryDay'] ?? '0',
-      price: data['price'] ?? '0',
-      type: data['type'] ?? 'free',
-      image: data['image'] ?? '',
+      // Admin tools often store numbers (price / expiryDay) as numeric fields;
+      // assigning them straight to a String threw a TypeError and broke the screen.
+      name: (data['name'] ?? '').toString(),
+      description: (data['description'] ?? '').toString(),
+      expiryDay: (data['expiryDay'] ?? '0').toString(),
+      price: (data['price'] ?? '0').toString(),
+      type: (data['type'] ?? 'free').toString(),
+      image: (data['image'] ?? '').toString(),
       isEnable: data['isEnable'] ?? true,
       itemLimit: data['itemLimit']?.toString() ?? '0',
       orderLimit: data['orderLimit']?.toString() ?? '0',
       features: Map<String, dynamic>.from(data['features'] ?? {}),
-      planPoints: List<String>.from(data['plan_points'] ?? []),
+      planPoints: (data['plan_points'] as List? ?? const []).map((e) => e.toString()).toList(),
       place: data['place']?.toString() ?? '0',
     );
   }

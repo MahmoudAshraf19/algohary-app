@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
+import '../../../../core/utils/validators.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
@@ -48,7 +49,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         maxWidth: 512,
         maxHeight: 512,
       );
-      if (image != null) {
+      if (image != null && mounted) {
         setState(() {
           _profileImage = image;
         });
@@ -57,7 +58,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       debugPrint('Error picking image: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error picking image: $e')),
+          SnackBar(content: Text(AppLocalizations.of(context)!.errorGeneric)),
         );
       }
     }
@@ -135,7 +136,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: GestureDetector(
                   onTap: _pickImage,
                   child: Stack(
-                    alignment: Alignment.bottomRight,
+                    alignment: AlignmentDirectional.bottomEnd,
                     children: [
                       Container(
                         width: 100,
@@ -226,11 +227,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 icon: Icons.email_outlined,
                 theme: theme,
                 controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                autofillHints: const [AutofillHints.email],
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return l10n.errorEmailRequired;
                   }
-                  if (!value.contains('@') || !value.contains('.')) {
+                  if (!Validators.isValidEmail(value)) {
                     return l10n.errorInvalidEmail;
                   }
                   return null;
@@ -288,7 +291,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 height: 56,
                 child: BlocConsumer<AuthBloc, AuthState>(
+                  // React only to the result of a sign-up attempt on the visible
+                  // screen (the login screen below also listens to AuthBloc).
+                  listenWhen: (previous, current) =>
+                      previous is AuthLoading &&
+                      (current is AuthSuccess || current is AuthFailure),
                   listener: (context, state) {
+                    if (ModalRoute.of(context)?.isCurrent == false) return;
                     if (state is AuthSuccess) {
                       Navigator.pushAndRemoveUntil(
                         context,
@@ -385,9 +394,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     bool? obscureText,
     VoidCallback? onToggleObscure,
     String? Function(String?)? validator,
+    TextInputType? keyboardType,
+    Iterable<String>? autofillHints,
   }) {
     return TextFormField(
       controller: controller,
+      keyboardType: isPassword ? TextInputType.visiblePassword : keyboardType,
+      autofillHints: isPassword ? const [AutofillHints.newPassword] : autofillHints,
+      autocorrect: !isPassword && keyboardType != TextInputType.emailAddress,
       obscureText: isPassword && (obscureText ?? false),
       validator: validator,
       style: TextStyle(color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface),

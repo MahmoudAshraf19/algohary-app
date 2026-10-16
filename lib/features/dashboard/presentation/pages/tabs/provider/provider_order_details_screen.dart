@@ -30,7 +30,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
         performedById: currentUserId,
       );
     } catch (e) {
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.errorGeneric)));
     }
   }
 
@@ -45,7 +45,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         backgroundColor: colorScheme.surface,
         title: Text(
-          l10n.proposeNewPrice ?? 'Propose New Price',
+          l10n.proposeNewPrice,
           style: TextStyle(fontWeight: FontWeight.bold, color: colorScheme.onSurface),
         ),
         content: Column(
@@ -53,7 +53,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${l10n.category ?? "Category"}: ${order.selectedServices.firstOrNull?.serviceName ?? ""}',
+              '${l10n.category}: ${order.selectedServices.firstOrNull?.serviceName ?? ""}',
               style: TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 14),
             ),
             const SizedBox(height: 24),
@@ -62,7 +62,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               style: TextStyle(color: colorScheme.onSurface, fontWeight: FontWeight.bold, fontSize: 18),
               decoration: InputDecoration(
-                labelText: '${l10n.newPrice ?? "New Price"} (${order.pricing.currency})',
+                labelText: '${l10n.newPrice} (${order.pricing.currency})',
                 labelStyle: TextStyle(color: colorScheme.primary),
                 filled: true,
                 fillColor: colorScheme.surfaceContainerHighest.withOpacity(0.3),
@@ -87,7 +87,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
               foregroundColor: colorScheme.onSurfaceVariant,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             ),
-            child: Text(l10n.btnCancel ?? 'Cancel', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            child: Text(l10n.btnCancel, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           ),
           ElevatedButton(
             onPressed: () async {
@@ -120,7 +120,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
                   newProposal: newProposal,
                 );
               } catch (e) {
-                if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+                if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.errorGeneric)));
               }
             },
             style: ElevatedButton.styleFrom(
@@ -130,7 +130,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             ),
-            child: Text(l10n.submit ?? 'Submit', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            child: Text(l10n.submit, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           ),
         ],
       ),
@@ -337,7 +337,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
                 foregroundColor: colorScheme.onPrimary,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               ),
-              child: Text(l10n.acceptOrder ?? 'Accept Order', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: Text(l10n.acceptOrder, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(height: 12),
@@ -365,7 +365,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
                 side: BorderSide(color: colorScheme.error),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               ),
-              child: Text(l10n.declineOrder ?? 'Decline', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: Text(l10n.declineOrder, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
         ],
@@ -400,7 +400,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
                   side: BorderSide(color: colorScheme.error),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 ),
-                child: Text(l10n.cancelBooking ?? 'Cancel Booking', style: const TextStyle(fontWeight: FontWeight.bold)),
+                child: Text(l10n.cancelBooking, style: const TextStyle(fontWeight: FontWeight.bold)),
               ),
             ),
           ],
@@ -419,7 +419,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
                 foregroundColor: colorScheme.onPrimary,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               ),
-              child: Text(l10n.updateStatus ?? 'Update Status to In Progress', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: Text(l10n.updateStatus, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(height: 12),
@@ -433,7 +433,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
                 side: BorderSide(color: colorScheme.error),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               ),
-              child: Text(l10n.cancelBooking ?? 'Cancel Booking', style: const TextStyle(fontWeight: FontWeight.bold)),
+              child: Text(l10n.cancelBooking, style: const TextStyle(fontWeight: FontWeight.bold)),
             ),
           ),
         ],
@@ -446,7 +446,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
             try {
               await _repo.markAsCompleted(requestId: order.id, userId: currentUserId, isProvider: true);
             } catch (e) {
-              if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+              if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.errorGeneric)));
             }
           },
           style: ElevatedButton.styleFrom(
@@ -494,7 +494,7 @@ class _ProviderOrderDetailsScreenState extends State<ProviderOrderDetailsScreen>
               Navigator.push(context, MaterialPageRoute(builder: (_) => ComplaintScreen(order: order)));
             },
             icon: const Icon(Icons.report_problem, color: Colors.orange),
-            label: Text(l10n.fileComplaint ?? 'File a Complaint', style: const TextStyle(color: Colors.orange)),
+            label: Text(l10n.fileComplaint, style: const TextStyle(color: Colors.orange)),
           ),
         ],
       );

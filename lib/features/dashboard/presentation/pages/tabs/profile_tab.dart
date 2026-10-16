@@ -84,7 +84,7 @@ class ProfileTab extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          l10n.personalInformation ?? 'Personal Information',
+                          l10n.personalInformation,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -106,7 +106,7 @@ class ProfileTab extends StatelessWidget {
                         ),
                         _buildInfoRow(
                           icon: Icons.phone_in_talk, 
-                          label: l10n.phone ?? 'Phone', 
+                          label: l10n.phone, 
                           value: user.phone.isNotEmpty ? user.phone : '+20 123 456 7890', 
                           iconBgColor: AppColors.lightYellow,
                           iconColor: AppColors.primaryBlue,
@@ -136,7 +136,7 @@ class ProfileTab extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          l10n.account ?? 'Account',
+                          l10n.account,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -147,7 +147,7 @@ class ProfileTab extends StatelessWidget {
                         _buildActionRow(
                           context: context,
                           icon: Icons.person, 
-                          title: l10n.editProfile ?? 'Edit Profile', 
+                          title: l10n.editProfile, 
                           theme: theme, 
                           onTap: () => _navigateToEditProfile(context, user),
                         ),
@@ -158,7 +158,7 @@ class ProfileTab extends StatelessWidget {
                         _buildActionRow(
                           context: context,
                           icon: Icons.settings, 
-                          title: l10n.settings ?? 'Settings', 
+                          title: l10n.settings, 
                           theme: theme, 
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen()));
@@ -172,7 +172,7 @@ class ProfileTab extends StatelessWidget {
                           _buildActionRow(
                             context: context,
                             icon: Icons.business_center,
-                            title: l10n.joinAsProvider ?? 'Join as Provider',
+                            title: l10n.joinAsProvider,
                             theme: theme,
                             onTap: () {
                               Navigator.push(
@@ -266,7 +266,7 @@ class ProfileTab extends StatelessWidget {
           onPressed: () => _navigateToEditProfile(context, user),
           icon: Icon(Icons.edit, size: 16, color: AppColors.primaryBlue),
           label: Text(
-            l10n.editProfile ?? 'Edit Profile',
+            l10n.editProfile,
             style: TextStyle(
               color: theme.brightness == Brightness.dark ? Colors.white.withOpacity(0.9) : AppColors.primaryBlue,
               fontWeight: FontWeight.w600,
@@ -407,7 +407,7 @@ class ProfileTab extends StatelessWidget {
             Icon(Icons.logout, color: theme.brightness == Brightness.dark ? Colors.red[300] : AppColors.red, size: 20),
             const SizedBox(width: 12),
             Text(
-              l10n.logOut ?? 'Log Out',
+              l10n.logOut,
               style: TextStyle(
                 color: theme.brightness == Brightness.dark ? Colors.red[300] : AppColors.red,
                 fontSize: 16,

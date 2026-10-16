@@ -131,7 +131,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
               ),
               const SizedBox(height: 24),
               Text(
-                l10n.providersForThisService ?? "Providers",
+                l10n.providersForThisService,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -195,7 +195,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                     );
                   }
                   if (snapshot.hasError) {
-                    return Center(child: Text(l10n.errorLoadingData ?? 'Error loading data'));
+                    return Center(child: Text(l10n.errorLoadingData));
                   }
                   final providers = snapshot.data ?? [];
                   
@@ -214,7 +214,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(32.0),
                         child: Text(
-                          l10n.noProvidersFound ?? 'No providers found for this service',
+                          l10n.noProvidersFound,
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.colorScheme.onSurface.withOpacity(0.6),
                           ),
@@ -368,7 +368,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                         const SizedBox(width: 6),
                         Flexible(
                           child: Text(
-                            l10n.verifiedProvider ?? "Verified Professional",
+                            l10n.verifiedProvider,
                             style: theme.textTheme.labelMedium?.copyWith(
                               color: theme.colorScheme.primary,
                               fontWeight: FontWeight.bold,

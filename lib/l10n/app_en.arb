@@ -544,5 +544,11 @@
 "mapLocationDeniedForever": "Location permission is permanently denied. Please enable it in Settings.",
 "mapLocationUnavailable": "Could not determine your current position",
 "mapOpenSettings": "Settings",
-"mapEnableLocation": "Enable"
+"mapEnableLocation": "Enable",
+  "forgotPasswordTitle": "Reset your password",
+  "forgotPasswordMessage": "Enter your email address and we will send you a link to reset your password.",
+  "forgotPasswordSend": "Send reset link",
+  "forgotPasswordSent": "If an account exists for this email, a reset link has been sent.",
+  "dashboard": "Dashboard",
+  "myAccount": "My Account"
 }

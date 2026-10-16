@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/chat_models.dart';
 import 'package:algohary_project/core/network/firebase_config.dart';
@@ -11,6 +12,10 @@ class ChatService {
   ChatService({this.injectedUserId});
 
   String? get currentUserId => injectedUserId ?? _auth.currentUser?.uid;
+
+  /// Profiles of chat partners, cached for the lifetime of the service so every
+  /// conversation snapshot (each new message) no longer re-reads every user.
+  final Map<String, Map<String, dynamic>> _userCache = {};
 
   /// Ensure a conversation exists between the current user and another user
   Future<String> createOrGetConversation(String otherUserId) async {
@@ -71,13 +76,17 @@ class ChatService {
         
         Map<String, dynamic>? otherUserDetails;
         if (otherUserId.isNotEmpty) {
-          try {
-            final userDoc = await _firestore.collection('users').doc(otherUserId).get();
-            if (userDoc.exists) {
-              otherUserDetails = userDoc.data();
+          otherUserDetails = _userCache[otherUserId];
+          if (otherUserDetails == null) {
+            try {
+              final userDoc = await _firestore.collection('users').doc(otherUserId).get();
+              if (userDoc.exists) {
+                otherUserDetails = userDoc.data();
+                if (otherUserDetails != null) _userCache[otherUserId] = otherUserDetails;
+              }
+            } catch (e) {
+              debugPrint('Error fetching user details for chat: $e');
             }
-          } catch (e) {
-            print('Error fetching user details for chat: $e');
           }
         }
         
@@ -209,26 +218,26 @@ class ChatService {
   }
 
   void _handleFirebaseError(String methodName, dynamic error) {
-    print('\n=============================================');
-    print('🚨 [ChatService] ERROR in $methodName');
+    debugPrint('\n=============================================');
+    debugPrint('🚨 [ChatService] ERROR in $methodName');
     
     if (error is FirebaseException) {
-      print('Firebase Code: ${error.code}');
-      print('Message: ${error.message}');
+      debugPrint('Firebase Code: ${error.code}');
+      debugPrint('Message: ${error.message}');
       
       // Look for the missing index link which is often in the message
       if (error.message != null && error.message!.contains('https://console.firebase.google.com')) {
         final RegExp urlRegExp = RegExp(r'(https://console\.firebase\.google\.com[^\s]+)');
         final match = urlRegExp.firstMatch(error.message!);
         if (match != null) {
-          print('\n🔥 MISSING INDEX DETECTED 🔥');
-          print('Please create the index by clicking the link below:');
-          print('👉 ${match.group(0)}');
+          debugPrint('\n🔥 MISSING INDEX DETECTED 🔥');
+          debugPrint('Please create the index by clicking the link below:');
+          debugPrint('👉 ${match.group(0)}');
         }
       }
     } else {
-      print('Error details: $error');
+      debugPrint('Error details: $error');
     }
-    print('=============================================\n');
+    debugPrint('=============================================\n');
   }
 }

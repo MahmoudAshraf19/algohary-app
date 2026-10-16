@@ -28,6 +28,9 @@ class ProviderHomeTab extends StatefulWidget {
 
 class _ProviderHomeTabState extends State<ProviderHomeTab> {
   final NotificationService _notificationService = NotificationService();
+  // Created once: calling streamUnreadCount() inside build() opened a new Firestore
+  // listener on every rebuild.
+  late final Stream<int> _unreadStream = _notificationService.streamUnreadCount();
   final LayerLink _layerLink = LayerLink();
   final BookingsRepository _bookingsRepository = BookingsRepository();
   final LocationService _locationService = LocationService();
@@ -262,7 +265,7 @@ class _ProviderHomeTabState extends State<ProviderHomeTab> {
                                   right: 4,
                                   top: 4,
                                   child: StreamBuilder<int>(
-                                    stream: _notificationService.streamUnreadCount(),
+                                    stream: _unreadStream,
                                     builder: (context, snapshot) {
                                       final count = snapshot.data ?? 0;
                                       if (count == 0) return const SizedBox();

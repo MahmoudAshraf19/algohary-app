@@ -33,6 +33,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   ) async {
     debugPrint('==================================================');
     debugPrint('DEBUG: _onActivateSubscription called in Bloc');
+    // Ignore repeated taps while an activation is running.
+    if (state is SubscriptionActivating) return;
     // Save previous state to revert if needed
     final currentState = state;
     emit(SubscriptionActivating());

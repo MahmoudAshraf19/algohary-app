@@ -63,7 +63,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
+          SnackBar(content: Text(AppLocalizations.of(context)!.errorGeneric)),
         );
       }
     } finally {
@@ -80,7 +80,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        title: Text(l10n.complaintTitle ?? 'Submit Complaint', style: TextStyle(color: colorScheme.onSurface, fontWeight: FontWeight.bold)),
+        title: Text(l10n.complaintTitle, style: TextStyle(color: colorScheme.onSurface, fontWeight: FontWeight.bold)),
         backgroundColor: colorScheme.surface,
         elevation: 0,
         iconTheme: IconThemeData(color: colorScheme.onSurface),
@@ -96,7 +96,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
             ),
             const SizedBox(height: 24),
             Text(
-              l10n.complaintReason ?? 'Reason',
+              l10n.complaintReason,
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: colorScheme.onSurface),
             ),
             const SizedBox(height: 8),
@@ -109,7 +109,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
             ),
             const SizedBox(height: 24),
             Text(
-              l10n.complaintDescription ?? 'Description',
+              l10n.complaintDescription,
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: colorScheme.onSurface),
             ),
             const SizedBox(height: 8),
@@ -134,7 +134,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                 ),
                 child: _isSubmitting 
                     ? const CircularProgressIndicator(color: Colors.white)
-                    : Text(l10n.submit ?? 'Submit', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    : Text(l10n.submit, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ),
             ),
           ],

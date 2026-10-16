@@ -46,9 +46,24 @@ class CreateRequestBloc extends Bloc<CreateRequestEvent, CreateRequestState> {
       date: event.date,
       time: event.time,
       timezone: event.timezone,
-      timestamp: DateTime.now(), // Real app would construct a proper DateTime from date/time
+      // Previously this stored DateTime.now() (the moment of booking) instead of
+      // the moment of the appointment.
+      timestamp: _parseAppointment(event.date, event.time),
     );
     emit(state.copyWith(appointment: appointment));
+  }
+
+  /// Builds the appointment instant from the wizard's `yyyy-MM-dd` / `HH:mm`
+  /// strings. Returns null if they cannot be parsed.
+  static DateTime? _parseAppointment(String date, String time) {
+    try {
+      final d = date.trim().split('-').map(int.parse).toList();
+      final t = time.trim().split(':').map(int.parse).toList();
+      if (d.length != 3 || t.length < 2) return null;
+      return DateTime(d[0], d[1], d[2], t[0], t[1]);
+    } catch (_) {
+      return null;
+    }
   }
 
   void _onSelectLocation(SelectLocationEvent event, Emitter<CreateRequestState> emit) {
@@ -65,12 +80,23 @@ class CreateRequestBloc extends Bloc<CreateRequestEvent, CreateRequestState> {
   }
 
   Future<void> _onSubmitRequest(SubmitRequestEvent event, Emitter<CreateRequestState> emit) async {
+    // Ignore repeated taps while a submission is already running; otherwise the
+    // same request was created several times.
+    if (state.isSubmitting) return;
+
     if (state.selectedServices.isEmpty ||
         !state.hasConfirmedContact ||
         state.appointment == null ||
         state.location == null ||
-        state.pricing == null) {
+        state.pricing == null ||
+        !(state.pricing!.amount > 0) ||
+        state.pricing!.amount.isInfinite) {
       emit(state.copyWith(errorMessage: 'Please complete all required fields.'));
+      return;
+    }
+
+    if (event.userId.isEmpty || event.providerId.isEmpty || event.userId == event.providerId) {
+      emit(state.copyWith(errorMessage: 'Invalid booking parties.'));
       return;
     }
 
@@ -113,7 +139,7 @@ class CreateRequestBloc extends Bloc<CreateRequestEvent, CreateRequestState> {
     } catch (e) {
       emit(state.copyWith(
         isSubmitting: false,
-        errorMessage: 'Failed to submit request: ${e.toString()}',
+        errorMessage: 'Failed to submit request. Please try again.',
       ));
     }
   }

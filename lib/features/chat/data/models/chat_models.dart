@@ -41,7 +41,9 @@ class ChatMessageModel {
       status: data['status'] ?? 'SENT',
       isMe: data['senderId'] == currentUserId,
       mediaUrl: data['mediaUrl'],
-      mediaUrls: data['mediaUrls'] != null ? List<String>.from(data['mediaUrls']) : null,
+      mediaUrls: data['mediaUrls'] is List
+          ? (data['mediaUrls'] as List).map((e) => e.toString()).toList()
+          : null,
     );
   }
 
@@ -95,7 +97,12 @@ class ConversationModel {
         senderId: lastMessageData['senderId'] ?? '',
         content: lastMessageData['content'],
         type: lastMessageData['type'] ?? 'TEXT',
-        createdAt: (lastMessageData['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+        // The embedded lastMessage has no timestamp of its own; use the
+        // conversation's lastMessageAt (not "now", which made every chat in the
+        // list show the current time).
+        createdAt: (lastMessageData['createdAt'] as Timestamp?)?.toDate() ??
+            (data['lastMessageAt'] as Timestamp?)?.toDate() ??
+            DateTime.now(),
         status: lastMessageData['status'] ?? 'SENT',
         isMe: lastMessageData['senderId'] == currentUserId,
       );

@@ -16,6 +16,12 @@ class _CheckApplicationScreenState extends State<CheckApplicationScreen> {
   final _idController = TextEditingController();
   bool _isLoading = false;
 
+  @override
+  void dispose() {
+    _idController.dispose();
+    super.dispose();
+  }
+
   Future<void> _checkStatus() async {
     final input = _idController.text.trim();
     if (input.isEmpty) return;
@@ -78,16 +84,17 @@ class _CheckApplicationScreenState extends State<CheckApplicationScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context)!.noApplicationFoundForId ?? 'No application found for the given ID.'),
+            content: Text(AppLocalizations.of(context)!.noApplicationFoundForId),
             backgroundColor: Colors.red,
           ),
         );
       }
     } catch (e) {
+      debugPrint('CheckApplicationScreen error: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error finding application: $e'),
+            content: Text(AppLocalizations.of(context)!.errorGeneric),
             backgroundColor: Colors.red,
           ),
         );
@@ -124,21 +131,21 @@ class _CheckApplicationScreenState extends State<CheckApplicationScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                l10n.checkApplication ?? 'Check Application',
+                l10n.checkApplication,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
               ),
               const SizedBox(height: 12),
               
               Text(
-                l10n.checkApplicationDesc ?? 'Enter your Application ID to view your application status.',
+                l10n.checkApplicationDesc,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7)),
               ),
               const SizedBox(height: 40),
               
               Text(
-                l10n.enterAppOrPersonalId ?? 'Application ID',
+                l10n.enterAppOrPersonalId,
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
               ),
               const SizedBox(height: 8),
@@ -147,7 +154,7 @@ class _CheckApplicationScreenState extends State<CheckApplicationScreen> {
                 controller: _idController,
                 style: TextStyle(color: colorScheme.onSurface),
                 decoration: InputDecoration(
-                  hintText: l10n.enterAppOrPersonalId ?? 'Enter Application ID',
+                  hintText: l10n.enterAppOrPersonalId,
                   hintStyle: TextStyle(color: colorScheme.onSurface.withOpacity(0.5)),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -185,7 +192,7 @@ class _CheckApplicationScreenState extends State<CheckApplicationScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            l10n.checkStatus ?? 'Check Status',
+                            l10n.checkStatus,
                             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.onPrimary),
                           ),
                           const SizedBox(width: 8),
@@ -196,14 +203,14 @@ class _CheckApplicationScreenState extends State<CheckApplicationScreen> {
               const SizedBox(height: 48),
               
               Text(
-                l10n.whereToFindId ?? 'Where can I find my Application ID?',
+                l10n.whereToFindId,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
               ),
               const SizedBox(height: 12),
               
               Text(
-                l10n.findIdInEmail ?? 'You can find your Application ID in the app or in your email.',
+                l10n.findIdInEmail,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 14, color: colorScheme.onSurface.withOpacity(0.7)),
               ),

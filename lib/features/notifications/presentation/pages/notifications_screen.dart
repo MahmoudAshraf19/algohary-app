@@ -27,7 +27,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         backgroundColor: colorScheme.surface,
         elevation: 0.5,
         title: Text(
-          l10n.notificationsTitle ?? 'Notifications',
+          l10n.notificationsTitle,
           style: TextStyle(
             color: colorScheme.onSurface,
             fontWeight: FontWeight.bold,
@@ -40,7 +40,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               _notificationService.markAllAsRead();
             },
             child: Text(
-              l10n.markAllAsRead ?? 'Mark all read',
+              l10n.markAllAsRead,
               style: TextStyle(color: colorScheme.primary, fontWeight: FontWeight.bold),
             ),
           ),
@@ -62,7 +62,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   Icon(Icons.notifications_off_outlined, size: 64, color: colorScheme.onSurfaceVariant.withOpacity(0.5)),
                   const SizedBox(height: 16),
                   Text(
-                    l10n.noNotifications ?? 'No notifications yet',
+                    l10n.noNotifications,
                     style: TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 16),
                   ),
                 ],

@@ -1497,4 +1497,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get mapEnableLocation => 'تفعيل';
+
+  @override
+  String get forgotPasswordTitle => 'إعادة تعيين كلمة المرور';
+
+  @override
+  String get forgotPasswordMessage => 'أدخل بريدك الإلكتروني وسنرسل لك رابطاً لإعادة تعيين كلمة المرور.';
+
+  @override
+  String get forgotPasswordSend => 'إرسال رابط إعادة التعيين';
+
+  @override
+  String get forgotPasswordSent => 'إذا كان هناك حساب مرتبط بهذا البريد، فقد تم إرسال رابط إعادة التعيين.';
+
+  @override
+  String get dashboard => 'لوحة التحكم';
+
+  @override
+  String get myAccount => 'حسابي';
 }

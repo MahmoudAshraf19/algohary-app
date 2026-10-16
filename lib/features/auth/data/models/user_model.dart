@@ -47,20 +47,64 @@ class UserModel {
     this.about,
   });
 
+  /// Returns a copy with the given fields replaced. Provider-specific fields
+  /// and every other attribute are preserved (previously rebuilding a model by
+  /// hand silently dropped them).
+  UserModel copyWith({
+    String? firstName,
+    String? lastName,
+    String? phone,
+    String? imageUrl,
+    bool? isActive,
+    bool? isBlocked,
+    bool? isOnline,
+    String? fcmToken,
+    Subscription? subscription,
+    DateTime? updatedAt,
+    DateTime? lastLoginAt,
+  }) {
+    return UserModel(
+      id: id,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      email: email,
+      phone: phone ?? this.phone,
+      imageUrl: imageUrl ?? this.imageUrl,
+      userType: userType,
+      isActive: isActive ?? this.isActive,
+      isBlocked: isBlocked ?? this.isBlocked,
+      isOnline: isOnline ?? this.isOnline,
+      fcmToken: fcmToken ?? this.fcmToken,
+      subscription: subscription ?? this.subscription,
+      createdAt: createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      lastLoginAt: lastLoginAt ?? this.lastLoginAt,
+      categoryId: categoryId,
+      services: services,
+      governorateId: governorateId,
+      cities: cities,
+      about: about,
+    );
+  }
+
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json['id'] ?? '',
-      firstName: json['first_name'] ?? '',
-      lastName: json['last_name'] ?? '',
-      email: json['email'] ?? '',
-      phone: json['phone'] ?? '',
-      imageUrl: json['image_url'] ?? '',
-      userType: json['user_type'] ?? 'customer',
+      id: (json['id'] ?? '').toString(),
+      firstName: (json['first_name'] ?? '').toString(),
+      lastName: (json['last_name'] ?? '').toString(),
+      email: (json['email'] ?? '').toString(),
+      phone: (json['phone'] ?? '').toString(),
+      imageUrl: (json['image_url'] ?? '').toString(),
+      userType: (json['user_type'] ?? 'customer').toString(),
       isActive: json['is_active'] ?? true,
       isBlocked: json['is_blocked'] ?? false,
       isOnline: json['is_online'] ?? false,
       fcmToken: json['fcm_token'],
-      subscription: Subscription.fromJson(json['subscription'] ?? {}),
+      subscription: Subscription.fromJson(
+        json['subscription'] is Map
+            ? Map<String, dynamic>.from(json['subscription'] as Map)
+            : <String, dynamic>{},
+      ),
       createdAt: (json['created_at'] as Timestamp?)?.toDate(),
       updatedAt: (json['updated_at'] as Timestamp?)?.toDate(),
       lastLoginAt: (json['last_login_at'] as Timestamp?)?.toDate(),

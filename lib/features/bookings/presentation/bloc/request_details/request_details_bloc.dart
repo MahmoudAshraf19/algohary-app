@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/models/booking_models.dart';
 import '../../../data/repositories/bookings_repository.dart';
@@ -21,6 +22,7 @@ class RequestDetailsBloc extends Bloc<RequestDetailsEvent, RequestDetailsState> 
     on<ConfirmUpdatedRequestEvent>(_onConfirmUpdatedRequest);
     on<CancelRequestEvent>(_onCancelRequest);
     on<MarkRequestAsCompletedEvent>(_onMarkAsCompleted);
+    on<_RequestLoadFailed>((event, emit) => emit(RequestDetailsError(event.message)));
   }
 
   void _onLoadRequestDetails(LoadRequestDetailsEvent event, Emitter<RequestDetailsState> emit) {
@@ -30,8 +32,11 @@ class RequestDetailsBloc extends Bloc<RequestDetailsEvent, RequestDetailsState> 
       (request) {
         add(RequestUpdatedEvent(request));
       },
-      onError: (error) {
-        emit(RequestDetailsError('Failed to load request: $error'));
+      onError: (Object error) {
+        // `emit` must never be called from a stream callback: the synchronous
+        // handler has already completed (StateError). Route through an event.
+        debugPrint('RequestDetailsBloc stream error: $error');
+        add(const _RequestLoadFailed('Failed to load request.'));
       },
     );
   }
@@ -52,7 +57,9 @@ class RequestDetailsBloc extends Bloc<RequestDetailsEvent, RequestDetailsState> 
   Future<void> _onApproveRequest(ApproveRequestEvent event, Emitter<RequestDetailsState> emit) async {
     if (state is! RequestDetailsLoaded) return;
     final currentState = state as RequestDetailsLoaded;
-    
+    // Ignore taps while another action is still running (prevents duplicate
+    // approvals / history entries / double acceptance).
+    if (currentState.isProcessingAction) return;
     emit(currentState.copyWith(isProcessingAction: true));
     try {
       await _bookingsRepository.updateRequestStatus(
@@ -64,14 +71,16 @@ class RequestDetailsBloc extends Bloc<RequestDetailsEvent, RequestDetailsState> 
       );
       // We don't emit success here because the stream will update the state automatically.
     } catch (e) {
-      emit(currentState.copyWith(isProcessingAction: false, actionError: 'Failed to approve request.'));
+      emit(_latest(currentState).copyWith(isProcessingAction: false, actionError: 'Failed to approve request.'));
     }
   }
 
   Future<void> _onRejectRequest(RejectRequestEvent event, Emitter<RequestDetailsState> emit) async {
     if (state is! RequestDetailsLoaded) return;
     final currentState = state as RequestDetailsLoaded;
-    
+    // Ignore taps while another action is still running (prevents duplicate
+    // approvals / history entries / double acceptance).
+    if (currentState.isProcessingAction) return;
     emit(currentState.copyWith(isProcessingAction: true));
     try {
       await _bookingsRepository.updateRequestStatus(
@@ -82,14 +91,16 @@ class RequestDetailsBloc extends Bloc<RequestDetailsEvent, RequestDetailsState> 
         message: event.reason,
       );
     } catch (e) {
-      emit(currentState.copyWith(isProcessingAction: false, actionError: 'Failed to reject request.'));
+      emit(_latest(currentState).copyWith(isProcessingAction: false, actionError: 'Failed to reject request.'));
     }
   }
 
   Future<void> _onProposeChanges(ProposeChangesEvent event, Emitter<RequestDetailsState> emit) async {
     if (state is! RequestDetailsLoaded) return;
     final currentState = state as RequestDetailsLoaded;
-    
+    // Ignore taps while another action is still running (prevents duplicate
+    // approvals / history entries / double acceptance).
+    if (currentState.isProcessingAction) return;
     emit(currentState.copyWith(isProcessingAction: true));
     try {
       await _bookingsRepository.proposeChanges(
@@ -98,14 +109,16 @@ class RequestDetailsBloc extends Bloc<RequestDetailsEvent, RequestDetailsState> 
         newProposal: event.newProposal,
       );
     } catch (e) {
-      emit(currentState.copyWith(isProcessingAction: false, actionError: 'Failed to propose changes.'));
+      emit(_latest(currentState).copyWith(isProcessingAction: false, actionError: 'Failed to propose changes.'));
     }
   }
 
   Future<void> _onAcceptChanges(AcceptChangesEvent event, Emitter<RequestDetailsState> emit) async {
     if (state is! RequestDetailsLoaded) return;
     final currentState = state as RequestDetailsLoaded;
-    
+    // Ignore taps while another action is still running (prevents duplicate
+    // approvals / history entries / double acceptance).
+    if (currentState.isProcessingAction) return;
     emit(currentState.copyWith(isProcessingAction: true));
     try {
       await _bookingsRepository.acceptProposedChanges(
@@ -114,14 +127,16 @@ class RequestDetailsBloc extends Bloc<RequestDetailsEvent, RequestDetailsState> 
         acceptedProposal: event.acceptedProposal,
       );
     } catch (e) {
-      emit(currentState.copyWith(isProcessingAction: false, actionError: 'Failed to accept changes.'));
+      emit(_latest(currentState).copyWith(isProcessingAction: false, actionError: 'Failed to accept changes.'));
     }
   }
 
   Future<void> _onConfirmUpdatedRequest(ConfirmUpdatedRequestEvent event, Emitter<RequestDetailsState> emit) async {
     if (state is! RequestDetailsLoaded) return;
     final currentState = state as RequestDetailsLoaded;
-    
+    // Ignore taps while another action is still running (prevents duplicate
+    // approvals / history entries / double acceptance).
+    if (currentState.isProcessingAction) return;
     emit(currentState.copyWith(isProcessingAction: true));
     try {
       await _bookingsRepository.updateRequestStatus(
@@ -132,14 +147,16 @@ class RequestDetailsBloc extends Bloc<RequestDetailsEvent, RequestDetailsState> 
         message: 'Provider confirmed the updated request.',
       );
     } catch (e) {
-      emit(currentState.copyWith(isProcessingAction: false, actionError: 'Failed to confirm request.'));
+      emit(_latest(currentState).copyWith(isProcessingAction: false, actionError: 'Failed to confirm request.'));
     }
   }
 
   Future<void> _onCancelRequest(CancelRequestEvent event, Emitter<RequestDetailsState> emit) async {
     if (state is! RequestDetailsLoaded) return;
     final currentState = state as RequestDetailsLoaded;
-    
+    // Ignore taps while another action is still running (prevents duplicate
+    // approvals / history entries / double acceptance).
+    if (currentState.isProcessingAction) return;
     emit(currentState.copyWith(isProcessingAction: true));
     try {
       final status = event.isProvider ? ServiceRequestStatus.cancelledByProvider : ServiceRequestStatus.cancelledByUser;
@@ -151,14 +168,16 @@ class RequestDetailsBloc extends Bloc<RequestDetailsEvent, RequestDetailsState> 
         message: event.reason,
       );
     } catch (e) {
-      emit(currentState.copyWith(isProcessingAction: false, actionError: 'Failed to cancel request.'));
+      emit(_latest(currentState).copyWith(isProcessingAction: false, actionError: 'Failed to cancel request.'));
     }
   }
 
   Future<void> _onMarkAsCompleted(MarkRequestAsCompletedEvent event, Emitter<RequestDetailsState> emit) async {
     if (state is! RequestDetailsLoaded) return;
     final currentState = state as RequestDetailsLoaded;
-    
+    // Ignore taps while another action is still running (prevents duplicate
+    // approvals / history entries / double acceptance).
+    if (currentState.isProcessingAction) return;
     emit(currentState.copyWith(isProcessingAction: true));
     try {
       await _bookingsRepository.markAsCompleted(
@@ -167,8 +186,15 @@ class RequestDetailsBloc extends Bloc<RequestDetailsEvent, RequestDetailsState> 
         isProvider: event.isProvider,
       );
     } catch (e) {
-      emit(currentState.copyWith(isProcessingAction: false, actionError: 'Failed to mark as completed.'));
+      emit(_latest(currentState).copyWith(isProcessingAction: false, actionError: 'Failed to mark as completed.'));
     }
+  }
+
+  /// The freshest loaded state (the stream may have delivered a newer request
+  /// while an action was in flight); falls back to [fallback].
+  RequestDetailsLoaded _latest(RequestDetailsLoaded fallback) {
+    final current = state;
+    return current is RequestDetailsLoaded ? current : fallback;
   }
 
   @override
@@ -176,4 +202,12 @@ class RequestDetailsBloc extends Bloc<RequestDetailsEvent, RequestDetailsState> 
     _requestSubscription?.cancel();
     return super.close();
   }
+}
+
+class _RequestLoadFailed extends RequestDetailsEvent {
+  final String message;
+  const _RequestLoadFailed(this.message);
+
+  @override
+  List<Object?> get props => [message];
 }

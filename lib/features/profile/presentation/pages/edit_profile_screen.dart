@@ -85,7 +85,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         maxWidth: 512,
         maxHeight: 512,
       );
-      if (image != null) {
+      if (image != null && mounted) {
         setState(() {
           _profileImage = image;
         });
@@ -94,7 +94,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       debugPrint('Error picking image: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error picking image: $e')),
+          SnackBar(content: Text(AppLocalizations.of(context)!.errorGeneric)),
         );
       }
     }
@@ -136,7 +136,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         backgroundColor: theme.colorScheme.surface,
         elevation: 0.5,
         title: Text(
-          l10n.editProfile ?? 'Edit Profile',
+          l10n.editProfile,
           style: TextStyle(
             color: theme.colorScheme.onSurface,
             fontWeight: FontWeight.bold,
@@ -156,7 +156,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: GestureDetector(
                   onTap: _pickImage,
                   child: Stack(
-                    alignment: Alignment.bottomRight,
+                    alignment: AlignmentDirectional.bottomEnd,
                     children: [
                       Container(
                         width: 110,
@@ -261,7 +261,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               
               // Phone Field
               _buildTextField(
-                hintText: l10n.phone ?? 'Phone Number',
+                hintText: l10n.phone,
                 icon: Icons.phone_outlined,
                 theme: theme,
                 controller: _phoneController,
@@ -284,20 +284,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               SizedBox(
                 height: 56,
                 child: BlocConsumer<AuthBloc, AuthState>(
+                  // Only the outcome of a save request (Loading -> Success/Failure)
+                  // may close this screen; unrelated AuthSuccess emissions (e.g. the
+                  // state being restored after a failed save) must not.
+                  listenWhen: (previous, current) =>
+                      previous is AuthLoading &&
+                      (current is AuthSuccess || current is AuthFailure),
                   listener: (context, state) {
                     if (state is AuthSuccess) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(l10n.saveChanges ?? 'Profile Updated'),
+                          content: Text(l10n.saveChanges),
                           backgroundColor: Colors.green,
                         ),
                       );
-                      Navigator.pop(context);
+                      if (Navigator.canPop(context)) Navigator.pop(context);
                     } else if (state is AuthFailure) {
                       debugPrint('Update Error: ${state.message}');
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(state.message),
+                          content: Text(l10n.errorGeneric),
                           backgroundColor: Colors.red.shade700,
                         ),
                       );
@@ -326,7 +332,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               width: 24,
                               child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5),
                             )
-                          : Text(l10n.saveChanges ?? 'Save Changes'),
+                          : Text(l10n.saveChanges),
                     );
                   },
                 ),
@@ -382,7 +388,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _buildTextField(
-          hintText: l10n.appAbout ?? 'About',
+          hintText: l10n.appAbout,
           icon: Icons.info_outline,
           theme: theme,
           controller: _aboutController,
@@ -403,7 +409,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               borderRadius: BorderRadius.circular(12),
               icon: Icon(Icons.keyboard_arrow_down_rounded, color: theme.colorScheme.primary),
               style: TextStyle(color: theme.colorScheme.onSurface),
-              hint: Text(l10n.appSelectGovernorate ?? 'Select Governorate'),
+              hint: Text(l10n.appSelectGovernorate),
               items: docs.map((doc) {
                 final data = doc.data() as Map<String, dynamic>;
                 return DropdownMenuItem<String>(
@@ -435,7 +441,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               final docs = snapshot.data!.docs;
               return _buildMultiSelectDropdown(
                 theme: theme,
-                title: l10n.appSelectCities ?? 'Select Cities',
+                title: l10n.appSelectCities,
                 items: docs,
                 selectedIds: _selectedCities,
                 icon: Icons.location_on_outlined,
@@ -466,7 +472,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               borderRadius: BorderRadius.circular(12),
               icon: Icon(Icons.keyboard_arrow_down_rounded, color: theme.colorScheme.primary),
               style: TextStyle(color: theme.colorScheme.onSurface),
-              hint: Text(l10n.appSelectCategory ?? 'Select Category'),
+              hint: Text(l10n.appSelectCategory),
               items: docs.map((doc) {
                 final data = doc.data() as Map<String, dynamic>;
                 return DropdownMenuItem<String>(
@@ -498,7 +504,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               final docs = snapshot.data!.docs;
               return _buildMultiSelectDropdown(
                 theme: theme,
-                title: l10n.appSelectServices ?? 'Select Services',
+                title: l10n.appSelectServices,
                 items: docs,
                 selectedIds: _selectedServices,
                 icon: Icons.design_services_outlined,
@@ -705,7 +711,7 @@ class _MultiSelectDialogState extends State<_MultiSelectDialog> {
             foregroundColor: colorScheme.onSurface.withOpacity(0.7),
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           ),
-          child: Text(AppLocalizations.of(context)!.appBack ?? 'Cancel', style: const TextStyle(fontWeight: FontWeight.bold)),
+          child: Text(AppLocalizations.of(context)!.appBack, style: const TextStyle(fontWeight: FontWeight.bold)),
         ),
         ElevatedButton(
           onPressed: () => Navigator.pop(context, _selectedIds),

@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show kIsWeb, kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -23,6 +23,7 @@ import 'features/subscriptions/presentation/bloc/subscription_bloc.dart';
 import 'firebase_options.dart';
 
 import 'dart:async';
+import 'dart:ui' show PlatformDispatcher;
 
 void main() async {
   runZonedGuarded(() async {
@@ -31,6 +32,14 @@ void main() async {
     FlutterError.onError = (FlutterErrorDetails details) {
       FlutterError.presentError(details);
       debugPrint('Caught Flutter Error: ${details.exception}');
+    };
+    // Errors thrown outside the Flutter framework (platform channels, isolates)
+    // never reach FlutterError.onError / the zone; report them instead of
+    // letting them crash silently.
+    PlatformDispatcher.instance.onError = (error, stack) {
+      debugPrint('Uncaught platform error: $error');
+      debugPrint('$stack');
+      return true;
     };
 
     try {
@@ -55,7 +64,9 @@ void main() async {
 
     runApp(
       DevicePreview(
-        enabled: kIsWeb,
+        // The device frame is a development tool: never ship it in release builds
+        // (it used to wrap the production web app in a fake phone frame).
+        enabled: kIsWeb && !kReleaseMode,
         builder: (context) => const MyApp(),
       ),
     );

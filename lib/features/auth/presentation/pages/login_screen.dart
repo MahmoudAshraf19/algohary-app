@@ -5,6 +5,8 @@ import 'package:algohary_project/features/dashboard/presentation/pages/dashboard
 import 'package:algohary_project/features/dashboard/presentation/pages/provider_dashboard_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../data/repositories/auth_repository.dart';
+import '../../../../core/utils/validators.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
@@ -103,9 +105,9 @@ class _LoginScreenState extends State<LoginScreen> {
               
               // Forgot Password
               Align(
-                alignment: Alignment.centerRight,
+                alignment: AlignmentDirectional.centerEnd,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () => _showForgotPasswordDialog(l10n),
                   style: TextButton.styleFrom(
                     foregroundColor: theme.brightness == Brightness.dark ? AppColors.lightYellow : const Color(0xFF325A65),
                     padding: EdgeInsets.zero,
@@ -124,7 +126,15 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 56,
                 child: BlocConsumer<AuthBloc, AuthState>(
+                  // Only react to the result of a login attempt, and only on the
+                  // screen that is currently visible. Otherwise stacked login
+                  // screens (user -> provider) / any later AuthSuccess emission
+                  // would trigger duplicate navigation and duplicate snackbars.
+                  listenWhen: (previous, current) =>
+                      previous is AuthLoading &&
+                      (current is AuthSuccess || current is AuthFailure),
                   listener: (context, state) async {
+                    if (ModalRoute.of(context)?.isCurrent == false) return;
                       if (state is AuthSuccess) {
                       final prefs = await SharedPreferences.getInstance();
                       
@@ -153,6 +163,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           content: Text(
                             state.message == 'user-not-found' || state.message == 'wrong-password' || state.message == 'invalid-credential'
                                 ? (l10n.errorInvalidCredential)
+                                : state.message == 'invalid-email'
+                                    ? l10n.errorInvalidEmail
                                 : state.message == 'user-blocked'
                                     ? l10n.errorUserBlocked
                                     : state.message == 'not-a-provider'
@@ -319,6 +331,11 @@ class _LoginScreenState extends State<LoginScreen> {
     return TextField(
       controller: controller,
       obscureText: isPassword && _obscurePassword,
+      keyboardType: isPassword ? TextInputType.visiblePassword : TextInputType.emailAddress,
+      textInputAction: isPassword ? TextInputAction.done : TextInputAction.next,
+      autofillHints: isPassword ? const [AutofillHints.password] : const [AutofillHints.email],
+      autocorrect: false,
+      enableSuggestions: !isPassword,
       style: TextStyle(color: theme.brightness == Brightness.dark ? AppColors.lightYellow : theme.colorScheme.onSurface),
       decoration: InputDecoration(
         hintText: hintText,
@@ -355,6 +372,37 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  Future<void> _showForgotPasswordDialog(AppLocalizations l10n) async {
+    final email = await showDialog<String>(
+      context: context,
+      builder: (_) => _ForgotPasswordDialog(
+        initialEmail: _emailController.text.trim(),
+        l10n: l10n,
+      ),
+    );
+    if (email == null || email.isEmpty) return;
+
+    final messenger = ScaffoldMessenger.of(context);
+    if (!Validators.isValidEmail(email)) {
+      messenger.showSnackBar(SnackBar(content: Text(l10n.errorInvalidEmail)));
+      return;
+    }
+
+    try {
+      await AuthRepository().sendPasswordResetEmail(email);
+      messenger.showSnackBar(SnackBar(content: Text(l10n.forgotPasswordSent)));
+    } catch (e) {
+      final error = e.toString();
+      // Do not reveal whether an account exists for this e-mail.
+      final message = error.contains('user-not-found')
+          ? l10n.forgotPasswordSent
+          : error.contains('invalid-email')
+              ? l10n.errorInvalidEmail
+              : l10n.errorGeneric;
+      messenger.showSnackBar(SnackBar(content: Text(message)));
+    }
+  }
+
   Widget _buildSocialButton(String assetPath, ThemeData theme) {
     // Note: No shadows, as requested by the user.
     return InkWell(
@@ -373,6 +421,66 @@ class _LoginScreenState extends State<LoginScreen> {
           width: 24,
         ),
       ),
+    );
+  }
+}
+
+/// Dialog that owns its [TextEditingController] so it is disposed only after
+/// the dialog route has completely left the tree.
+class _ForgotPasswordDialog extends StatefulWidget {
+  final String initialEmail;
+  final AppLocalizations l10n;
+
+  const _ForgotPasswordDialog({required this.initialEmail, required this.l10n});
+
+  @override
+  State<_ForgotPasswordDialog> createState() => _ForgotPasswordDialogState();
+}
+
+class _ForgotPasswordDialogState extends State<_ForgotPasswordDialog> {
+  late final TextEditingController _controller =
+      TextEditingController(text: widget.initialEmail);
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = widget.l10n;
+    return AlertDialog(
+      title: Text(l10n.forgotPasswordTitle),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(l10n.forgotPasswordMessage),
+          const SizedBox(height: 16),
+          TextField(
+            controller: _controller,
+            autofocus: true,
+            keyboardType: TextInputType.emailAddress,
+            textInputAction: TextInputAction.done,
+            onSubmitted: (value) => Navigator.pop(context, value.trim()),
+            decoration: InputDecoration(
+              hintText: l10n.loginEmailOrPhone,
+              border: const OutlineInputBorder(),
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text(l10n.btnCancel),
+        ),
+        ElevatedButton(
+          onPressed: () => Navigator.pop(context, _controller.text.trim()),
+          child: Text(l10n.forgotPasswordSend),
+        ),
+      ],
     );
   }
 }

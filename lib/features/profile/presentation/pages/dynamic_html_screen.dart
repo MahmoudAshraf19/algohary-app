@@ -15,11 +15,11 @@ class DynamicHtmlScreen extends StatelessWidget {
   String _getTitle(AppLocalizations l10n) {
     switch (type) {
       case HtmlScreenType.aboutApp:
-        return l10n.settingsAboutApp ?? 'About App';
+        return l10n.settingsAboutApp;
       case HtmlScreenType.privacyPolicy:
-        return l10n.settingsPrivacyPolicy ?? 'Privacy Policy';
+        return l10n.settingsPrivacyPolicy;
       case HtmlScreenType.termsAndConditions:
-        return l10n.settingsTermsConditions ?? 'Terms and Conditions';
+        return l10n.settingsTermsConditions;
     }
   }
 

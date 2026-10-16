@@ -222,7 +222,7 @@ class _LocationPickerScreenState extends State<LocationPickerScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.pickLocationFromMap ?? 'Pick Location from Map'),
+        title: Text(l10n.pickLocationFromMap),
         backgroundColor: theme.colorScheme.surface,
         foregroundColor: theme.colorScheme.onSurface,
         elevation: 0,
@@ -285,7 +285,7 @@ class _LocationPickerScreenState extends State<LocationPickerScreen> {
                     ),
                   child: CustomSearchBar(
                     controller: _searchController,
-                    hintText: l10n.searchPlace ?? 'Search for a place...',
+                    hintText: l10n.searchPlace,
                     isLoading: _isSearching,
                     onChanged: _onSearchChanged,
                     onSubmitted: (value) {
@@ -413,7 +413,7 @@ class _LocationPickerScreenState extends State<LocationPickerScreen> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
                       child: Text(
-                        l10n.confirmLocation ?? 'Confirm Location',
+                        l10n.confirmLocation,
                         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                     ),

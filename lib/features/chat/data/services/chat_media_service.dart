@@ -18,7 +18,7 @@ class ChatMediaService {
 
     try {
       final fileSizeBefore = await file.length();
-      print('📦 Original Image Size: ${(fileSizeBefore / (1024 * 1024)).toStringAsFixed(2)} MB');
+      debugPrint('📦 Original Image Size: ${(fileSizeBefore / (1024 * 1024)).toStringAsFixed(2)} MB');
 
       final targetPath = '${file.parent.path}/compressed_${DateTime.now().millisecondsSinceEpoch}.jpg';
       final result = await FlutterImageCompress.compressAndGetFile(
@@ -31,11 +31,11 @@ class ChatMediaService {
       if (result != null) {
         final compressedFile = File(result.path);
         final fileSizeAfter = await compressedFile.length();
-        print('🚀 Compressed Image Size: ${(fileSizeAfter / (1024 * 1024)).toStringAsFixed(2)} MB');
+        debugPrint('🚀 Compressed Image Size: ${(fileSizeAfter / (1024 * 1024)).toStringAsFixed(2)} MB');
         return compressedFile;
       }
     } catch (e) {
-      print('❌ [ImageCompress] Error: $e');
+      debugPrint('❌ [ImageCompress] Error: $e');
     }
     return file; // Fallback
   }
@@ -46,7 +46,7 @@ class ChatMediaService {
 
     try {
       final fileSizeBefore = await file.length();
-      print('📦 Original Video Size: ${(fileSizeBefore / (1024 * 1024)).toStringAsFixed(2)} MB');
+      debugPrint('📦 Original Video Size: ${(fileSizeBefore / (1024 * 1024)).toStringAsFixed(2)} MB');
 
       final info = await VideoCompress.compressVideo(
         file.path,
@@ -57,11 +57,11 @@ class ChatMediaService {
 
       if (info != null && info.file != null) {
         final fileSizeAfter = await info.file!.length();
-        print('🚀 Compressed Video Size: ${(fileSizeAfter / (1024 * 1024)).toStringAsFixed(2)} MB');
+        debugPrint('🚀 Compressed Video Size: ${(fileSizeAfter / (1024 * 1024)).toStringAsFixed(2)} MB');
         return info.file;
       }
     } catch (e) {
-      print('❌ [VideoCompress] Error: $e');
+      debugPrint('❌ [VideoCompress] Error: $e');
     }
     return file; // Fallback
   }
@@ -86,7 +86,7 @@ class ChatMediaService {
       final uploadTask = await ref.putFile(fileToUpload);
       return await uploadTask.ref.getDownloadURL();
     } catch (e) {
-      print('❌ [UploadMedia] Error: $e');
+      debugPrint('❌ [UploadMedia] Error: $e');
       return null;
     }
   }
@@ -98,7 +98,7 @@ class ChatMediaService {
       final ref = _storage.ref().child('chats/$folder/$fileName');
       
       var bytes = await xfile.readAsBytes();
-      print('📦 Original Web Media Size: ${(bytes.length / (1024 * 1024)).toStringAsFixed(2)} MB');
+      debugPrint('📦 Original Web Media Size: ${(bytes.length / (1024 * 1024)).toStringAsFixed(2)} MB');
       
       if (type == 'IMAGE') {
         try {
@@ -108,16 +108,16 @@ class ChatMediaService {
             format: CompressFormat.jpeg,
           );
           bytes = compressedBytes;
-          print('🚀 Compressed Web Media Size: ${(bytes.length / (1024 * 1024)).toStringAsFixed(2)} MB');
+          debugPrint('🚀 Compressed Web Media Size: ${(bytes.length / (1024 * 1024)).toStringAsFixed(2)} MB');
         } catch (e) {
-          print('⚠️ Web Image Compression Failed: $e');
+          debugPrint('⚠️ Web Image Compression Failed: $e');
         }
       }
 
       final uploadTask = await ref.putData(bytes);
       return await uploadTask.ref.getDownloadURL();
     } catch (e) {
-      print('❌ [UploadWebMedia] Error: $e');
+      debugPrint('❌ [UploadWebMedia] Error: $e');
       return null;
     }
   }
@@ -134,12 +134,12 @@ class ChatMediaService {
       );
       final bytes = Uint8List.fromList(response.data);
       
-      print('📦 Web Blob Media Size: ${(bytes.length / (1024 * 1024)).toStringAsFixed(2)} MB');
+      debugPrint('📦 Web Blob Media Size: ${(bytes.length / (1024 * 1024)).toStringAsFixed(2)} MB');
       
       final uploadTask = await ref.putData(bytes);
       return await uploadTask.ref.getDownloadURL();
     } catch (e) {
-      print('❌ [UploadWebBlob] Error: $e');
+      debugPrint('❌ [UploadWebBlob] Error: $e');
       return null;
     }
   }

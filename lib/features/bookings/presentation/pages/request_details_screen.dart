@@ -81,18 +81,18 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
       case ServiceRequestStatus.pendingProviderApproval:
       case ServiceRequestStatus.pendingProviderConfirmation:
       case ServiceRequestStatus.changeProposed:
-        return l10n.statusPendingProviderApproval ?? 'Pending';
+        return l10n.statusPendingProviderApproval;
       case ServiceRequestStatus.approved:
-        return l10n.statusConfirmed ?? 'Confirmed';
+        return l10n.statusConfirmed;
       case ServiceRequestStatus.inProgress:
-        return l10n.statusInProgress ?? 'In Progress';
+        return l10n.statusInProgress;
       case ServiceRequestStatus.completed:
-        return l10n.statusCompleted ?? 'Completed';
+        return l10n.statusCompleted;
       case ServiceRequestStatus.rejected:
       case ServiceRequestStatus.cancelledByUser:
       case ServiceRequestStatus.cancelledByProvider:
       case ServiceRequestStatus.expired:
-        return l10n.statusCancelledByUser ?? 'Cancelled';
+        return l10n.statusCancelledByUser;
     }
   }
 
@@ -100,13 +100,13 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text(l10n.cancelBookingConfirmTitle ?? 'Cancel Booking?'),
-        content: Text(l10n.cancelBookingConfirmDesc ?? 'Are you sure you want to cancel this booking?'),
+        title: Text(l10n.cancelBookingConfirmTitle),
+        content: Text(l10n.cancelBookingConfirmDesc),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: Text(l10n.keepBooking ?? 'Keep Booking', style: const TextStyle(fontWeight: FontWeight.bold)),
+            child: Text(l10n.keepBooking, style: const TextStyle(fontWeight: FontWeight.bold)),
           ),
           ElevatedButton(
             onPressed: () {
@@ -129,7 +129,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               backgroundColor: AppColors.red,
               foregroundColor: Colors.white,
             ),
-            child: Text(l10n.cancelBooking ?? 'Cancel Booking'),
+            child: Text(l10n.cancelBooking),
           ),
         ],
       ),
@@ -181,7 +181,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                     builder: (context) => ChatDetailScreen(
                       conversationId: 'support_${widget.currentUserId}',
                       recipientId: 'support_admin',
-                      recipientName: l10n.contactSupport ?? 'Support',
+                      recipientName: l10n.contactSupport,
                       recipientAvatar: 'assets/icons/support_logo.png',
                     ),
                   ),
@@ -195,7 +195,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                   children: [
                     Icon(Icons.report_problem_outlined, size: 20, color: theme.colorScheme.onSurface.withOpacity(0.7)),
                     const SizedBox(width: 12),
-                    Text(l10n.reportProblem ?? 'Report a Problem', style: const TextStyle(fontWeight: FontWeight.w500)),
+                    Text(l10n.reportProblem, style: const TextStyle(fontWeight: FontWeight.w500)),
                   ],
                 ),
               ),
@@ -205,7 +205,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                   children: [
                     Icon(Icons.support_agent_outlined, size: 20, color: theme.colorScheme.onSurface.withOpacity(0.7)),
                     const SizedBox(width: 12),
-                    Text(l10n.contactSupport ?? 'Contact Support', style: const TextStyle(fontWeight: FontWeight.w500)),
+                    Text(l10n.contactSupport, style: const TextStyle(fontWeight: FontWeight.w500)),
                   ],
                 ),
               ),
@@ -293,7 +293,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            '${l10n.bookingId ?? "Booking ID"} #${request.id.substring(0, 8).toUpperCase()}',
+            '${l10n.bookingId} #${request.id.substring(0, 8).toUpperCase()}',
             style: TextStyle(
               color: theme.colorScheme.onSurface.withOpacity(0.6),
               fontSize: 16,
@@ -318,12 +318,12 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            l10n.statusCancelledByUser ?? 'Booking Cancelled',
+            l10n.statusCancelledByUser,
             style: const TextStyle(color: AppColors.red, fontWeight: FontWeight.bold, fontSize: 16),
           ),
           const SizedBox(height: 8),
           Text(
-            '${l10n.cancellationReasonTitle ?? "Reason:"} ${request.originalRequest?["cancellation_reason"] ?? "Customer request"}',
+            '${l10n.cancellationReasonTitle} ${request.originalRequest?["cancellation_reason"] ?? "Customer request"}',
             style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.8)),
           ),
         ],
@@ -349,12 +349,12 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  l10n.newPriceProposedTitle ?? 'New Price Proposed',
+                  l10n.newPriceProposedTitle,
                   style: const TextStyle(color: AppColors.orange, fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  l10n.newPriceProposedDesc ?? 'The provider has proposed a new price. Please review the payment summary below.',
+                  l10n.newPriceProposedDesc,
                   style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.8), fontSize: 14),
                 ),
               ],
@@ -412,16 +412,16 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
 
     return Column(
       children: [
-        _buildStep(l10n.timelineRequestSubmitted ?? 'Request Submitted', currentStep > 0, currentStep == 0),
-        _buildStep(l10n.timelineProviderConfirmed ?? 'Provider Confirmed', currentStep > 1, currentStep == 1),
-        _buildStep(l10n.timelineServiceInProgress ?? 'Service In Progress', currentStep > 2, currentStep == 2),
-        _buildStep(l10n.timelineServiceCompleted ?? 'Service Completed', currentStep >= 3, currentStep == 3),
+        _buildStep(l10n.timelineRequestSubmitted, currentStep > 0, currentStep == 0),
+        _buildStep(l10n.timelineProviderConfirmed, currentStep > 1, currentStep == 1),
+        _buildStep(l10n.timelineServiceInProgress, currentStep > 2, currentStep == 2),
+        _buildStep(l10n.timelineServiceCompleted, currentStep >= 3, currentStep == 3),
       ],
     );
   }
 
   Widget _buildUserCard(AppLocalizations l10n, ThemeData theme, bool isDark) {
-    final title = widget.isProvider ? 'Customer' : (l10n.serviceProvider ?? 'Service Provider');
+    final title = widget.isProvider ? 'Customer' : (l10n.serviceProvider);
     
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -496,7 +496,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(l10n.serviceDetails ?? 'Service Details', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(l10n.serviceDetails, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 16),
           if (request.selectedServices.isNotEmpty) ...[
             Text(
@@ -509,7 +509,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.6), fontSize: 14),
             ),
             const SizedBox(height: 16),
-            Text(l10n.selectedServices ?? 'Selected Services', style: const TextStyle(fontWeight: FontWeight.bold)),
+            Text(l10n.selectedServices, style: const TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             ...request.selectedServices.map((s) => Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
@@ -537,7 +537,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(l10n.requestDetails ?? 'Request Details', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(l10n.requestDetails, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 16),
           const Text('Additional Notes', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
           const SizedBox(height: 8),
@@ -559,7 +559,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(l10n.attachmentsTitle ?? 'Attachments', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(l10n.attachmentsTitle, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 16),
           SizedBox(
             height: 80,
@@ -568,7 +568,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               itemCount: attachments.length,
               itemBuilder: (context, index) {
                 return Container(
-                  margin: const EdgeInsets.only(right: 12),
+                  margin: const EdgeInsetsDirectional.only(end: 12),
                   width: 80,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
@@ -593,7 +593,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(l10n.scheduleTitle ?? 'Schedule', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(l10n.scheduleTitle, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 16),
           Row(
             children: [
@@ -640,7 +640,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(l10n.serviceLocation ?? 'Service Location', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(l10n.serviceLocation, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 16),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -661,7 +661,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                     GestureDetector(
                       onTap: () {}, // Map intent
                       child: Text(
-                        l10n.openInMaps ?? 'Open in Maps',
+                        l10n.openInMaps,
                         style: const TextStyle(color: AppColors.primaryBlue, fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
                       ),
                     ),
@@ -681,29 +681,29 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(l10n.paymentSummary ?? 'Payment Summary', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(l10n.paymentSummary, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 16),
-          _buildPriceRow(l10n.serviceFee ?? 'Service Fee', '${request.pricing.amount} ${request.pricing.currency}'),
+          _buildPriceRow(l10n.serviceFee, '${request.pricing.amount} ${request.pricing.currency}'),
           if (request.status == ServiceRequestStatus.changeProposed && request.currentProposal != null) ...[
             const SizedBox(height: 8),
-            _buildPriceRow(l10n.newPrice ?? 'Proposed Price', '${request.currentProposal!["pricing"]["amount"]} ${request.currentProposal!["pricing"]["currency"]}', color: AppColors.orange),
+            _buildPriceRow(l10n.newPrice, '${request.currentProposal!["pricing"]["amount"]} ${request.currentProposal!["pricing"]["currency"]}', color: AppColors.orange),
           ],
           const SizedBox(height: 8),
-          _buildPriceRow(l10n.discount ?? 'Discount', '-0 ${request.pricing.currency}'),
+          _buildPriceRow(l10n.discount, '-0 ${request.pricing.currency}'),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 12),
             child: Divider(),
           ),
           if (request.status == ServiceRequestStatus.changeProposed && request.currentProposal != null) ...[
-            _buildPriceRow(l10n.total ?? 'Total', '${request.pricing.amount} ${request.pricing.currency}', isTotal: true, strikeThrough: true),
+            _buildPriceRow(l10n.total, '${request.pricing.amount} ${request.pricing.currency}', isTotal: true, strikeThrough: true),
             const SizedBox(height: 4),
-            _buildPriceRow(l10n.newTotal ?? 'New Total', '${request.currentProposal!["pricing"]["amount"]} ${request.currentProposal!["pricing"]["currency"]}', isTotal: true, color: AppColors.orange),
+            _buildPriceRow(l10n.newTotal, '${request.currentProposal!["pricing"]["amount"]} ${request.currentProposal!["pricing"]["currency"]}', isTotal: true, color: AppColors.orange),
           ] else ...[
-            _buildPriceRow(l10n.total ?? 'Total', '${request.pricing.amount} ${request.pricing.currency}', isTotal: true),
+            _buildPriceRow(l10n.total, '${request.pricing.amount} ${request.pricing.currency}', isTotal: true),
           ],
           
           const SizedBox(height: 24),
-          Text(l10n.paymentMethod ?? 'Payment Method', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(l10n.paymentMethod, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 16),
           Row(
             children: [
@@ -712,8 +712,8 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(l10n.paymentCash ?? 'Cash on Service', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  Text(l10n.paymentStatusUnpaid ?? 'Payment Status: Unpaid', style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.6))),
+                  Text(l10n.paymentCash, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  Text(l10n.paymentStatusUnpaid, style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.6))),
                 ],
               ),
             ],
@@ -804,7 +804,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
-                child: Text(l10n.cancelBooking ?? 'Cancel Booking', style: const TextStyle(fontWeight: FontWeight.bold)),
+                child: Text(l10n.cancelBooking, style: const TextStyle(fontWeight: FontWeight.bold)),
               ),
             ),
           ];
@@ -857,7 +857,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: Text(l10n.cancelBooking ?? 'Cancel Booking', style: const TextStyle(fontWeight: FontWeight.bold)),
+              child: Text(l10n.cancelBooking, style: const TextStyle(fontWeight: FontWeight.bold)),
             ),
           ),
         );

@@ -69,21 +69,21 @@ class _BookingsTabState extends State<BookingsTab> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      l10n.filterBookingsTitle ?? 'Filter Bookings',
+                      l10n.filterBookingsTitle,
                       style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 24),
-                    Text(l10n.filterDate ?? 'Date', style: const TextStyle(fontWeight: FontWeight.bold)),
+                    Text(l10n.filterDate, style: const TextStyle(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 12),
                     Wrap(
                       spacing: 8,
                       runSpacing: 8,
                       children: [
-                        _buildBottomSheetChip(l10n.filterDateAll ?? 'All Dates', true, theme),
-                        _buildBottomSheetChip(l10n.filterDateToday ?? 'Today', false, theme),
-                        _buildBottomSheetChip(l10n.filterDateTomorrow ?? 'Tomorrow', false, theme),
-                        _buildBottomSheetChip(l10n.filterDateThisWeek ?? 'This Week', false, theme),
-                        _buildBottomSheetChip(l10n.filterDateThisMonth ?? 'This Month', false, theme),
+                        _buildBottomSheetChip(l10n.filterDateAll, true, theme),
+                        _buildBottomSheetChip(l10n.filterDateToday, false, theme),
+                        _buildBottomSheetChip(l10n.filterDateTomorrow, false, theme),
+                        _buildBottomSheetChip(l10n.filterDateThisWeek, false, theme),
+                        _buildBottomSheetChip(l10n.filterDateThisMonth, false, theme),
                       ],
                     ),
                     const SizedBox(height: 32),
@@ -92,7 +92,7 @@ class _BookingsTabState extends State<BookingsTab> {
                         Expanded(
                           child: TextButton(
                             onPressed: () => Navigator.pop(context),
-                            child: Text(l10n.btnReset ?? 'Reset'),
+                            child: Text(l10n.btnReset),
                           ),
                         ),
                         const SizedBox(width: 16),
@@ -105,7 +105,7 @@ class _BookingsTabState extends State<BookingsTab> {
                               padding: const EdgeInsets.symmetric(vertical: 16),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                             ),
-                            child: Text(l10n.btnApplyFilters ?? 'Apply Filters'),
+                            child: Text(l10n.btnApplyFilters),
                           ),
                         ),
                       ],
@@ -162,18 +162,18 @@ class _BookingsTabState extends State<BookingsTab> {
       case ServiceRequestStatus.pendingProviderApproval:
       case ServiceRequestStatus.pendingProviderConfirmation:
       case ServiceRequestStatus.changeProposed:
-        return l10n.statusPendingProviderApproval ?? 'Pending';
+        return l10n.statusPendingProviderApproval;
       case ServiceRequestStatus.approved:
-        return l10n.statusConfirmed ?? 'Confirmed';
+        return l10n.statusConfirmed;
       case ServiceRequestStatus.inProgress:
-        return l10n.statusInProgress ?? 'In Progress';
+        return l10n.statusInProgress;
       case ServiceRequestStatus.completed:
-        return l10n.statusCompleted ?? 'Completed';
+        return l10n.statusCompleted;
       case ServiceRequestStatus.rejected:
       case ServiceRequestStatus.cancelledByUser:
       case ServiceRequestStatus.cancelledByProvider:
       case ServiceRequestStatus.expired:
-        return l10n.statusCancelledByUser ?? 'Cancelled';
+        return l10n.statusCancelledByUser;
     }
   }
 
@@ -211,7 +211,7 @@ class _BookingsTabState extends State<BookingsTab> {
         iconTheme: IconThemeData(color: theme.colorScheme.onSurface),
         elevation: 0,
         title: Text(
-          l10n.navBookings ?? 'Bookings',
+          l10n.navBookings,
           style: TextStyle(
             color: theme.colorScheme.onSurface,
             fontWeight: FontWeight.bold,
@@ -253,7 +253,7 @@ class _BookingsTabState extends State<BookingsTab> {
                       return const Center(child: CircularProgressIndicator());
                     }
                     if (snapshot.hasError) {
-                      return Center(child: Text(l10n.errorLoadingBookings ?? 'Error loading bookings'));
+                      return Center(child: Text(l10n.errorLoadingBookings));
                     }
                     
                     var requests = snapshot.data ?? [];
@@ -309,12 +309,12 @@ class _BookingsTabState extends State<BookingsTab> {
 
   Widget _buildStatusTabs(AppLocalizations l10n, ThemeData theme) {
     final statuses = [
-      {'key': 'all', 'label': l10n.filterAll ?? 'All'},
-      {'key': 'pending', 'label': l10n.statusPendingProviderApproval ?? 'Pending'},
-      {'key': 'confirmed', 'label': l10n.statusConfirmed ?? 'Confirmed'},
-      {'key': 'in_progress', 'label': l10n.statusInProgress ?? 'In Progress'},
-      {'key': 'completed', 'label': l10n.statusCompleted ?? 'Completed'},
-      {'key': 'cancelled', 'label': l10n.statusCancelledByUser ?? 'Cancelled'},
+      {'key': 'all', 'label': l10n.filterAll},
+      {'key': 'pending', 'label': l10n.statusPendingProviderApproval},
+      {'key': 'confirmed', 'label': l10n.statusConfirmed},
+      {'key': 'in_progress', 'label': l10n.statusInProgress},
+      {'key': 'completed', 'label': l10n.statusCompleted},
+      {'key': 'cancelled', 'label': l10n.statusCancelledByUser},
     ];
 
     return SingleChildScrollView(
@@ -327,7 +327,7 @@ class _BookingsTabState extends State<BookingsTab> {
             onTap: () => setState(() => _selectedStatus = s['key']!),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              margin: const EdgeInsets.only(right: 8),
+              margin: const EdgeInsetsDirectional.only(end: 8),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
                 color: isSelected ? AppColors.primaryBlue : theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
@@ -359,7 +359,7 @@ class _BookingsTabState extends State<BookingsTab> {
         controller: _searchController,
         onChanged: (val) => setState(() => _searchQuery = val),
         decoration: InputDecoration(
-          hintText: l10n.searchBookings ?? 'Search bookings...',
+          hintText: l10n.searchBookings,
           prefixIcon: const Icon(Icons.search),
           filled: true,
           fillColor: theme.colorScheme.surface,
@@ -393,12 +393,12 @@ class _BookingsTabState extends State<BookingsTab> {
             Icon(Icons.assignment_outlined, size: 80, color: theme.colorScheme.onSurface.withOpacity(0.2)),
             const SizedBox(height: 24),
             Text(
-              l10n.emptyBookingsTitle ?? 'No Bookings Yet',
+              l10n.emptyBookingsTitle,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
-              l10n.emptyBookingsDesc ?? 'Your service bookings will appear here once you request a service.',
+              l10n.emptyBookingsDesc,
               textAlign: TextAlign.center,
               style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.6)),
             ),
@@ -413,7 +413,7 @@ class _BookingsTabState extends State<BookingsTab> {
                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
               ),
-              child: Text(l10n.btnFindService ?? 'Find a Service'),
+              child: Text(l10n.btnFindService),
             ),
           ],
         ),
@@ -527,7 +527,7 @@ class _BookingsTabState extends State<BookingsTab> {
             ),
             const SizedBox(height: 4),
             Text(
-              '${l10n.bookingId ?? "Booking ID"} #${request.id.substring(0, 8).toUpperCase()}',
+              '${l10n.bookingId} #${request.id.substring(0, 8).toUpperCase()}',
               style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.6), fontSize: 13),
             ),
             // Date, Time & Location Container
@@ -607,7 +607,7 @@ class _BookingsTabState extends State<BookingsTab> {
                       ),
                     );
                   },
-                  child: Text(l10n.viewDetails ?? 'View Details', style: const TextStyle(fontWeight: FontWeight.bold)),
+                  child: Text(l10n.viewDetails, style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
               ],
             ),

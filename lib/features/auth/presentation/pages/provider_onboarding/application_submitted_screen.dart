@@ -40,14 +40,14 @@ class ApplicationSubmittedScreen extends StatelessWidget {
                       const SizedBox(height: 32),
                       
                       Text(
-                        l10n.applicationSubmitted ?? 'Application Submitted',
+                        l10n.applicationSubmitted,
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
                       ),
                       const SizedBox(height: 12),
                       
                       Text(
-                        l10n.applicationUnderReview ?? 'Your provider application is now under review.',
+                        l10n.applicationUnderReview,
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7)),
                       ),
@@ -64,7 +64,7 @@ class ApplicationSubmittedScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             Text(
-                              l10n.applicationId ?? 'Application ID',
+                              l10n.applicationId,
                               style: TextStyle(fontSize: 14, color: colorScheme.primary),
                             ),
                             const SizedBox(height: 8),
@@ -82,7 +82,7 @@ class ApplicationSubmittedScreen extends StatelessWidget {
                                     Clipboard.setData(ClipboardData(text: shortAppId));
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content: Text(l10n.copiedToClipboard ?? 'Copied to clipboard', textAlign: TextAlign.center),
+                                        content: Text(l10n.copiedToClipboard, textAlign: TextAlign.center),
                                         behavior: SnackBarBehavior.floating,
                                         margin: const EdgeInsets.only(bottom: 30, left: 40, right: 40),
                                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -97,7 +97,7 @@ class ApplicationSubmittedScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 12),
                             Text(
-                              l10n.keepIdSafe ?? 'Please keep this ID safe to track your application.',
+                              l10n.keepIdSafe,
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 14, color: colorScheme.onSurface.withOpacity(0.7)),
                             ),
@@ -119,13 +119,13 @@ class ApplicationSubmittedScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(l10n.statusTitle ?? 'Status', style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7))),
+                                Text(l10n.statusTitle, style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7))),
                                 Row(
                                   children: [
                                     const Icon(Icons.circle, color: Colors.orange, size: 12),
                                     const SizedBox(width: 8),
                                     Text(
-                                      l10n.statusUnderReview ?? 'Under Review',
+                                      l10n.statusUnderReview,
                                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.orange),
                                     ),
                                   ],
@@ -136,7 +136,7 @@ class ApplicationSubmittedScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(l10n.submittedDate ?? 'Submitted', style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7))),
+                                Text(l10n.submittedDate, style: TextStyle(fontSize: 16, color: colorScheme.onSurface.withOpacity(0.7))),
                                 Text(
                                   DateFormat('d MMM yyyy').format(DateTime.now()),
                                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: colorScheme.onSurface),
@@ -150,7 +150,7 @@ class ApplicationSubmittedScreen extends StatelessWidget {
                       const Spacer(),
                       
                       Text(
-                        l10n.ourTeamWillReview ?? 'Our team will review your application and notify you once approved.',
+                        l10n.ourTeamWillReview,
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 14, color: colorScheme.onSurface.withOpacity(0.7)),
                       ),
@@ -172,7 +172,7 @@ class ApplicationSubmittedScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              l10n.trackApplication ?? 'Track Application',
+                              l10n.trackApplication,
                               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.onPrimary),
                             ),
                             const SizedBox(width: 8),
@@ -192,7 +192,7 @@ class ApplicationSubmittedScreen extends StatelessWidget {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
                         child: Text(
-                          l10n.backToHome ?? 'Back to Home',
+                          l10n.backToHome,
                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.primary),
                         ),
                       ),

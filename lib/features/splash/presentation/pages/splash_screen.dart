@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
 import '../../../onboarding/presentation/pages/onboarding_screen.dart';
+import '../../../auth/presentation/pages/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_state.dart';
@@ -30,9 +31,18 @@ class _SplashScreenState extends State<SplashScreen> {
 
     var state = context.read<AuthBloc>().state;
     if (state is AuthLoading) {
-      state = await context.read<AuthBloc>().stream.firstWhere(
-        (s) => s is AuthSuccess || s is AuthInitial || s is AuthFailure,
-      );
+      // Never hang on the splash screen if the auth check stalls (e.g. no network
+      // and nothing cached yet): fall back to the signed-out flow after a timeout.
+      state = await context
+          .read<AuthBloc>()
+          .stream
+          .firstWhere(
+            (s) => s is AuthSuccess || s is AuthInitial || s is AuthFailure,
+          )
+          .timeout(
+            const Duration(seconds: 12),
+            onTimeout: () => AuthInitial(),
+          );
     }
 
     if (!mounted) return;
@@ -75,8 +85,20 @@ class _SplashScreenState extends State<SplashScreen> {
         );
       }
     } else {
+      // The onboarding flag was written when onboarding finished but never read,
+      // so signed-out users saw the onboarding on every launch.
+      var hasSeenOnboarding = false;
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        hasSeenOnboarding = prefs.getBool('has_seen_onboarding') ?? false;
+      } catch (_) {}
+      if (!mounted) return;
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const OnboardingScreen()),
+        MaterialPageRoute(
+          builder: (_) => hasSeenOnboarding
+              ? const WelcomeScreen()
+              : const OnboardingScreen(),
+        ),
       );
     }
   }

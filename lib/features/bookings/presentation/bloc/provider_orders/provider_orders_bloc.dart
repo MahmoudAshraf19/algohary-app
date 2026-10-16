@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/models/booking_models.dart';
 import '../../../data/repositories/bookings_repository.dart';
@@ -18,8 +19,34 @@ class ProviderOrdersBloc extends Bloc<ProviderOrdersEvent, ProviderOrdersState> 
     on<_OrdersError>(_onOrdersError);
   }
 
+  /// Applies the search query to [orders].
+  List<ServiceRequestModel> _applyFilters(List<ServiceRequestModel> orders, String? searchQuery) {
+    if (searchQuery == null || searchQuery.trim().isEmpty) {
+      return List<ServiceRequestModel>.from(orders);
+    }
+    final query = searchQuery.trim().toLowerCase();
+    return orders.where((order) {
+      // You might want to get the actual user name, but for now we search by ID or services
+      return order.selectedServices.any((s) => s.serviceName.toLowerCase().contains(query)) ||
+          order.id.toLowerCase().contains(query);
+    }).toList();
+  }
+
   void _onOrdersUpdated(_OrdersUpdated event, Emitter<ProviderOrdersState> emit) {
-    emit(ProviderOrdersLoaded(allOrders: event.orders, filteredOrders: event.orders));
+    // A live update used to reset the list to "unfiltered" while the search box
+    // still showed the old query. Re-apply the active filters instead.
+    final current = state;
+    if (current is ProviderOrdersLoaded) {
+      emit(ProviderOrdersLoaded(
+        allOrders: event.orders,
+        filteredOrders: _applyFilters(event.orders, current.searchQuery),
+        searchQuery: current.searchQuery,
+        filterDate: current.filterDate,
+        filterStatus: current.filterStatus,
+      ));
+    } else {
+      emit(ProviderOrdersLoaded(allOrders: event.orders, filteredOrders: event.orders));
+    }
   }
 
   void _onOrdersError(_OrdersError event, Emitter<ProviderOrdersState> emit) {
@@ -39,10 +66,8 @@ class ProviderOrdersBloc extends Bloc<ProviderOrdersEvent, ProviderOrdersState> 
       add(_OrdersUpdated(orders));
     }, onError: (error, stackTrace) {
       // Print the full error and stacktrace to the terminal
-      print('\n================ FIREBASE ERROR ================');
-      print(error.toString());
-      if (stackTrace != null) print(stackTrace.toString());
-      print('================================================\n');
+      debugPrint('ProviderOrdersBloc stream error: $error');
+      debugPrint('$stackTrace');
       
       // Emit a generic user-friendly message to the state
       add(_OrdersError('Oops, something went wrong while loading orders.\nPlease try again later.'));
@@ -53,21 +78,11 @@ class ProviderOrdersBloc extends Bloc<ProviderOrdersEvent, ProviderOrdersState> 
     if (state is ProviderOrdersLoaded) {
       final currentState = state as ProviderOrdersLoaded;
       
-      List<ServiceRequestModel> filtered = List.from(currentState.allOrders);
+      final filtered = _applyFilters(currentState.allOrders, event.searchQuery);
 
-      // Search Query
-      if (event.searchQuery != null && event.searchQuery!.isNotEmpty) {
-        final query = event.searchQuery!.toLowerCase();
-        filtered = filtered.where((order) {
-          // You might want to get the actual user name, but for now we search by ID or services
-          return order.selectedServices.any((s) => s.serviceName.toLowerCase().contains(query)) ||
-                 order.id.toLowerCase().contains(query);
-        }).toList();
-      }
-
-      // Other filters (Status, Date) can go here later
-
-      emit(currentState.copyWith(
+      // Built directly (not via copyWith) so clearing the query really clears it.
+      emit(ProviderOrdersLoaded(
+        allOrders: currentState.allOrders,
         filteredOrders: filtered,
         searchQuery: event.searchQuery,
         filterDate: event.filterDate,

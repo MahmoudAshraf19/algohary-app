@@ -17,6 +17,7 @@ class ProviderLocationTracker {
   Timer? _heartbeatTimer;
   String? _activeProviderId;
   DateTime? _lastSavedTime;
+  bool _starting = false;
 
   /// Default distance filter in meters (50m as standard for delivery/providers)
   static const int defaultDistanceFilterMeters = 50;
@@ -28,22 +29,35 @@ class ProviderLocationTracker {
 
   /// Start tracking location when provider goes ONLINE
   Future<void> startTracking(String providerId, {int distanceFilter = defaultDistanceFilterMeters}) async {
-    _activeProviderId = providerId;
+    // Calls can overlap (e.g. session restore + login): only one may run.
+    if (_starting) return;
+    _starting = true;
+    try {
+      await _startTracking(providerId, distanceFilter: distanceFilter);
+    } finally {
+      _starting = false;
+    }
+  }
 
-    // Avoid duplicate subscriptions
+  Future<void> _startTracking(String providerId, {required int distanceFilter}) async {
+    // Avoid duplicate subscriptions. This must happen BEFORE the provider id is
+    // assigned: stopTracking() clears it, so restarting used to leave tracking
+    // running with no provider id and every location write silently skipped.
     if (_positionSubscription != null) {
       await stopTracking(updateStatus: false);
     }
+    _activeProviderId = providerId;
 
     try {
       // 1. Check & request permission
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
-          debugPrint('ProviderLocationTracker: Permission denied.');
-          return;
-        }
+      }
+      if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+        debugPrint('ProviderLocationTracker: Permission denied.');
+        _activeProviderId = null;
+        return;
       }
 
       // 2. Immediate one-shot position fetch and direct Firestore update

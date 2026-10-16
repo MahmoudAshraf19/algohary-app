@@ -465,5 +465,9 @@
   "mapLocationDeniedForever": "إذن الموقع مرفوض بشكل دائم. يرجى تفعيله من إعدادات الجهاز.",
   "mapLocationUnavailable": "تعذر تحديد موقعك الحالي بدقة",
   "mapOpenSettings": "الإعدادات",
-  "mapEnableLocation": "تفعيل"
+  "mapEnableLocation": "تفعيل",
+  "forgotPasswordTitle": "إعادة تعيين كلمة المرور",
+  "forgotPasswordMessage": "أدخل بريدك الإلكتروني وسنرسل لك رابطاً لإعادة تعيين كلمة المرور.",
+  "forgotPasswordSend": "إرسال رابط إعادة التعيين",
+  "forgotPasswordSent": "إذا كان هناك حساب مرتبط بهذا البريد، فقد تم إرسال رابط إعادة التعيين."
 }

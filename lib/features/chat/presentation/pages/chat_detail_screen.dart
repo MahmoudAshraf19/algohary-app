@@ -157,14 +157,16 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     if (kIsWeb) {
       // Fallback for Web (Native Picker)
       final xfiles = await _mediaService.pickMultiMedia();
+      if (!mounted) return;
       if (xfiles.isNotEmpty) {
         setState(() => _uploadingFiles.addAll(xfiles));
         List<String> uploadedUrls = [];
         for (var xfile in xfiles) {
           final url = await _mediaService.uploadWebMedia(xfile, widget.conversationId, 'IMAGE');
           if (url != null) uploadedUrls.add(url);
-          setState(() => _uploadingFiles.remove(xfile));
+          if (mounted) setState(() => _uploadingFiles.remove(xfile));
         }
+        if (!mounted) return;
         if (uploadedUrls.isNotEmpty) {
           if (uploadedUrls.length == 1) {
             _handleSendMessage(type: 'IMAGE', mediaUrl: uploadedUrls.first);
@@ -182,6 +184,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       MaterialPageRoute(builder: (context) => const InstagramGalleryPicker(maxSelection: 10)),
     );
 
+    if (!mounted) return;
     if (selectedFiles != null && selectedFiles.isNotEmpty) {
       setState(() => _uploadingFiles.addAll(selectedFiles));
       
@@ -190,9 +193,10 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
         final isVideo = file.path.toLowerCase().endsWith('.mp4');
         final url = await _mediaService.uploadMedia(file, widget.conversationId, isVideo ? 'VIDEO' : 'IMAGE');
         if (url != null) uploadedUrls.add(url);
-        setState(() => _uploadingFiles.remove(file));
+        if (mounted) setState(() => _uploadingFiles.remove(file));
       }
 
+      if (!mounted) return;
       if (uploadedUrls.isNotEmpty) {
         if (uploadedUrls.length == 1) {
            _handleSendMessage(type: 'IMAGE', mediaUrl: uploadedUrls.first);
@@ -207,11 +211,13 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     if (mediaUrl == null) return;
     if (_playingAudioId == messageId) {
       await _audioPlayer.pause();
+      if (!mounted) return;
       setState(() => _playingAudioId = null);
     } else {
       if (_playingAudioId != null) {
         await _audioPlayer.stop();
       }
+      if (!mounted) return;
       setState(() {
         _playingAudioId = messageId;
         _audioProgress = 0.0;
@@ -438,7 +444,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                 Navigator.push(context, MaterialPageRoute(builder: (_) => FullScreenImageViewer(imageUrls: msg.mediaUrls!, initialIndex: index)));
               },
               child: Padding(
-                padding: const EdgeInsets.only(right: 8.0),
+                padding: const EdgeInsetsDirectional.only(end: 8.0),
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
@@ -513,7 +519,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     }
 
     return Align(
-      alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+      alignment: isMe ? AlignmentDirectional.centerEnd : AlignmentDirectional.centerStart,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 4),
         constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.78),
@@ -580,7 +586,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                         minLines: 1,
                         textInputAction: TextInputAction.newline,
                         decoration: InputDecoration(
-                          hintText: l10n.chatWithProvider ?? 'Type a message...',
+                          hintText: l10n.chatWithProvider,
                           hintStyle: TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 14),
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.symmetric(vertical: 12),

@@ -41,7 +41,7 @@ class BecomeProviderLandingScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               Text(
-                l10n.becomeProvider ?? 'Become a Provider',
+                l10n.becomeProvider,
                 textAlign: TextAlign.center,
                 style: textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
@@ -50,7 +50,7 @@ class BecomeProviderLandingScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                l10n.becomeProviderDesc ?? 'Join us and start your journey as a verified provider.',
+                l10n.becomeProviderDesc,
                 textAlign: TextAlign.center,
                 style: textTheme.bodyLarge?.copyWith(
                   color: colorScheme.onSurface.withOpacity(0.7),
@@ -61,8 +61,8 @@ class BecomeProviderLandingScreen extends StatelessWidget {
               _buildBenefitItem(
                 context: context,
                 icon: Icons.monetization_on_outlined,
-                title: l10n.earnIncome ?? 'Earn Income',
-                description: l10n.earnIncomeDesc ?? 'Turn your skills into a steady source of income.',
+                title: l10n.earnIncome,
+                description: l10n.earnIncomeDesc,
                 theme: theme,
               ),
               const SizedBox(height: 20),
@@ -70,8 +70,8 @@ class BecomeProviderLandingScreen extends StatelessWidget {
               _buildBenefitItem(
                 context: context,
                 icon: Icons.people_outline,
-                title: l10n.reachMoreCustomers ?? 'Reach More Customers',
-                description: l10n.reachMoreCustomersDesc ?? 'Connect with trusted customers looking for your services.',
+                title: l10n.reachMoreCustomers,
+                description: l10n.reachMoreCustomersDesc,
                 theme: theme,
               ),
               const SizedBox(height: 20),
@@ -79,8 +79,8 @@ class BecomeProviderLandingScreen extends StatelessWidget {
               _buildBenefitItem(
                 context: context,
                 icon: Icons.support_agent_outlined,
-                title: l10n.getSupport ?? 'Get Full Support',
-                description: l10n.getSupportDesc ?? "We're with you at every step of your journey.",
+                title: l10n.getSupport,
+                description: l10n.getSupportDesc,
                 theme: theme,
               ),
               
@@ -102,7 +102,7 @@ class BecomeProviderLandingScreen extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  l10n.startApplication ?? 'Start Application',
+                  l10n.startApplication,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.onPrimary),
                 ),
               ),
@@ -124,7 +124,7 @@ class BecomeProviderLandingScreen extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  l10n.checkStatus ?? 'Check Status',
+                  l10n.checkStatus,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.primary),
                 ),
               ),

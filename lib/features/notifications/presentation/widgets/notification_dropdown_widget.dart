@@ -48,7 +48,7 @@ class _NotificationDropdownWidgetState extends State<NotificationDropdownWidget>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    l10n.notificationsTitle ?? 'Notifications',
+                    l10n.notificationsTitle,
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -59,7 +59,7 @@ class _NotificationDropdownWidgetState extends State<NotificationDropdownWidget>
                       widget.onClose();
                     },
                     child: Text(
-                      l10n.markAllAsRead ?? 'Mark all read',
+                      l10n.markAllAsRead,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: colorScheme.primary,
                         fontWeight: FontWeight.w600,
@@ -87,7 +87,7 @@ class _NotificationDropdownWidgetState extends State<NotificationDropdownWidget>
                       padding: const EdgeInsets.all(32.0),
                       child: Center(
                         child: Text(
-                          l10n.noNotifications ?? 'No notifications yet',
+                          l10n.noNotifications,
                           style: TextStyle(color: colorScheme.onSurfaceVariant),
                         ),
                       ),
@@ -153,7 +153,7 @@ class _NotificationDropdownWidgetState extends State<NotificationDropdownWidget>
                 padding: const EdgeInsets.symmetric(vertical: 14.0),
                 child: Center(
                   child: Text(
-                    l10n.seeAll ?? 'See All',
+                    l10n.seeAll,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: colorScheme.primary,
                       fontWeight: FontWeight.bold,
