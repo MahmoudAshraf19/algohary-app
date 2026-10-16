@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:algohary_project/core/network/firebase_config.dart';
 import 'package:algohary_project/features/subscriptions/data/models/subscription_plan_model.dart';
-import 'package:algohary_project/features/auth/data/models/user_model.dart';
 
 import 'package:flutter/foundation.dart';
 

@@ -203,38 +203,6 @@ class _MessagesTabState extends State<MessagesTab> {
     );
   }
 
-  Widget _buildEmptyState(ColorScheme colorScheme, AppLocalizations l10n) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.chat_bubble_outline_rounded,
-            size: 80,
-            color: colorScheme.surfaceContainerHighest,
-          ),
-          const SizedBox(height: 20),
-          Text(
-            l10n.chatsNoChats,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: colorScheme.onSurface,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Your conversations will appear here',
-            style: TextStyle(
-              fontSize: 14,
-              color: colorScheme.onSurfaceVariant,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildSupportChatTile(ColorScheme colorScheme, AppLocalizations l10n, ConversationModel? adminConv) {
     String subtitle = l10n.chatWithSupport;
     String timeStr = '';

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
-import 'package:algohary_project/core/theme/app_colors.dart';
 import 'application_status_screen.dart';
 
 class ApplicationSubmittedScreen extends StatelessWidget {

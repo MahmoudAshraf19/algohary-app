@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:algohary_project/features/auth/data/models/user_model.dart';
-import '../../data/models/service_model.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
 import '../../data/repositories/provider_repository.dart';
 import '../../../chat/data/services/chat_service.dart';

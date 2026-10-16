@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
-import 'package:algohary_project/core/theme/app_colors.dart';
 
 class ApplicationRejectedScreen extends StatelessWidget {
   final String reason;

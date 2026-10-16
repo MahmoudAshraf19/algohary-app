@@ -9,7 +9,6 @@ import '../../../../../bookings/presentation/bloc/provider_orders/provider_order
 import '../../../../../bookings/presentation/bloc/provider_orders/provider_orders_event.dart';
 import '../../../../../bookings/presentation/bloc/provider_orders/provider_orders_state.dart';
 import 'provider_order_details_screen.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 import 'package:intl/intl.dart';
 
 class ProviderOrdersTab extends StatelessWidget {
@@ -265,9 +264,6 @@ class _ProviderOrdersViewState extends State<ProviderOrdersView> with SingleTick
         statusColor = Colors.grey;
         statusText = l10n.orderStatusExpired;
         break;
-      default:
-        statusColor = Colors.grey;
-        statusText = order.status.value;
     }
 
     return InkWell(

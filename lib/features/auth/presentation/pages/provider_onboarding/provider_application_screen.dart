@@ -10,7 +10,6 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
-import 'package:algohary_project/core/theme/app_colors.dart';
 import 'package:algohary_project/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:algohary_project/features/auth/presentation/bloc/auth_state.dart';
 import 'package:algohary_project/features/auth/presentation/pages/provider_onboarding/application_submitted_screen.dart';
@@ -67,19 +66,17 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
       _firstNameController.text = authState.user.firstName;
       _lastNameController.text = authState.user.lastName;
       
-      String phone = authState.user.phone ?? '';
+      String phone = authState.user.phone;
       if (phone.isNotEmpty) {
         final countries = CountryService().getAll();
         // Sort by length of phone code descending to match longest code first
         countries.sort((a, b) => b.phoneCode.length.compareTo(a.phoneCode.length));
         
-        bool found = false;
         if (phone.startsWith('+')) {
           for (final c in countries) {
             if (phone.startsWith('+${c.phoneCode}')) {
               _selectedCountry = c;
               phone = phone.substring(c.phoneCode.length + 1);
-              found = true;
               break;
             }
           }
@@ -88,7 +85,6 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
             if (phone.startsWith('00${c.phoneCode}')) {
               _selectedCountry = c;
               phone = phone.substring(c.phoneCode.length + 2);
-              found = true;
               break;
             }
           }
@@ -241,7 +237,7 @@ class _ProviderApplicationScreenState extends State<ProviderApplicationScreen> {
       // (it would reset the status to "under review" and lock the provider out).
       final existing = await applicationRef.get();
       if (existing.exists &&
-          (existing.data() as Map<String, dynamic>?)?['status'] == 'approved') {
+          existing.data()?['status'] == 'approved') {
         throw Exception('application-already-approved');
       }
       await applicationRef.set({

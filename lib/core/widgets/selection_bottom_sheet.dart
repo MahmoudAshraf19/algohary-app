@@ -33,7 +33,6 @@ class SelectionBottomSheet extends StatefulWidget {
 }
 
 class _SelectionBottomSheetState extends State<SelectionBottomSheet> {
-  String _searchQuery = '';
   late List<SelectionItem> _filteredItems;
 
   @override
@@ -44,7 +43,6 @@ class _SelectionBottomSheetState extends State<SelectionBottomSheet> {
 
   void _onSearch(String query) {
     setState(() {
-      _searchQuery = query;
       if (query.isEmpty) {
         _filteredItems = widget.items;
       } else {

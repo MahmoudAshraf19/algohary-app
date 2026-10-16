@@ -85,7 +85,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     ];
 
     final currentPageData = pages[_currentPage];
-    final accentColor = currentPageData.accentColor;
     final theme = Theme.of(context);
 
     return Scaffold(

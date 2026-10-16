@@ -43,7 +43,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
       final complaint = ComplaintModel(
         id: '',
         bookingId: widget.order.id,
-        submittedBy: user!.userType == 'provider' ? 'PROVIDER' : 'USER',
+        submittedBy: user.userType == 'provider' ? 'PROVIDER' : 'USER',
         submittedById: user.id,
         againstId: user.userType == 'provider' ? widget.order.userId : widget.order.providerId,
         reason: _reasonController.text.trim(),

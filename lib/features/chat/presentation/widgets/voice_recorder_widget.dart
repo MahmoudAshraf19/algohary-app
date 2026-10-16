@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:record/record.dart';
 import 'package:flutter/foundation.dart';
@@ -22,11 +21,9 @@ class VoiceRecorderWidget extends StatefulWidget {
 
 class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget> with SingleTickerProviderStateMixin {
   final AudioRecorder _audioRecorder = AudioRecorder();
-  bool _isRecording = false;
   int _recordDuration = 0;
   Timer? _timer;
   late AnimationController _pulseController;
-  String? _recordingPath;
 
   @override
   void initState() {
@@ -73,7 +70,6 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget> with SingleTi
           return;
         }
         setState(() {
-          _isRecording = true;
           _recordDuration = 0;
         });
 
@@ -98,7 +94,6 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget> with SingleTi
   Future<void> _stopRecording({bool save = true}) async {
     _timer?.cancel();
     final path = await _audioRecorder.stop();
-    if (mounted) setState(() => _isRecording = false);
 
     if (save && path != null && _recordDuration > 0) {
       widget.onRecordingComplete(path, _recordDuration);

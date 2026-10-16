@@ -7,7 +7,6 @@ import '../../../../auth/presentation/bloc/auth_event.dart';
 import '../../../../auth/presentation/bloc/auth_state.dart';
 import '../../../../auth/data/models/user_model.dart';
 import '../../../../profile/presentation/pages/edit_profile_screen.dart';
-import '../../../../notifications/presentation/pages/notifications_screen.dart';
 import '../../../../profile/presentation/pages/settings_screen.dart';
 import '../../../../../core/theme/app_colors.dart';
 import 'package:algohary_project/features/dashboard/presentation/pages/provider_dashboard_screen.dart';

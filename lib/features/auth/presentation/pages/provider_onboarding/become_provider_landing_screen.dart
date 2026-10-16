@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
-import 'package:algohary_project/core/theme/app_colors.dart';
 import 'package:algohary_project/features/auth/presentation/pages/provider_onboarding/provider_application_screen.dart';
 import 'package:algohary_project/features/auth/presentation/pages/provider_onboarding/check_application_screen.dart';
 

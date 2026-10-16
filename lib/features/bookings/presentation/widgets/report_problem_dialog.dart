@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
 import 'package:algohary_project/core/theme/app_colors.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:algohary_project/core/network/firebase_config.dart';
 import '../../../reports/data/models/report_model.dart';
 import '../../../reports/data/repositories/reports_repository.dart';

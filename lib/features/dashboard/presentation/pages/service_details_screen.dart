@@ -5,7 +5,6 @@ import 'package:algohary_project/features/auth/data/models/user_model.dart';
 import '../../data/repositories/provider_repository.dart';
 import 'package:algohary_project/l10n/app_localizations.dart';
 import 'provider_profile_screen.dart';
-import '../widgets/provider_search_delegate.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ServiceDetailsScreen extends StatefulWidget {
